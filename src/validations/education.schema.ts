@@ -1,6 +1,10 @@
 import { z } from "zod";
 
-import { GradeType } from "../../generated/prisma/client";
+
+const GradeTypeEnum = z.enum([
+  "CGPA",
+  "PERCENTAGE",
+]);
 
 
 const educationFields = {
@@ -64,7 +68,7 @@ const educationFields = {
   isCurrent: z.boolean().default(false),
 
 
-  gradeType: z.nativeEnum(GradeType),
+  gradeType: GradeTypeEnum,
 
 
   gradeValue: z
@@ -219,12 +223,13 @@ export const updateEducationSchema = z.object({
 
 
 export type CreateEducationInput =
-  z.input<
+  z.infer<
     typeof createEducationSchema
   >;
 
 
+
 export type UpdateEducationInput =
-  z.input<
+  z.infer<
     typeof updateEducationSchema
   >;

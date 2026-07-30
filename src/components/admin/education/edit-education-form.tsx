@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
+import { z } from "zod";
 
 import {
   updateEducationSchema,
@@ -27,7 +28,7 @@ interface EditEducationFormProps {
     endDate: Date | null;
     isCurrent: boolean;
     gradeType: string;
-    gradeValue: number;
+    gradeValue: number | string;
     description: string;
     institutionLogoId: string;
     displayOrder: number;
@@ -56,7 +57,7 @@ export function EditEducationForm({
       isSubmitting,
     },
   } = useForm<
-    UpdateEducationInput,
+    z.input<typeof updateEducationSchema>,
     unknown,
     UpdateEducationInput
   >({
@@ -93,7 +94,7 @@ export function EditEducationForm({
         education.gradeType as UpdateEducationInput["gradeType"],
 
       gradeValue:
-        education.gradeValue,
+        Number(education.gradeValue),
 
       description:
         education.description,
@@ -214,6 +215,7 @@ export function EditEducationForm({
 
 
 
+
         <div className="space-y-2">
 
           <Label>
@@ -236,6 +238,7 @@ export function EditEducationForm({
 
 
 
+
         <div className="space-y-2">
 
           <Label>
@@ -248,6 +251,7 @@ export function EditEducationForm({
           />
 
         </div>
+
 
 
 
@@ -300,6 +304,7 @@ export function EditEducationForm({
 
 
 
+
         <div className="space-y-2">
 
           <Label>
@@ -349,9 +354,11 @@ export function EditEducationForm({
             CGPA
           </option>
 
+
           <option value="PERCENTAGE">
             Percentage
           </option>
+
 
         </select>
 
@@ -380,6 +387,12 @@ export function EditEducationForm({
           )}
         />
 
+
+        {errors.gradeValue && (
+          <p className="text-sm text-destructive">
+            {errors.gradeValue.message}
+          </p>
+        )}
 
       </div>
 
@@ -461,6 +474,7 @@ export function EditEducationForm({
 
 
 
+
         <label className="flex items-center gap-2 text-sm">
 
           <input
@@ -488,6 +502,7 @@ export function EditEducationForm({
         </div>
 
       )}
+
 
 
 
