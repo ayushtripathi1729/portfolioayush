@@ -2,76 +2,67 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 
 import { authOptions } from "@/lib/auth";
-import { settingService } from "@/services/settings.service";
-import { updateSettingSchema } from "@/validations/settings.schema";
+import { achievementService } from "@/services/achievement.service";
+import { createAchievementSchema } from "@/validations/achievement.schema";
+
 
 export async function GET() {
+
   try {
-    const session = await getServerSession(authOptions);
 
-    if (!session?.user?.id) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Unauthorized.",
-        },
-        {
-          status: 401,
-        }
-      );
-    }
+    const achievements =
+      await achievementService.getAllIncludingHidden();
 
-    const setting =
-      await settingService.getByUserId(
-        session.user.id
-      );
-
-    if (!setting) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Settings not found.",
-        },
-        {
-          status: 404,
-        }
-      );
-    }
 
     return NextResponse.json(
       {
         success: true,
-        data: setting,
+        data: achievements,
       },
       {
         status: 200,
       }
     );
+
+
   } catch (error) {
+
     console.error(
-      "GET /api/settings error:",
+      "GET /api/achievement error:",
       error
     );
+
 
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to fetch settings.",
+        message: "Failed to fetch achievements.",
       },
       {
         status: 500,
       }
     );
+
   }
+
 }
 
-export async function PUT(
+
+
+
+
+export async function POST(
   request: NextRequest
 ) {
+
   try {
-    const session = await getServerSession(authOptions);
+
+    const session =
+      await getServerSession(authOptions);
+
 
     if (!session?.user?.id) {
+
       return NextResponse.json(
         {
           success: false,
@@ -81,55 +72,77 @@ export async function PUT(
           status: 401,
         }
       );
+
     }
 
-    const body = await request.json();
+
+
+    const body =
+      await request.json();
+
+
 
     const validation =
-      updateSettingSchema.safeParse(body);
+      createAchievementSchema.safeParse(
+        body
+      );
+
+
 
     if (!validation.success) {
+
       return NextResponse.json(
         {
           success: false,
           message: "Validation failed.",
-          errors: validation.error.flatten(),
+          errors:
+            validation.error.flatten(),
         },
         {
           status: 400,
         }
       );
+
     }
 
-    const setting =
-      await settingService.updateByUserId(
-        session.user.id,
+
+
+    const achievement =
+      await achievementService.create(
         validation.data
       );
+
+
 
     return NextResponse.json(
       {
         success: true,
-        data: setting,
+        data: achievement,
       },
       {
-        status: 200,
+        status: 201,
       }
     );
+
+
   } catch (error) {
+
     console.error(
-      "PUT /api/settings error:",
+      "POST /api/achievement error:",
       error
     );
+
 
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to update settings.",
+        message: "Failed to create achievement.",
       },
       {
         status: 500,
       }
     );
+
   }
+
 }

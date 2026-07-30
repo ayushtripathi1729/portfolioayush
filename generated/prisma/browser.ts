@@ -93,6 +93,11 @@ export type Research = Prisma.ResearchModel
  */
 export type Blog = Prisma.BlogModel
 /**
+ * Model Achievement
+ * 
+ */
+export type Achievement = Prisma.AchievementModel
+/**
  * Model ContactMessage
  * 
  */

@@ -66,6 +66,7 @@ export const ModelName = {
   Education: 'Education',
   Research: 'Research',
   Blog: 'Blog',
+  Achievement: 'Achievement',
   ContactMessage: 'ContactMessage'
 } as const
 
@@ -335,6 +336,24 @@ export const BlogScalarFieldEnum = {
 } as const
 
 export type BlogScalarFieldEnum = (typeof BlogScalarFieldEnum)[keyof typeof BlogScalarFieldEnum]
+
+
+export const AchievementScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  category: 'category',
+  issuer: 'issuer',
+  issueDate: 'issueDate',
+  credentialUrl: 'credentialUrl',
+  imageId: 'imageId',
+  displayOrder: 'displayOrder',
+  visible: 'visible',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AchievementScalarFieldEnum = (typeof AchievementScalarFieldEnum)[keyof typeof AchievementScalarFieldEnum]
 
 
 export const ContactMessageScalarFieldEnum = {

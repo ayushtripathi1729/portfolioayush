@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 
 import { authOptions } from "@/lib/auth";
-import { settingService } from "@/services/setting.service";
+import { settingService } from "@/services/settings.service";
 import { socialLinkService } from "@/services/social-link.service";
 import { createSocialLinkSchema } from "@/validations/social-link.schema";
 

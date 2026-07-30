@@ -222,6 +222,14 @@ model Asset {
   // ==========================
 
   projectAssets ProjectAsset[]
+
+  // ==========================
+  // Achievement
+  // ==========================
+
+  achievements Achievement[]
+
+
 }
 
 // ======================================================
@@ -549,6 +557,42 @@ model Blog {
   @@index([featured])
   @@index([displayOrder])
 }
+
+// ======================================================
+// ACHIEVEMENT
+// ======================================================
+
+model Achievement {
+  id String @id @default(cuid())
+
+  title String
+
+  description String? @db.Text
+
+  category String?
+
+  issuer String?
+
+  issueDate DateTime?
+
+  credentialUrl String?
+
+  imageId String?
+  image   Asset? @relation(fields: [imageId], references: [id], onDelete: SetNull)
+
+  displayOrder Int @default(0)
+
+  visible Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+
+  @@index([displayOrder])
+  @@index([issueDate])
+  @@index([visible])
+}
+
 
 // ======================================================
 // CONTACT MESSAGE

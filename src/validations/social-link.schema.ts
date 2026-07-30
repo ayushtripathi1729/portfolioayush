@@ -1,9 +1,41 @@
 import { z } from "zod";
 
-import { SocialPlatform } from "../../generated/prisma/client";
+
+export const socialPlatformValues = [
+  "GITHUB",
+  "LINKEDIN",
+  "LEETCODE",
+  "CODEFORCES",
+  "CODECHEF",
+  "HACKERRANK",
+  "HACKERONE",
+  "TRYHACKME",
+  "ROOTME",
+  "HTB",
+  "CTFTIME",
+  "INTIGRITI",
+  "BUGCROWD",
+  "KAGGLE",
+  "GOOGLE_SCHOLAR",
+  "ORCID",
+  "RESEARCHGATE",
+  "MEDIUM",
+  "DEVTO",
+  "YOUTUBE",
+  "X",
+  "INSTAGRAM",
+  "FACEBOOK",
+  "CUSTOM",
+] as const;
+
+
 
 export const createSocialLinkSchema = z.object({
-  platform: z.nativeEnum(SocialPlatform),
+
+  platform: z.enum(
+    socialPlatformValues
+  ),
+
 
   label: z
     .string()
@@ -12,11 +44,13 @@ export const createSocialLinkSchema = z.object({
     .optional()
     .or(z.literal("")),
 
+
   url: z
     .string()
     .trim()
     .url("Please enter a valid URL.")
     .max(500, "URL cannot exceed 500 characters."),
+
 
   username: z
     .string()
@@ -25,26 +59,40 @@ export const createSocialLinkSchema = z.object({
     .optional()
     .or(z.literal("")),
 
+
   displayOrder: z
     .number()
     .int("Display order must be an integer.")
     .min(0, "Display order cannot be negative.")
     .default(0),
 
-  visible: z.boolean().default(true),
+
+  visible: z
+    .boolean()
+    .default(true),
+
 
   settingId: z
     .string()
     .min(1, "Setting ID is required."),
+
 });
+
+
 
 export const updateSocialLinkSchema =
   createSocialLinkSchema.partial();
 
-export type CreateSocialLinkInput = z.infer<
-  typeof createSocialLinkSchema
->;
 
-export type UpdateSocialLinkInput = z.infer<
-  typeof updateSocialLinkSchema
->;  
+
+export type CreateSocialLinkInput =
+  z.infer<
+    typeof createSocialLinkSchema
+  >;
+
+
+
+export type UpdateSocialLinkInput =
+  z.infer<
+    typeof updateSocialLinkSchema
+  >;

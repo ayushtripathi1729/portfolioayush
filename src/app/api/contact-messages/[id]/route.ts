@@ -2,9 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 
 import { authOptions } from "@/lib/auth";
-import { settingService } from "@/services/settings.service";
-import { socialLinkService } from "@/services/social-link.service";
-import { updateSocialLinkSchema } from "@/validations/social-link.schema";
+import { contactMessageService } from "@/services/contact-message.service";
+import { updateContactMessageSchema } from "@/validations/contact-message.schema";
+
 
 interface RouteContext {
   params: Promise<{
@@ -12,96 +12,101 @@ interface RouteContext {
   }>;
 }
 
+
+
+
+
 export async function GET(
   _request: NextRequest,
   { params }: RouteContext
 ) {
+
   try {
-    const session =
-      await getServerSession(authOptions);
 
-    if (!session?.user?.id) {
+    const { id } =
+      await params;
+
+
+
+    const message =
+      await contactMessageService.getById(id);
+
+
+
+    if (!message) {
+
       return NextResponse.json(
         {
           success: false,
-          message: "Unauthorized.",
-        },
-        {
-          status: 401,
-        }
-      );
-    }
-
-    const { id } = await params;
-
-    const link =
-      await socialLinkService.getById(id);
-
-    if (!link) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Social link not found.",
+          message: "Contact message not found.",
         },
         {
           status: 404,
         }
       );
+
     }
 
-    const setting =
-      await settingService.getByUserId(
-        session.user.id
-      );
 
-    if (!setting || link.settingId !== setting.id) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Forbidden.",
-        },
-        {
-          status: 403,
-        }
-      );
-    }
 
     return NextResponse.json(
       {
         success: true,
-        data: link,
+        data: message,
       },
       {
         status: 200,
       }
     );
+
+
+
   } catch (error) {
+
+
     console.error(
-      "GET /api/social-links/[id] error:",
+      "GET /api/contact-messages/[id] error:",
       error
     );
+
 
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to fetch social link.",
+        message: "Failed to fetch contact message.",
       },
       {
         status: 500,
       }
     );
+
+
   }
+
 }
+
+
+
+
+
+
+
 
 export async function PUT(
   request: NextRequest,
   { params }: RouteContext
 ) {
+
   try {
+
+
     const session =
       await getServerSession(authOptions);
 
+
+
     if (!session?.user?.id) {
+
       return NextResponse.json(
         {
           success: false,
@@ -111,102 +116,148 @@ export async function PUT(
           status: 401,
         }
       );
+
     }
 
-    const { id } = await params;
 
-    const existingLink =
-      await socialLinkService.getById(id);
 
-    if (!existingLink) {
+
+
+    const { id } =
+      await params;
+
+
+
+
+    const existingMessage =
+      await contactMessageService.getById(id);
+
+
+
+
+    if (!existingMessage) {
+
       return NextResponse.json(
         {
           success: false,
-          message: "Social link not found.",
+          message: "Contact message not found.",
         },
         {
           status: 404,
         }
       );
+
     }
 
-    const setting =
-      await settingService.getByUserId(
-        session.user.id
-      );
 
-    if (!setting || existingLink.settingId !== setting.id) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Forbidden.",
-        },
-        {
-          status: 403,
-        }
-      );
-    }
 
-    const body = await request.json();
+
+
+    const body =
+      await request.json();
+
+
+
 
     const validation =
-      updateSocialLinkSchema.safeParse(body);
+      updateContactMessageSchema.safeParse(
+        body
+      );
+
+
+
+
 
     if (!validation.success) {
+
       return NextResponse.json(
         {
           success: false,
           message: "Validation failed.",
-          errors: validation.error.flatten(),
+          errors:
+            validation.error.flatten(),
         },
         {
           status: 400,
         }
       );
+
     }
 
-    const link =
-      await socialLinkService.update(
+
+
+
+
+    const message =
+      await contactMessageService.update(
         id,
         validation.data
       );
 
+
+
+
+
     return NextResponse.json(
       {
         success: true,
-        data: link,
+        data: message,
       },
       {
         status: 200,
       }
     );
+
+
+
   } catch (error) {
+
+
     console.error(
-      "PUT /api/social-links/[id] error:",
+      "PUT /api/contact-messages/[id] error:",
       error
     );
+
+
 
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to update social link.",
+        message: "Failed to update contact message.",
       },
       {
         status: 500,
       }
     );
+
+
   }
+
 }
+
+
+
+
+
+
+
 
 export async function DELETE(
   _request: NextRequest,
   { params }: RouteContext
 ) {
+
   try {
+
+
     const session =
       await getServerSession(authOptions);
 
+
+
+
     if (!session?.user?.id) {
+
       return NextResponse.json(
         {
           success: false,
@@ -216,69 +267,84 @@ export async function DELETE(
           status: 401,
         }
       );
+
     }
 
-    const { id } = await params;
 
-    const existingLink =
-      await socialLinkService.getById(id);
 
-    if (!existingLink) {
+
+
+    const { id } =
+      await params;
+
+
+
+
+
+    const existingMessage =
+      await contactMessageService.getById(id);
+
+
+
+
+
+    if (!existingMessage) {
+
       return NextResponse.json(
         {
           success: false,
-          message: "Social link not found.",
+          message: "Contact message not found.",
         },
         {
           status: 404,
         }
       );
+
     }
 
-    const setting =
-      await settingService.getByUserId(
-        session.user.id
-      );
 
-    if (!setting || existingLink.settingId !== setting.id) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Forbidden.",
-        },
-        {
-          status: 403,
-        }
-      );
-    }
 
-    await socialLinkService.delete(id);
+
+
+    await contactMessageService.delete(id);
+
+
+
+
 
     return NextResponse.json(
       {
         success: true,
-        message:
-          "Social link deleted successfully.",
+        message: "Contact message deleted successfully.",
       },
       {
         status: 200,
       }
     );
+
+
+
   } catch (error) {
+
+
     console.error(
-      "DELETE /api/social-links/[id] error:",
+      "DELETE /api/contact-messages/[id] error:",
       error
     );
+
+
 
     return NextResponse.json(
       {
         success: false,
-        message:
-          "Failed to delete social link.",
+        message: "Failed to delete contact message.",
       },
       {
         status: 500,
       }
     );
+
+
   }
+
 }
