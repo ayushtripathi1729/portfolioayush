@@ -223,13 +223,14 @@ export const updateEducationSchema = z.object({
 
 
 export type CreateEducationInput =
-  z.infer<
-    typeof createEducationSchema
-  >;
+  z.input<typeof createEducationSchema>;
 
+export type CreateEducationOutput =
+  z.output<typeof createEducationSchema>;
 
 
 export type UpdateEducationInput =
-  z.infer<
-    typeof updateEducationSchema
-  >;
+  z.input<typeof updateEducationSchema>;
+
+export type UpdateEducationOutput =
+  z.output<typeof updateEducationSchema>;

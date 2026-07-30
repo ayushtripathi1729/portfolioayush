@@ -32,11 +32,7 @@ export function EducationForm() {
       errors,
       isSubmitting,
     },
-  } = useForm<
-    CreateEducationInput,
-    unknown,
-    CreateEducationInput
-  >({
+  } = useForm<CreateEducationInput>({
 
     resolver:
       zodResolver(
@@ -53,11 +49,9 @@ export function EducationForm() {
 
       location: "",
 
-      startDate: undefined,
-
-      endDate: undefined,
-
       isCurrent: false,
+
+      gradeType: "CGPA",
 
       gradeValue: 0,
 
@@ -209,7 +203,6 @@ export function EducationForm() {
 
           <Input
             {...register("branch")}
-            placeholder="Computer Science"
           />
 
         </div>
@@ -225,7 +218,6 @@ export function EducationForm() {
 
           <Input
             {...register("location")}
-            placeholder="City, Country"
           />
 
         </div>
@@ -306,10 +298,6 @@ export function EducationForm() {
           className="w-full rounded-lg border bg-transparent px-3 py-2 text-sm"
         >
 
-          <option value="">
-            Select grade type
-          </option>
-
           <option value="CGPA">
             CGPA
           </option>
@@ -320,12 +308,6 @@ export function EducationForm() {
 
         </select>
 
-
-        {errors.gradeType && (
-          <p className="text-sm text-destructive">
-            {errors.gradeType.message}
-          </p>
-        )}
 
       </div>
 
@@ -352,12 +334,6 @@ export function EducationForm() {
         />
 
 
-        {errors.gradeValue && (
-          <p className="text-sm text-destructive">
-            {errors.gradeValue.message}
-          </p>
-        )}
-
       </div>
 
 
@@ -374,7 +350,6 @@ export function EducationForm() {
         <textarea
           {...register("description")}
           className="min-h-40 w-full rounded-lg border bg-transparent px-3 py-2 text-sm"
-          placeholder="Education details..."
         />
 
       </div>
@@ -392,7 +367,6 @@ export function EducationForm() {
 
         <Input
           {...register("institutionLogoId")}
-          placeholder="Asset ID"
         />
 
       </div>
@@ -426,6 +400,7 @@ export function EducationForm() {
 
       <div className="flex flex-wrap gap-6">
 
+
         <label className="flex items-center gap-2 text-sm">
 
           <input
@@ -436,6 +411,7 @@ export function EducationForm() {
           Current Education
 
         </label>
+
 
 
 
