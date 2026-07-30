@@ -81,10 +81,19 @@ export const createResearchSchema = z.object({
 export const updateResearchSchema =
   createResearchSchema.partial();
 
-export type CreateResearchInput = z.infer<
+export type CreateResearchInput = z.input<
   typeof createResearchSchema
 >;
 
-export type UpdateResearchInput = z.infer<
+export type UpdateResearchInput = z.input<
+  typeof updateResearchSchema
+>;
+
+
+export type CreateResearchOutput = z.output<
+  typeof createResearchSchema
+>;
+
+export type UpdateResearchOutput = z.output<
   typeof updateResearchSchema
 >;

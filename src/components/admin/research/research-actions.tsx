@@ -1,0 +1,76 @@
+"use client";
+
+import Link from "next/link";
+import {
+  Pencil,
+  Eye,
+} from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import { DeleteResearchButton } from "./delete-research-button";
+
+
+interface ResearchActionsProps {
+  id: string;
+}
+
+
+
+export function ResearchActions({
+  id,
+}: ResearchActionsProps) {
+
+  return (
+    <div className="flex items-center gap-2">
+
+
+      <Link
+        href={`/admin/research/${id}/edit`}
+      >
+
+        <Button
+          variant="outline"
+          size="sm"
+        >
+
+          <Pencil className="size-4" />
+
+          Edit
+
+        </Button>
+
+      </Link>
+
+
+
+
+
+      <Link
+        href={`/research/${id}`}
+        target="_blank"
+      >
+
+        <Button
+          variant="outline"
+          size="icon"
+          aria-label="Preview research"
+        >
+
+          <Eye className="size-4" />
+
+        </Button>
+
+      </Link>
+
+
+
+
+
+      <DeleteResearchButton
+        id={id}
+      />
+
+
+    </div>
+  );
+}
