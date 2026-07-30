@@ -4,6 +4,7 @@ import {
 } from "../../generated/prisma/client";
 
 import { educationRepository } from "@/repositories/education.repository";
+import { logActivity } from "@/lib/activity";
 
 
 
@@ -41,7 +42,10 @@ interface CreateEducationInput {
 
 
 
+
+
 export class EducationService {
+
 
 
 
@@ -50,6 +54,7 @@ export class EducationService {
     return educationRepository.findAll();
 
   }
+
 
 
 
@@ -65,11 +70,13 @@ export class EducationService {
 
 
 
+
   async getCurrent() {
 
     return educationRepository.findCurrent();
 
   }
+
 
 
 
@@ -82,6 +89,8 @@ export class EducationService {
     return educationRepository.findById(id);
 
   }
+
+
 
 
 
@@ -118,19 +127,44 @@ export class EducationService {
           : undefined,
 
 
-
     };
 
 
 
 
 
-    return educationRepository.create(
-      educationData
-    );
+    const education =
+      await educationRepository.create(
+        educationData
+      );
+
+
+
+
+
+    await logActivity({
+
+      action: "CREATE",
+
+      entity: "Education",
+
+      entityId: education.id,
+
+      description:
+        `Added education "${education.institution}"`,
+
+    });
+
+
+
+
+
+    return education;
 
 
   }
+
+
 
 
 
@@ -139,49 +173,82 @@ export class EducationService {
 
 
   async update(
-  id: string,
-  data: Prisma.EducationUpdateInput & {
-    institutionLogoId?: string | null;
-  }
-) {
+    id: string,
+    data: Prisma.EducationUpdateInput & {
+      institutionLogoId?: string | null;
+    }
+  ) {
 
 
-  const {
-    institutionLogoId,
-    ...rest
-  } = data;
-
-
-
-  const educationData: Prisma.EducationUpdateInput = {
-
-
-    ...rest,
+    const {
+      institutionLogoId,
+      ...rest
+    } = data;
 
 
 
-    institutionLogo:
-      institutionLogoId
-        ? {
-            connect: {
-              id: institutionLogoId,
+
+
+    const educationData: Prisma.EducationUpdateInput = {
+
+
+      ...rest,
+
+
+
+      institutionLogo:
+        institutionLogoId
+          ? {
+              connect: {
+                id: institutionLogoId,
+              },
+            }
+          : {
+              disconnect: true,
             },
-          }
-        : {
-            disconnect: true,
-          },
 
 
-  };
+    };
 
 
 
-  return educationRepository.update(
-    id,
-    educationData
-  );
 
-}
+
+    const education =
+      await educationRepository.update(
+        id,
+        educationData
+      );
+
+
+
+
+
+    await logActivity({
+
+      action: "UPDATE",
+
+      entity: "Education",
+
+      entityId: education.id,
+
+      description:
+        `Updated education "${education.institution}"`,
+
+    });
+
+
+
+
+
+    return education;
+
+
+  }
+
+
+
+
 
 
 
@@ -191,11 +258,51 @@ export class EducationService {
     id: string
   ) {
 
-    return educationRepository.delete(
-      id
-    );
+
+    const education =
+      await educationRepository.findById(
+        id
+      );
+
+
+
+
+
+    const deleted =
+      await educationRepository.delete(
+        id
+      );
+
+
+
+
+
+    await logActivity({
+
+      action: "DELETE",
+
+      entity: "Education",
+
+      entityId: id,
+
+      description:
+        education
+          ? `Deleted education "${education.institution}"`
+          : "Deleted education",
+
+    });
+
+
+
+
+
+    return deleted;
+
 
   }
+
+
+
 
 
 
@@ -208,7 +315,10 @@ export class EducationService {
   }
 
 
+
 }
+
+
 
 
 

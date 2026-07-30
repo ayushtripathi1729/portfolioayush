@@ -2,11 +2,14 @@ import { hashPassword, verifyPassword } from "@/lib/password";
 
 import { prisma } from "@/lib/prisma";
 
+import { logActivity } from "@/lib/activity";
+
 import { userRepository } from "@/repositories/user.repository";
 
 
 
 export class AuthService {
+
 
 
   async authenticate(
@@ -22,7 +25,9 @@ export class AuthService {
 
 
     if (!user) {
+
       return null;
+
     }
 
 
@@ -36,18 +41,27 @@ export class AuthService {
 
 
     if (!validPassword) {
+
       return null;
+
     }
 
 
 
     return {
+
       id: user.id,
+
       name: user.name,
+
       email: user.email,
+
     };
 
   }
+
+
+
 
 
 
@@ -78,6 +92,8 @@ export class AuthService {
 
 
 
+
+
     const validPassword =
       await verifyPassword(
         currentPassword,
@@ -97,6 +113,8 @@ export class AuthService {
 
 
 
+
+
     const newPasswordHash =
       await hashPassword(
         newPassword
@@ -105,10 +123,14 @@ export class AuthService {
 
 
 
+
+
     await prisma.user.update({
 
       where: {
+
         id: userId,
+
       },
 
 
@@ -122,12 +144,37 @@ export class AuthService {
     });
 
 
+
+
+
+
+    await logActivity({
+
+      action: "UPDATE",
+
+      entity: "User",
+
+      entityId: userId,
+
+      description:
+        "Changed administrator password",
+
+    });
+
+
+
+
+
+
     return true;
 
   }
 
 
+
 }
+
+
 
 
 

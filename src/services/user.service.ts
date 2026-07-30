@@ -1,10 +1,12 @@
 import { Prisma } from "../../generated/prisma/client";
 
 import { userRepository } from "@/repositories/user.repository";
+import { logActivity } from "@/lib/activity";
 
 
 
 export class UserService {
+
 
 
   async getAll() {
@@ -21,7 +23,9 @@ export class UserService {
     id: string
   ) {
 
-    return userRepository.findById(id);
+    return userRepository.findById(
+      id
+    );
 
   }
 
@@ -33,7 +37,9 @@ export class UserService {
     email: string
   ) {
 
-    return userRepository.findByEmail(email);
+    return userRepository.findByEmail(
+      email
+    );
 
   }
 
@@ -60,10 +66,31 @@ export class UserService {
     data: Prisma.UserUpdateInput
   ) {
 
-    return userRepository.update(
-      id,
-      data
-    );
+
+    const user =
+      await userRepository.update(
+        id,
+        data
+      );
+
+
+
+    await logActivity({
+
+      action: "UPDATE",
+
+      entity: "User",
+
+      entityId: user.id,
+
+      description:
+        `Updated administrator profile "${user.name}"`,
+
+    });
+
+
+
+    return user;
 
   }
 
@@ -75,9 +102,30 @@ export class UserService {
     id: string
   ) {
 
-    return userRepository.delete(
-      id
-    );
+
+    const deleted =
+      await userRepository.delete(
+        id
+      );
+
+
+
+    await logActivity({
+
+      action: "DELETE",
+
+      entity: "User",
+
+      entityId: id,
+
+      description:
+        "Deleted administrator account",
+
+    });
+
+
+
+    return deleted;
 
   }
 

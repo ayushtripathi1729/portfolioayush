@@ -1,9 +1,11 @@
 import { Prisma } from "../../generated/prisma/client";
 
 import { achievementRepository } from "@/repositories/achievement.repository";
+import { logActivity } from "@/lib/activity";
 
 
 export class AchievementService {
+
 
 
   async getAll() {
@@ -11,6 +13,8 @@ export class AchievementService {
     return achievementRepository.findAll();
 
   }
+
+
 
 
 
@@ -22,6 +26,8 @@ export class AchievementService {
 
 
 
+
+
   async getById(id: string) {
 
     return achievementRepository.findById(id);
@@ -30,13 +36,42 @@ export class AchievementService {
 
 
 
+
+
   async create(
     data: Prisma.AchievementCreateInput
   ) {
 
-    return achievementRepository.create(data);
+
+    const achievement =
+      await achievementRepository.create(
+        data
+      );
+
+
+
+    await logActivity({
+
+      action: "CREATE",
+
+      entity: "Achievement",
+
+      entityId: achievement.id,
+
+      description:
+        `Created achievement "${achievement.title}"`,
+
+    });
+
+
+
+    return achievement;
 
   }
+
+
+
+
 
 
 
@@ -45,20 +80,81 @@ export class AchievementService {
     data: Prisma.AchievementUpdateInput
   ) {
 
-    return achievementRepository.update(
-      id,
-      data
-    );
+
+    const achievement =
+      await achievementRepository.update(
+        id,
+        data
+      );
+
+
+
+    await logActivity({
+
+      action: "UPDATE",
+
+      entity: "Achievement",
+
+      entityId: achievement.id,
+
+      description:
+        `Updated achievement "${achievement.title}"`,
+
+    });
+
+
+
+    return achievement;
 
   }
+
+
+
+
 
 
 
   async delete(id: string) {
 
-    return achievementRepository.delete(id);
+
+    const achievement =
+      await achievementRepository.findById(
+        id
+      );
+
+
+
+    const deleted =
+      await achievementRepository.delete(
+        id
+      );
+
+
+
+    await logActivity({
+
+      action: "DELETE",
+
+      entity: "Achievement",
+
+      entityId: id,
+
+      description:
+        achievement
+          ? `Deleted achievement "${achievement.title}"`
+          : "Deleted achievement",
+
+    });
+
+
+
+    return deleted;
 
   }
+
+
+
+
 
 
 
@@ -68,7 +164,9 @@ export class AchievementService {
 
   }
 
+
 }
+
 
 
 
