@@ -39,19 +39,25 @@ export function LoginForm() {
   async function onSubmit(values: LoginFormValues) {
     setServerError("");
 
-    const result = await signIn("credentials", {
-      email: values.email,
-      password: values.password,
-      redirect: false,
-    });
+    try {
+      const result = await signIn("credentials", {
+        email: values.email,
+        password: values.password,
+        redirect: false,
+      });
 
-    if (result?.error) {
-      setServerError("Invalid email or password.");
-      return;
+      if (result?.error) {
+        setServerError("Invalid email or password.");
+        return;
+      }
+
+      router.push("/admin");
+      router.refresh();
+    } catch {
+      setServerError(
+        "Something went wrong. Please try again."
+      );
     }
-
-    router.push("/admin");
-    router.refresh();
   }
 
   return (

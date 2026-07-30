@@ -1,9 +1,19 @@
 import { SkillLevel } from "../../generated/prisma/client";
 
+import type { SeedPrisma } from "./types";
+
+
+type SkillCategoryMap = Record<
+  string,
+  {
+    id: string;
+  }
+>;
+
 
 export async function seedSkills(
-  prisma: any,
-  skillCategories: Record<string, any>
+  prisma: SeedPrisma,
+  skillCategories: SkillCategoryMap
 ) {
   const skills = [
     {

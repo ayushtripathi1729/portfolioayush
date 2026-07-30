@@ -122,10 +122,19 @@ export const updateExperienceSchema = z.object({
 });
 
 
-export type CreateExperienceInput = z.infer<
+export type CreateExperienceInput = z.input<
   typeof createExperienceSchema
 >;
 
-export type UpdateExperienceInput = z.infer<
+export type UpdateExperienceInput = z.input<
+  typeof updateExperienceSchema
+>;
+
+
+export type CreateExperienceOutput = z.output<
+  typeof createExperienceSchema
+>;
+
+export type UpdateExperienceOutput = z.output<
   typeof updateExperienceSchema
 >;

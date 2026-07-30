@@ -1,7 +1,9 @@
 "use client";
 
+import type { Session } from "next-auth";
+
 import { LogOut, Settings, User } from "lucide-react";
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -14,31 +16,54 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-function getInitials(name?: string | null) {
-  if (!name) return "A";
+
+interface UserMenuProps {
+  session: Session | null;
+}
+
+
+function getInitials(
+  name?: string | null
+) {
+  if (!name) {
+    return "A";
+  }
 
   return name
     .split(" ")
+    .filter(Boolean)
     .map((part) => part[0])
     .join("")
     .slice(0, 2)
     .toUpperCase();
 }
 
-export function UserMenu() {
-  const { data: session } = useSession();
 
-  const name = session?.user?.name ?? "Administrator";
-  const email = session?.user?.email ?? "";
-  const initials = getInitials(name);
+export function UserMenu({
+  session,
+}: UserMenuProps) {
+
+  const name =
+    session?.user?.name ??
+    "Administrator";
+
+  const email =
+    session?.user?.email ??
+    "";
+
+  const initials =
+    getInitials(name);
+
 
   return (
     <DropdownMenu>
+
       <DropdownMenuTrigger
         render={
           <Button
             variant="ghost"
             className="size-10 rounded-full p-0"
+            aria-label="Open user menu"
           />
         }
       >
@@ -47,34 +72,46 @@ export function UserMenu() {
         </div>
       </DropdownMenuTrigger>
 
+
       <DropdownMenuContent
         align="end"
         className="w-64"
       >
+
         <DropdownMenuLabel>
           <div className="flex flex-col">
-            <span className="font-semibold">{name}</span>
+            <span className="font-semibold">
+              {name}
+            </span>
+
             <span className="text-xs text-muted-foreground">
               {email}
             </span>
           </div>
         </DropdownMenuLabel>
 
+
         <DropdownMenuSeparator />
 
+
         <DropdownMenuGroup>
+
           <DropdownMenuItem>
             <User className="size-4" />
             Profile
           </DropdownMenuItem>
 
+
           <DropdownMenuItem>
             <Settings className="size-4" />
             Settings
           </DropdownMenuItem>
+
         </DropdownMenuGroup>
 
+
         <DropdownMenuSeparator />
+
 
         <DropdownMenuItem
           variant="destructive"
@@ -87,7 +124,10 @@ export function UserMenu() {
           <LogOut className="size-4" />
           Sign out
         </DropdownMenuItem>
+
+
       </DropdownMenuContent>
+
     </DropdownMenu>
   );
 }

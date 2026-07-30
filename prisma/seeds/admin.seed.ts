@@ -1,11 +1,11 @@
 import bcrypt from "bcrypt";
+
 import type { SeedPrisma } from "./types";
 
 
 export async function seedAdmin(
   prisma: SeedPrisma
 ) {
-
   const email =
     process.env.ADMIN_EMAIL;
 
@@ -15,7 +15,7 @@ export async function seedAdmin(
 
   if (!email || !password) {
     throw new Error(
-      "ADMIN_EMAIL and ADMIN_PASSWORD must be set"
+      "ADMIN_EMAIL and ADMIN_PASSWORD must be provided in .env"
     );
   }
 
@@ -30,7 +30,7 @@ export async function seedAdmin(
 
   if (existing) {
     console.log(
-      "Admin already exists"
+      "Admin user already exists"
     );
 
     return existing;
@@ -44,7 +44,7 @@ export async function seedAdmin(
     );
 
 
-  const user =
+  const admin =
     await prisma.user.create({
       data: {
         name:
@@ -58,9 +58,9 @@ export async function seedAdmin(
 
 
   console.log(
-    "Created admin user"
+    "Admin user created successfully"
   );
 
 
-  return user;
+  return admin;
 }

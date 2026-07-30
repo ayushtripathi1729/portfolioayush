@@ -1,47 +1,113 @@
 import { z } from "zod";
 
-const slugRegex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
-export const createSkillCategorySchema = z.object({
-  name: z
-    .string()
-    .trim()
-    .min(2, "Name must be at least 2 characters.")
-    .max(100, "Name cannot exceed 100 characters."),
+const slugRegex =
+  /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
-  slug: z
-    .string()
-    .trim()
-    .min(2, "Slug must be at least 2 characters.")
-    .max(100, "Slug cannot exceed 100 characters.")
-    .regex(
-      slugRegex,
-      "Slug must contain only lowercase letters, numbers, and hyphens."
-    ),
 
-  description: z
-    .string()
-    .trim()
-    .max(500, "Description cannot exceed 500 characters.")
-    .optional()
-    .or(z.literal("")),
 
-  displayOrder: z
-    .number()
-    .int("Display order must be an integer.")
-    .min(0, "Display order cannot be negative.")
-    .default(0),
+export const createSkillCategorySchema =
+  z.object({
 
-  visible: z.boolean().default(true),
-});
+    name: z
+      .string()
+      .trim()
+      .min(
+        2,
+        "Name must be at least 2 characters."
+      )
+      .max(
+        100,
+        "Name cannot exceed 100 characters."
+      ),
+
+
+
+    slug: z
+      .string()
+      .trim()
+      .min(
+        2,
+        "Slug must be at least 2 characters."
+      )
+      .max(
+        100,
+        "Slug cannot exceed 100 characters."
+      )
+      .regex(
+        slugRegex,
+        "Slug must contain only lowercase letters, numbers, and hyphens."
+      ),
+
+
+
+    description: z
+      .string()
+      .trim()
+      .max(
+        500,
+        "Description cannot exceed 500 characters."
+      )
+      .optional()
+      .or(
+        z.literal("")
+      ),
+
+
+
+    displayOrder: z
+      .number()
+      .int(
+        "Display order must be an integer."
+      )
+      .min(
+        0,
+        "Display order cannot be negative."
+      )
+      .default(0),
+
+
+
+    visible: z
+      .boolean()
+      .default(true),
+
+  });
+
+
+
 
 export const updateSkillCategorySchema =
   createSkillCategorySchema.partial();
 
-export type CreateSkillCategoryInput = z.infer<
-  typeof createSkillCategorySchema
->;
 
-export type UpdateSkillCategoryInput = z.infer<
-  typeof updateSkillCategorySchema
->;
+
+
+
+// Input types are used by React Hook Form
+export type CreateSkillCategoryInput =
+  z.input<
+    typeof createSkillCategorySchema
+  >;
+
+
+
+export type UpdateSkillCategoryInput =
+  z.input<
+    typeof updateSkillCategorySchema
+  >;
+
+
+
+// Output types are used after validation/parsing
+export type CreateSkillCategoryOutput =
+  z.output<
+    typeof createSkillCategorySchema
+  >;
+
+
+
+export type UpdateSkillCategoryOutput =
+  z.output<
+    typeof updateSkillCategorySchema
+  >;
