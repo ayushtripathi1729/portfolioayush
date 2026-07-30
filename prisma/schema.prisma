@@ -1,10 +1,3 @@
-// ======================================================
-// Prisma Schema
-// Project : Portfolio CMS
-// Database: PostgreSQL (Neon)
-// ORM     : Prisma 7
-// ======================================================
-
 generator client {
   provider = "prisma-client"
   output   = "../generated/prisma"
@@ -14,9 +7,329 @@ datasource db {
   provider = "postgresql"
 }
 
-// ======================================================
-// ENUMS
-// ======================================================
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  avatarId     String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  createdBlogs Blog[]
+  settings     Setting?
+  avatar       Asset?   @relation("UserAvatar", fields: [avatarId], references: [id])
+
+  @@index([email])
+}
+
+model Setting {
+  id              String       @id @default(cuid())
+  siteTitle       String
+  siteDescription String?
+  fullName        String
+  tagline         String?
+  bio             String?
+  email           String?
+  phone           String?
+  location        String?
+  profileImageId  String?
+  resumeAssetId   String?
+  userId          String       @unique
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  profileImage    Asset?       @relation("ProfileImage", fields: [profileImageId], references: [id])
+  resume          Asset?       @relation("ResumeFile", fields: [resumeAssetId], references: [id])
+  user            User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  socialLinks     SocialLink[]
+}
+
+model SocialLink {
+  id           String         @id @default(cuid())
+  platform     SocialPlatform
+  label        String?
+  url          String
+  username     String?
+  displayOrder Int            @default(0)
+  visible      Boolean        @default(true)
+  settingId    String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  setting      Setting        @relation(fields: [settingId], references: [id], onDelete: Cascade)
+
+  @@unique([settingId, platform])
+  @@index([displayOrder])
+}
+
+model Asset {
+  id                String         @id @default(cuid())
+  fileName          String
+  originalName      String
+  url               String
+  mimeType          String
+  type              AssetType
+  extension         String?
+  size              Int
+  width             Int?
+  height            Int?
+  altText           String?
+  uploadedAt        DateTime       @default(now())
+  blogCovers        Blog[]
+  educationLogos    Education[]
+  experienceLogos   Experience[]
+  projectAssets     ProjectAsset[]
+  researchCovers    Research[]     @relation("ResearchCover")
+  researchPdfs      Research[]     @relation("ResearchPdf")
+  profileImage      Setting[]      @relation("ProfileImage")
+  resumeFile        Setting[]      @relation("ResumeFile")
+  userAvatar        User[]         @relation("UserAvatar")
+  achievementImages Achievement[]  @relation("AchievementImage")
+}
+
+model SkillCategory {
+  id           String   @id @default(cuid())
+  name         String   @unique
+  slug         String   @unique
+  description  String?
+  displayOrder Int      @default(0)
+  visible      Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  skills       Skill[]
+
+  @@index([displayOrder])
+}
+
+model Skill {
+  id           String        @id @default(cuid())
+  name         String
+  slug         String        @unique
+  level        SkillLevel
+  icon         String?
+  displayOrder Int           @default(0)
+  featured     Boolean       @default(false)
+  visible      Boolean       @default(true)
+  categoryId   String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  category     SkillCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([categoryId, name])
+  @@index([categoryId])
+  @@index([displayOrder])
+}
+
+model ProjectCategory {
+  id           String    @id @default(cuid())
+  name         String    @unique
+  slug         String    @unique
+  description  String?
+  displayOrder Int       @default(0)
+  visible      Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  projects     Project[]
+
+  @@index([displayOrder])
+}
+
+model Technology {
+  id           String              @id @default(cuid())
+  name         String              @unique
+  slug         String              @unique
+  icon         String?
+  color        String?
+  website      String?
+  displayOrder Int                 @default(0)
+  visible      Boolean             @default(true)
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+  projects     ProjectTechnology[]
+
+  @@index([displayOrder])
+}
+
+model Project {
+  id               String              @id @default(cuid())
+  title            String
+  slug             String              @unique
+  shortDescription String
+  description      String
+  githubUrl        String?
+  liveUrl          String?
+  featured         Boolean             @default(false)
+  visible          Boolean             @default(true)
+  status           ProjectStatus       @default(DRAFT)
+  displayOrder     Int                 @default(0)
+  categoryId       String
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+  category         ProjectCategory     @relation(fields: [categoryId], references: [id])
+  assets           ProjectAsset[]
+  technologies     ProjectTechnology[]
+
+  @@index([slug])
+  @@index([featured])
+  @@index([status])
+  @@index([displayOrder])
+  @@index([categoryId])
+}
+
+model ProjectTechnology {
+  projectId    String
+  technologyId String
+  project      Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  technology   Technology @relation(fields: [technologyId], references: [id], onDelete: Cascade)
+
+  @@id([projectId, technologyId])
+  @@index([technologyId])
+}
+
+model ProjectAsset {
+  id           String  @id @default(cuid())
+  projectId    String
+  assetId      String
+  caption      String?
+  isThumbnail  Boolean @default(false)
+  displayOrder Int     @default(0)
+  asset        Asset   @relation(fields: [assetId], references: [id], onDelete: Cascade)
+  project      Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, assetId])
+  @@index([projectId])
+  @@index([assetId])
+  @@index([displayOrder])
+}
+
+model Experience {
+  id             String    @id @default(cuid())
+  company        String
+  position       String
+  employmentType String?
+  location       String?
+  startDate      DateTime
+  endDate        DateTime?
+  isCurrent      Boolean   @default(false)
+  description    String
+  companyLogoId  String?
+  displayOrder   Int       @default(0)
+  visible        Boolean   @default(true)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  companyLogo    Asset?    @relation(fields: [companyLogoId], references: [id])
+
+  @@index([displayOrder])
+  @@index([startDate])
+}
+
+model Education {
+  id                String    @id @default(cuid())
+  institution       String
+  degree            String
+  branch            String?
+  location          String?
+  startDate         DateTime
+  endDate           DateTime?
+  isCurrent         Boolean   @default(false)
+  gradeType         GradeType
+  gradeValue        Decimal   @db.Decimal(5, 2)
+  description       String?
+  institutionLogoId String?
+  displayOrder      Int       @default(0)
+  visible           Boolean   @default(true)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  institutionLogo   Asset?    @relation(fields: [institutionLogoId], references: [id])
+
+  @@index([displayOrder])
+  @@index([startDate])
+}
+
+model Research {
+  id           String    @id @default(cuid())
+  title        String
+  slug         String    @unique
+  abstract     String?
+  publisher    String?
+  journal      String?
+  doi          String?
+  externalUrl  String?
+  publishedAt  DateTime?
+  pdfAssetId   String?
+  coverImageId String?
+  featured     Boolean   @default(false)
+  visible      Boolean   @default(true)
+  displayOrder Int       @default(0)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  coverImage   Asset?    @relation("ResearchCover", fields: [coverImageId], references: [id])
+  pdfAsset     Asset?    @relation("ResearchPdf", fields: [pdfAssetId], references: [id])
+
+  @@index([slug])
+  @@index([featured])
+  @@index([displayOrder])
+}
+
+model Blog {
+  id           String    @id @default(cuid())
+  title        String
+  slug         String    @unique
+  excerpt      String?
+  content      String
+  coverImageId String?
+  authorId     String
+  published    Boolean   @default(false)
+  publishedAt  DateTime?
+  featured     Boolean   @default(false)
+  visible      Boolean   @default(true)
+  displayOrder Int       @default(0)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  author       User      @relation(fields: [authorId], references: [id])
+  coverImage   Asset?    @relation(fields: [coverImageId], references: [id])
+
+  @@index([slug])
+  @@index([authorId])
+  @@index([published])
+  @@index([featured])
+  @@index([displayOrder])
+}
+
+model Achievement {
+  id            String    @id @default(cuid())
+  title         String
+  description   String?
+  category      String?
+  issuer        String?
+  issueDate     DateTime?
+  credentialUrl String?
+  imageId       String?
+  displayOrder  Int       @default(0)
+  visible       Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  image Asset? @relation("AchievementImage", fields: [imageId], references: [id])
+
+  @@index([displayOrder])
+  @@index([visible])
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String?
+  message   String
+  isRead    Boolean  @default(false)
+  isReplied Boolean  @default(false)
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  @@index([email])
+  @@index([isRead])
+  @@index([createdAt])
+}
 
 enum SkillLevel {
   BEGINNER
@@ -71,587 +384,3 @@ enum SocialPlatform {
   FACEBOOK
   CUSTOM
 }
-
-// ======================================================
-// USER
-// ======================================================
-
-model User {
-  id           String  @id @default(cuid())
-  name         String
-  email        String  @unique
-  passwordHash String
-  avatarId     String?
-
-  avatar       Asset?   @relation("UserAvatar", fields: [avatarId], references: [id], onDelete: SetNull)
-  createdBlogs Blog[]
-  settings     Setting?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([email])
-}
-
-// ======================================================
-// SETTINGS
-// ======================================================
-
-model Setting {
-  id String @id @default(cuid())
-
-  siteTitle       String
-  siteDescription String?
-
-  fullName String
-  tagline  String?
-  bio      String? @db.Text
-
-  email String?
-  phone String?
-
-  location String?
-
-  profileImageId String?
-  resumeAssetId  String?
-
-  profileImage Asset? @relation("ProfileImage", fields: [profileImageId], references: [id], onDelete: SetNull)
-  resume       Asset? @relation("ResumeFile", fields: [resumeAssetId], references: [id], onDelete: SetNull)
-
-  userId String @unique
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  socialLinks SocialLink[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-// ======================================================
-// SOCIAL LINKS
-// ======================================================
-
-model SocialLink {
-  id String @id @default(cuid())
-
-  platform SocialPlatform
-
-  label String?
-  url   String
-
-  username String?
-
-  displayOrder Int     @default(0)
-  visible      Boolean @default(true)
-
-  settingId String
-  setting   Setting @relation(fields: [settingId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@unique([settingId, platform])
-  @@index([displayOrder])
-}
-
-// ======================================================
-// ASSETS
-// ======================================================
-
-model Asset {
-  id String @id @default(cuid())
-
-  fileName     String
-  originalName String
-
-  url      String
-  mimeType String
-  type     AssetType
-
-  extension String?
-
-  size Int
-
-  width  Int?
-  height Int?
-
-  altText String?
-
-  uploadedAt DateTime @default(now())
-
-  // ==========================
-  // User
-  // ==========================
-
-  userAvatar User[] @relation("UserAvatar")
-
-  // ==========================
-  // Settings
-  // ==========================
-
-  profileImage Setting[] @relation("ProfileImage")
-  resumeFile   Setting[] @relation("ResumeFile")
-
-  // ==========================
-  // Experience
-  // ==========================
-
-  experienceLogos Experience[]
-
-  // ==========================
-  // Education
-  // ==========================
-
-  educationLogos Education[]
-
-  // ==========================
-  // Research
-  // ==========================
-
-  researchPdfs   Research[] @relation("ResearchPdf")
-  researchCovers Research[] @relation("ResearchCover")
-
-  // ==========================
-  // Blog
-  // ==========================
-
-  blogCovers Blog[]
-
-  // ==========================
-  // Projects
-  // ==========================
-
-  projectAssets ProjectAsset[]
-
-  // ==========================
-  // Achievement
-  // ==========================
-
-  achievements Achievement[]
-
-
-}
-
-// ======================================================
-// SKILL CATEGORY
-// ======================================================
-
-model SkillCategory {
-  id String @id @default(cuid())
-
-  name String @unique
-  slug String @unique
-
-  description String?
-
-  displayOrder Int     @default(0)
-  visible      Boolean @default(true)
-
-  skills Skill[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([displayOrder])
-}
-
-// ======================================================
-// SKILL
-// ======================================================
-
-model Skill {
-  id String @id @default(cuid())
-
-  name  String
-  slug  String     @unique
-  level SkillLevel
-
-  icon String?
-
-  displayOrder Int     @default(0)
-  featured     Boolean @default(false)
-  visible      Boolean @default(true)
-
-  categoryId String
-  category   SkillCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@unique([categoryId, name])
-  @@index([categoryId])
-  @@index([displayOrder])
-}
-
-// ======================================================
-// PROJECT CATEGORY
-// ======================================================
-
-model ProjectCategory {
-  id String @id @default(cuid())
-
-  name String @unique
-  slug String @unique
-
-  description String?
-
-  displayOrder Int     @default(0)
-  visible      Boolean @default(true)
-
-  projects Project[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([displayOrder])
-}
-
-// ======================================================
-// TECHNOLOGY
-// ======================================================
-
-model Technology {
-  id String @id @default(cuid())
-
-  name String @unique
-  slug String @unique
-
-  icon  String?
-  color String?
-
-  website String?
-
-  displayOrder Int     @default(0)
-  visible      Boolean @default(true)
-
-  projects ProjectTechnology[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([displayOrder])
-}
-
-// ======================================================
-// PROJECT
-// ======================================================
-
-model Project {
-  id String @id @default(cuid())
-
-  title String
-  slug  String @unique
-
-  shortDescription String
-  description      String @db.Text
-
-  githubUrl String?
-  liveUrl   String?
-
-  featured Boolean @default(false)
-  visible  Boolean @default(true)
-
-  status ProjectStatus @default(DRAFT)
-
-  displayOrder Int @default(0)
-
-  categoryId String
-  category   ProjectCategory @relation(fields: [categoryId], references: [id], onDelete: Restrict)
-
-  technologies ProjectTechnology[]
-  assets       ProjectAsset[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([slug])
-  @@index([featured])
-  @@index([status])
-  @@index([displayOrder])
-  @@index([categoryId])
-}
-
-// ======================================================
-// PROJECT ↔ TECHNOLOGY (Many-to-Many)
-// ======================================================
-
-model ProjectTechnology {
-  projectId    String
-  technologyId String
-
-  project    Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  technology Technology @relation(fields: [technologyId], references: [id], onDelete: Cascade)
-
-  @@id([projectId, technologyId])
-  @@index([technologyId])
-}
-
-// ======================================================
-// PROJECT ↔ ASSET (Screenshots, Images, Videos, PDFs)
-// ======================================================
-
-model ProjectAsset {
-  id String @id @default(cuid())
-
-  projectId String
-  assetId   String
-
-  caption String?
-
-  isThumbnail Boolean @default(false)
-
-  displayOrder Int @default(0)
-
-  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  asset   Asset   @relation(fields: [assetId], references: [id], onDelete: Cascade)
-
-  @@unique([projectId, assetId])
-  @@index([projectId])
-  @@index([assetId])
-  @@index([displayOrder])
-}
-
-// ======================================================
-// EXPERIENCE
-// ======================================================
-
-model Experience {
-  id String @id @default(cuid())
-
-  company  String
-  position String
-
-  employmentType String?
-
-  location String?
-
-  startDate DateTime
-  endDate   DateTime?
-
-  isCurrent Boolean @default(false)
-
-  description String @db.Text
-
-  companyLogoId String?
-  companyLogo   Asset?  @relation(fields: [companyLogoId], references: [id], onDelete: SetNull)
-
-  displayOrder Int     @default(0)
-  visible      Boolean @default(true)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([displayOrder])
-  @@index([startDate])
-}
-
-// ======================================================
-// EDUCATION
-// ======================================================
-
-model Education {
-  id String @id @default(cuid())
-
-  institution String
-  degree      String
-  branch      String?
-
-  location String?
-
-  startDate DateTime
-  endDate   DateTime?
-
-  isCurrent Boolean @default(false)
-
-  gradeType  GradeType
-  gradeValue Decimal   @db.Decimal(5, 2)
-
-  description String? @db.Text
-
-  institutionLogoId String?
-  institutionLogo   Asset?  @relation(fields: [institutionLogoId], references: [id], onDelete: SetNull)
-
-  displayOrder Int     @default(0)
-  visible      Boolean @default(true)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([displayOrder])
-  @@index([startDate])
-}
-
-// ======================================================
-// RESEARCH
-// ======================================================
-
-model Research {
-  id String @id @default(cuid())
-
-  title String
-  slug  String @unique
-
-  abstract String? @db.Text
-
-  publisher String?
-  journal   String?
-
-  doi String?
-
-  externalUrl String?
-
-  publishedAt DateTime?
-
-  pdfAssetId String?
-  pdfAsset   Asset?  @relation("ResearchPdf", fields: [pdfAssetId], references: [id], onDelete: SetNull)
-
-  coverImageId String?
-  coverImage   Asset?  @relation("ResearchCover", fields: [coverImageId], references: [id], onDelete: SetNull)
-
-  featured Boolean @default(false)
-  visible  Boolean @default(true)
-
-  displayOrder Int @default(0)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([slug])
-  @@index([featured])
-  @@index([displayOrder])
-}
-
-// ======================================================
-// BLOG
-// ======================================================
-
-model Blog {
-  id String @id @default(cuid())
-
-  title String
-  slug  String @unique
-
-  excerpt String?
-  content String  @db.Text
-
-  coverImageId String?
-  coverImage   Asset?  @relation(fields: [coverImageId], references: [id], onDelete: SetNull)
-
-  authorId String
-  author   User   @relation(fields: [authorId], references: [id], onDelete: Restrict)
-
-  published   Boolean   @default(false)
-  publishedAt DateTime?
-
-  featured Boolean @default(false)
-  visible  Boolean @default(true)
-
-  displayOrder Int @default(0)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([slug])
-  @@index([authorId])
-  @@index([published])
-  @@index([featured])
-  @@index([displayOrder])
-}
-
-// ======================================================
-// ACHIEVEMENT
-// ======================================================
-
-model Achievement {
-  id String @id @default(cuid())
-
-  title String
-
-  description String? @db.Text
-
-  category String?
-
-  issuer String?
-
-  issueDate DateTime?
-
-  credentialUrl String?
-
-  imageId String?
-  image   Asset? @relation(fields: [imageId], references: [id], onDelete: SetNull)
-
-  displayOrder Int @default(0)
-
-  visible Boolean @default(true)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-
-  @@index([displayOrder])
-  @@index([issueDate])
-  @@index([visible])
-}
-
-
-// ======================================================
-// CONTACT MESSAGE
-// ======================================================
-
-model ContactMessage {
-  id String @id @default(cuid())
-
-  name    String
-  email   String
-  subject String?
-
-  message String @db.Text
-
-  isRead    Boolean @default(false)
-  isReplied Boolean @default(false)
-
-  ipAddress String?
-  userAgent String? @db.Text
-
-  createdAt DateTime @default(now())
-
-  @@index([email])
-  @@index([isRead])
-  @@index([createdAt])
-}
-
-// ======================================================
-// RELATIONS ADDED TO ASSET
-// ======================================================
-//
-// Add these relation fields inside the existing Asset model
-//
-
-// Settings
-// profileImage Setting[] @relation("ProfileImage")
-// resumeFile   Setting[] @relation("ResumeFile")
-
-// User
-// userAvatar User[] @relation("UserAvatar")
-
-// Experience
-// experienceLogos Experience[]
-
-// Education
-// educationLogos Education[]
-
-// Research
-// researchPdfs   Research[] @relation("ResearchPdf")
-// researchCovers Research[] @relation("ResearchCover")
-
-// Blog
-// blogCovers Blog[]
-
-// Project
-// projectAssets ProjectAsset[]
-// ======================================================
-// FINAL RELATION FIELDS
-// ======================================================
-//
-// Replace your existing Asset model with this one.
-//

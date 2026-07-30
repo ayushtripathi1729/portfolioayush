@@ -198,9 +198,9 @@ export type UserWhereInput = {
   avatarId?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  avatar?: Prisma.XOR<Prisma.AssetNullableScalarRelationFilter, Prisma.AssetWhereInput> | null
   createdBlogs?: Prisma.BlogListRelationFilter
   settings?: Prisma.XOR<Prisma.SettingNullableScalarRelationFilter, Prisma.SettingWhereInput> | null
+  avatar?: Prisma.XOR<Prisma.AssetNullableScalarRelationFilter, Prisma.AssetWhereInput> | null
 }
 
 export type UserOrderByWithRelationInput = {
@@ -211,9 +211,9 @@ export type UserOrderByWithRelationInput = {
   avatarId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  avatar?: Prisma.AssetOrderByWithRelationInput
   createdBlogs?: Prisma.BlogOrderByRelationAggregateInput
   settings?: Prisma.SettingOrderByWithRelationInput
+  avatar?: Prisma.AssetOrderByWithRelationInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -227,9 +227,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   avatarId?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  avatar?: Prisma.XOR<Prisma.AssetNullableScalarRelationFilter, Prisma.AssetWhereInput> | null
   createdBlogs?: Prisma.BlogListRelationFilter
   settings?: Prisma.XOR<Prisma.SettingNullableScalarRelationFilter, Prisma.SettingWhereInput> | null
+  avatar?: Prisma.XOR<Prisma.AssetNullableScalarRelationFilter, Prisma.AssetWhereInput> | null
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -265,9 +265,9 @@ export type UserCreateInput = {
   passwordHash: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  avatar?: Prisma.AssetCreateNestedOneWithoutUserAvatarInput
   createdBlogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
   settings?: Prisma.SettingCreateNestedOneWithoutUserInput
+  avatar?: Prisma.AssetCreateNestedOneWithoutUserAvatarInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -289,9 +289,9 @@ export type UserUpdateInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  avatar?: Prisma.AssetUpdateOneWithoutUserAvatarNestedInput
   createdBlogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
   settings?: Prisma.SettingUpdateOneWithoutUserNestedInput
+  avatar?: Prisma.AssetUpdateOneWithoutUserAvatarNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -469,8 +469,8 @@ export type UserCreateWithoutSettingsInput = {
   passwordHash: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  avatar?: Prisma.AssetCreateNestedOneWithoutUserAvatarInput
   createdBlogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
+  avatar?: Prisma.AssetCreateNestedOneWithoutUserAvatarInput
 }
 
 export type UserUncheckedCreateWithoutSettingsInput = {
@@ -507,8 +507,8 @@ export type UserUpdateWithoutSettingsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  avatar?: Prisma.AssetUpdateOneWithoutUserAvatarNestedInput
   createdBlogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
+  avatar?: Prisma.AssetUpdateOneWithoutUserAvatarNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSettingsInput = {
@@ -590,8 +590,8 @@ export type UserCreateWithoutCreatedBlogsInput = {
   passwordHash: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  avatar?: Prisma.AssetCreateNestedOneWithoutUserAvatarInput
   settings?: Prisma.SettingCreateNestedOneWithoutUserInput
+  avatar?: Prisma.AssetCreateNestedOneWithoutUserAvatarInput
 }
 
 export type UserUncheckedCreateWithoutCreatedBlogsInput = {
@@ -628,8 +628,8 @@ export type UserUpdateWithoutCreatedBlogsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  avatar?: Prisma.AssetUpdateOneWithoutUserAvatarNestedInput
   settings?: Prisma.SettingUpdateOneWithoutUserNestedInput
+  avatar?: Prisma.AssetUpdateOneWithoutUserAvatarNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedBlogsInput = {
@@ -722,9 +722,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   avatarId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  avatar?: boolean | Prisma.User$avatarArgs<ExtArgs>
   createdBlogs?: boolean | Prisma.User$createdBlogsArgs<ExtArgs>
   settings?: boolean | Prisma.User$settingsArgs<ExtArgs>
+  avatar?: boolean | Prisma.User$avatarArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -762,9 +762,9 @@ export type UserSelectScalar = {
 
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "avatarId" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  avatar?: boolean | Prisma.User$avatarArgs<ExtArgs>
   createdBlogs?: boolean | Prisma.User$createdBlogsArgs<ExtArgs>
   settings?: boolean | Prisma.User$settingsArgs<ExtArgs>
+  avatar?: boolean | Prisma.User$avatarArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -777,9 +777,9 @@ export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
-    avatar: Prisma.$AssetPayload<ExtArgs> | null
     createdBlogs: Prisma.$BlogPayload<ExtArgs>[]
     settings: Prisma.$SettingPayload<ExtArgs> | null
+    avatar: Prisma.$AssetPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1183,9 +1183,9 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  avatar<T extends Prisma.User$avatarArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$avatarArgs<ExtArgs>>): Prisma.Prisma__AssetClient<runtime.Types.Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   createdBlogs<T extends Prisma.User$createdBlogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdBlogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BlogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   settings<T extends Prisma.User$settingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$settingsArgs<ExtArgs>>): Prisma.Prisma__SettingClient<runtime.Types.Result.GetResult<Prisma.$SettingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  avatar<T extends Prisma.User$avatarArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$avatarArgs<ExtArgs>>): Prisma.Prisma__AssetClient<runtime.Types.Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1623,25 +1623,6 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * User.avatar
- */
-export type User$avatarArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Asset
-   */
-  select?: Prisma.AssetSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Asset
-   */
-  omit?: Prisma.AssetOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.AssetInclude<ExtArgs> | null
-  where?: Prisma.AssetWhereInput
-}
-
-/**
  * User.createdBlogs
  */
 export type User$createdBlogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1682,6 +1663,25 @@ export type User$settingsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   include?: Prisma.SettingInclude<ExtArgs> | null
   where?: Prisma.SettingWhereInput
+}
+
+/**
+ * User.avatar
+ */
+export type User$avatarArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Asset
+   */
+  select?: Prisma.AssetSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Asset
+   */
+  omit?: Prisma.AssetOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AssetInclude<ExtArgs> | null
+  where?: Prisma.AssetWhereInput
 }
 
 /**

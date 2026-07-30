@@ -304,8 +304,8 @@ export type ResearchWhereInput = {
   displayOrder?: Prisma.IntFilter<"Research"> | number
   createdAt?: Prisma.DateTimeFilter<"Research"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Research"> | Date | string
-  pdfAsset?: Prisma.XOR<Prisma.AssetNullableScalarRelationFilter, Prisma.AssetWhereInput> | null
   coverImage?: Prisma.XOR<Prisma.AssetNullableScalarRelationFilter, Prisma.AssetWhereInput> | null
+  pdfAsset?: Prisma.XOR<Prisma.AssetNullableScalarRelationFilter, Prisma.AssetWhereInput> | null
 }
 
 export type ResearchOrderByWithRelationInput = {
@@ -325,8 +325,8 @@ export type ResearchOrderByWithRelationInput = {
   displayOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  pdfAsset?: Prisma.AssetOrderByWithRelationInput
   coverImage?: Prisma.AssetOrderByWithRelationInput
+  pdfAsset?: Prisma.AssetOrderByWithRelationInput
 }
 
 export type ResearchWhereUniqueInput = Prisma.AtLeast<{
@@ -349,8 +349,8 @@ export type ResearchWhereUniqueInput = Prisma.AtLeast<{
   displayOrder?: Prisma.IntFilter<"Research"> | number
   createdAt?: Prisma.DateTimeFilter<"Research"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Research"> | Date | string
-  pdfAsset?: Prisma.XOR<Prisma.AssetNullableScalarRelationFilter, Prisma.AssetWhereInput> | null
   coverImage?: Prisma.XOR<Prisma.AssetNullableScalarRelationFilter, Prisma.AssetWhereInput> | null
+  pdfAsset?: Prisma.XOR<Prisma.AssetNullableScalarRelationFilter, Prisma.AssetWhereInput> | null
 }, "id" | "slug">
 
 export type ResearchOrderByWithAggregationInput = {
@@ -414,8 +414,8 @@ export type ResearchCreateInput = {
   displayOrder?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  pdfAsset?: Prisma.AssetCreateNestedOneWithoutResearchPdfsInput
   coverImage?: Prisma.AssetCreateNestedOneWithoutResearchCoversInput
+  pdfAsset?: Prisma.AssetCreateNestedOneWithoutResearchPdfsInput
 }
 
 export type ResearchUncheckedCreateInput = {
@@ -452,8 +452,8 @@ export type ResearchUpdateInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  pdfAsset?: Prisma.AssetUpdateOneWithoutResearchPdfsNestedInput
   coverImage?: Prisma.AssetUpdateOneWithoutResearchCoversNestedInput
+  pdfAsset?: Prisma.AssetUpdateOneWithoutResearchPdfsNestedInput
 }
 
 export type ResearchUncheckedUpdateInput = {
@@ -605,13 +605,6 @@ export type ResearchSumOrderByAggregateInput = {
   displayOrder?: Prisma.SortOrder
 }
 
-export type ResearchCreateNestedManyWithoutPdfAssetInput = {
-  create?: Prisma.XOR<Prisma.ResearchCreateWithoutPdfAssetInput, Prisma.ResearchUncheckedCreateWithoutPdfAssetInput> | Prisma.ResearchCreateWithoutPdfAssetInput[] | Prisma.ResearchUncheckedCreateWithoutPdfAssetInput[]
-  connectOrCreate?: Prisma.ResearchCreateOrConnectWithoutPdfAssetInput | Prisma.ResearchCreateOrConnectWithoutPdfAssetInput[]
-  createMany?: Prisma.ResearchCreateManyPdfAssetInputEnvelope
-  connect?: Prisma.ResearchWhereUniqueInput | Prisma.ResearchWhereUniqueInput[]
-}
-
 export type ResearchCreateNestedManyWithoutCoverImageInput = {
   create?: Prisma.XOR<Prisma.ResearchCreateWithoutCoverImageInput, Prisma.ResearchUncheckedCreateWithoutCoverImageInput> | Prisma.ResearchCreateWithoutCoverImageInput[] | Prisma.ResearchUncheckedCreateWithoutCoverImageInput[]
   connectOrCreate?: Prisma.ResearchCreateOrConnectWithoutCoverImageInput | Prisma.ResearchCreateOrConnectWithoutCoverImageInput[]
@@ -619,7 +612,7 @@ export type ResearchCreateNestedManyWithoutCoverImageInput = {
   connect?: Prisma.ResearchWhereUniqueInput | Prisma.ResearchWhereUniqueInput[]
 }
 
-export type ResearchUncheckedCreateNestedManyWithoutPdfAssetInput = {
+export type ResearchCreateNestedManyWithoutPdfAssetInput = {
   create?: Prisma.XOR<Prisma.ResearchCreateWithoutPdfAssetInput, Prisma.ResearchUncheckedCreateWithoutPdfAssetInput> | Prisma.ResearchCreateWithoutPdfAssetInput[] | Prisma.ResearchUncheckedCreateWithoutPdfAssetInput[]
   connectOrCreate?: Prisma.ResearchCreateOrConnectWithoutPdfAssetInput | Prisma.ResearchCreateOrConnectWithoutPdfAssetInput[]
   createMany?: Prisma.ResearchCreateManyPdfAssetInputEnvelope
@@ -633,18 +626,11 @@ export type ResearchUncheckedCreateNestedManyWithoutCoverImageInput = {
   connect?: Prisma.ResearchWhereUniqueInput | Prisma.ResearchWhereUniqueInput[]
 }
 
-export type ResearchUpdateManyWithoutPdfAssetNestedInput = {
+export type ResearchUncheckedCreateNestedManyWithoutPdfAssetInput = {
   create?: Prisma.XOR<Prisma.ResearchCreateWithoutPdfAssetInput, Prisma.ResearchUncheckedCreateWithoutPdfAssetInput> | Prisma.ResearchCreateWithoutPdfAssetInput[] | Prisma.ResearchUncheckedCreateWithoutPdfAssetInput[]
   connectOrCreate?: Prisma.ResearchCreateOrConnectWithoutPdfAssetInput | Prisma.ResearchCreateOrConnectWithoutPdfAssetInput[]
-  upsert?: Prisma.ResearchUpsertWithWhereUniqueWithoutPdfAssetInput | Prisma.ResearchUpsertWithWhereUniqueWithoutPdfAssetInput[]
   createMany?: Prisma.ResearchCreateManyPdfAssetInputEnvelope
-  set?: Prisma.ResearchWhereUniqueInput | Prisma.ResearchWhereUniqueInput[]
-  disconnect?: Prisma.ResearchWhereUniqueInput | Prisma.ResearchWhereUniqueInput[]
-  delete?: Prisma.ResearchWhereUniqueInput | Prisma.ResearchWhereUniqueInput[]
   connect?: Prisma.ResearchWhereUniqueInput | Prisma.ResearchWhereUniqueInput[]
-  update?: Prisma.ResearchUpdateWithWhereUniqueWithoutPdfAssetInput | Prisma.ResearchUpdateWithWhereUniqueWithoutPdfAssetInput[]
-  updateMany?: Prisma.ResearchUpdateManyWithWhereWithoutPdfAssetInput | Prisma.ResearchUpdateManyWithWhereWithoutPdfAssetInput[]
-  deleteMany?: Prisma.ResearchScalarWhereInput | Prisma.ResearchScalarWhereInput[]
 }
 
 export type ResearchUpdateManyWithoutCoverImageNestedInput = {
@@ -661,7 +647,7 @@ export type ResearchUpdateManyWithoutCoverImageNestedInput = {
   deleteMany?: Prisma.ResearchScalarWhereInput | Prisma.ResearchScalarWhereInput[]
 }
 
-export type ResearchUncheckedUpdateManyWithoutPdfAssetNestedInput = {
+export type ResearchUpdateManyWithoutPdfAssetNestedInput = {
   create?: Prisma.XOR<Prisma.ResearchCreateWithoutPdfAssetInput, Prisma.ResearchUncheckedCreateWithoutPdfAssetInput> | Prisma.ResearchCreateWithoutPdfAssetInput[] | Prisma.ResearchUncheckedCreateWithoutPdfAssetInput[]
   connectOrCreate?: Prisma.ResearchCreateOrConnectWithoutPdfAssetInput | Prisma.ResearchCreateOrConnectWithoutPdfAssetInput[]
   upsert?: Prisma.ResearchUpsertWithWhereUniqueWithoutPdfAssetInput | Prisma.ResearchUpsertWithWhereUniqueWithoutPdfAssetInput[]
@@ -689,50 +675,18 @@ export type ResearchUncheckedUpdateManyWithoutCoverImageNestedInput = {
   deleteMany?: Prisma.ResearchScalarWhereInput | Prisma.ResearchScalarWhereInput[]
 }
 
-export type ResearchCreateWithoutPdfAssetInput = {
-  id?: string
-  title: string
-  slug: string
-  abstract?: string | null
-  publisher?: string | null
-  journal?: string | null
-  doi?: string | null
-  externalUrl?: string | null
-  publishedAt?: Date | string | null
-  featured?: boolean
-  visible?: boolean
-  displayOrder?: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  coverImage?: Prisma.AssetCreateNestedOneWithoutResearchCoversInput
-}
-
-export type ResearchUncheckedCreateWithoutPdfAssetInput = {
-  id?: string
-  title: string
-  slug: string
-  abstract?: string | null
-  publisher?: string | null
-  journal?: string | null
-  doi?: string | null
-  externalUrl?: string | null
-  publishedAt?: Date | string | null
-  coverImageId?: string | null
-  featured?: boolean
-  visible?: boolean
-  displayOrder?: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type ResearchCreateOrConnectWithoutPdfAssetInput = {
-  where: Prisma.ResearchWhereUniqueInput
-  create: Prisma.XOR<Prisma.ResearchCreateWithoutPdfAssetInput, Prisma.ResearchUncheckedCreateWithoutPdfAssetInput>
-}
-
-export type ResearchCreateManyPdfAssetInputEnvelope = {
-  data: Prisma.ResearchCreateManyPdfAssetInput | Prisma.ResearchCreateManyPdfAssetInput[]
-  skipDuplicates?: boolean
+export type ResearchUncheckedUpdateManyWithoutPdfAssetNestedInput = {
+  create?: Prisma.XOR<Prisma.ResearchCreateWithoutPdfAssetInput, Prisma.ResearchUncheckedCreateWithoutPdfAssetInput> | Prisma.ResearchCreateWithoutPdfAssetInput[] | Prisma.ResearchUncheckedCreateWithoutPdfAssetInput[]
+  connectOrCreate?: Prisma.ResearchCreateOrConnectWithoutPdfAssetInput | Prisma.ResearchCreateOrConnectWithoutPdfAssetInput[]
+  upsert?: Prisma.ResearchUpsertWithWhereUniqueWithoutPdfAssetInput | Prisma.ResearchUpsertWithWhereUniqueWithoutPdfAssetInput[]
+  createMany?: Prisma.ResearchCreateManyPdfAssetInputEnvelope
+  set?: Prisma.ResearchWhereUniqueInput | Prisma.ResearchWhereUniqueInput[]
+  disconnect?: Prisma.ResearchWhereUniqueInput | Prisma.ResearchWhereUniqueInput[]
+  delete?: Prisma.ResearchWhereUniqueInput | Prisma.ResearchWhereUniqueInput[]
+  connect?: Prisma.ResearchWhereUniqueInput | Prisma.ResearchWhereUniqueInput[]
+  update?: Prisma.ResearchUpdateWithWhereUniqueWithoutPdfAssetInput | Prisma.ResearchUpdateWithWhereUniqueWithoutPdfAssetInput[]
+  updateMany?: Prisma.ResearchUpdateManyWithWhereWithoutPdfAssetInput | Prisma.ResearchUpdateManyWithWhereWithoutPdfAssetInput[]
+  deleteMany?: Prisma.ResearchScalarWhereInput | Prisma.ResearchScalarWhereInput[]
 }
 
 export type ResearchCreateWithoutCoverImageInput = {
@@ -781,20 +735,66 @@ export type ResearchCreateManyCoverImageInputEnvelope = {
   skipDuplicates?: boolean
 }
 
-export type ResearchUpsertWithWhereUniqueWithoutPdfAssetInput = {
+export type ResearchCreateWithoutPdfAssetInput = {
+  id?: string
+  title: string
+  slug: string
+  abstract?: string | null
+  publisher?: string | null
+  journal?: string | null
+  doi?: string | null
+  externalUrl?: string | null
+  publishedAt?: Date | string | null
+  featured?: boolean
+  visible?: boolean
+  displayOrder?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  coverImage?: Prisma.AssetCreateNestedOneWithoutResearchCoversInput
+}
+
+export type ResearchUncheckedCreateWithoutPdfAssetInput = {
+  id?: string
+  title: string
+  slug: string
+  abstract?: string | null
+  publisher?: string | null
+  journal?: string | null
+  doi?: string | null
+  externalUrl?: string | null
+  publishedAt?: Date | string | null
+  coverImageId?: string | null
+  featured?: boolean
+  visible?: boolean
+  displayOrder?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ResearchCreateOrConnectWithoutPdfAssetInput = {
   where: Prisma.ResearchWhereUniqueInput
-  update: Prisma.XOR<Prisma.ResearchUpdateWithoutPdfAssetInput, Prisma.ResearchUncheckedUpdateWithoutPdfAssetInput>
   create: Prisma.XOR<Prisma.ResearchCreateWithoutPdfAssetInput, Prisma.ResearchUncheckedCreateWithoutPdfAssetInput>
 }
 
-export type ResearchUpdateWithWhereUniqueWithoutPdfAssetInput = {
-  where: Prisma.ResearchWhereUniqueInput
-  data: Prisma.XOR<Prisma.ResearchUpdateWithoutPdfAssetInput, Prisma.ResearchUncheckedUpdateWithoutPdfAssetInput>
+export type ResearchCreateManyPdfAssetInputEnvelope = {
+  data: Prisma.ResearchCreateManyPdfAssetInput | Prisma.ResearchCreateManyPdfAssetInput[]
+  skipDuplicates?: boolean
 }
 
-export type ResearchUpdateManyWithWhereWithoutPdfAssetInput = {
+export type ResearchUpsertWithWhereUniqueWithoutCoverImageInput = {
+  where: Prisma.ResearchWhereUniqueInput
+  update: Prisma.XOR<Prisma.ResearchUpdateWithoutCoverImageInput, Prisma.ResearchUncheckedUpdateWithoutCoverImageInput>
+  create: Prisma.XOR<Prisma.ResearchCreateWithoutCoverImageInput, Prisma.ResearchUncheckedCreateWithoutCoverImageInput>
+}
+
+export type ResearchUpdateWithWhereUniqueWithoutCoverImageInput = {
+  where: Prisma.ResearchWhereUniqueInput
+  data: Prisma.XOR<Prisma.ResearchUpdateWithoutCoverImageInput, Prisma.ResearchUncheckedUpdateWithoutCoverImageInput>
+}
+
+export type ResearchUpdateManyWithWhereWithoutCoverImageInput = {
   where: Prisma.ResearchScalarWhereInput
-  data: Prisma.XOR<Prisma.ResearchUpdateManyMutationInput, Prisma.ResearchUncheckedUpdateManyWithoutPdfAssetInput>
+  data: Prisma.XOR<Prisma.ResearchUpdateManyMutationInput, Prisma.ResearchUncheckedUpdateManyWithoutCoverImageInput>
 }
 
 export type ResearchScalarWhereInput = {
@@ -819,38 +819,20 @@ export type ResearchScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Research"> | Date | string
 }
 
-export type ResearchUpsertWithWhereUniqueWithoutCoverImageInput = {
+export type ResearchUpsertWithWhereUniqueWithoutPdfAssetInput = {
   where: Prisma.ResearchWhereUniqueInput
-  update: Prisma.XOR<Prisma.ResearchUpdateWithoutCoverImageInput, Prisma.ResearchUncheckedUpdateWithoutCoverImageInput>
-  create: Prisma.XOR<Prisma.ResearchCreateWithoutCoverImageInput, Prisma.ResearchUncheckedCreateWithoutCoverImageInput>
+  update: Prisma.XOR<Prisma.ResearchUpdateWithoutPdfAssetInput, Prisma.ResearchUncheckedUpdateWithoutPdfAssetInput>
+  create: Prisma.XOR<Prisma.ResearchCreateWithoutPdfAssetInput, Prisma.ResearchUncheckedCreateWithoutPdfAssetInput>
 }
 
-export type ResearchUpdateWithWhereUniqueWithoutCoverImageInput = {
+export type ResearchUpdateWithWhereUniqueWithoutPdfAssetInput = {
   where: Prisma.ResearchWhereUniqueInput
-  data: Prisma.XOR<Prisma.ResearchUpdateWithoutCoverImageInput, Prisma.ResearchUncheckedUpdateWithoutCoverImageInput>
+  data: Prisma.XOR<Prisma.ResearchUpdateWithoutPdfAssetInput, Prisma.ResearchUncheckedUpdateWithoutPdfAssetInput>
 }
 
-export type ResearchUpdateManyWithWhereWithoutCoverImageInput = {
+export type ResearchUpdateManyWithWhereWithoutPdfAssetInput = {
   where: Prisma.ResearchScalarWhereInput
-  data: Prisma.XOR<Prisma.ResearchUpdateManyMutationInput, Prisma.ResearchUncheckedUpdateManyWithoutCoverImageInput>
-}
-
-export type ResearchCreateManyPdfAssetInput = {
-  id?: string
-  title: string
-  slug: string
-  abstract?: string | null
-  publisher?: string | null
-  journal?: string | null
-  doi?: string | null
-  externalUrl?: string | null
-  publishedAt?: Date | string | null
-  coverImageId?: string | null
-  featured?: boolean
-  visible?: boolean
-  displayOrder?: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  data: Prisma.XOR<Prisma.ResearchUpdateManyMutationInput, Prisma.ResearchUncheckedUpdateManyWithoutPdfAssetInput>
 }
 
 export type ResearchCreateManyCoverImageInput = {
@@ -871,58 +853,22 @@ export type ResearchCreateManyCoverImageInput = {
   updatedAt?: Date | string
 }
 
-export type ResearchUpdateWithoutPdfAssetInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  abstract?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  publisher?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  journal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  doi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  externalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  visible?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  coverImage?: Prisma.AssetUpdateOneWithoutResearchCoversNestedInput
-}
-
-export type ResearchUncheckedUpdateWithoutPdfAssetInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  abstract?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  publisher?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  journal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  doi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  externalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  coverImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  visible?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type ResearchUncheckedUpdateManyWithoutPdfAssetInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  abstract?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  publisher?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  journal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  doi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  externalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  coverImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  visible?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+export type ResearchCreateManyPdfAssetInput = {
+  id?: string
+  title: string
+  slug: string
+  abstract?: string | null
+  publisher?: string | null
+  journal?: string | null
+  doi?: string | null
+  externalUrl?: string | null
+  publishedAt?: Date | string | null
+  coverImageId?: string | null
+  featured?: boolean
+  visible?: boolean
+  displayOrder?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ResearchUpdateWithoutCoverImageInput = {
@@ -979,6 +925,60 @@ export type ResearchUncheckedUpdateManyWithoutCoverImageInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type ResearchUpdateWithoutPdfAssetInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  abstract?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publisher?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  journal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  externalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  visible?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  coverImage?: Prisma.AssetUpdateOneWithoutResearchCoversNestedInput
+}
+
+export type ResearchUncheckedUpdateWithoutPdfAssetInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  abstract?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publisher?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  journal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  externalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  coverImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  visible?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ResearchUncheckedUpdateManyWithoutPdfAssetInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  abstract?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publisher?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  journal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  externalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  coverImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  visible?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 
 
 export type ResearchSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -998,8 +998,8 @@ export type ResearchSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   displayOrder?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  pdfAsset?: boolean | Prisma.Research$pdfAssetArgs<ExtArgs>
   coverImage?: boolean | Prisma.Research$coverImageArgs<ExtArgs>
+  pdfAsset?: boolean | Prisma.Research$pdfAssetArgs<ExtArgs>
 }, ExtArgs["result"]["research"]>
 
 export type ResearchSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1019,8 +1019,8 @@ export type ResearchSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   displayOrder?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  pdfAsset?: boolean | Prisma.Research$pdfAssetArgs<ExtArgs>
   coverImage?: boolean | Prisma.Research$coverImageArgs<ExtArgs>
+  pdfAsset?: boolean | Prisma.Research$pdfAssetArgs<ExtArgs>
 }, ExtArgs["result"]["research"]>
 
 export type ResearchSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1040,8 +1040,8 @@ export type ResearchSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   displayOrder?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  pdfAsset?: boolean | Prisma.Research$pdfAssetArgs<ExtArgs>
   coverImage?: boolean | Prisma.Research$coverImageArgs<ExtArgs>
+  pdfAsset?: boolean | Prisma.Research$pdfAssetArgs<ExtArgs>
 }, ExtArgs["result"]["research"]>
 
 export type ResearchSelectScalar = {
@@ -1065,23 +1065,23 @@ export type ResearchSelectScalar = {
 
 export type ResearchOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "abstract" | "publisher" | "journal" | "doi" | "externalUrl" | "publishedAt" | "pdfAssetId" | "coverImageId" | "featured" | "visible" | "displayOrder" | "createdAt" | "updatedAt", ExtArgs["result"]["research"]>
 export type ResearchInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  pdfAsset?: boolean | Prisma.Research$pdfAssetArgs<ExtArgs>
   coverImage?: boolean | Prisma.Research$coverImageArgs<ExtArgs>
+  pdfAsset?: boolean | Prisma.Research$pdfAssetArgs<ExtArgs>
 }
 export type ResearchIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  pdfAsset?: boolean | Prisma.Research$pdfAssetArgs<ExtArgs>
   coverImage?: boolean | Prisma.Research$coverImageArgs<ExtArgs>
+  pdfAsset?: boolean | Prisma.Research$pdfAssetArgs<ExtArgs>
 }
 export type ResearchIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  pdfAsset?: boolean | Prisma.Research$pdfAssetArgs<ExtArgs>
   coverImage?: boolean | Prisma.Research$coverImageArgs<ExtArgs>
+  pdfAsset?: boolean | Prisma.Research$pdfAssetArgs<ExtArgs>
 }
 
 export type $ResearchPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Research"
   objects: {
-    pdfAsset: Prisma.$AssetPayload<ExtArgs> | null
     coverImage: Prisma.$AssetPayload<ExtArgs> | null
+    pdfAsset: Prisma.$AssetPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1494,8 +1494,8 @@ readonly fields: ResearchFieldRefs;
  */
 export interface Prisma__ResearchClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  pdfAsset<T extends Prisma.Research$pdfAssetArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Research$pdfAssetArgs<ExtArgs>>): Prisma.Prisma__AssetClient<runtime.Types.Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   coverImage<T extends Prisma.Research$coverImageArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Research$coverImageArgs<ExtArgs>>): Prisma.Prisma__AssetClient<runtime.Types.Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  pdfAsset<T extends Prisma.Research$pdfAssetArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Research$pdfAssetArgs<ExtArgs>>): Prisma.Prisma__AssetClient<runtime.Types.Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1942,9 +1942,9 @@ export type ResearchDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
 }
 
 /**
- * Research.pdfAsset
+ * Research.coverImage
  */
-export type Research$pdfAssetArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Research$coverImageArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Asset
    */
@@ -1961,9 +1961,9 @@ export type Research$pdfAssetArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
- * Research.coverImage
+ * Research.pdfAsset
  */
-export type Research$coverImageArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Research$pdfAssetArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Asset
    */

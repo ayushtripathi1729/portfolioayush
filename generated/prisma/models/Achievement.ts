@@ -360,7 +360,7 @@ export type AchievementCreateInput = {
   visible?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  image?: Prisma.AssetCreateNestedOneWithoutAchievementsInput
+  image?: Prisma.AssetCreateNestedOneWithoutAchievementImagesInput
 }
 
 export type AchievementUncheckedCreateInput = {
@@ -390,7 +390,7 @@ export type AchievementUpdateInput = {
   visible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  image?: Prisma.AssetUpdateOneWithoutAchievementsNestedInput
+  image?: Prisma.AssetUpdateOneWithoutAchievementImagesNestedInput
 }
 
 export type AchievementUncheckedUpdateInput = {

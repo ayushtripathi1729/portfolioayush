@@ -289,8 +289,8 @@ export type ProjectWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   category?: Prisma.XOR<Prisma.ProjectCategoryScalarRelationFilter, Prisma.ProjectCategoryWhereInput>
-  technologies?: Prisma.ProjectTechnologyListRelationFilter
   assets?: Prisma.ProjectAssetListRelationFilter
+  technologies?: Prisma.ProjectTechnologyListRelationFilter
 }
 
 export type ProjectOrderByWithRelationInput = {
@@ -309,8 +309,8 @@ export type ProjectOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   category?: Prisma.ProjectCategoryOrderByWithRelationInput
-  technologies?: Prisma.ProjectTechnologyOrderByRelationAggregateInput
   assets?: Prisma.ProjectAssetOrderByRelationAggregateInput
+  technologies?: Prisma.ProjectTechnologyOrderByRelationAggregateInput
 }
 
 export type ProjectWhereUniqueInput = Prisma.AtLeast<{
@@ -332,8 +332,8 @@ export type ProjectWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   category?: Prisma.XOR<Prisma.ProjectCategoryScalarRelationFilter, Prisma.ProjectCategoryWhereInput>
-  technologies?: Prisma.ProjectTechnologyListRelationFilter
   assets?: Prisma.ProjectAssetListRelationFilter
+  technologies?: Prisma.ProjectTechnologyListRelationFilter
 }, "id" | "slug">
 
 export type ProjectOrderByWithAggregationInput = {
@@ -393,8 +393,8 @@ export type ProjectCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   category: Prisma.ProjectCategoryCreateNestedOneWithoutProjectsInput
-  technologies?: Prisma.ProjectTechnologyCreateNestedManyWithoutProjectInput
   assets?: Prisma.ProjectAssetCreateNestedManyWithoutProjectInput
+  technologies?: Prisma.ProjectTechnologyCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateInput = {
@@ -412,8 +412,8 @@ export type ProjectUncheckedCreateInput = {
   categoryId: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  technologies?: Prisma.ProjectTechnologyUncheckedCreateNestedManyWithoutProjectInput
   assets?: Prisma.ProjectAssetUncheckedCreateNestedManyWithoutProjectInput
+  technologies?: Prisma.ProjectTechnologyUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUpdateInput = {
@@ -431,8 +431,8 @@ export type ProjectUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   category?: Prisma.ProjectCategoryUpdateOneRequiredWithoutProjectsNestedInput
-  technologies?: Prisma.ProjectTechnologyUpdateManyWithoutProjectNestedInput
   assets?: Prisma.ProjectAssetUpdateManyWithoutProjectNestedInput
+  technologies?: Prisma.ProjectTechnologyUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateInput = {
@@ -450,8 +450,8 @@ export type ProjectUncheckedUpdateInput = {
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  technologies?: Prisma.ProjectTechnologyUncheckedUpdateManyWithoutProjectNestedInput
   assets?: Prisma.ProjectAssetUncheckedUpdateManyWithoutProjectNestedInput
+  technologies?: Prisma.ProjectTechnologyUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateManyInput = {
@@ -666,8 +666,8 @@ export type ProjectCreateWithoutCategoryInput = {
   displayOrder?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  technologies?: Prisma.ProjectTechnologyCreateNestedManyWithoutProjectInput
   assets?: Prisma.ProjectAssetCreateNestedManyWithoutProjectInput
+  technologies?: Prisma.ProjectTechnologyCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutCategoryInput = {
@@ -684,8 +684,8 @@ export type ProjectUncheckedCreateWithoutCategoryInput = {
   displayOrder?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  technologies?: Prisma.ProjectTechnologyUncheckedCreateNestedManyWithoutProjectInput
   assets?: Prisma.ProjectAssetUncheckedCreateNestedManyWithoutProjectInput
+  technologies?: Prisma.ProjectTechnologyUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutCategoryInput = {
@@ -940,8 +940,8 @@ export type ProjectUpdateWithoutCategoryInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  technologies?: Prisma.ProjectTechnologyUpdateManyWithoutProjectNestedInput
   assets?: Prisma.ProjectAssetUpdateManyWithoutProjectNestedInput
+  technologies?: Prisma.ProjectTechnologyUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutCategoryInput = {
@@ -958,8 +958,8 @@ export type ProjectUncheckedUpdateWithoutCategoryInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  technologies?: Prisma.ProjectTechnologyUncheckedUpdateManyWithoutProjectNestedInput
   assets?: Prisma.ProjectAssetUncheckedUpdateManyWithoutProjectNestedInput
+  technologies?: Prisma.ProjectTechnologyUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateManyWithoutCategoryInput = {
@@ -984,13 +984,13 @@ export type ProjectUncheckedUpdateManyWithoutCategoryInput = {
  */
 
 export type ProjectCountOutputType = {
-  technologies: number
   assets: number
+  technologies: number
 }
 
 export type ProjectCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  technologies?: boolean | ProjectCountOutputTypeCountTechnologiesArgs
   assets?: boolean | ProjectCountOutputTypeCountAssetsArgs
+  technologies?: boolean | ProjectCountOutputTypeCountTechnologiesArgs
 }
 
 /**
@@ -1006,15 +1006,15 @@ export type ProjectCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exte
 /**
  * ProjectCountOutputType without action
  */
-export type ProjectCountOutputTypeCountTechnologiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ProjectTechnologyWhereInput
+export type ProjectCountOutputTypeCountAssetsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectAssetWhereInput
 }
 
 /**
  * ProjectCountOutputType without action
  */
-export type ProjectCountOutputTypeCountAssetsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ProjectAssetWhereInput
+export type ProjectCountOutputTypeCountTechnologiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectTechnologyWhereInput
 }
 
 
@@ -1034,8 +1034,8 @@ export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   createdAt?: boolean
   updatedAt?: boolean
   category?: boolean | Prisma.ProjectCategoryDefaultArgs<ExtArgs>
-  technologies?: boolean | Prisma.Project$technologiesArgs<ExtArgs>
   assets?: boolean | Prisma.Project$assetsArgs<ExtArgs>
+  technologies?: boolean | Prisma.Project$technologiesArgs<ExtArgs>
   _count?: boolean | Prisma.ProjectCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["project"]>
 
@@ -1095,8 +1095,8 @@ export type ProjectSelectScalar = {
 export type ProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "shortDescription" | "description" | "githubUrl" | "liveUrl" | "featured" | "visible" | "status" | "displayOrder" | "categoryId" | "createdAt" | "updatedAt", ExtArgs["result"]["project"]>
 export type ProjectInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   category?: boolean | Prisma.ProjectCategoryDefaultArgs<ExtArgs>
-  technologies?: boolean | Prisma.Project$technologiesArgs<ExtArgs>
   assets?: boolean | Prisma.Project$assetsArgs<ExtArgs>
+  technologies?: boolean | Prisma.Project$technologiesArgs<ExtArgs>
   _count?: boolean | Prisma.ProjectCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ProjectIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1110,8 +1110,8 @@ export type $ProjectPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   name: "Project"
   objects: {
     category: Prisma.$ProjectCategoryPayload<ExtArgs>
-    technologies: Prisma.$ProjectTechnologyPayload<ExtArgs>[]
     assets: Prisma.$ProjectAssetPayload<ExtArgs>[]
+    technologies: Prisma.$ProjectTechnologyPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1523,8 +1523,8 @@ readonly fields: ProjectFieldRefs;
 export interface Prisma__ProjectClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   category<T extends Prisma.ProjectCategoryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProjectCategoryDefaultArgs<ExtArgs>>): Prisma.Prisma__ProjectCategoryClient<runtime.Types.Result.GetResult<Prisma.$ProjectCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  technologies<T extends Prisma.Project$technologiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$technologiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectTechnologyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   assets<T extends Prisma.Project$assetsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$assetsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectAssetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  technologies<T extends Prisma.Project$technologiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$technologiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectTechnologyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1969,30 +1969,6 @@ export type ProjectDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
- * Project.technologies
- */
-export type Project$technologiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ProjectTechnology
-   */
-  select?: Prisma.ProjectTechnologySelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ProjectTechnology
-   */
-  omit?: Prisma.ProjectTechnologyOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ProjectTechnologyInclude<ExtArgs> | null
-  where?: Prisma.ProjectTechnologyWhereInput
-  orderBy?: Prisma.ProjectTechnologyOrderByWithRelationInput | Prisma.ProjectTechnologyOrderByWithRelationInput[]
-  cursor?: Prisma.ProjectTechnologyWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ProjectTechnologyScalarFieldEnum | Prisma.ProjectTechnologyScalarFieldEnum[]
-}
-
-/**
  * Project.assets
  */
 export type Project$assetsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2014,6 +1990,30 @@ export type Project$assetsArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.ProjectAssetScalarFieldEnum | Prisma.ProjectAssetScalarFieldEnum[]
+}
+
+/**
+ * Project.technologies
+ */
+export type Project$technologiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectTechnology
+   */
+  select?: Prisma.ProjectTechnologySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectTechnology
+   */
+  omit?: Prisma.ProjectTechnologyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectTechnologyInclude<ExtArgs> | null
+  where?: Prisma.ProjectTechnologyWhereInput
+  orderBy?: Prisma.ProjectTechnologyOrderByWithRelationInput | Prisma.ProjectTechnologyOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectTechnologyWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectTechnologyScalarFieldEnum | Prisma.ProjectTechnologyScalarFieldEnum[]
 }
 
 /**

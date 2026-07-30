@@ -224,8 +224,8 @@ export type ProjectAssetWhereInput = {
   caption?: Prisma.StringNullableFilter<"ProjectAsset"> | string | null
   isThumbnail?: Prisma.BoolFilter<"ProjectAsset"> | boolean
   displayOrder?: Prisma.IntFilter<"ProjectAsset"> | number
-  project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
   asset?: Prisma.XOR<Prisma.AssetScalarRelationFilter, Prisma.AssetWhereInput>
+  project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
 }
 
 export type ProjectAssetOrderByWithRelationInput = {
@@ -235,8 +235,8 @@ export type ProjectAssetOrderByWithRelationInput = {
   caption?: Prisma.SortOrderInput | Prisma.SortOrder
   isThumbnail?: Prisma.SortOrder
   displayOrder?: Prisma.SortOrder
-  project?: Prisma.ProjectOrderByWithRelationInput
   asset?: Prisma.AssetOrderByWithRelationInput
+  project?: Prisma.ProjectOrderByWithRelationInput
 }
 
 export type ProjectAssetWhereUniqueInput = Prisma.AtLeast<{
@@ -250,8 +250,8 @@ export type ProjectAssetWhereUniqueInput = Prisma.AtLeast<{
   caption?: Prisma.StringNullableFilter<"ProjectAsset"> | string | null
   isThumbnail?: Prisma.BoolFilter<"ProjectAsset"> | boolean
   displayOrder?: Prisma.IntFilter<"ProjectAsset"> | number
-  project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
   asset?: Prisma.XOR<Prisma.AssetScalarRelationFilter, Prisma.AssetWhereInput>
+  project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
 }, "id" | "projectId_assetId">
 
 export type ProjectAssetOrderByWithAggregationInput = {
@@ -285,8 +285,8 @@ export type ProjectAssetCreateInput = {
   caption?: string | null
   isThumbnail?: boolean
   displayOrder?: number
-  project: Prisma.ProjectCreateNestedOneWithoutAssetsInput
   asset: Prisma.AssetCreateNestedOneWithoutProjectAssetsInput
+  project: Prisma.ProjectCreateNestedOneWithoutAssetsInput
 }
 
 export type ProjectAssetUncheckedCreateInput = {
@@ -303,8 +303,8 @@ export type ProjectAssetUpdateInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isThumbnail?: Prisma.BoolFieldUpdateOperationsInput | boolean
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
-  project?: Prisma.ProjectUpdateOneRequiredWithoutAssetsNestedInput
   asset?: Prisma.AssetUpdateOneRequiredWithoutProjectAssetsNestedInput
+  project?: Prisma.ProjectUpdateOneRequiredWithoutAssetsNestedInput
 }
 
 export type ProjectAssetUncheckedUpdateInput = {
@@ -644,8 +644,8 @@ export type ProjectAssetSelect<ExtArgs extends runtime.Types.Extensions.Internal
   caption?: boolean
   isThumbnail?: boolean
   displayOrder?: boolean
-  project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   asset?: boolean | Prisma.AssetDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["projectAsset"]>
 
 export type ProjectAssetSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -655,8 +655,8 @@ export type ProjectAssetSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   caption?: boolean
   isThumbnail?: boolean
   displayOrder?: boolean
-  project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   asset?: boolean | Prisma.AssetDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["projectAsset"]>
 
 export type ProjectAssetSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -666,8 +666,8 @@ export type ProjectAssetSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   caption?: boolean
   isThumbnail?: boolean
   displayOrder?: boolean
-  project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   asset?: boolean | Prisma.AssetDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["projectAsset"]>
 
 export type ProjectAssetSelectScalar = {
@@ -681,23 +681,23 @@ export type ProjectAssetSelectScalar = {
 
 export type ProjectAssetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "assetId" | "caption" | "isThumbnail" | "displayOrder", ExtArgs["result"]["projectAsset"]>
 export type ProjectAssetInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   asset?: boolean | Prisma.AssetDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
 }
 export type ProjectAssetIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   asset?: boolean | Prisma.AssetDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
 }
 export type ProjectAssetIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   asset?: boolean | Prisma.AssetDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
 }
 
 export type $ProjectAssetPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ProjectAsset"
   objects: {
-    project: Prisma.$ProjectPayload<ExtArgs>
     asset: Prisma.$AssetPayload<ExtArgs>
+    project: Prisma.$ProjectPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1100,8 +1100,8 @@ readonly fields: ProjectAssetFieldRefs;
  */
 export interface Prisma__ProjectAssetClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  project<T extends Prisma.ProjectDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProjectDefaultArgs<ExtArgs>>): Prisma.Prisma__ProjectClient<runtime.Types.Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   asset<T extends Prisma.AssetDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AssetDefaultArgs<ExtArgs>>): Prisma.Prisma__AssetClient<runtime.Types.Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  project<T extends Prisma.ProjectDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProjectDefaultArgs<ExtArgs>>): Prisma.Prisma__ProjectClient<runtime.Types.Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

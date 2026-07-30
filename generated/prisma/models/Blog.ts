@@ -288,8 +288,8 @@ export type BlogWhereInput = {
   displayOrder?: Prisma.IntFilter<"Blog"> | number
   createdAt?: Prisma.DateTimeFilter<"Blog"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Blog"> | Date | string
-  coverImage?: Prisma.XOR<Prisma.AssetNullableScalarRelationFilter, Prisma.AssetWhereInput> | null
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  coverImage?: Prisma.XOR<Prisma.AssetNullableScalarRelationFilter, Prisma.AssetWhereInput> | null
 }
 
 export type BlogOrderByWithRelationInput = {
@@ -307,8 +307,8 @@ export type BlogOrderByWithRelationInput = {
   displayOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  coverImage?: Prisma.AssetOrderByWithRelationInput
   author?: Prisma.UserOrderByWithRelationInput
+  coverImage?: Prisma.AssetOrderByWithRelationInput
 }
 
 export type BlogWhereUniqueInput = Prisma.AtLeast<{
@@ -329,8 +329,8 @@ export type BlogWhereUniqueInput = Prisma.AtLeast<{
   displayOrder?: Prisma.IntFilter<"Blog"> | number
   createdAt?: Prisma.DateTimeFilter<"Blog"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Blog"> | Date | string
-  coverImage?: Prisma.XOR<Prisma.AssetNullableScalarRelationFilter, Prisma.AssetWhereInput> | null
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  coverImage?: Prisma.XOR<Prisma.AssetNullableScalarRelationFilter, Prisma.AssetWhereInput> | null
 }, "id" | "slug">
 
 export type BlogOrderByWithAggregationInput = {
@@ -388,8 +388,8 @@ export type BlogCreateInput = {
   displayOrder?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  coverImage?: Prisma.AssetCreateNestedOneWithoutBlogCoversInput
   author: Prisma.UserCreateNestedOneWithoutCreatedBlogsInput
+  coverImage?: Prisma.AssetCreateNestedOneWithoutBlogCoversInput
 }
 
 export type BlogUncheckedCreateInput = {
@@ -422,8 +422,8 @@ export type BlogUpdateInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  coverImage?: Prisma.AssetUpdateOneWithoutBlogCoversNestedInput
   author?: Prisma.UserUpdateOneRequiredWithoutCreatedBlogsNestedInput
+  coverImage?: Prisma.AssetUpdateOneWithoutBlogCoversNestedInput
 }
 
 export type BlogUncheckedUpdateInput = {
@@ -926,8 +926,8 @@ export type BlogSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   displayOrder?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  coverImage?: boolean | Prisma.Blog$coverImageArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  coverImage?: boolean | Prisma.Blog$coverImageArgs<ExtArgs>
 }, ExtArgs["result"]["blog"]>
 
 export type BlogSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -945,8 +945,8 @@ export type BlogSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   displayOrder?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  coverImage?: boolean | Prisma.Blog$coverImageArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  coverImage?: boolean | Prisma.Blog$coverImageArgs<ExtArgs>
 }, ExtArgs["result"]["blog"]>
 
 export type BlogSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -964,8 +964,8 @@ export type BlogSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   displayOrder?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  coverImage?: boolean | Prisma.Blog$coverImageArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  coverImage?: boolean | Prisma.Blog$coverImageArgs<ExtArgs>
 }, ExtArgs["result"]["blog"]>
 
 export type BlogSelectScalar = {
@@ -987,23 +987,23 @@ export type BlogSelectScalar = {
 
 export type BlogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "excerpt" | "content" | "coverImageId" | "authorId" | "published" | "publishedAt" | "featured" | "visible" | "displayOrder" | "createdAt" | "updatedAt", ExtArgs["result"]["blog"]>
 export type BlogInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  coverImage?: boolean | Prisma.Blog$coverImageArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  coverImage?: boolean | Prisma.Blog$coverImageArgs<ExtArgs>
 }
 export type BlogIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  coverImage?: boolean | Prisma.Blog$coverImageArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  coverImage?: boolean | Prisma.Blog$coverImageArgs<ExtArgs>
 }
 export type BlogIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  coverImage?: boolean | Prisma.Blog$coverImageArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  coverImage?: boolean | Prisma.Blog$coverImageArgs<ExtArgs>
 }
 
 export type $BlogPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Blog"
   objects: {
-    coverImage: Prisma.$AssetPayload<ExtArgs> | null
     author: Prisma.$UserPayload<ExtArgs>
+    coverImage: Prisma.$AssetPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1414,8 +1414,8 @@ readonly fields: BlogFieldRefs;
  */
 export interface Prisma__BlogClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  coverImage<T extends Prisma.Blog$coverImageArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Blog$coverImageArgs<ExtArgs>>): Prisma.Prisma__AssetClient<runtime.Types.Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   author<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  coverImage<T extends Prisma.Blog$coverImageArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Blog$coverImageArgs<ExtArgs>>): Prisma.Prisma__AssetClient<runtime.Types.Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
