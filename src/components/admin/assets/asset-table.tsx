@@ -4,58 +4,74 @@ import Link from "next/link";
 import { Pencil } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { DeleteEducationButton } from "@/components/admin/education/delete-education-button";
+import { DeleteAssetButton } from "@/components/admin/assets/delete-asset-button";
 
 
-interface EducationTableProps {
-  education: Array<{
+interface AssetTableProps {
+  assets: Array<{
     id: string;
-    institution: string;
-    degree: string;
-    branch: string | null;
-    location: string | null;
-    isCurrent: boolean;
-    gradeType: string;
-    gradeValue: unknown;
-    visible: boolean;
-    startDate: Date;
-    endDate: Date | null;
+    fileName: string;
+    originalName: string;
+    url: string;
+    mimeType: string;
+    type: string;
+    size: number;
+    uploadedAt: Date;
   }>;
 }
 
 
-export function EducationTable({
-  education,
-}: EducationTableProps) {
+
+export function AssetTable({
+  assets,
+}: AssetTableProps) {
+
+  function formatSize(size: number) {
+
+    if (size < 1024) {
+      return `${size} B`;
+    }
+
+    if (size < 1024 * 1024) {
+      return `${(size / 1024).toFixed(2)} KB`;
+    }
+
+    return `${(size / (1024 * 1024)).toFixed(2)} MB`;
+  }
+
+
 
   return (
     <div className="overflow-x-auto rounded-xl border">
 
-
       <table className="w-full text-sm">
-
 
         <thead className="border-b bg-muted/50">
 
           <tr>
 
             <th className="px-4 py-3 text-left">
-              Institution
+              File
             </th>
 
 
             <th className="px-4 py-3 text-left">
-              Degree
+              Type
             </th>
 
 
             <th className="px-4 py-3 text-left">
-              Grade
+              MIME
             </th>
 
 
             <th className="px-4 py-3 text-left">
-              Status
+              Size
+            </th>
+
+
+            <th className="px-4 py-3 text-left">
+              Uploaded
             </th>
 
 
@@ -70,65 +86,32 @@ export function EducationTable({
 
 
 
-
         <tbody>
 
-          {education.map((item) => (
+          {assets.map((asset) => (
 
             <tr
-              key={item.id}
+              key={asset.id}
               className="border-b last:border-none"
             >
-
 
               <td className="px-4 py-3">
 
                 <div className="font-medium">
-                  {item.institution}
+                  {asset.originalName}
                 </div>
 
 
-                {item.location && (
-                  <div className="text-xs text-muted-foreground">
-                    {item.location}
-                  </div>
-                )}
+                <a
+                  href={asset.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-muted-foreground hover:underline"
+                >
+                  {asset.fileName}
+                </a>
 
               </td>
-
-
-
-
-
-              <td className="px-4 py-3">
-
-                <div>
-                  {item.degree}
-                </div>
-
-
-                {item.branch && (
-                  <div className="text-xs text-muted-foreground">
-                    {item.branch}
-                  </div>
-                )}
-
-              </td>
-
-
-
-
-
-              <td className="px-4 py-3">
-
-                {Number(item.gradeValue)}{" "}
-
-                {item.gradeType === "CGPA"
-                  ? "CGPA"
-                  : "%"}
-
-              </td>
-
 
 
 
@@ -136,28 +119,45 @@ export function EducationTable({
               <td className="px-4 py-3">
 
                 <span className="rounded-full border px-2 py-1 text-xs">
-
-                  {item.isCurrent
-                    ? "Current"
-                    : "Completed"}
-
+                  {asset.type}
                 </span>
-
 
               </td>
 
 
 
 
+              <td className="px-4 py-3">
+                {asset.mimeType}
+              </td>
+
+
+
+
+              <td className="px-4 py-3">
+                {formatSize(asset.size)}
+              </td>
+
+
+
+
+              <td className="px-4 py-3">
+
+                {new Date(
+                  asset.uploadedAt
+                ).toLocaleDateString()}
+
+              </td>
+
+
+
 
               <td className="px-4 py-3 text-right">
 
-
                 <div className="flex justify-end gap-2">
 
-
                   <Link
-                    href={`/admin/education/${item.id}/edit`}
+                    href={`/admin/assets/${asset.id}/edit`}
                   >
 
                     <Button
@@ -174,14 +174,11 @@ export function EducationTable({
 
 
 
-
-                  <DeleteEducationButton
-                    id={item.id}
+                  <DeleteAssetButton
+                    id={asset.id}
                   />
 
-
                 </div>
-
 
               </td>
 
@@ -189,7 +186,6 @@ export function EducationTable({
             </tr>
 
           ))}
-
 
         </tbody>
 
