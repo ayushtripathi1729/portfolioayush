@@ -7,6 +7,7 @@ import {
   ImageIcon,
   Settings,
   LayoutDashboard,
+  Award,
 } from "lucide-react";
 
 
@@ -30,6 +31,12 @@ export const adminNavigation = [
   },
 
   {
+    title: "Education",
+    href: "/admin/education",
+    icon: GraduationCap,
+  },
+
+  {
     title: "Experience",
     href: "/admin/experience",
     icon: Briefcase,
@@ -45,6 +52,12 @@ export const adminNavigation = [
     title: "Blog",
     href: "/admin/blog",
     icon: FileText,
+  },
+
+  {
+    title: "Achievements",
+    href: "/admin/achievements",
+    icon: Award,
   },
 
   {
