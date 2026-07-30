@@ -8,6 +8,9 @@ import {
   Settings,
   LayoutDashboard,
   Award,
+  Link,
+  Mail,
+  Users,
 } from "lucide-react";
 
 
@@ -56,7 +59,7 @@ export const adminNavigation = [
 
   {
     title: "Achievements",
-    href: "/admin/achievements",
+    href: "/admin/achievement",
     icon: Award,
   },
 
@@ -64,6 +67,24 @@ export const adminNavigation = [
     title: "Assets",
     href: "/admin/assets",
     icon: ImageIcon,
+  },
+
+  {
+    title: "Social Links",
+    href: "/admin/social-links",
+    icon: Link,
+  },
+
+  {
+    title: "Contact Messages",
+    href: "/admin/contact",
+    icon: Mail,
+  },
+
+  {
+    title: "Users",
+    href: "/admin/users",
+    icon: Users,
   },
 
   {

@@ -1,42 +1,185 @@
-import { Prisma } from "../../generated/prisma/client";
+import {
+  Prisma,
+  GradeType,
+} from "../../generated/prisma/client";
 
 import { educationRepository } from "@/repositories/education.repository";
 
+
+
+interface CreateEducationInput {
+
+  institution: string;
+
+  degree: string;
+
+  branch?: string | null;
+
+  location?: string | null;
+
+  startDate: Date;
+
+  endDate?: Date | null;
+
+  isCurrent: boolean;
+
+  gradeType: GradeType;
+
+  gradeValue: number;
+
+  description?: string | null;
+
+  institutionLogoId?: string | null;
+
+  displayOrder: number;
+
+  visible: boolean;
+
+}
+
+
+
+
+
 export class EducationService {
+
+
+
   async getAll() {
+
     return educationRepository.findAll();
+
   }
+
+
+
+
 
   async getAllIncludingHidden() {
+
     return educationRepository.findAllIncludingHidden();
+
   }
+
+
+
+
 
   async getCurrent() {
+
     return educationRepository.findCurrent();
+
   }
 
-  async getById(id: string) {
+
+
+
+
+  async getById(
+    id: string
+  ) {
+
     return educationRepository.findById(id);
+
   }
 
-  async create(data: Prisma.EducationCreateInput) {
-    return educationRepository.create(data);
+
+
+
+
+  async create(
+    data: CreateEducationInput
+  ) {
+
+
+    const {
+      institutionLogoId,
+      ...educationFields
+    } = data;
+
+
+
+
+
+    const educationData: Prisma.EducationCreateInput = {
+
+
+      ...educationFields,
+
+
+
+      institutionLogo:
+        institutionLogoId
+          ? {
+              connect: {
+                id: institutionLogoId,
+              },
+            }
+          : undefined,
+
+
+
+    };
+
+
+
+
+
+    return educationRepository.create(
+      educationData
+    );
+
+
   }
+
+
+
+
+
+
 
   async update(
     id: string,
     data: Prisma.EducationUpdateInput
   ) {
-    return educationRepository.update(id, data);
+
+    return educationRepository.update(
+      id,
+      data
+    );
+
   }
 
-  async delete(id: string) {
-    return educationRepository.delete(id);
+
+
+
+
+  async delete(
+    id: string
+  ) {
+
+    return educationRepository.delete(
+      id
+    );
+
   }
+
+
+
+
 
   async count() {
+
     return educationRepository.count();
+
   }
+
+
 }
 
-export const educationService = new EducationService();
+
+
+
+
+export const educationService =
+  new EducationService();

@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import type { Session } from "next-auth";
 
 import { LogOut, Settings, User } from "lucide-react";
@@ -43,20 +45,28 @@ export function UserMenu({
   session,
 }: UserMenuProps) {
 
+
+  const router = useRouter();
+
+
   const name =
     session?.user?.name ??
     "Administrator";
+
 
   const email =
     session?.user?.email ??
     "";
 
+
   const initials =
     getInitials(name);
 
 
+
   return (
     <DropdownMenu>
+
 
       <DropdownMenuTrigger
         render={
@@ -67,10 +77,15 @@ export function UserMenu({
           />
         }
       >
+
         <div className="flex size-10 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground">
           {initials}
         </div>
+
       </DropdownMenuTrigger>
+
+
+
 
 
       <DropdownMenuContent
@@ -78,55 +93,102 @@ export function UserMenu({
         className="w-64"
       >
 
+
         <DropdownMenuLabel>
+
           <div className="flex flex-col">
+
             <span className="font-semibold">
               {name}
             </span>
 
+
             <span className="text-xs text-muted-foreground">
               {email}
             </span>
+
           </div>
+
         </DropdownMenuLabel>
 
 
+
+
+
         <DropdownMenuSeparator />
+
+
+
 
 
         <DropdownMenuGroup>
 
-          <DropdownMenuItem>
+
+          <DropdownMenuItem
+            onClick={() =>
+              router.push("/admin/profile")
+            }
+          >
+
             <User className="size-4" />
+
             Profile
+
           </DropdownMenuItem>
 
 
-          <DropdownMenuItem>
+
+
+
+          <DropdownMenuItem
+            onClick={() =>
+              router.push("/admin/settings")
+            }
+          >
+
             <Settings className="size-4" />
+
             Settings
+
           </DropdownMenuItem>
+
+
 
         </DropdownMenuGroup>
+
+
+
 
 
         <DropdownMenuSeparator />
 
 
+
+
+
         <DropdownMenuItem
           variant="destructive"
-          onClick={() =>
-            signOut({
+          onClick={async () => {
+
+            await signOut({
               callbackUrl: "/login",
-            })
-          }
+            });
+
+          }}
         >
+
           <LogOut className="size-4" />
+
           Sign out
+
         </DropdownMenuItem>
 
 
+
+
+
       </DropdownMenuContent>
+
 
     </DropdownMenu>
   );

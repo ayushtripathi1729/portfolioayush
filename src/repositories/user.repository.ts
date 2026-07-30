@@ -85,6 +85,45 @@ export class UserRepository {
 
 
   /**
+   * Used only for password operations.
+   * Returns passwordHash intentionally.
+   */
+  async findByIdWithPassword(
+    id: string
+  ) {
+
+    return prisma.user.findUnique({
+
+      where: {
+
+        id,
+
+      },
+
+
+      select: {
+
+        id: true,
+
+        name: true,
+
+        email: true,
+
+        passwordHash: true,
+
+      },
+
+    });
+
+  }
+
+
+
+
+
+
+
+  /**
    * Used only for authentication.
    * Returns passwordHash intentionally.
    */

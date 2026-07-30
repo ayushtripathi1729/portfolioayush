@@ -7,6 +7,7 @@ const GradeTypeEnum = z.enum([
 ]);
 
 
+
 const educationFields = {
 
   institution: z
@@ -22,6 +23,7 @@ const educationFields = {
     ),
 
 
+
   degree: z
     .string()
     .trim()
@@ -35,6 +37,7 @@ const educationFields = {
     ),
 
 
+
   branch: z
     .string()
     .trim()
@@ -42,8 +45,10 @@ const educationFields = {
       150,
       "Branch cannot exceed 150 characters."
     )
+    .nullable()
     .optional()
     .or(z.literal("")),
+
 
 
   location: z
@@ -53,8 +58,10 @@ const educationFields = {
       150,
       "Location cannot exceed 150 characters."
     )
+    .nullable()
     .optional()
     .or(z.literal("")),
+
 
 
   startDate: z.coerce.date({
@@ -62,13 +69,23 @@ const educationFields = {
   }),
 
 
-  endDate: z.coerce.date().optional(),
+
+  endDate: z
+    .coerce
+    .date()
+    .nullable()
+    .optional(),
 
 
-  isCurrent: z.boolean().default(false),
+
+  isCurrent: z
+    .boolean()
+    .default(false),
+
 
 
   gradeType: GradeTypeEnum,
+
 
 
   gradeValue: z
@@ -83,6 +100,7 @@ const educationFields = {
     ),
 
 
+
   description: z
     .string()
     .trim()
@@ -90,14 +108,18 @@ const educationFields = {
       5000,
       "Description cannot exceed 5000 characters."
     )
+    .nullable()
     .optional()
     .or(z.literal("")),
+
 
 
   institutionLogoId: z
     .string()
+    .nullable()
     .optional()
     .or(z.literal("")),
+
 
 
   displayOrder: z
@@ -112,7 +134,10 @@ const educationFields = {
     .default(0),
 
 
-  visible: z.boolean().default(true),
+
+  visible: z
+    .boolean()
+    .default(true),
 
 };
 
@@ -120,117 +145,192 @@ const educationFields = {
 
 
 
-export const createEducationSchema = z
-  .object(educationFields)
-  .refine(
-    (data) => {
+function validateEducationDates(
+  data: {
+    startDate?: Date;
+    endDate?: Date | null;
+    isCurrent?: boolean;
+  },
+  ctx: z.RefinementCtx
+) {
 
-      if (data.isCurrent) {
-        return !data.endDate;
-      }
 
-      return true;
+  // Current education cannot have end date
+  if (
+    data.isCurrent &&
+    data.endDate
+  ) {
 
-    },
-    {
-      message:
-        "Current education should not have an end date.",
+    ctx.addIssue({
+
+      code: z.ZodIssueCode.custom,
+
       path: [
         "endDate",
       ],
-    }
-  )
-  .refine(
-    (data) => {
 
-      if (data.endDate) {
-        return data.endDate >= data.startDate;
-      }
+      message:
+        "Current education cannot have an end date.",
 
-      return true;
+    });
 
-    },
-    {
+  }
+
+
+
+  // Completed education requires end date
+  if (
+    data.isCurrent === false &&
+    !data.endDate
+  ) {
+
+    ctx.addIssue({
+
+      code: z.ZodIssueCode.custom,
+
+      path: [
+        "endDate",
+      ],
+
+      message:
+        "Completed education requires an end date.",
+
+    });
+
+  }
+
+
+
+  // End date cannot be before start date
+  if (
+    data.endDate &&
+    data.startDate &&
+    data.endDate < data.startDate
+  ) {
+
+    ctx.addIssue({
+
+      code: z.ZodIssueCode.custom,
+
+      path: [
+        "endDate",
+      ],
+
       message:
         "End date cannot be before start date.",
-      path: [
-        "endDate",
-      ],
-    }
-  );
+
+    });
+
+  }
+
+}
 
 
 
 
 
-export const updateEducationSchema = z.object({
 
-  institution:
-    educationFields.institution.optional(),
-
-
-  degree:
-    educationFields.degree.optional(),
-
-
-  branch:
-    educationFields.branch,
+export const createEducationSchema =
+  z
+    .object(educationFields)
+    .superRefine(
+      validateEducationDates
+    );
 
 
-  location:
-    educationFields.location,
 
 
-  startDate:
-    educationFields.startDate.optional(),
 
 
-  endDate:
-    educationFields.endDate,
+
+export const updateEducationSchema =
+  z
+    .object({
+
+      institution:
+        educationFields.institution.optional(),
 
 
-  isCurrent:
-    educationFields.isCurrent.optional(),
+      degree:
+        educationFields.degree.optional(),
 
 
-  gradeType:
-    educationFields.gradeType.optional(),
+      branch:
+        educationFields.branch,
 
 
-  gradeValue:
-    educationFields.gradeValue.optional(),
+      location:
+        educationFields.location,
 
 
-  description:
-    educationFields.description,
+      startDate:
+        educationFields.startDate.optional(),
 
 
-  institutionLogoId:
-    educationFields.institutionLogoId,
+      endDate:
+        educationFields.endDate,
 
 
-  displayOrder:
-    educationFields.displayOrder.optional(),
+      isCurrent:
+        educationFields.isCurrent.optional(),
 
 
-  visible:
-    educationFields.visible.optional(),
+      gradeType:
+        educationFields.gradeType.optional(),
 
-});
+
+      gradeValue:
+        educationFields.gradeValue.optional(),
+
+
+      description:
+        educationFields.description,
+
+
+      institutionLogoId:
+        educationFields.institutionLogoId,
+
+
+      displayOrder:
+        educationFields.displayOrder.optional(),
+
+
+      visible:
+        educationFields.visible.optional(),
+
+
+    })
+    .superRefine(
+      validateEducationDates
+    );
+
 
 
 
 
 
 export type CreateEducationInput =
-  z.input<typeof createEducationSchema>;
+  z.input<
+    typeof createEducationSchema
+  >;
+
+
 
 export type CreateEducationOutput =
-  z.output<typeof createEducationSchema>;
+  z.output<
+    typeof createEducationSchema
+  >;
+
 
 
 export type UpdateEducationInput =
-  z.input<typeof updateEducationSchema>;
+  z.input<
+    typeof updateEducationSchema
+  >;
+
+
 
 export type UpdateEducationOutput =
-  z.output<typeof updateEducationSchema>;
+  z.output<
+    typeof updateEducationSchema
+  >;

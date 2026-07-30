@@ -2,7 +2,10 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
+import {
+  useForm,
+  useWatch,
+} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 
@@ -18,7 +21,9 @@ import { Label } from "@/components/ui/label";
 
 export function EducationForm() {
 
+
   const router = useRouter();
+
 
   const [serverError, setServerError] =
     useState("");
@@ -28,16 +33,20 @@ export function EducationForm() {
   const {
     register,
     handleSubmit,
+    setValue,
+    control,
     formState: {
       errors,
       isSubmitting,
     },
+
   } = useForm<CreateEducationInput>({
 
     resolver:
       zodResolver(
         createEducationSchema
       ),
+
 
     defaultValues: {
 
@@ -48,6 +57,10 @@ export function EducationForm() {
       branch: "",
 
       location: "",
+
+      startDate: undefined,
+
+      endDate: null,
 
       isCurrent: false,
 
@@ -69,29 +82,63 @@ export function EducationForm() {
 
 
 
+  const isCurrent = useWatch({
+
+    control,
+
+    name: "isCurrent",
+
+  });
+
+
+
 
 
   async function onSubmit(
     values: CreateEducationInput
   ) {
 
+
     setServerError("");
 
+
+
     try {
+
+
+      const payload = {
+
+
+        ...values,
+
+
+        endDate:
+          values.isCurrent
+            ? null
+            : values.endDate ?? null,
+
+      };
+
+
 
       const response =
         await fetch(
           "/api/education",
           {
+
             method: "POST",
 
             headers: {
+
               "Content-Type":
                 "application/json",
+
             },
 
+
             body:
-              JSON.stringify(values),
+              JSON.stringify(payload),
+
           }
         );
 
@@ -119,16 +166,21 @@ export function EducationForm() {
         "/admin/education"
       );
 
+
       router.refresh();
 
 
+
     } catch {
+
 
       setServerError(
         "Something went wrong."
       );
 
+
     }
+
 
   }
 
@@ -136,13 +188,19 @@ export function EducationForm() {
 
 
 
+
   return (
+
     <form
+
       onSubmit={
         handleSubmit(onSubmit)
       }
+
       className="space-y-6 rounded-xl border p-6"
+
     >
+
 
 
       <div className="grid gap-6 md:grid-cols-2">
@@ -156,18 +214,27 @@ export function EducationForm() {
 
 
           <Input
+
             {...register("institution")}
+
             placeholder="University name"
+
           />
 
 
           {errors.institution && (
+
             <p className="text-sm text-destructive">
+
               {errors.institution.message}
+
             </p>
+
           )}
 
         </div>
+
+
 
 
 
@@ -179,18 +246,27 @@ export function EducationForm() {
 
 
           <Input
+
             {...register("degree")}
+
             placeholder="B.Tech Computer Science"
+
           />
 
 
           {errors.degree && (
+
             <p className="text-sm text-destructive">
+
               {errors.degree.message}
+
             </p>
+
           )}
 
         </div>
+
+
 
 
 
@@ -202,10 +278,14 @@ export function EducationForm() {
 
 
           <Input
+
             {...register("branch")}
+
           />
 
         </div>
+
+
 
 
 
@@ -217,13 +297,16 @@ export function EducationForm() {
 
 
           <Input
+
             {...register("location")}
+
           />
 
         </div>
 
 
       </div>
+
 
 
 
@@ -234,33 +317,45 @@ export function EducationForm() {
 
         <div className="space-y-2">
 
+
           <Label>
             Start Date
           </Label>
 
 
           <Input
+
             type="date"
+
             {...register(
               "startDate",
               {
-                valueAsDate: true,
+                valueAsDate:true,
               }
             )}
+
           />
 
 
           {errors.startDate && (
+
             <p className="text-sm text-destructive">
+
               {errors.startDate.message}
+
             </p>
+
           )}
 
         </div>
 
 
 
+
+
+
         <div className="space-y-2">
+
 
           <Label>
             End Date
@@ -268,19 +363,49 @@ export function EducationForm() {
 
 
           <Input
+
             type="date"
+
+            disabled={isCurrent}
+
+
             {...register(
               "endDate",
               {
-                valueAsDate: true,
+                valueAsDate:true,
               }
             )}
+
           />
+
+
+          {isCurrent && (
+
+            <p className="text-xs text-muted-foreground">
+
+              End date is not required for current education.
+
+            </p>
+
+          )}
+
+
+          {errors.endDate && (
+
+            <p className="text-sm text-destructive">
+
+              {errors.endDate.message}
+
+            </p>
+
+          )}
 
         </div>
 
 
       </div>
+
+
 
 
 
@@ -294,20 +419,24 @@ export function EducationForm() {
 
 
         <select
+
           {...register("gradeType")}
+
           className="w-full rounded-lg border bg-transparent px-3 py-2 text-sm"
+
         >
 
           <option value="CGPA">
             CGPA
           </option>
 
+
           <option value="PERCENTAGE">
             Percentage
           </option>
 
-        </select>
 
+        </select>
 
       </div>
 
@@ -315,7 +444,10 @@ export function EducationForm() {
 
 
 
+
+
       <div className="space-y-2">
+
 
         <Label>
           Grade Value
@@ -323,16 +455,19 @@ export function EducationForm() {
 
 
         <Input
+
           type="number"
+
           step="0.01"
+
           {...register(
             "gradeValue",
             {
-              valueAsNumber: true,
+              valueAsNumber:true,
             }
           )}
-        />
 
+        />
 
       </div>
 
@@ -340,7 +475,11 @@ export function EducationForm() {
 
 
 
+
+
+
       <div className="space-y-2">
+
 
         <Label>
           Description
@@ -348,9 +487,13 @@ export function EducationForm() {
 
 
         <textarea
+
           {...register("description")}
+
           className="min-h-40 w-full rounded-lg border bg-transparent px-3 py-2 text-sm"
+
         />
+
 
       </div>
 
@@ -358,7 +501,11 @@ export function EducationForm() {
 
 
 
+
+
+
       <div className="space-y-2">
+
 
         <Label>
           Institution Logo Asset ID
@@ -366,10 +513,17 @@ export function EducationForm() {
 
 
         <Input
-          {...register("institutionLogoId")}
+
+          {...register(
+            "institutionLogoId"
+          )}
+
         />
 
+
       </div>
+
+
 
 
 
@@ -377,22 +531,30 @@ export function EducationForm() {
 
       <div className="space-y-2">
 
+
         <Label>
           Display Order
         </Label>
 
 
         <Input
+
           type="number"
+
           {...register(
             "displayOrder",
             {
-              valueAsNumber: true,
+              valueAsNumber:true,
             }
           )}
+
         />
 
+
       </div>
+
+
+
 
 
 
@@ -403,31 +565,87 @@ export function EducationForm() {
 
         <label className="flex items-center gap-2 text-sm">
 
+
           <input
+
             type="checkbox"
-            {...register("isCurrent")}
+
+
+            {...register(
+              "isCurrent"
+            )}
+
+
+            onChange={(e)=>{
+
+
+              const checked =
+                e.target.checked;
+
+
+
+              setValue(
+                "isCurrent",
+                checked,
+                {
+                  shouldValidate:true,
+                }
+              );
+
+
+
+              if(checked){
+
+                setValue(
+                  "endDate",
+                  null,
+                  {
+                    shouldValidate:true,
+                  }
+                );
+
+              }
+
+
+            }}
+
           />
+
 
           Current Education
 
+
         </label>
+
+
 
 
 
 
         <label className="flex items-center gap-2 text-sm">
 
+
           <input
+
             type="checkbox"
-            {...register("visible")}
+
+
+            {...register(
+              "visible"
+            )}
+
           />
 
+
           Visible
+
 
         </label>
 
 
       </div>
+
+
 
 
 
@@ -448,16 +666,24 @@ export function EducationForm() {
 
 
 
+
       <Button
+
         type="submit"
+
         disabled={isSubmitting}
+
       >
+
 
         {isSubmitting ? (
 
           <>
+
             <Loader2 className="size-4 animate-spin" />
+
             Creating...
+
           </>
 
         ) : (
@@ -466,9 +692,13 @@ export function EducationForm() {
 
         )}
 
+
       </Button>
 
 
+
     </form>
+
   );
+
 }
