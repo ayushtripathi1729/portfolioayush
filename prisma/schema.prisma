@@ -331,6 +331,21 @@ model ContactMessage {
   @@index([createdAt])
 }
 
+model Activity {
+  id String @id @default(cuid())
+
+  action   String
+  entity   String
+  entityId String?
+
+  description String
+
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([entity])
+}
+
 enum SkillLevel {
   BEGINNER
   INTERMEDIATE

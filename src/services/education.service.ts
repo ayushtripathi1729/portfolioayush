@@ -139,16 +139,49 @@ export class EducationService {
 
 
   async update(
-    id: string,
-    data: Prisma.EducationUpdateInput
-  ) {
-
-    return educationRepository.update(
-      id,
-      data
-    );
-
+  id: string,
+  data: Prisma.EducationUpdateInput & {
+    institutionLogoId?: string | null;
   }
+) {
+
+
+  const {
+    institutionLogoId,
+    ...rest
+  } = data;
+
+
+
+  const educationData: Prisma.EducationUpdateInput = {
+
+
+    ...rest,
+
+
+
+    institutionLogo:
+      institutionLogoId
+        ? {
+            connect: {
+              id: institutionLogoId,
+            },
+          }
+        : {
+            disconnect: true,
+          },
+
+
+  };
+
+
+
+  return educationRepository.update(
+    id,
+    educationData
+  );
+
+}
 
 
 

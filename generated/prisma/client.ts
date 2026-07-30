@@ -126,3 +126,8 @@ export type Achievement = Prisma.AchievementModel
  * 
  */
 export type ContactMessage = Prisma.ContactMessageModel
+/**
+ * Model Activity
+ * 
+ */
+export type Activity = Prisma.ActivityModel
