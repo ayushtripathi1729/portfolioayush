@@ -82,6 +82,10 @@ export class BlogRepository {
   ) {
     return prisma.blog.create({
       data,
+      include: {
+        author: true,
+        coverImage: true,
+      },
     });
   }
 
