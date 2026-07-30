@@ -2,10 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  useForm,
-  useWatch,
-} from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 
@@ -23,7 +20,6 @@ export function ResearchForm() {
 
   const router = useRouter();
 
-
   const [serverError, setServerError] =
     useState("");
 
@@ -32,61 +28,30 @@ export function ResearchForm() {
   const {
     register,
     handleSubmit,
-    control,
     formState: {
       errors,
       isSubmitting,
     },
   } = useForm<CreateResearchInput>({
-
-    resolver:
-      zodResolver(
-        createResearchSchema
-      ),
-
+    resolver: zodResolver(
+      createResearchSchema
+    ),
 
     defaultValues: {
-
       title: "",
-
       slug: "",
-
       abstract: "",
-
       publisher: "",
-
       journal: "",
-
       doi: "",
-
       externalUrl: "",
-
       pdfAssetId: "",
-
       coverImageId: "",
-
       featured: false,
-
       visible: true,
-
       displayOrder: 0,
-
     },
-
   });
-
-
-
-
-
-  const featured =
-    useWatch({
-      control,
-      name: "featured",
-    });
-
-
-
 
 
 
@@ -96,8 +61,6 @@ export function ResearchForm() {
   ) {
 
     setServerError("");
-
-
 
     try {
 
@@ -118,10 +81,8 @@ export function ResearchForm() {
         );
 
 
-
       const result =
         await response.json();
-
 
 
 
@@ -133,9 +94,7 @@ export function ResearchForm() {
         );
 
         return;
-
       }
-
 
 
 
@@ -143,9 +102,7 @@ export function ResearchForm() {
         "/admin/research"
       );
 
-
       router.refresh();
-
 
 
     } catch {
@@ -162,9 +119,6 @@ export function ResearchForm() {
 
 
 
-
-
-
   return (
     <form
       onSubmit={
@@ -172,7 +126,6 @@ export function ResearchForm() {
       }
       className="space-y-6 rounded-xl border p-6"
     >
-
 
 
       <div className="grid gap-6 md:grid-cols-2">
@@ -253,8 +206,6 @@ export function ResearchForm() {
 
 
 
-
-
       <div className="space-y-2">
 
         <Label>
@@ -278,8 +229,6 @@ export function ResearchForm() {
         )}
 
       </div>
-
-
 
 
 
@@ -327,8 +276,6 @@ export function ResearchForm() {
 
 
 
-
-
       <div className="space-y-2">
 
         <Label>
@@ -356,8 +303,6 @@ export function ResearchForm() {
 
 
 
-
-
       <div className="space-y-2">
 
         <Label>
@@ -376,8 +321,6 @@ export function ResearchForm() {
         />
 
       </div>
-
-
 
 
 
@@ -425,8 +368,6 @@ export function ResearchForm() {
 
 
 
-
-
       <div className="space-y-2">
 
         <Label>
@@ -454,8 +395,6 @@ export function ResearchForm() {
         )}
 
       </div>
-
-
 
 
 
@@ -497,8 +436,6 @@ export function ResearchForm() {
 
 
 
-
-
       {serverError && (
 
         <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">
@@ -508,8 +445,6 @@ export function ResearchForm() {
         </div>
 
       )}
-
-
 
 
 

@@ -86,7 +86,7 @@ export default async function ResearchPage() {
 
 
           <p className="text-sm text-muted-foreground">
-            {research.length} research entr{research.length === 1 ? "y" : "ies"} total
+            {research.length} total research publications
           </p>
 
 
