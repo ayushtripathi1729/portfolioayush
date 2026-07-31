@@ -1,16 +1,53 @@
-import { NextRequest, NextResponse } from "next/server";
+import {
+  NextRequest,
+  NextResponse,
+} from "next/server";
 
-import { contactMessageService } from "@/services/contact-message.service";
-import { createContactMessageSchema } from "@/validations/contact-message.schema";
+
+import {
+  contactMessageService,
+} from "@/services/contact-message.service";
+
+
+import {
+  createContactMessageSchema,
+} from "@/validations/contact-message.schema";
+
+
+import {
+  requireAuth,
+  UnauthorizedError,
+} from "@/lib/auth-guard";
+
+
+import {
+  logActivity,
+} from "@/lib/activity";
+
+
+
+
+
+
 
 
 
 export async function GET() {
 
+
   try {
+
+
+    await requireAuth();
+
+
+
+
 
     const messages =
       await contactMessageService.getAll();
+
+
 
 
 
@@ -25,7 +62,34 @@ export async function GET() {
     );
 
 
+
   } catch (error) {
+
+
+    if (
+      error instanceof UnauthorizedError
+    ) {
+
+
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Unauthorized.",
+        },
+        {
+          status: 401,
+        }
+      );
+
+
+    }
+
+
+
+
+
+
 
     console.error(
       "GET /api/contact-messages error:",
@@ -33,15 +97,22 @@ export async function GET() {
     );
 
 
+
+
+
+
+
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to fetch contact messages.",
+        message:
+          "Failed to fetch contact messages.",
       },
       {
         status: 500,
       }
     );
+
 
   }
 
@@ -53,9 +124,12 @@ export async function GET() {
 
 
 
+
+
 export async function POST(
   request: NextRequest
 ) {
+
 
   try {
 
@@ -65,28 +139,57 @@ export async function POST(
 
 
 
+
+
     const validation =
       createContactMessageSchema.safeParse(
-        body
+        {
+
+          ...body,
+
+          ipAddress:
+            request.headers.get(
+              "x-forwarded-for"
+            ) ?? null,
+
+
+          userAgent:
+            request.headers.get(
+              "user-agent"
+            ) ?? null,
+
+        }
       );
+
+
 
 
 
     if (!validation.success) {
 
+
       return NextResponse.json(
         {
           success: false,
-          message: "Validation failed.",
+          message:
+            "Validation failed.",
+
           errors:
             validation.error.flatten(),
+
         },
         {
           status: 400,
         }
       );
 
+
     }
+
+
+
+
+
 
 
 
@@ -97,10 +200,43 @@ export async function POST(
 
 
 
+
+
+
+
+
+    await logActivity({
+
+      action:
+        "CREATE",
+
+      entity:
+        "ContactMessage",
+
+      entityId:
+        message.id,
+
+      description:
+        `New contact message received from ${message.name}`,
+
+    });
+
+
+
+
+
+
+
     return NextResponse.json(
       {
         success: true,
-        data: message,
+
+        data:
+          message,
+
+        message:
+          "Your message has been sent successfully.",
+
       },
       {
         status: 201,
@@ -119,10 +255,14 @@ export async function POST(
 
 
 
+
+
+
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to create contact message.",
+        message:
+          "Failed to create contact message.",
       },
       {
         status: 500,

@@ -2,7 +2,10 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
+import {
+  useForm,
+  useWatch,
+} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { z } from "zod";
@@ -72,7 +75,7 @@ export function EditEducationForm({
     register,
     handleSubmit,
     setValue,
-    watch,
+    control,
     formState: {
       errors,
       isSubmitting,
@@ -154,8 +157,10 @@ export function EditEducationForm({
 
 
   const isCurrent =
-    watch("isCurrent");
-
+    useWatch({
+      control,
+      name: "isCurrent",
+    });
 
 
 

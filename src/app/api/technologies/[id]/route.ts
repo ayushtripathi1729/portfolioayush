@@ -1,37 +1,98 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
+import {
+  NextRequest,
+  NextResponse,
+} from "next/server";
 
-import { authOptions } from "@/lib/auth";
-import { technologyService } from "@/services/technology.service";
-import { updateTechnologySchema } from "@/validations/technology.schema";
+
+import {
+  technologyService,
+} from "@/services/technology.service";
+
+
+import {
+  updateTechnologySchema,
+} from "@/validations/technology.schema";
+
+
+import {
+  requireAuth,
+  UnauthorizedError,
+} from "@/lib/auth-guard";
+
+
+import {
+  logActivity,
+} from "@/lib/activity";
+
+
+
+
+
+
+
+
 
 interface RouteContext {
+
   params: Promise<{
     id: string;
   }>;
+
 }
+
+
+
+
+
+
+
+
 
 export async function GET(
   _request: NextRequest,
   { params }: RouteContext
 ) {
+
+
   try {
-    const { id } = await params;
+
+
+    const { id } =
+      await params;
+
+
+
+
 
     const technology =
       await technologyService.getById(id);
 
+
+
+
+
     if (!technology) {
+
+
       return NextResponse.json(
         {
           success: false,
-          message: "Technology not found.",
+          message:
+            "Technology not found.",
         },
         {
           status: 404,
         }
       );
+
+
     }
+
+
+
+
+
+
 
     return NextResponse.json(
       {
@@ -42,77 +103,142 @@ export async function GET(
         status: 200,
       }
     );
+
+
+
   } catch (error) {
+
+
     console.error(
       "GET /api/technologies/[id] error:",
       error
     );
 
+
+
+
+
+
+
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to fetch technology.",
+        message:
+          "Failed to fetch technology.",
       },
       {
         status: 500,
       }
     );
+
+
   }
+
 }
+
+
+
+
+
+
+
+
 
 export async function PUT(
   request: NextRequest,
   { params }: RouteContext
 ) {
+
+
   try {
-    const session = await getServerSession(authOptions);
 
-    if (!session?.user?.id) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Unauthorized.",
-        },
-        {
-          status: 401,
-        }
-      );
-    }
 
-    const { id } = await params;
+    await requireAuth();
+
+
+
+
+
+    const { id } =
+      await params;
+
+
+
+
 
     const existingTechnology =
       await technologyService.getById(id);
 
+
+
+
+
     if (!existingTechnology) {
+
+
       return NextResponse.json(
         {
           success: false,
-          message: "Technology not found.",
+          message:
+            "Technology not found.",
         },
         {
           status: 404,
         }
       );
+
+
     }
 
-    const body = await request.json();
+
+
+
+
+
+
+    const body =
+      await request.json();
+
+
+
+
 
     const validation =
-      updateTechnologySchema.safeParse(body);
+      updateTechnologySchema.safeParse(
+        body
+      );
+
+
+
+
 
     if (!validation.success) {
+
+
       return NextResponse.json(
         {
           success: false,
-          message: "Validation failed.",
-          errors: validation.error.flatten(),
+          message:
+            "Validation failed.",
+
+          errors:
+            validation.error.flatten(),
+
         },
         {
           status: 400,
         }
       );
+
+
     }
+
+
+
+
+
+
+
 
     const technology =
       await technologyService.update(
@@ -120,6 +246,35 @@ export async function PUT(
         validation.data
       );
 
+
+
+
+
+
+
+
+    await logActivity({
+
+      action:
+        "UPDATE",
+
+      entity:
+        "Technology",
+
+      entityId:
+        technology.id,
+
+      description:
+        `Updated technology: ${technology.name}`,
+
+    });
+
+
+
+
+
+
+
     return NextResponse.json(
       {
         success: true,
@@ -129,85 +284,220 @@ export async function PUT(
         status: 200,
       }
     );
+
+
+
   } catch (error) {
-    console.error(
-      "PUT /api/technologies/[id] error:",
-      error
-    );
 
-    return NextResponse.json(
-      {
-        success: false,
-        message: "Failed to update technology.",
-      },
-      {
-        status: 500,
-      }
-    );
-  }
-}
 
-export async function DELETE(
-  _request: NextRequest,
-  { params }: RouteContext
-) {
-  try {
-    const session = await getServerSession(authOptions);
+    if (
+      error instanceof UnauthorizedError
+    ) {
 
-    if (!session?.user?.id) {
+
       return NextResponse.json(
         {
           success: false,
-          message: "Unauthorized.",
+          message:
+            "Unauthorized.",
         },
         {
           status: 401,
         }
       );
+
+
     }
 
-    const { id } = await params;
 
-    const existingTechnology =
-      await technologyService.getById(id);
 
-    if (!existingTechnology) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Technology not found.",
-        },
-        {
-          status: 404,
-        }
-      );
-    }
 
-    await technologyService.delete(id);
 
-    return NextResponse.json(
-      {
-        success: true,
-        message: "Technology deleted successfully.",
-      },
-      {
-        status: 200,
-      }
-    );
-  } catch (error) {
+
+
     console.error(
-      "DELETE /api/technologies/[id] error:",
+      "PUT /api/technologies/[id] error:",
       error
     );
+
+
+
+
+
+
 
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to delete technology.",
+        message:
+          "Failed to update technology.",
       },
       {
         status: 500,
       }
     );
+
+
   }
+
+}
+
+
+
+
+
+
+
+
+
+export async function DELETE(
+  _request: NextRequest,
+  { params }: RouteContext
+) {
+
+
+  try {
+
+
+    await requireAuth();
+
+
+
+
+
+    const { id } =
+      await params;
+
+
+
+
+
+    const existingTechnology =
+      await technologyService.getById(id);
+
+
+
+
+
+    if (!existingTechnology) {
+
+
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Technology not found.",
+        },
+        {
+          status: 404,
+        }
+      );
+
+
+    }
+
+
+
+
+
+
+
+
+    await technologyService.delete(id);
+
+
+
+
+
+
+
+
+    await logActivity({
+
+      action:
+        "DELETE",
+
+      entity:
+        "Technology",
+
+      entityId:
+        id,
+
+      description:
+        `Deleted technology: ${existingTechnology.name}`,
+
+    });
+
+
+
+
+
+
+
+    return NextResponse.json(
+      {
+        success: true,
+        message:
+          "Technology deleted successfully.",
+      },
+      {
+        status: 200,
+      }
+    );
+
+
+
+  } catch (error) {
+
+
+    if (
+      error instanceof UnauthorizedError
+    ) {
+
+
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Unauthorized.",
+        },
+        {
+          status: 401,
+        }
+      );
+
+
+    }
+
+
+
+
+
+
+
+    console.error(
+      "DELETE /api/technologies/[id] error:",
+      error
+    );
+
+
+
+
+
+
+
+    return NextResponse.json(
+      {
+        success: false,
+        message:
+          "Failed to delete technology.",
+      },
+      {
+        status: 500,
+      }
+    );
+
+
+  }
+
 }

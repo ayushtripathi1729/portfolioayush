@@ -1,13 +1,48 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
+import {
+  NextRequest,
+  NextResponse,
+} from "next/server";
 
-import { authOptions } from "@/lib/auth";
-import { blogService } from "@/services/blog.service";
-import { createBlogSchema } from "@/validations/blog.schema";
+
+import {
+  blogService,
+} from "@/services/blog.service";
+
+
+import {
+  createBlogSchema,
+} from "@/validations/blog.schema";
+
+
+import {
+  requireAuth,
+  UnauthorizedError,
+} from "@/lib/auth-guard";
+
+
+import {
+  logActivity,
+} from "@/lib/activity";
+
+
+
+
+
+
+
 
 export async function GET() {
+
+
   try {
-    const blogs = await blogService.getAll();
+
+
+    const blogs =
+      await blogService.getAll();
+
+
+
+
 
     return NextResponse.json(
       {
@@ -18,61 +53,140 @@ export async function GET() {
         status: 200,
       }
     );
+
+
+
   } catch (error) {
-    console.error("GET /api/blog error:", error);
+
+
+    console.error(
+      "GET /api/blog error:",
+      error
+    );
+
+
 
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to fetch blogs.",
+        message:
+          "Failed to fetch blogs.",
       },
       {
         status: 500,
       }
     );
+
+
   }
+
 }
 
-export async function POST(request: NextRequest) {
+
+
+
+
+
+
+
+
+export async function POST(
+  request: NextRequest
+) {
+
+
   try {
-    const session = await getServerSession(authOptions);
 
-    if (!session?.user?.id) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Unauthorized.",
-        },
-        {
-          status: 401,
-        }
-      );
-    }
 
-    const body = await request.json();
+    const session =
+      await requireAuth();
+
+
+
+
+
+    const body =
+      await request.json();
+
+
+
+
 
     const validation =
       createBlogSchema.safeParse({
+
         ...body,
-        authorId: session.user.id,
+
+        authorId:
+          session.user.id,
+
       });
 
+
+
+
+
     if (!validation.success) {
+
+
       return NextResponse.json(
         {
           success: false,
-          message: "Validation failed.",
-          errors: validation.error.flatten(),
+          message:
+            "Validation failed.",
+
+          errors:
+            validation.error.flatten(),
+
         },
         {
           status: 400,
         }
       );
+
+
     }
 
-    const blog = await blogService.create(
-      validation.data
-    );
+
+
+
+
+
+
+
+    const blog =
+      await blogService.create(
+        validation.data
+      );
+
+
+
+
+
+
+
+
+    await logActivity({
+
+      action:
+        "CREATE",
+
+      entity:
+        "Blog",
+
+      entityId:
+        blog.id,
+
+      description:
+        `Created blog: ${blog.title}`,
+
+    });
+
+
+
+
+
+
 
     return NextResponse.json(
       {
@@ -83,17 +197,59 @@ export async function POST(request: NextRequest) {
         status: 201,
       }
     );
+
+
+
   } catch (error) {
-    console.error("POST /api/blog error:", error);
+
+
+    if (
+      error instanceof UnauthorizedError
+    ) {
+
+
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Unauthorized.",
+        },
+        {
+          status: 401,
+        }
+      );
+
+
+    }
+
+
+
+
+
+
+
+    console.error(
+      "POST /api/blog error:",
+      error
+    );
+
+
+
+
+
 
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to create blog.",
+        message:
+          "Failed to create blog.",
       },
       {
         status: 500,
       }
     );
+
+
   }
+
 }

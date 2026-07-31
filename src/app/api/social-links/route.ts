@@ -1,49 +1,97 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
+import {
+  NextRequest,
+  NextResponse,
+} from "next/server";
 
-import { authOptions } from "@/lib/auth";
-import { settingService } from "@/services/settings.service";
-import { socialLinkService } from "@/services/social-link.service";
-import { createSocialLinkSchema } from "@/validations/social-link.schema";
+
+import {
+  settingService,
+} from "@/services/settings.service";
+
+
+import {
+  socialLinkService,
+} from "@/services/social-link.service";
+
+
+import {
+  createSocialLinkSchema,
+} from "@/validations/social-link.schema";
+
+
+import {
+  requireAuth,
+  UnauthorizedError,
+} from "@/lib/auth-guard";
+
+
+import {
+  logActivity,
+} from "@/lib/activity";
+
+
+
+
+
+
+
+
 
 export async function GET() {
-  try {
-    const session =
-      await getServerSession(authOptions);
 
-    if (!session?.user?.id) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Unauthorized.",
-        },
-        {
-          status: 401,
-        }
-      );
-    }
+
+  try {
+
+
+    const session =
+      await requireAuth();
+
+
+
+
 
     const setting =
       await settingService.getByUserId(
         session.user.id
       );
 
+
+
+
+
     if (!setting) {
+
+
       return NextResponse.json(
         {
           success: false,
-          message: "Settings not found.",
+          message:
+            "Settings not found.",
         },
         {
           status: 404,
         }
       );
+
+
     }
+
+
+
+
+
+
 
     const links =
       await socialLinkService.getBySettingId(
         setting.id
       );
+
+
+
+
+
+
 
     return NextResponse.json(
       {
@@ -54,85 +102,201 @@ export async function GET() {
         status: 200,
       }
     );
+
+
+
   } catch (error) {
-    console.error(
-      "GET /api/social-links error:",
-      error
-    );
 
-    return NextResponse.json(
-      {
-        success: false,
-        message: "Failed to fetch social links.",
-      },
-      {
-        status: 500,
-      }
-    );
-  }
-}
 
-export async function POST(
-  request: NextRequest
-) {
-  try {
-    const session =
-      await getServerSession(authOptions);
+    if (
+      error instanceof UnauthorizedError
+    ) {
 
-    if (!session?.user?.id) {
+
       return NextResponse.json(
         {
           success: false,
-          message: "Unauthorized.",
+          message:
+            "Unauthorized.",
         },
         {
           status: 401,
         }
       );
+
+
     }
+
+
+
+
+
+
+
+    console.error(
+      "GET /api/social-links error:",
+      error
+    );
+
+
+
+
+
+
+
+    return NextResponse.json(
+      {
+        success: false,
+        message:
+          "Failed to fetch social links.",
+      },
+      {
+        status: 500,
+      }
+    );
+
+
+  }
+
+}
+
+
+
+
+
+
+
+
+
+export async function POST(
+  request: NextRequest
+) {
+
+
+  try {
+
+
+    const session =
+      await requireAuth();
+
+
+
+
 
     const setting =
       await settingService.getByUserId(
         session.user.id
       );
 
+
+
+
+
     if (!setting) {
+
+
       return NextResponse.json(
         {
           success: false,
-          message: "Settings not found.",
+          message:
+            "Settings not found.",
         },
         {
           status: 404,
         }
       );
+
+
     }
 
-    const body = await request.json();
+
+
+
+
+
+
+    const body =
+      await request.json();
+
+
+
+
 
     const validation =
       createSocialLinkSchema.safeParse({
+
         ...body,
-        settingId: setting.id,
+
+        settingId:
+          setting.id,
+
       });
 
+
+
+
+
     if (!validation.success) {
+
+
       return NextResponse.json(
         {
           success: false,
-          message: "Validation failed.",
-          errors: validation.error.flatten(),
+          message:
+            "Validation failed.",
+
+          errors:
+            validation.error.flatten(),
+
         },
         {
           status: 400,
         }
       );
+
+
     }
+
+
+
+
+
+
+
 
     const link =
       await socialLinkService.create(
         validation.data
       );
+
+
+
+
+
+
+
+
+    await logActivity({
+
+      action:
+        "CREATE",
+
+      entity:
+        "SocialLink",
+
+      entityId:
+        link.id,
+
+      description:
+        `Added social link: ${link.platform}`,
+
+    });
+
+
+
+
+
+
 
     return NextResponse.json(
       {
@@ -143,20 +307,60 @@ export async function POST(
         status: 201,
       }
     );
+
+
+
   } catch (error) {
+
+
+    if (
+      error instanceof UnauthorizedError
+    ) {
+
+
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Unauthorized.",
+        },
+        {
+          status: 401,
+        }
+      );
+
+
+    }
+
+
+
+
+
+
+
     console.error(
       "POST /api/social-links error:",
       error
     );
 
+
+
+
+
+
+
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to create social link.",
+        message:
+          "Failed to create social link.",
       },
       {
         status: 500,
       }
     );
+
+
   }
+
 }

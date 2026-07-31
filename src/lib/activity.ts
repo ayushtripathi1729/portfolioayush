@@ -1,9 +1,18 @@
 import { activityService } from "@/services/activity.service";
 
 
+type ActivityAction =
+  | "CREATE"
+  | "UPDATE"
+  | "DELETE"
+  | "UPLOAD"
+  | "LOGIN"
+  | "PASSWORD_CHANGE";
+
+
 interface LogActivityInput {
 
-  action: string;
+  action: ActivityAction;
 
   entity: string;
 
@@ -22,7 +31,6 @@ export async function logActivity(
   try {
 
     await activityService.create(data);
-
 
   } catch (error) {
 

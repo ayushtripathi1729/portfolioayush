@@ -1,14 +1,49 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
+import {
+  NextRequest,
+  NextResponse,
+} from "next/server";
 
-import { authOptions } from "@/lib/auth";
-import { technologyService } from "@/services/technology.service";
-import { createTechnologySchema } from "@/validations/technology.schema";
+
+import {
+  technologyService,
+} from "@/services/technology.service";
+
+
+import {
+  createTechnologySchema,
+} from "@/validations/technology.schema";
+
+
+import {
+  requireAuth,
+  UnauthorizedError,
+} from "@/lib/auth-guard";
+
+
+import {
+  logActivity,
+} from "@/lib/activity";
+
+
+
+
+
+
+
+
 
 export async function GET() {
+
+
   try {
+
+
     const technologies =
       await technologyService.getAll();
+
+
+
+
 
     return NextResponse.json(
       {
@@ -19,62 +54,138 @@ export async function GET() {
         status: 200,
       }
     );
+
+
+
   } catch (error) {
+
+
     console.error(
       "GET /api/technologies error:",
       error
     );
 
+
+
+
+
+
+
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to fetch technologies.",
+        message:
+          "Failed to fetch technologies.",
       },
       {
         status: 500,
       }
     );
+
+
   }
+
 }
 
-export async function POST(request: NextRequest) {
+
+
+
+
+
+
+
+
+export async function POST(
+  request: NextRequest
+) {
+
+
   try {
-    const session = await getServerSession(authOptions);
 
-    if (!session?.user?.id) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Unauthorized.",
-        },
-        {
-          status: 401,
-        }
-      );
-    }
 
-    const body = await request.json();
+    await requireAuth();
+
+
+
+
+
+    const body =
+      await request.json();
+
+
+
+
 
     const validation =
-      createTechnologySchema.safeParse(body);
+      createTechnologySchema.safeParse(
+        body
+      );
+
+
+
+
 
     if (!validation.success) {
+
+
       return NextResponse.json(
         {
           success: false,
-          message: "Validation failed.",
-          errors: validation.error.flatten(),
+          message:
+            "Validation failed.",
+
+          errors:
+            validation.error.flatten(),
+
         },
         {
           status: 400,
         }
       );
+
+
     }
+
+
+
+
+
+
+
 
     const technology =
       await technologyService.create(
         validation.data
       );
+
+
+
+
+
+
+
+
+    await logActivity({
+
+      action:
+        "CREATE",
+
+      entity:
+        "Technology",
+
+      entityId:
+        technology.id,
+
+      description:
+        `Created technology: ${technology.name}`,
+
+    });
+
+
+
+
+
+
 
     return NextResponse.json(
       {
@@ -85,20 +196,60 @@ export async function POST(request: NextRequest) {
         status: 201,
       }
     );
+
+
+
   } catch (error) {
+
+
+    if (
+      error instanceof UnauthorizedError
+    ) {
+
+
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Unauthorized.",
+        },
+        {
+          status: 401,
+        }
+      );
+
+
+    }
+
+
+
+
+
+
+
     console.error(
       "POST /api/technologies error:",
       error
     );
 
+
+
+
+
+
+
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to create technology.",
+        message:
+          "Failed to create technology.",
       },
       {
         status: 500,
       }
     );
+
+
   }
+
 }

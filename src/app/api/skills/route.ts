@@ -1,13 +1,49 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
+import {
+  NextRequest,
+  NextResponse,
+} from "next/server";
 
-import { authOptions } from "@/lib/auth";
-import { skillService } from "@/services/skill.service";
-import { createSkillSchema } from "@/validations/skill.schema";
+
+import {
+  skillService,
+} from "@/services/skill.service";
+
+
+import {
+  createSkillSchema,
+} from "@/validations/skill.schema";
+
+
+import {
+  requireAuth,
+  UnauthorizedError,
+} from "@/lib/auth-guard";
+
+
+import {
+  logActivity,
+} from "@/lib/activity";
+
+
+
+
+
+
+
+
 
 export async function GET() {
+
+
   try {
-    const skills = await skillService.getAll();
+
+
+    const skills =
+      await skillService.getAll();
+
+
+
+
 
     return NextResponse.json(
       {
@@ -18,61 +54,138 @@ export async function GET() {
         status: 200,
       }
     );
+
+
+
   } catch (error) {
+
+
     console.error(
       "GET /api/skills error:",
       error
     );
 
+
+
+
+
+
+
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to fetch skills.",
+        message:
+          "Failed to fetch skills.",
       },
       {
         status: 500,
       }
     );
+
+
   }
+
 }
 
-export async function POST(request: NextRequest) {
+
+
+
+
+
+
+
+
+export async function POST(
+  request: NextRequest
+) {
+
+
   try {
-    const session = await getServerSession(authOptions);
 
-    if (!session?.user?.id) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Unauthorized.",
-        },
-        {
-          status: 401,
-        }
-      );
-    }
 
-    const body = await request.json();
+    await requireAuth();
+
+
+
+
+
+    const body =
+      await request.json();
+
+
+
+
 
     const validation =
-      createSkillSchema.safeParse(body);
+      createSkillSchema.safeParse(
+        body
+      );
+
+
+
+
 
     if (!validation.success) {
+
+
       return NextResponse.json(
         {
           success: false,
-          message: "Validation failed.",
-          errors: validation.error.flatten(),
+          message:
+            "Validation failed.",
+
+          errors:
+            validation.error.flatten(),
+
         },
         {
           status: 400,
         }
       );
+
+
     }
 
-    const skill = await skillService.create(
-      validation.data
-    );
+
+
+
+
+
+
+
+    const skill =
+      await skillService.create(
+        validation.data
+      );
+
+
+
+
+
+
+
+
+    await logActivity({
+
+      action:
+        "CREATE",
+
+      entity:
+        "Skill",
+
+      entityId:
+        skill.id,
+
+      description:
+        `Created skill: ${skill.name}`,
+
+    });
+
+
+
+
+
+
 
     return NextResponse.json(
       {
@@ -83,20 +196,60 @@ export async function POST(request: NextRequest) {
         status: 201,
       }
     );
+
+
+
   } catch (error) {
+
+
+    if (
+      error instanceof UnauthorizedError
+    ) {
+
+
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Unauthorized.",
+        },
+        {
+          status: 401,
+        }
+      );
+
+
+    }
+
+
+
+
+
+
+
     console.error(
       "POST /api/skills error:",
       error
     );
 
+
+
+
+
+
+
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to create skill.",
+        message:
+          "Failed to create skill.",
       },
       {
         status: 500,
       }
     );
+
+
   }
+
 }

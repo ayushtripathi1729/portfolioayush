@@ -1,16 +1,41 @@
-import { NextRequest, NextResponse } from "next/server";
+import {
+  NextRequest,
+  NextResponse,
+} from "next/server";
 
-import { requireAuth } from "@/lib/auth-guard";
 
-import { authService } from "@/services/auth.service";
+import {
+  requireAuth,
+  UnauthorizedError,
+} from "@/lib/auth-guard";
 
-import { changePasswordSchema } from "@/validations/profile.schema";
+
+import {
+  authService,
+} from "@/services/auth.service";
+
+
+import {
+  changePasswordSchema,
+} from "@/validations/profile.schema";
+
+
+import {
+  logActivity,
+} from "@/lib/activity";
+
+
+
+
+
+
 
 
 
 export async function PATCH(
   request: NextRequest
 ) {
+
 
   try {
 
@@ -20,8 +45,11 @@ export async function PATCH(
 
 
 
+
+
     const body =
       await request.json();
+
 
 
 
@@ -33,15 +61,20 @@ export async function PATCH(
 
 
 
+
+
     if (!validation.success) {
 
 
       return NextResponse.json(
         {
           success: false,
-          message: "Validation failed.",
+          message:
+            "Validation failed.",
+
           errors:
             validation.error.flatten(),
+
         },
         {
           status: 400,
@@ -50,6 +83,9 @@ export async function PATCH(
 
 
     }
+
+
+
 
 
 
@@ -69,6 +105,31 @@ export async function PATCH(
 
 
 
+
+
+
+    await logActivity({
+
+      action:
+        "UPDATE",
+
+      entity:
+        "User",
+
+      entityId:
+        session.user.id,
+
+      description:
+        "Changed account password",
+
+    });
+
+
+
+
+
+
+
     return NextResponse.json(
       {
         success: true,
@@ -82,29 +143,19 @@ export async function PATCH(
 
 
 
-
-
   } catch (error) {
 
 
-    console.error(
-      "CHANGE PASSWORD ERROR:",
-      error
-    );
-
-
-
-
     if (
-      error instanceof Error &&
-      error.message === "UNAUTHORIZED"
+      error instanceof UnauthorizedError
     ) {
 
 
       return NextResponse.json(
         {
           success: false,
-          message: "Unauthorized.",
+          message:
+            "Unauthorized.",
         },
         {
           status: 401,
@@ -117,9 +168,13 @@ export async function PATCH(
 
 
 
+
+
+
     if (
       error instanceof Error &&
-      error.message === "INVALID_PASSWORD"
+      error.message ===
+        "INVALID_PASSWORD"
     ) {
 
 
@@ -136,6 +191,20 @@ export async function PATCH(
 
 
     }
+
+
+
+
+
+
+
+    console.error(
+      "CHANGE PASSWORD ERROR:",
+      error
+    );
+
+
+
 
 
 

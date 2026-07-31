@@ -1,70 +1,145 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
+import {
+  NextRequest,
+  NextResponse,
+} from "next/server";
 
-import { authOptions } from "@/lib/auth";
-import { settingService } from "@/services/settings.service";
-import { socialLinkService } from "@/services/social-link.service";
-import { updateSocialLinkSchema } from "@/validations/social-link.schema";
+
+import {
+  settingService,
+} from "@/services/settings.service";
+
+
+import {
+  socialLinkService,
+} from "@/services/social-link.service";
+
+
+import {
+  updateSocialLinkSchema,
+} from "@/validations/social-link.schema";
+
+
+import {
+  requireAuth,
+  UnauthorizedError,
+} from "@/lib/auth-guard";
+
+
+import {
+  logActivity,
+} from "@/lib/activity";
+
+
+
+
+
+
+
+
 
 interface RouteContext {
+
   params: Promise<{
     id: string;
   }>;
+
 }
+
+
+
+
+
+
+
+
 
 export async function GET(
   _request: NextRequest,
   { params }: RouteContext
 ) {
+
+
   try {
+
+
     const session =
-      await getServerSession(authOptions);
+      await requireAuth();
 
-    if (!session?.user?.id) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Unauthorized.",
-        },
-        {
-          status: 401,
-        }
-      );
-    }
 
-    const { id } = await params;
+
+
+
+    const { id } =
+      await params;
+
+
+
+
 
     const link =
       await socialLinkService.getById(id);
 
+
+
+
+
     if (!link) {
+
+
       return NextResponse.json(
         {
           success: false,
-          message: "Social link not found.",
+          message:
+            "Social link not found.",
         },
         {
           status: 404,
         }
       );
+
+
     }
+
+
+
+
+
+
 
     const setting =
       await settingService.getByUserId(
         session.user.id
       );
 
-    if (!setting || link.settingId !== setting.id) {
+
+
+
+
+    if (
+      !setting ||
+      link.settingId !== setting.id
+    ) {
+
+
       return NextResponse.json(
         {
           success: false,
-          message: "Forbidden.",
+          message:
+            "Forbidden.",
         },
         {
           status: 403,
         }
       );
+
+
     }
+
+
+
+
+
+
 
     return NextResponse.json(
       {
@@ -75,95 +150,203 @@ export async function GET(
         status: 200,
       }
     );
+
+
+
   } catch (error) {
-    console.error(
-      "GET /api/social-links/[id] error:",
-      error
-    );
 
-    return NextResponse.json(
-      {
-        success: false,
-        message: "Failed to fetch social link.",
-      },
-      {
-        status: 500,
-      }
-    );
-  }
-}
 
-export async function PUT(
-  request: NextRequest,
-  { params }: RouteContext
-) {
-  try {
-    const session =
-      await getServerSession(authOptions);
+    if (
+      error instanceof UnauthorizedError
+    ) {
 
-    if (!session?.user?.id) {
+
       return NextResponse.json(
         {
           success: false,
-          message: "Unauthorized.",
+          message:
+            "Unauthorized.",
         },
         {
           status: 401,
         }
       );
+
+
     }
 
-    const { id } = await params;
+
+
+
+
+
+
+    console.error(
+      "GET /api/social-links/[id] error:",
+      error
+    );
+
+
+
+
+
+
+
+    return NextResponse.json(
+      {
+        success: false,
+        message:
+          "Failed to fetch social link.",
+      },
+      {
+        status: 500,
+      }
+    );
+
+
+  }
+
+}
+
+
+
+
+
+
+
+
+
+export async function PUT(
+  request: NextRequest,
+  { params }: RouteContext
+) {
+
+
+  try {
+
+
+    const session =
+      await requireAuth();
+
+
+
+
+
+    const { id } =
+      await params;
+
+
+
+
 
     const existingLink =
       await socialLinkService.getById(id);
 
+
+
+
+
     if (!existingLink) {
+
+
       return NextResponse.json(
         {
           success: false,
-          message: "Social link not found.",
+          message:
+            "Social link not found.",
         },
         {
           status: 404,
         }
       );
+
+
     }
+
+
+
+
+
+
 
     const setting =
       await settingService.getByUserId(
         session.user.id
       );
 
-    if (!setting || existingLink.settingId !== setting.id) {
+
+
+
+
+    if (
+      !setting ||
+      existingLink.settingId !== setting.id
+    ) {
+
+
       return NextResponse.json(
         {
           success: false,
-          message: "Forbidden.",
+          message:
+            "Forbidden.",
         },
         {
           status: 403,
         }
       );
+
+
     }
 
-    const body = await request.json();
+
+
+
+
+
+
+    const body =
+      await request.json();
+
+
+
+
 
     const validation =
-      updateSocialLinkSchema.safeParse(body);
+      updateSocialLinkSchema.safeParse(
+        body
+      );
+
+
+
+
 
     if (!validation.success) {
+
+
       return NextResponse.json(
         {
           success: false,
-          message: "Validation failed.",
-          errors: validation.error.flatten(),
+          message:
+            "Validation failed.",
+
+          errors:
+            validation.error.flatten(),
+
         },
         {
           status: 400,
         }
       );
+
+
     }
+
+
+
+
+
+
+
 
     const link =
       await socialLinkService.update(
@@ -171,6 +354,35 @@ export async function PUT(
         validation.data
       );
 
+
+
+
+
+
+
+
+    await logActivity({
+
+      action:
+        "UPDATE",
+
+      entity:
+        "SocialLink",
+
+      entityId:
+        link.id,
+
+      description:
+        `Updated social link: ${link.platform}`,
+
+    });
+
+
+
+
+
+
+
     return NextResponse.json(
       {
         success: true,
@@ -180,79 +392,191 @@ export async function PUT(
         status: 200,
       }
     );
+
+
+
   } catch (error) {
-    console.error(
-      "PUT /api/social-links/[id] error:",
-      error
-    );
 
-    return NextResponse.json(
-      {
-        success: false,
-        message: "Failed to update social link.",
-      },
-      {
-        status: 500,
-      }
-    );
-  }
-}
 
-export async function DELETE(
-  _request: NextRequest,
-  { params }: RouteContext
-) {
-  try {
-    const session =
-      await getServerSession(authOptions);
+    if (
+      error instanceof UnauthorizedError
+    ) {
 
-    if (!session?.user?.id) {
+
       return NextResponse.json(
         {
           success: false,
-          message: "Unauthorized.",
+          message:
+            "Unauthorized.",
         },
         {
           status: 401,
         }
       );
+
+
     }
 
-    const { id } = await params;
+
+
+
+
+
+
+    console.error(
+      "PUT /api/social-links/[id] error:",
+      error
+    );
+
+
+
+
+
+
+
+    return NextResponse.json(
+      {
+        success: false,
+        message:
+          "Failed to update social link.",
+      },
+      {
+        status: 500,
+      }
+    );
+
+
+  }
+
+}
+
+
+
+
+
+
+
+
+
+export async function DELETE(
+  _request: NextRequest,
+  { params }: RouteContext
+) {
+
+
+  try {
+
+
+    const session =
+      await requireAuth();
+
+
+
+
+
+    const { id } =
+      await params;
+
+
+
+
 
     const existingLink =
       await socialLinkService.getById(id);
 
+
+
+
+
     if (!existingLink) {
+
+
       return NextResponse.json(
         {
           success: false,
-          message: "Social link not found.",
+          message:
+            "Social link not found.",
         },
         {
           status: 404,
         }
       );
+
+
     }
+
+
+
+
+
+
 
     const setting =
       await settingService.getByUserId(
         session.user.id
       );
 
-    if (!setting || existingLink.settingId !== setting.id) {
+
+
+
+
+    if (
+      !setting ||
+      existingLink.settingId !== setting.id
+    ) {
+
+
       return NextResponse.json(
         {
           success: false,
-          message: "Forbidden.",
+          message:
+            "Forbidden.",
         },
         {
           status: 403,
         }
       );
+
+
     }
 
+
+
+
+
+
+
+
     await socialLinkService.delete(id);
+
+
+
+
+
+
+
+
+    await logActivity({
+
+      action:
+        "DELETE",
+
+      entity:
+        "SocialLink",
+
+      entityId:
+        id,
+
+      description:
+        `Deleted social link: ${existingLink.platform}`,
+
+    });
+
+
+
+
+
+
 
     return NextResponse.json(
       {
@@ -264,11 +588,47 @@ export async function DELETE(
         status: 200,
       }
     );
+
+
+
   } catch (error) {
+
+
+    if (
+      error instanceof UnauthorizedError
+    ) {
+
+
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Unauthorized.",
+        },
+        {
+          status: 401,
+        }
+      );
+
+
+    }
+
+
+
+
+
+
+
     console.error(
       "DELETE /api/social-links/[id] error:",
       error
     );
+
+
+
+
+
+
 
     return NextResponse.json(
       {
@@ -280,5 +640,8 @@ export async function DELETE(
         status: 500,
       }
     );
+
+
   }
+
 }

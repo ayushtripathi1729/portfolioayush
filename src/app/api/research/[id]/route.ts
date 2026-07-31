@@ -1,37 +1,98 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
+import {
+  NextRequest,
+  NextResponse,
+} from "next/server";
 
-import { authOptions } from "@/lib/auth";
-import { researchService } from "@/services/research.service";
-import { updateResearchSchema } from "@/validations/research.schema";
+
+import {
+  researchService,
+} from "@/services/research.service";
+
+
+import {
+  updateResearchSchema,
+} from "@/validations/research.schema";
+
+
+import {
+  requireAuth,
+  UnauthorizedError,
+} from "@/lib/auth-guard";
+
+
+import {
+  logActivity,
+} from "@/lib/activity";
+
+
+
+
+
+
+
+
 
 interface RouteContext {
+
   params: Promise<{
     id: string;
   }>;
+
 }
+
+
+
+
+
+
+
+
 
 export async function GET(
   _request: NextRequest,
   { params }: RouteContext
 ) {
+
+
   try {
-    const { id } = await params;
+
+
+    const { id } =
+      await params;
+
+
+
+
 
     const research =
       await researchService.getById(id);
 
+
+
+
+
     if (!research) {
+
+
       return NextResponse.json(
         {
           success: false,
-          message: "Research entry not found.",
+          message:
+            "Research entry not found.",
         },
         {
           status: 404,
         }
       );
+
+
     }
+
+
+
+
+
+
 
     return NextResponse.json(
       {
@@ -42,77 +103,142 @@ export async function GET(
         status: 200,
       }
     );
+
+
+
   } catch (error) {
+
+
     console.error(
       "GET /api/research/[id] error:",
       error
     );
 
+
+
+
+
+
+
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to fetch research entry.",
+        message:
+          "Failed to fetch research entry.",
       },
       {
         status: 500,
       }
     );
+
+
   }
+
 }
+
+
+
+
+
+
+
+
 
 export async function PUT(
   request: NextRequest,
   { params }: RouteContext
 ) {
+
+
   try {
-    const session = await getServerSession(authOptions);
 
-    if (!session?.user?.id) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Unauthorized.",
-        },
-        {
-          status: 401,
-        }
-      );
-    }
 
-    const { id } = await params;
+    await requireAuth();
+
+
+
+
+
+    const { id } =
+      await params;
+
+
+
+
 
     const existingResearch =
       await researchService.getById(id);
 
+
+
+
+
     if (!existingResearch) {
+
+
       return NextResponse.json(
         {
           success: false,
-          message: "Research entry not found.",
+          message:
+            "Research entry not found.",
         },
         {
           status: 404,
         }
       );
+
+
     }
 
-    const body = await request.json();
+
+
+
+
+
+
+    const body =
+      await request.json();
+
+
+
+
 
     const validation =
-      updateResearchSchema.safeParse(body);
+      updateResearchSchema.safeParse(
+        body
+      );
+
+
+
+
 
     if (!validation.success) {
+
+
       return NextResponse.json(
         {
           success: false,
-          message: "Validation failed.",
-          errors: validation.error.flatten(),
+          message:
+            "Validation failed.",
+
+          errors:
+            validation.error.flatten(),
+
         },
         {
           status: 400,
         }
       );
+
+
     }
+
+
+
+
+
+
+
 
     const research =
       await researchService.update(
@@ -120,6 +246,35 @@ export async function PUT(
         validation.data
       );
 
+
+
+
+
+
+
+
+    await logActivity({
+
+      action:
+        "UPDATE",
+
+      entity:
+        "Research",
+
+      entityId:
+        research.id,
+
+      description:
+        `Updated research: ${research.title}`,
+
+    });
+
+
+
+
+
+
+
     return NextResponse.json(
       {
         success: true,
@@ -129,85 +284,220 @@ export async function PUT(
         status: 200,
       }
     );
+
+
+
   } catch (error) {
-    console.error(
-      "PUT /api/research/[id] error:",
-      error
-    );
 
-    return NextResponse.json(
-      {
-        success: false,
-        message: "Failed to update research entry.",
-      },
-      {
-        status: 500,
-      }
-    );
-  }
-}
 
-export async function DELETE(
-  _request: NextRequest,
-  { params }: RouteContext
-) {
-  try {
-    const session = await getServerSession(authOptions);
+    if (
+      error instanceof UnauthorizedError
+    ) {
 
-    if (!session?.user?.id) {
+
       return NextResponse.json(
         {
           success: false,
-          message: "Unauthorized.",
+          message:
+            "Unauthorized.",
         },
         {
           status: 401,
         }
       );
+
+
     }
 
-    const { id } = await params;
 
-    const existingResearch =
-      await researchService.getById(id);
 
-    if (!existingResearch) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Research entry not found.",
-        },
-        {
-          status: 404,
-        }
-      );
-    }
 
-    await researchService.delete(id);
 
-    return NextResponse.json(
-      {
-        success: true,
-        message: "Research entry deleted successfully.",
-      },
-      {
-        status: 200,
-      }
-    );
-  } catch (error) {
+
+
     console.error(
-      "DELETE /api/research/[id] error:",
+      "PUT /api/research/[id] error:",
       error
     );
+
+
+
+
+
+
 
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to delete research entry.",
+        message:
+          "Failed to update research entry.",
       },
       {
         status: 500,
       }
     );
+
+
   }
+
+}
+
+
+
+
+
+
+
+
+
+export async function DELETE(
+  _request: NextRequest,
+  { params }: RouteContext
+) {
+
+
+  try {
+
+
+    await requireAuth();
+
+
+
+
+
+    const { id } =
+      await params;
+
+
+
+
+
+    const existingResearch =
+      await researchService.getById(id);
+
+
+
+
+
+    if (!existingResearch) {
+
+
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Research entry not found.",
+        },
+        {
+          status: 404,
+        }
+      );
+
+
+    }
+
+
+
+
+
+
+
+
+    await researchService.delete(id);
+
+
+
+
+
+
+
+
+    await logActivity({
+
+      action:
+        "DELETE",
+
+      entity:
+        "Research",
+
+      entityId:
+        id,
+
+      description:
+        `Deleted research: ${existingResearch.title}`,
+
+    });
+
+
+
+
+
+
+
+    return NextResponse.json(
+      {
+        success: true,
+        message:
+          "Research entry deleted successfully.",
+      },
+      {
+        status: 200,
+      }
+    );
+
+
+
+  } catch (error) {
+
+
+    if (
+      error instanceof UnauthorizedError
+    ) {
+
+
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Unauthorized.",
+        },
+        {
+          status: 401,
+        }
+      );
+
+
+    }
+
+
+
+
+
+
+
+    console.error(
+      "DELETE /api/research/[id] error:",
+      error
+    );
+
+
+
+
+
+
+
+    return NextResponse.json(
+      {
+        success: false,
+        message:
+          "Failed to delete research entry.",
+      },
+      {
+        status: 500,
+      }
+    );
+
+
+  }
+
 }

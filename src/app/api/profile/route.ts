@@ -1,17 +1,48 @@
-import { NextRequest, NextResponse } from "next/server";
+import {
+  NextRequest,
+  NextResponse,
+} from "next/server";
 
-import { requireAuth } from "@/lib/auth-guard";
-import { userService } from "@/services/user.service";
-import { updateUserSchema } from "@/validations/user.schema";
+
+import {
+  requireAuth,
+  UnauthorizedError,
+} from "@/lib/auth-guard";
+
+
+import {
+  userService,
+} from "@/services/user.service";
+
+
+import {
+  updateUserSchema,
+} from "@/validations/user.schema";
+
+
+import {
+  logActivity,
+} from "@/lib/activity";
+
+
+
+
+
+
 
 
 
 export async function GET() {
 
+
   try {
+
 
     const session =
       await requireAuth();
+
+
+
 
 
     const user =
@@ -20,19 +51,29 @@ export async function GET() {
       );
 
 
+
+
+
     if (!user) {
+
 
       return NextResponse.json(
         {
           success: false,
-          message: "User not found.",
+          message:
+            "User not found.",
         },
         {
           status: 404,
         }
       );
 
+
     }
+
+
+
+
 
 
 
@@ -47,7 +88,33 @@ export async function GET() {
     );
 
 
+
   } catch (error) {
+
+
+    if (
+      error instanceof UnauthorizedError
+    ) {
+
+
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Unauthorized.",
+        },
+        {
+          status: 401,
+        }
+      );
+
+
+    }
+
+
+
+
+
 
 
     console.error(
@@ -56,34 +123,22 @@ export async function GET() {
     );
 
 
-    if (
-      error instanceof Error &&
-      error.message === "UNAUTHORIZED"
-    ) {
 
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Unauthorized.",
-        },
-        {
-          status: 401,
-        }
-      );
 
-    }
 
 
 
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to fetch profile.",
+        message:
+          "Failed to fetch profile.",
       },
       {
         status: 500,
       }
     );
+
 
   }
 
@@ -93,9 +148,14 @@ export async function GET() {
 
 
 
+
+
+
+
 export async function PATCH(
   request: NextRequest
 ) {
+
 
   try {
 
@@ -105,8 +165,12 @@ export async function PATCH(
 
 
 
+
+
     const body =
       await request.json();
+
+
 
 
 
@@ -117,15 +181,20 @@ export async function PATCH(
 
 
 
+
+
     if (!validation.success) {
 
 
       return NextResponse.json(
         {
           success: false,
-          message: "Validation failed.",
+          message:
+            "Validation failed.",
+
           errors:
             validation.error.flatten(),
+
         },
         {
           status: 400,
@@ -137,11 +206,42 @@ export async function PATCH(
 
 
 
+
+
+
+
+
     const updatedUser =
       await userService.update(
         session.user.id,
         validation.data
       );
+
+
+
+
+
+
+
+
+    await logActivity({
+
+      action:
+        "UPDATE",
+
+      entity:
+        "User",
+
+      entityId:
+        updatedUser.id,
+
+      description:
+        `Updated profile: ${updatedUser.name}`,
+
+    });
+
+
+
 
 
 
@@ -161,6 +261,31 @@ export async function PATCH(
   } catch (error) {
 
 
+    if (
+      error instanceof UnauthorizedError
+    ) {
+
+
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Unauthorized.",
+        },
+        {
+          status: 401,
+        }
+      );
+
+
+    }
+
+
+
+
+
+
+
     console.error(
       "PATCH PROFILE ERROR:",
       error
@@ -168,22 +293,6 @@ export async function PATCH(
 
 
 
-    if (
-      error instanceof Error &&
-      error.message === "UNAUTHORIZED"
-    ) {
-
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Unauthorized.",
-        },
-        {
-          status: 401,
-        }
-      );
-
-    }
 
 
 
@@ -191,7 +300,8 @@ export async function PATCH(
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to update profile.",
+        message:
+          "Failed to update profile.",
       },
       {
         status: 500,

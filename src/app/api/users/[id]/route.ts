@@ -1,25 +1,67 @@
-import { NextResponse } from "next/server";
+import {
+  NextResponse,
+} from "next/server";
 
-import { userService } from "@/services/user.service";
+
+import {
+  userService,
+} from "@/services/user.service";
+
+
+import {
+  requireAuth,
+  UnauthorizedError,
+} from "@/lib/auth-guard";
+
+
+import {
+  logActivity,
+} from "@/lib/activity";
+
+
+
+
+
+
+
 
 
 interface RouteParams {
+
   params: Promise<{
     id: string;
   }>;
+
 }
 
 
 
+
+
+
+
+
+
 export async function DELETE(
-  request: Request,
+  _request: Request,
   { params }: RouteParams
 ) {
 
+
   try {
+
+
+    await requireAuth();
+
+
+
+
 
     const { id } =
       await params;
+
+
+
 
 
     const user =
@@ -27,10 +69,14 @@ export async function DELETE(
 
 
 
+
+
     if (!user) {
+
 
       return NextResponse.json(
         {
+          success: false,
           message:
             "User not found.",
         },
@@ -39,7 +85,13 @@ export async function DELETE(
         }
       );
 
+
     }
+
+
+
+
+
 
 
 
@@ -47,8 +99,36 @@ export async function DELETE(
 
 
 
+
+
+
+
+
+    await logActivity({
+
+      action:
+        "DELETE",
+
+      entity:
+        "User",
+
+      entityId:
+        id,
+
+      description:
+        `Deleted user: ${user.name}`,
+
+    });
+
+
+
+
+
+
+
     return NextResponse.json(
       {
+        success: true,
         message:
           "User deleted successfully.",
       },
@@ -58,7 +138,34 @@ export async function DELETE(
     );
 
 
+
   } catch (error) {
+
+
+    if (
+      error instanceof UnauthorizedError
+    ) {
+
+
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Unauthorized.",
+        },
+        {
+          status: 401,
+        }
+      );
+
+
+    }
+
+
+
+
+
+
 
     console.error(
       "DELETE USER ERROR:",
@@ -66,8 +173,14 @@ export async function DELETE(
     );
 
 
+
+
+
+
+
     return NextResponse.json(
       {
+        success: false,
         message:
           "Failed to delete user.",
       },
@@ -75,6 +188,7 @@ export async function DELETE(
         status: 500,
       }
     );
+
 
   }
 

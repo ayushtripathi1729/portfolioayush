@@ -1,7 +1,29 @@
 import { prisma } from "@/lib/prisma";
 
 
+
+export interface ActivityRecord {
+
+  id: string;
+
+  action: string;
+
+  entity: string;
+
+  entityId: string | null;
+
+  description: string;
+
+  createdAt: Date;
+
+}
+
+
+
+
+
 export class ActivityRepository {
+
 
 
   async create(data: {
@@ -10,6 +32,7 @@ export class ActivityRepository {
     entityId?: string;
     description: string;
   }) {
+
 
     return prisma.activity.create({
 
@@ -22,11 +45,19 @@ export class ActivityRepository {
 
 
 
-  async findRecent(limit = 10) {
+
+
+
+
+  async findRecent(
+    limit: number = 10
+  ): Promise<ActivityRecord[]> {
+
 
     return prisma.activity.findMany({
 
       take: limit,
+
 
       orderBy: {
 
@@ -34,12 +65,32 @@ export class ActivityRepository {
 
       },
 
+
+      select: {
+
+        id: true,
+
+        action: true,
+
+        entity: true,
+
+        entityId: true,
+
+        description: true,
+
+        createdAt: true,
+
+      },
+
     });
+
 
   }
 
 
 }
+
+
 
 
 

@@ -1,26 +1,90 @@
-import { NextResponse } from "next/server";
+import {
+  NextRequest,
+  NextResponse,
+} from "next/server";
 
-import { userService } from "@/services/user.service";
+
+import {
+  requireAuth,
+  UnauthorizedError,
+} from "@/lib/auth-guard";
+
+
+import {
+  userService,
+} from "@/services/user.service";
+
+
+import {
+  logActivity,
+} from "@/lib/activity";
+
+
+
+
+
+
 
 
 
 export async function GET() {
 
+
   try {
+
+
+    await requireAuth();
+
+
+
+
 
     const users =
       await userService.getAll();
 
 
+
+
+
     return NextResponse.json(
-      users,
+      {
+        success: true,
+        data: users,
+      },
       {
         status: 200,
       }
     );
 
 
+
   } catch (error) {
+
+
+    if (
+      error instanceof UnauthorizedError
+    ) {
+
+
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Unauthorized.",
+        },
+        {
+          status: 401,
+        }
+      );
+
+
+    }
+
+
+
+
+
+
 
     console.error(
       "GET USERS ERROR:",
@@ -28,8 +92,14 @@ export async function GET() {
     );
 
 
+
+
+
+
+
     return NextResponse.json(
       {
+        success: false,
         message:
           "Failed to fetch users.",
       },
@@ -37,6 +107,7 @@ export async function GET() {
         status: 500,
       }
     );
+
 
   }
 
@@ -46,14 +117,28 @@ export async function GET() {
 
 
 
+
+
+
+
 export async function POST(
-  request: Request
+  request: NextRequest
 ) {
+
 
   try {
 
+
+    await requireAuth();
+
+
+
+
+
     const body =
       await request.json();
+
+
 
 
 
@@ -64,15 +149,72 @@ export async function POST(
 
 
 
+
+
+
+
+
+    await logActivity({
+
+      action:
+        "CREATE",
+
+      entity:
+        "User",
+
+      entityId:
+        user.id,
+
+      description:
+        `Created user: ${user.name}`,
+
+    });
+
+
+
+
+
+
+
     return NextResponse.json(
-      user,
+      {
+        success: true,
+        data: user,
+      },
       {
         status: 201,
       }
     );
 
 
+
   } catch (error) {
+
+
+    if (
+      error instanceof UnauthorizedError
+    ) {
+
+
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Unauthorized.",
+        },
+        {
+          status: 401,
+        }
+      );
+
+
+    }
+
+
+
+
+
+
 
     console.error(
       "CREATE USER ERROR:",
@@ -80,8 +222,14 @@ export async function POST(
     );
 
 
+
+
+
+
+
     return NextResponse.json(
       {
+        success: false,
         message:
           "Failed to create user.",
       },
@@ -89,6 +237,7 @@ export async function POST(
         status: 500,
       }
     );
+
 
   }
 

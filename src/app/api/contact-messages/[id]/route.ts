@@ -1,16 +1,48 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
+import {
+  NextRequest,
+  NextResponse,
+} from "next/server";
 
-import { authOptions } from "@/lib/auth";
-import { contactMessageService } from "@/services/contact-message.service";
-import { updateContactMessageSchema } from "@/validations/contact-message.schema";
+
+import {
+  contactMessageService,
+} from "@/services/contact-message.service";
+
+
+import {
+  updateContactMessageSchema,
+} from "@/validations/contact-message.schema";
+
+
+import {
+  requireAuth,
+  UnauthorizedError,
+} from "@/lib/auth-guard";
+
+
+import {
+  logActivity,
+} from "@/lib/activity";
+
+
+
+
+
+
+
 
 
 interface RouteContext {
+
   params: Promise<{
     id: string;
   }>;
+
 }
+
+
+
+
 
 
 
@@ -21,10 +53,20 @@ export async function GET(
   { params }: RouteContext
 ) {
 
+
   try {
+
+
+    await requireAuth();
+
+
+
+
 
     const { id } =
       await params;
+
+
 
 
 
@@ -33,19 +75,28 @@ export async function GET(
 
 
 
+
+
     if (!message) {
+
 
       return NextResponse.json(
         {
           success: false,
-          message: "Contact message not found.",
+          message:
+            "Contact message not found.",
         },
         {
           status: 404,
         }
       );
 
+
     }
+
+
+
+
 
 
 
@@ -64,16 +115,47 @@ export async function GET(
   } catch (error) {
 
 
+    if (
+      error instanceof UnauthorizedError
+    ) {
+
+
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Unauthorized.",
+        },
+        {
+          status: 401,
+        }
+      );
+
+
+    }
+
+
+
+
+
+
+
     console.error(
       "GET /api/contact-messages/[id] error:",
       error
     );
 
 
+
+
+
+
+
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to fetch contact message.",
+        message:
+          "Failed to fetch contact message.",
       },
       {
         status: 500,
@@ -92,32 +174,17 @@ export async function GET(
 
 
 
+
 export async function PUT(
   request: NextRequest,
   { params }: RouteContext
 ) {
 
+
   try {
 
 
-    const session =
-      await getServerSession(authOptions);
-
-
-
-    if (!session?.user?.id) {
-
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Unauthorized.",
-        },
-        {
-          status: 401,
-        }
-      );
-
-    }
+    await requireAuth();
 
 
 
@@ -129,23 +196,28 @@ export async function PUT(
 
 
 
+
     const existingMessage =
       await contactMessageService.getById(id);
 
 
 
 
+
     if (!existingMessage) {
+
 
       return NextResponse.json(
         {
           success: false,
-          message: "Contact message not found.",
+          message:
+            "Contact message not found.",
         },
         {
           status: 404,
         }
       );
+
 
     }
 
@@ -153,8 +225,11 @@ export async function PUT(
 
 
 
+
+
     const body =
       await request.json();
+
 
 
 
@@ -170,19 +245,27 @@ export async function PUT(
 
     if (!validation.success) {
 
+
       return NextResponse.json(
         {
           success: false,
-          message: "Validation failed.",
+          message:
+            "Validation failed.",
+
           errors:
             validation.error.flatten(),
+
         },
         {
           status: 400,
         }
       );
 
+
     }
+
+
+
 
 
 
@@ -193,6 +276,31 @@ export async function PUT(
         id,
         validation.data
       );
+
+
+
+
+
+
+
+
+    await logActivity({
+
+      action:
+        "UPDATE",
+
+      entity:
+        "ContactMessage",
+
+      entityId:
+        message.id,
+
+      description:
+        `Updated contact message from ${message.name}`,
+
+    });
+
+
 
 
 
@@ -213,6 +321,31 @@ export async function PUT(
   } catch (error) {
 
 
+    if (
+      error instanceof UnauthorizedError
+    ) {
+
+
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Unauthorized.",
+        },
+        {
+          status: 401,
+        }
+      );
+
+
+    }
+
+
+
+
+
+
+
     console.error(
       "PUT /api/contact-messages/[id] error:",
       error
@@ -220,10 +353,15 @@ export async function PUT(
 
 
 
+
+
+
+
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to update contact message.",
+        message:
+          "Failed to update contact message.",
       },
       {
         status: 500,
@@ -242,33 +380,17 @@ export async function PUT(
 
 
 
+
 export async function DELETE(
   _request: NextRequest,
   { params }: RouteContext
 ) {
 
+
   try {
 
 
-    const session =
-      await getServerSession(authOptions);
-
-
-
-
-    if (!session?.user?.id) {
-
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Unauthorized.",
-        },
-        {
-          status: 401,
-        }
-      );
-
-    }
+    await requireAuth();
 
 
 
@@ -290,17 +412,23 @@ export async function DELETE(
 
     if (!existingMessage) {
 
+
       return NextResponse.json(
         {
           success: false,
-          message: "Contact message not found.",
+          message:
+            "Contact message not found.",
         },
         {
           status: 404,
         }
       );
 
+
     }
+
+
+
 
 
 
@@ -312,10 +440,36 @@ export async function DELETE(
 
 
 
+
+
+
+    await logActivity({
+
+      action:
+        "DELETE",
+
+      entity:
+        "ContactMessage",
+
+      entityId:
+        id,
+
+      description:
+        `Deleted contact message from ${existingMessage.name}`,
+
+    });
+
+
+
+
+
+
+
     return NextResponse.json(
       {
         success: true,
-        message: "Contact message deleted successfully.",
+        message:
+          "Contact message deleted successfully.",
       },
       {
         status: 200,
@@ -327,6 +481,31 @@ export async function DELETE(
   } catch (error) {
 
 
+    if (
+      error instanceof UnauthorizedError
+    ) {
+
+
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Unauthorized.",
+        },
+        {
+          status: 401,
+        }
+      );
+
+
+    }
+
+
+
+
+
+
+
     console.error(
       "DELETE /api/contact-messages/[id] error:",
       error
@@ -334,10 +513,15 @@ export async function DELETE(
 
 
 
+
+
+
+
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to delete contact message.",
+        message:
+          "Failed to delete contact message.",
       },
       {
         status: 500,

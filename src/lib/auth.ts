@@ -4,18 +4,35 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { authService } from "@/services/auth.service";
 
 
+const SESSION_MAX_AGE =
+  8 * 60 * 60; // 8 hours
+
+
+const INACTIVITY_TIMEOUT =
+  30 * 60; // 30 minutes
+
+
+
+
+
 export const authOptions: NextAuthOptions = {
 
+
   session: {
+
     strategy: "jwt",
 
-    maxAge: 8 * 60 * 60, // 8 hours
+    maxAge:
+      SESSION_MAX_AGE,
+
   },
+
 
 
   jwt: {
 
-    maxAge: 8 * 60 * 60, // 8 hours
+    maxAge:
+      SESSION_MAX_AGE,
 
     secret:
       process.env.NEXTAUTH_SECRET,
@@ -23,36 +40,45 @@ export const authOptions: NextAuthOptions = {
   },
 
 
+
   pages: {
 
-    signIn: "/login",
+    signIn:
+      "/login",
 
   },
 
 
+
   providers: [
+
 
     CredentialsProvider({
 
-      name: "Credentials",
+      name:
+        "Credentials",
 
 
       credentials: {
 
         email: {
 
-          label: "Email",
+          label:
+            "Email",
 
-          type: "email",
+          type:
+            "email",
 
         },
 
 
         password: {
 
-          label: "Password",
+          label:
+            "Password",
 
-          type: "password",
+          type:
+            "password",
 
         },
 
@@ -92,18 +118,23 @@ export const authOptions: NextAuthOptions = {
 
         return {
 
-          id: user.id,
+          id:
+            user.id,
 
-          name: user.name,
+          name:
+            user.name,
 
-          email: user.email,
+          email:
+            user.email,
 
         };
+
 
       },
 
 
     }),
+
 
   ],
 
@@ -111,7 +142,10 @@ export const authOptions: NextAuthOptions = {
 
 
 
+
+
   callbacks: {
+
 
 
     async jwt({
@@ -123,17 +157,84 @@ export const authOptions: NextAuthOptions = {
     }) {
 
 
+      const now =
+        Math.floor(
+          Date.now() / 1000
+        );
+
+
+
+
+
+      // First login
+
       if (user) {
+
 
         token.id =
           user.id;
 
+
+        token.lastActivity =
+          now;
+
+
+        token.expired =
+          false;
+
+
       }
+
+
+
+
+
+
+      // Inactivity timeout check
+
+      if (
+
+        token.lastActivity &&
+
+        now -
+          (token.lastActivity as number)
+          >
+          INACTIVITY_TIMEOUT
+
+      ) {
+
+
+        token.expired =
+          true;
+
+
+        return token;
+
+
+      }
+
+
+
+
+
+
+      // Refresh activity time
+
+      token.lastActivity =
+        now;
+
+
+
 
 
       return token;
 
+
     },
+
+
+
+
 
 
 
@@ -148,9 +249,43 @@ export const authOptions: NextAuthOptions = {
     }) {
 
 
+
+      // Session expired due to inactivity
+
       if (
+        token.expired
+      ) {
+
+
+        return {
+
+          ...session,
+
+          user:
+            undefined,
+
+          expires:
+            new Date(0)
+              .toISOString(),
+
+        };
+
+
+      }
+
+
+
+
+
+
+
+
+      if (
+
         session.user &&
+
         token.id
+
       ) {
 
 
@@ -162,16 +297,25 @@ export const authOptions: NextAuthOptions = {
 
 
 
+
+
+
       return session;
 
+
     },
+
 
 
   },
 
 
 
+
+
+
   secret:
     process.env.NEXTAUTH_SECRET,
+
 
 };

@@ -1,16 +1,45 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
+import {
+  NextRequest,
+  NextResponse,
+} from "next/server";
 
-import { authOptions } from "@/lib/auth";
-import { achievementService } from "@/services/achievement.service";
-import { updateAchievementSchema } from "@/validations/achievement.schema";
+
+import {
+  achievementService,
+} from "@/services/achievement.service";
+
+
+import {
+  updateAchievementSchema,
+} from "@/validations/achievement.schema";
+
+
+import {
+  requireAuth,
+  UnauthorizedError,
+} from "@/lib/auth-guard";
+
+
+import {
+  logActivity,
+} from "@/lib/activity";
+
+
+
 
 
 interface RouteContext {
+
   params: Promise<{
     id: string;
   }>;
+
 }
+
+
+
+
+
 
 
 
@@ -20,10 +49,14 @@ export async function GET(
   { params }: RouteContext
 ) {
 
+
   try {
+
 
     const { id } =
       await params;
+
+
 
 
     const achievement =
@@ -31,19 +64,28 @@ export async function GET(
 
 
 
+
+
     if (!achievement) {
+
 
       return NextResponse.json(
         {
           success: false,
-          message: "Achievement not found.",
+          message:
+            "Achievement not found.",
         },
         {
           status: 404,
         }
       );
 
+
     }
+
+
+
+
 
 
 
@@ -58,7 +100,11 @@ export async function GET(
     );
 
 
+
+
   } catch (error) {
+
+
 
     console.error(
       "GET /api/achievement/[id] error:",
@@ -66,19 +112,27 @@ export async function GET(
     );
 
 
+
+
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to fetch achievement.",
+        message:
+          "Failed to fetch achievement.",
       },
       {
         status: 500,
       }
     );
 
+
   }
 
 }
+
+
+
+
 
 
 
@@ -89,26 +143,13 @@ export async function PUT(
   { params }: RouteContext
 ) {
 
+
   try {
 
-    const session =
-      await getServerSession(authOptions);
+
+    await requireAuth();
 
 
-
-    if (!session?.user?.id) {
-
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Unauthorized.",
-        },
-        {
-          status: 401,
-        }
-      );
-
-    }
 
 
 
@@ -117,29 +158,42 @@ export async function PUT(
 
 
 
+
+
     const existingAchievement =
       await achievementService.getById(id);
 
 
 
+
+
     if (!existingAchievement) {
+
 
       return NextResponse.json(
         {
           success: false,
-          message: "Achievement not found.",
+          message:
+            "Achievement not found.",
         },
         {
           status: 404,
         }
       );
 
+
     }
+
+
+
+
 
 
 
     const body =
       await request.json();
+
+
 
 
 
@@ -150,12 +204,17 @@ export async function PUT(
 
 
 
+
+
+
     if (!validation.success) {
+
 
       return NextResponse.json(
         {
           success: false,
-          message: "Validation failed.",
+          message:
+            "Validation failed.",
           errors:
             validation.error.flatten(),
         },
@@ -164,7 +223,13 @@ export async function PUT(
         }
       );
 
+
     }
+
+
+
+
+
 
 
 
@@ -176,6 +241,33 @@ export async function PUT(
 
 
 
+
+
+
+
+    await logActivity({
+
+      action:
+        "UPDATE",
+
+      entity:
+        "Achievement",
+
+      entityId:
+        achievement.id,
+
+      description:
+        `Updated achievement: ${achievement.title}`,
+
+    });
+
+
+
+
+
+
+
+
     return NextResponse.json(
       {
         success: true,
@@ -187,7 +279,36 @@ export async function PUT(
     );
 
 
+
+
   } catch (error) {
+
+
+
+    if (
+      error instanceof UnauthorizedError
+    ) {
+
+
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Unauthorized.",
+        },
+        {
+          status: 401,
+        }
+      );
+
+
+    }
+
+
+
+
+
+
 
     console.error(
       "PUT /api/achievement/[id] error:",
@@ -195,19 +316,28 @@ export async function PUT(
     );
 
 
+
+
+
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to update achievement.",
+        message:
+          "Failed to update achievement.",
       },
       {
         status: 500,
       }
     );
 
+
   }
 
 }
+
+
+
+
 
 
 
@@ -218,26 +348,13 @@ export async function DELETE(
   { params }: RouteContext
 ) {
 
+
   try {
 
-    const session =
-      await getServerSession(authOptions);
+
+    await requireAuth();
 
 
-
-    if (!session?.user?.id) {
-
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Unauthorized.",
-        },
-        {
-          status: 401,
-        }
-      );
-
-    }
 
 
 
@@ -246,24 +363,36 @@ export async function DELETE(
 
 
 
+
+
     const existingAchievement =
       await achievementService.getById(id);
 
 
 
+
+
     if (!existingAchievement) {
+
 
       return NextResponse.json(
         {
           success: false,
-          message: "Achievement not found.",
+          message:
+            "Achievement not found.",
         },
         {
           status: 404,
         }
       );
 
+
     }
+
+
+
+
+
 
 
 
@@ -271,10 +400,37 @@ export async function DELETE(
 
 
 
+
+
+
+
+    await logActivity({
+
+      action:
+        "DELETE",
+
+      entity:
+        "Achievement",
+
+      entityId:
+        id,
+
+      description:
+        `Deleted achievement: ${existingAchievement.title}`,
+
+    });
+
+
+
+
+
+
+
     return NextResponse.json(
       {
         success: true,
-        message: "Achievement deleted successfully.",
+        message:
+          "Achievement deleted successfully.",
       },
       {
         status: 200,
@@ -282,7 +438,36 @@ export async function DELETE(
     );
 
 
+
+
   } catch (error) {
+
+
+
+    if (
+      error instanceof UnauthorizedError
+    ) {
+
+
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Unauthorized.",
+        },
+        {
+          status: 401,
+        }
+      );
+
+
+    }
+
+
+
+
+
+
 
     console.error(
       "DELETE /api/achievement/[id] error:",
@@ -290,15 +475,22 @@ export async function DELETE(
     );
 
 
+
+
+
+
+
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to delete achievement.",
+        message:
+          "Failed to delete achievement.",
       },
       {
         status: 500,
       }
     );
+
 
   }
 

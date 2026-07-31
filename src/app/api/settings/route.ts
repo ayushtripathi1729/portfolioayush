@@ -1,42 +1,81 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
+import {
+  NextRequest,
+  NextResponse,
+} from "next/server";
 
-import { authOptions } from "@/lib/auth";
-import { settingService } from "@/services/settings.service";
-import { updateSettingSchema } from "@/validations/settings.schema";
+
+import {
+  settingService,
+} from "@/services/settings.service";
+
+
+import {
+  updateSettingSchema,
+} from "@/validations/settings.schema";
+
+
+import {
+  requireAuth,
+  UnauthorizedError,
+} from "@/lib/auth-guard";
+
+
+import {
+  logActivity,
+} from "@/lib/activity";
+
+
+
+
+
+
+
+
 
 export async function GET() {
-  try {
-    const session = await getServerSession(authOptions);
 
-    if (!session?.user?.id) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Unauthorized.",
-        },
-        {
-          status: 401,
-        }
-      );
-    }
+
+  try {
+
+
+    const session =
+      await requireAuth();
+
+
+
+
 
     const setting =
       await settingService.getByUserId(
         session.user.id
       );
 
+
+
+
+
     if (!setting) {
+
+
       return NextResponse.json(
         {
           success: false,
-          message: "Settings not found.",
+          message:
+            "Settings not found.",
         },
         {
           status: 404,
         }
       );
+
+
     }
+
+
+
+
+
+
 
     return NextResponse.json(
       {
@@ -47,59 +86,130 @@ export async function GET() {
         status: 200,
       }
     );
+
+
+
   } catch (error) {
-    console.error(
-      "GET /api/settings error:",
-      error
-    );
 
-    return NextResponse.json(
-      {
-        success: false,
-        message: "Failed to fetch settings.",
-      },
-      {
-        status: 500,
-      }
-    );
-  }
-}
 
-export async function PUT(
-  request: NextRequest
-) {
-  try {
-    const session = await getServerSession(authOptions);
+    if (
+      error instanceof UnauthorizedError
+    ) {
 
-    if (!session?.user?.id) {
+
       return NextResponse.json(
         {
           success: false,
-          message: "Unauthorized.",
+          message:
+            "Unauthorized.",
         },
         {
           status: 401,
         }
       );
+
+
     }
 
-    const body = await request.json();
+
+
+
+
+
+
+    console.error(
+      "GET /api/settings error:",
+      error
+    );
+
+
+
+
+
+
+
+    return NextResponse.json(
+      {
+        success: false,
+        message:
+          "Failed to fetch settings.",
+      },
+      {
+        status: 500,
+      }
+    );
+
+
+  }
+
+}
+
+
+
+
+
+
+
+
+
+export async function PUT(
+  request: NextRequest
+) {
+
+
+  try {
+
+
+    const session =
+      await requireAuth();
+
+
+
+
+
+    const body =
+      await request.json();
+
+
+
+
 
     const validation =
-      updateSettingSchema.safeParse(body);
+      updateSettingSchema.safeParse(
+        body
+      );
+
+
+
+
 
     if (!validation.success) {
+
+
       return NextResponse.json(
         {
           success: false,
-          message: "Validation failed.",
-          errors: validation.error.flatten(),
+          message:
+            "Validation failed.",
+
+          errors:
+            validation.error.flatten(),
+
         },
         {
           status: 400,
         }
       );
+
+
     }
+
+
+
+
+
+
+
 
     const setting =
       await settingService.updateByUserId(
@@ -107,6 +217,35 @@ export async function PUT(
         validation.data
       );
 
+
+
+
+
+
+
+
+    await logActivity({
+
+      action:
+        "UPDATE",
+
+      entity:
+        "Setting",
+
+      entityId:
+        setting.id,
+
+      description:
+        "Updated website settings",
+
+    });
+
+
+
+
+
+
+
     return NextResponse.json(
       {
         success: true,
@@ -116,20 +255,60 @@ export async function PUT(
         status: 200,
       }
     );
+
+
+
   } catch (error) {
+
+
+    if (
+      error instanceof UnauthorizedError
+    ) {
+
+
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Unauthorized.",
+        },
+        {
+          status: 401,
+        }
+      );
+
+
+    }
+
+
+
+
+
+
+
     console.error(
       "PUT /api/settings error:",
       error
     );
 
+
+
+
+
+
+
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to update settings.",
+        message:
+          "Failed to update settings.",
       },
       {
         status: 500,
       }
     );
+
+
   }
+
 }

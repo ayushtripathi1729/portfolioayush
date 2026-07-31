@@ -1,6 +1,9 @@
 import { getServerSession } from "next-auth";
 
-import { authOptions } from "@/lib/auth";
+import {
+  authOptions,
+} from "@/lib/auth";
+
 
 
 export class UnauthorizedError extends Error {
@@ -20,21 +23,33 @@ export class UnauthorizedError extends Error {
 
 
 
+
+
 export async function requireAuth() {
 
+
   const session =
-    await getServerSession(authOptions);
+    await getServerSession(
+      authOptions
+    );
 
 
 
-  if (!session?.user) {
+
+  if (
+    !session?.user?.id
+  ) {
+
 
     throw new UnauthorizedError();
+
 
   }
 
 
 
+
   return session;
+
 
 }
