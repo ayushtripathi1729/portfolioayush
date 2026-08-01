@@ -64,9 +64,12 @@ export function Navbar() {
 
         <Link
           href="/"
+          aria-label="Go to homepage"
           className="
           flex
           flex-col
+          transition-opacity
+          hover:opacity-80
           "
         >
 
@@ -102,6 +105,7 @@ export function Navbar() {
 
 
 
+
         {/* NAVIGATION + THEME */}
 
 
@@ -114,7 +118,9 @@ export function Navbar() {
         >
 
 
+
           <nav
+            aria-label="Main navigation"
             className="
             hidden
             items-center
@@ -129,10 +135,19 @@ export function Navbar() {
                 key={item.label}
                 href={item.href}
                 className="
+                relative
                 text-sm
                 text-muted-foreground
                 transition
                 hover:text-foreground
+                after:absolute
+                after:-bottom-2
+                after:left-0
+                after:h-px
+                after:w-0
+                after:bg-foreground
+                after:transition-all
+                hover:after:w-full
                 "
               >
                 {item.label}
@@ -142,6 +157,7 @@ export function Navbar() {
 
 
           </nav>
+
 
 
 

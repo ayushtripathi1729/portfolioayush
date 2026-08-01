@@ -1,3 +1,4 @@
+import { Prisma } from "../../../../generated/prisma/client";
 import {
   NextRequest,
   NextResponse,
@@ -213,10 +214,9 @@ export async function PUT(
 
     const setting =
       await settingService.updateByUserId(
-        session.user.id,
-        validation.data
-      );
-
+      session.user.id,
+      validation.data as Prisma.SettingUncheckedUpdateInput
+    );
 
 
 

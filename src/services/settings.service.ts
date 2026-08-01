@@ -85,9 +85,10 @@ export class SettingService {
 
 
 
+
   async update(
     id: string,
-    data: Prisma.SettingUpdateInput
+    data: Prisma.SettingUncheckedUpdateInput
   ) {
 
 
@@ -125,9 +126,10 @@ export class SettingService {
 
 
 
+
   async updateByUserId(
     userId: string,
-    data: Prisma.SettingUpdateInput
+    data: Prisma.SettingUncheckedUpdateInput
   ) {
 
 
@@ -165,10 +167,11 @@ export class SettingService {
 
 
 
+
   async upsert(
     userId: string,
     create: Prisma.SettingCreateInput,
-    update: Prisma.SettingUpdateInput
+    update: Prisma.SettingUncheckedUpdateInput
   ) {
 
 
@@ -207,6 +210,7 @@ export class SettingService {
 
 
 
+
   async delete(
     id: string
   ) {
@@ -237,6 +241,7 @@ export class SettingService {
     return deleted;
 
   }
+
 
 
 

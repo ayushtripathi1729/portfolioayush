@@ -56,14 +56,16 @@ export const updateSettingSchema = z.object({
     .or(z.literal("")),
 
   profileImageId: z
-    .string()
-    .optional()
-    .or(z.literal("")),
+  .string()
+  .trim()
+  .optional()
+  .or(z.literal("")),
 
-  resumeAssetId: z
-    .string()
-    .optional()
-    .or(z.literal("")),
+resumeAssetId: z
+  .string()
+  .trim()
+  .optional()
+  .or(z.literal("")),
 });
 
 export type UpdateSettingInput = z.infer<

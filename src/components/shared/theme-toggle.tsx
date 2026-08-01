@@ -5,65 +5,15 @@ import {
   Sun,
 } from "lucide-react";
 
-import {
-  useSyncExternalStore,
-} from "react";
-
-import {
-  useTheme,
-} from "next-themes";
 
 import {
   Button,
 } from "@/components/ui/button";
 
 
-
-
-
-function useMounted() {
-
-  return useSyncExternalStore(
-    subscribe,
-    getSnapshot,
-    getServerSnapshot
-  );
-
-}
-
-
-
-
-
-function subscribe() {
-
-  return () => {};
-
-}
-
-
-
-
-
-function getSnapshot() {
-
-  return true;
-
-}
-
-
-
-
-
-function getServerSnapshot() {
-
-  return false;
-
-}
-
-
-
-
+import {
+  useTheme,
+} from "@/components/providers/theme-provider";
 
 
 
@@ -72,50 +22,17 @@ function getServerSnapshot() {
 export function ThemeToggle() {
 
 
-  const mounted =
-    useMounted();
-
-
-
   const {
-    resolvedTheme,
-    setTheme,
+    theme,
+    toggleTheme,
   } = useTheme();
 
 
 
 
 
-  if (!mounted) {
-
-    return (
-
-      <Button
-
-        variant="ghost"
-
-        size="icon"
-
-        aria-label="Toggle theme"
-
-      >
-
-        <Moon className="h-4 w-4" />
-
-      </Button>
-
-    );
-
-  }
-
-
-
-
-
-
-
   const isDark =
-    resolvedTheme === "dark";
+    theme === "dark";
 
 
 
@@ -130,13 +47,7 @@ export function ThemeToggle() {
 
       size="icon"
 
-      onClick={() =>
-        setTheme(
-          isDark
-            ? "light"
-            : "dark"
-        )
-      }
+      onClick={toggleTheme}
 
       aria-label="Toggle theme"
 
@@ -145,11 +56,15 @@ export function ThemeToggle() {
       {
         isDark ? (
 
-          <Sun className="h-4 w-4" />
+          <Sun
+            className="h-4 w-4"
+          />
 
         ) : (
 
-          <Moon className="h-4 w-4" />
+          <Moon
+            className="h-4 w-4"
+          />
 
         )
       }

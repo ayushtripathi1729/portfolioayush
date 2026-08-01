@@ -1,11 +1,63 @@
-import Image from "next/image";
-
 import type { PortfolioSetting } from "@/types/portfolio";
+
+import { ProfileFlipCard } from "@/components/public/profile-flip-card";
+
 
 
 interface HeroSectionProps {
   setting: PortfolioSetting | null;
 }
+
+
+
+const dots = Array.from({
+  length: 16,
+});
+
+
+
+
+
+function DotGrid() {
+
+  return (
+
+    <div
+      className="
+      grid
+      grid-cols-4
+      gap-3
+      opacity-30
+      "
+    >
+
+      {
+        dots.map((_, index) => (
+
+          <span
+            key={index}
+            className="
+            h-1
+            w-1
+            rounded-full
+            bg-violet-500
+            "
+          />
+
+        ))
+      }
+
+    </div>
+
+  );
+
+}
+
+
+
+
+
+
 
 
 
@@ -20,11 +72,23 @@ export function HeroSection({
 
 
 
+
+
   return (
-    <section className="relative overflow-hidden">
+
+    <section
+      className="
+      relative
+      overflow-hidden
+      bg-background
+      "
+    >
 
 
-      {/* Ambient background */}
+
+
+
+      {/* Ambient Background */}
 
       <div
         className="
@@ -32,9 +96,36 @@ export function HeroSection({
         absolute
         inset-0
         -z-10
-        bg-[radial-gradient(circle_at_15%_20%,rgba(99,102,241,0.16),transparent_38%)]
+        bg-linear-to-br
+        from-background
+        via-background
+        to-violet-500/10
         "
       />
+
+
+
+
+      <div
+        className="
+        pointer-events-none
+        absolute
+        left-0
+        top-20
+        -z-10
+        h-96
+        w-96
+        rounded-full
+        bg-violet-500/10
+        blur-3xl
+        "
+      />
+
+
+
+
+
+
 
 
 
@@ -50,6 +141,10 @@ export function HeroSection({
       >
 
 
+
+
+
+
         <div
           className="
           grid
@@ -62,11 +157,23 @@ export function HeroSection({
 
 
 
+
+
+
           {/* LEFT CONTENT */}
 
 
 
-          <div className="space-y-10">
+
+
+          <div
+            className="
+            space-y-10
+            "
+          >
+
+
+
 
 
             <div>
@@ -79,10 +186,12 @@ export function HeroSection({
                 text-xs
                 uppercase
                 tracking-[0.35em]
-                text-muted-foreground
+                text-violet-600
                 "
               >
+
                 Theoretical Computer Science • Pure Mathematics • Security Analyst
+
               </p>
 
 
@@ -92,14 +201,18 @@ export function HeroSection({
 
               <h1
                 className="
+                font-serif
                 text-6xl
-                font-bold
+                font-semibold
                 leading-[0.9]
                 tracking-tight
+                text-foreground
                 md:text-8xl
                 "
               >
+
                 {setting.fullName}
+
               </h1>
 
 
@@ -107,16 +220,16 @@ export function HeroSection({
 
 
 
-              {/* Identity */}
 
               <div
                 className="
                 mt-8
                 flex
                 flex-col
-                gap-3
+                gap-4
                 "
               >
+
 
 
                 <p
@@ -126,16 +239,19 @@ export function HeroSection({
                   text-muted-foreground
                   "
                 >
+
                   aka{" "}
 
                   <span
                     className="
                     font-semibold
                     tracking-[0.25em]
-                    text-foreground
+                    text-violet-600
                     "
                   >
+
                     SHUNYAM
+
                   </span>
 
                 </p>
@@ -143,11 +259,13 @@ export function HeroSection({
 
 
 
+
+
                 <div
                   className="
                   h-px
-                  w-44
-                  bg-foreground/70
+                  w-48
+                  bg-violet-500
                   "
                 />
 
@@ -165,6 +283,10 @@ export function HeroSection({
 
 
 
+
+
+
+
             <p
               className="
               max-w-3xl
@@ -174,11 +296,13 @@ export function HeroSection({
               "
             >
 
-              {setting.tagline ??
+              {
+                setting.tagline ??
                 "Building systems and solving problems at the intersection of algorithms, mathematics and technology."
               }
 
             </p>
+
 
 
 
@@ -196,7 +320,8 @@ export function HeroSection({
               "
             >
 
-              {setting.bio ??
+              {
+                setting.bio ??
                 "Computer Science engineer passionate about Competitive Programming, Cybersecurity, Artificial Intelligence and theoretical computer science."
               }
 
@@ -210,7 +335,7 @@ export function HeroSection({
 
 
 
-            {/* ACTION BUTTONS */}
+            {/* BUTTONS */}
 
 
             <div
@@ -243,8 +368,12 @@ export function HeroSection({
                 hover:scale-105
                 "
               >
+
                 Resume
+
               </a>
+
+
 
 
 
@@ -258,6 +387,7 @@ export function HeroSection({
                 className="
                 rounded-full
                 border
+                border-border
                 px-8
                 py-3
                 text-sm
@@ -266,8 +396,12 @@ export function HeroSection({
                 hover:bg-muted
                 "
               >
+
                 GitHub
+
               </a>
+
+
 
 
 
@@ -279,6 +413,7 @@ export function HeroSection({
                 className="
                 rounded-full
                 border
+                border-border
                 px-8
                 py-3
                 text-sm
@@ -287,7 +422,9 @@ export function HeroSection({
                 hover:bg-muted
                 "
               >
+
                 Contact
+
               </a>
 
 
@@ -302,38 +439,63 @@ export function HeroSection({
 
 
 
-            {/* Metadata */}
+
+
+
+            {/* METADATA */}
+
 
             <div
               className="
               flex
-              flex-nowrap
+              flex-wrap
               items-center
-              gap-x-8
-              overflow-hidden
-              overflow-x-auto scrollbar-hide
+              gap-x-6
               gap-y-4
               pt-4
-              whitespace-nowrap
               text-[11px]
               uppercase
-              tracking-[0.22em]
+              tracking-[0.25em]
               text-muted-foreground
               "
             >
+
+
+
               <span>
                 Computer Science Engineer
               </span>
+
+
+
+              <span className="text-violet-500">
+                |
+              </span>
+
+
 
               <span>
                 Competitive Programmer
               </span>
 
+
+
+              <span className="text-violet-500">
+                |
+              </span>
+
+
+
               <span>
                 Mathematical CS
               </span>
 
+
+
             </div>
+
+
+
 
 
 
@@ -342,18 +504,14 @@ export function HeroSection({
 
 
 
-
-
-
-
-
-          {/* IMAGE */}
-
+          {/* RIGHT IMAGE SECTION */}
 
 
           <div
             className="
+            relative
             flex
+            items-center
             justify-center
             lg:justify-end
             "
@@ -361,68 +519,294 @@ export function HeroSection({
 
 
 
+
+
+
+            {/* IMAGE ORBIT WRAPPER */}
+
+
             <div
               className="
               relative
-              h-90
-              w-90
-              rounded-full
-              border
-              p-4
-              shadow-[0_30px_80px_rgba(0,0,0,0.18)]
-              md:h-107.5
-              md:w-107.5
+              flex
+              h-120
+              w-120
+              items-center
+              justify-center
               "
             >
 
 
+
+
+
+
+
+              {/* PURPLE GLOW */}
+
+
               <div
                 className="
-                relative
-                h-full
-                w-full
-                overflow-hidden
+                pointer-events-none
+                absolute
+                inset-12
                 rounded-full
+                bg-violet-500/20
+                blur-3xl
+                "
+              />
+
+
+
+
+
+
+
+
+
+              {/* TOP RIGHT DOT GRID */}
+
+
+              <div
+                className="
+                absolute
+                -right-10
+                -top-10
+                "
+              >
+
+                <DotGrid />
+
+              </div>
+
+
+
+
+
+
+
+
+
+              {/* BOTTOM LEFT DOT GRID */}
+
+
+              <div
+                className="
+                absolute
+                -bottom-10
+                -left-10
+                "
+              >
+
+                <DotGrid />
+
+              </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+              {/* MAIN STATIC ORBIT */}
+
+
+              <div
+                className="
+                absolute
+                h-104
+                w-104
+                rounded-full
+                border
+                border-violet-500/25
+                "
+              />
+
+
+
+
+
+
+
+
+
+              {/* ROTATING DASHED ORBIT */}
+
+
+              <div
+                className="
+                absolute
+                h-112
+                w-md
+                rounded-full
+                border
+                border-dashed
+                border-violet-400/40
+                animate-[spin_20s_linear_infinite]
+                "
+              />
+
+
+
+
+
+
+
+
+
+
+
+
+
+              {/* ORBIT PARTICLE SYSTEM */}
+
+
+              <div
+                className="
+                absolute
+                h-112
+                w-md
+                animate-[spin_12s_linear_infinite]
                 "
               >
 
 
-                {setting.profileImage ? (
-
-
-                  <Image
-                    src={setting.profileImage.url}
-                    alt={setting.fullName}
-                    fill
-                    sizes="430px"
-                    className="object-cover"
-                  />
-
-
-                ) : (
-
-
-                  <div
-                    className="
-                    flex
-                    h-full
-                    items-center
-                    justify-center
-                    text-muted-foreground
-                    "
-                  >
-                    No Image
-                  </div>
-
-
-                )}
+                <div
+                  className="
+                  absolute
+                  left-1/2
+                  top-0
+                  -translate-x-1/2
+                  h-4
+                  w-4
+                  rounded-full
+                  bg-violet-600
+                  shadow-[0_0_30px_rgba(124,58,237,1)]
+                  "
+                />
 
 
 
               </div>
 
 
+
+
+
+
+
+
+
+
+
+
+              <div
+                className="
+                absolute
+                h-112
+                w-wd
+                animate-[spin_18s_linear_infinite_reverse]
+                "
+              >
+
+
+                <div
+                  className="
+                  absolute
+                  bottom-2
+                  left-1/2
+                  -translate-x-1/2
+                  h-3
+                  w-3
+                  rounded-full
+                  bg-violet-400
+                  shadow-[0_0_25px_rgba(167,139,250,1)]
+                  "
+                />
+
+
+              </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+              {/* SMALL ORBIT ARC */}
+
+
+              <div
+                className="
+                absolute
+                h-124
+                w-124
+                rounded-full
+                border-t
+                border-violet-500/40
+                rotate-45
+                "
+              />
+
+
+
+
+
+
+
+
+
+
+
+
+
+              {/* PROFILE FLIP CARD */}
+
+
+              {
+                setting.profileImage && (
+
+                  <ProfileFlipCard
+
+                    src={
+                      setting.profileImage.url
+                    }
+
+                    alt={
+                      setting.fullName
+                    }
+
+                  />
+
+                )
+              }
+
+
+
+
+
+
+
+
+
+
             </div>
+
+
+
+
 
 
           </div>
@@ -430,12 +814,25 @@ export function HeroSection({
 
 
 
+
+
+
         </div>
+
+
+
+
 
 
       </div>
 
 
+
+
+
+
     </section>
+
   );
+
 }
