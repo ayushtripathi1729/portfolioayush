@@ -21,7 +21,16 @@ export function AchievementsSection({
 
 
   return (
-    <section className="container mx-auto px-6 py-20">
+    <section
+      className="
+      container
+      mx-auto
+      px-8
+      py-28
+      lg:px-16
+      "
+    >
+
 
 
       <SectionTitle
@@ -31,58 +40,149 @@ export function AchievementsSection({
 
 
 
-      <div className="grid gap-8 md:grid-cols-2">
 
 
-        {achievements.map((achievement) => (
+
+
+
+      <div
+        className="
+        mt-16
+        space-y-12
+        "
+      >
+
+
+
+        {achievements.map((achievement, index) => (
+
 
           <article
             key={achievement.id}
-            className="rounded-xl border p-6"
+            className="
+            grid
+            gap-8
+            border-b
+            pb-12
+            lg:grid-cols-[100px_1fr_180px]
+            "
           >
 
 
-            <h3 className="text-2xl font-semibold">
-              {achievement.title}
-            </h3>
-
-
-
-            {achievement.category && (
-
-              <p className="mt-2 text-sm text-muted-foreground">
-                {achievement.category}
-              </p>
-
-            )}
 
 
 
 
-            {achievement.issuer && (
+            {/* NUMBER */}
 
-              <p className="text-sm text-muted-foreground">
-                Issued by {achievement.issuer}
-              </p>
 
-            )}
+            <div
+              className="
+              text-4xl
+              font-light
+              text-muted-foreground/40
+              "
+            >
+              {String(index + 1).padStart(2, "0")}
+            </div>
 
 
 
 
 
-            {achievement.description && (
-
-              <p className="mt-4 leading-7 text-muted-foreground">
-                {achievement.description}
-              </p>
-
-            )}
 
 
 
+            {/* CONTENT */}
 
-            <div className="mt-5 flex gap-3">
+
+
+            <div
+              className="
+              space-y-5
+              "
+            >
+
+
+
+              <h3
+                className="
+                text-3xl
+                font-semibold
+                tracking-tight
+                "
+              >
+                {achievement.title}
+              </h3>
+
+
+
+
+
+
+
+              <div
+                className="
+                flex
+                flex-wrap
+                gap-x-4
+                text-sm
+                text-muted-foreground
+                "
+              >
+
+
+
+                {achievement.category && (
+
+                  <span>
+                    {achievement.category}
+                  </span>
+
+                )}
+
+
+
+                {achievement.issuer && (
+
+                  <span>
+                    • {achievement.issuer}
+                  </span>
+
+                )}
+
+
+
+              </div>
+
+
+
+
+
+
+
+
+
+              {achievement.description && (
+
+                <p
+                  className="
+                  max-w-3xl
+                  whitespace-pre-line
+                  leading-8
+                  text-muted-foreground
+                  "
+                >
+                  {achievement.description}
+                </p>
+
+              )}
+
+
+
+
+
+
 
 
               {achievement.credentialUrl && (
@@ -91,7 +191,16 @@ export function AchievementsSection({
                   href={achievement.credentialUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-lg border px-4 py-2 text-sm"
+                  className="
+                  inline-flex
+                  rounded-full
+                  border
+                  px-6
+                  py-2.5
+                  text-sm
+                  transition
+                  hover:bg-muted
+                  "
                 >
                   Verify Credential
                 </a>
@@ -103,12 +212,45 @@ export function AchievementsSection({
             </div>
 
 
+
+
+
+
+
+
+
+            {/* DATE */}
+
+
+
+            <div
+              className="
+              text-sm
+              text-muted-foreground
+              lg:text-right
+              "
+            >
+
+              {achievement.issueDate
+                ? achievement.issueDate.getFullYear()
+                : ""
+              }
+
+            </div>
+
+
+
+
+
           </article>
+
 
         ))}
 
 
+
       </div>
+
 
 
     </section>

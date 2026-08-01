@@ -21,76 +21,198 @@ export function BlogSection({
 
 
   return (
-    <section className="container mx-auto px-6 py-20">
+    <section
+      className="
+      container
+      mx-auto
+      px-8
+      py-28
+      lg:px-16
+      "
+    >
+
 
 
       <SectionTitle
         title="Blog"
-        description="Articles, notes and technical write-ups."
+        description="Technical writing, notes and engineering explorations."
       />
 
 
 
-      <div className="grid gap-8 md:grid-cols-2">
 
 
-        {blogs.map((blog) => (
+
+
+      <div
+        className="
+        mt-16
+        space-y-12
+        "
+      >
+
+
+
+        {blogs.map((blog, index) => (
+
 
           <article
             key={blog.id}
-            className="rounded-xl border p-6"
+            className="
+            grid
+            gap-8
+            border-b
+            pb-12
+            lg:grid-cols-[100px_1fr_180px]
+            "
           >
 
 
-            <h3 className="text-2xl font-semibold">
-              {blog.title}
-            </h3>
+
+
+            {/* NUMBER */}
+
+
+            <div
+              className="
+              text-4xl
+              font-light
+              text-muted-foreground/40
+              "
+            >
+              {String(index + 1).padStart(2, "0")}
+            </div>
 
 
 
-            {blog.excerpt && (
-
-              <p className="mt-4 text-muted-foreground">
-                {blog.excerpt}
-              </p>
-
-            )}
 
 
 
 
-            <div className="mt-5 text-sm text-muted-foreground">
 
-              {blog.publishedAt
-                ? new Date(
-                    blog.publishedAt
-                  ).toLocaleDateString()
-                : null}
 
-              {" • "}
+            {/* CONTENT */}
 
-              {blog.author.name}
+
+
+            <div
+              className="
+              space-y-5
+              "
+            >
+
+
+
+              <h3
+                className="
+                text-3xl
+                font-semibold
+                tracking-tight
+                "
+              >
+                {blog.title}
+              </h3>
+
+
+
+
+
+
+
+              {blog.excerpt && (
+
+                <p
+                  className="
+                  max-w-3xl
+                  leading-8
+                  text-muted-foreground
+                  "
+                >
+                  {blog.excerpt}
+                </p>
+
+              )}
+
+
+
+
+
+
+
+
+              <a
+                href={`/blog/${blog.slug}`}
+                className="
+                inline-flex
+                rounded-full
+                border
+                px-6
+                py-2.5
+                text-sm
+                transition
+                hover:bg-muted
+                "
+              >
+                Read Article
+              </a>
+
+
 
             </div>
 
 
 
 
-            <a
-              href={`/blog/${blog.slug}`}
-              className="mt-5 inline-block rounded-lg border px-4 py-2 text-sm"
+
+
+
+
+
+            {/* META */}
+
+
+
+            <div
+              className="
+              text-sm
+              text-muted-foreground
+              lg:text-right
+              "
             >
-              Read Article
-            </a>
+
+
+              {blog.publishedAt && (
+
+                <p>
+                  {new Date(
+                    blog.publishedAt
+                  ).getFullYear()}
+                </p>
+
+              )}
+
+
+
+              <p className="mt-2">
+                {blog.author.name}
+              </p>
+
+
+            </div>
+
+
 
 
 
           </article>
 
+
         ))}
 
 
+
       </div>
+
 
 
     </section>

@@ -8,6 +8,7 @@ interface ContactSectionProps {
 }
 
 
+
 export function ContactSection({
   setting,
 }: ContactSectionProps) {
@@ -20,72 +21,187 @@ export function ContactSection({
 
 
   return (
-    <section className="container mx-auto px-6 py-20">
+    <section
+      className="
+      container
+      mx-auto
+      px-8
+      py-28
+      lg:px-16
+      "
+    >
+
 
 
       <SectionTitle
         title="Contact"
-        description="Let's connect and discuss opportunities, collaborations or ideas."
+        description="Let's connect, collaborate and discuss interesting ideas."
       />
 
 
 
-      <div className="rounded-xl border p-8">
 
 
-        <div className="grid gap-6 md:grid-cols-2">
 
 
-          <div>
+      <div
+        className="
+        mt-16
+        grid
+        gap-12
+        border-b
+        pb-16
+        md:grid-cols-2
+        "
+      >
 
 
-            <h3 className="text-xl font-semibold">
-              Get in touch
-            </h3>
 
 
-            <div className="mt-4 space-y-2 text-muted-foreground">
+
+        {/* LEFT */}
 
 
-              {setting.email && (
-                <p>
-                  Email: {setting.email}
-                </p>
-              )}
+
+        <div
+          className="
+          space-y-8
+          "
+        >
 
 
-              {setting.phone && (
-                <p>
-                  Phone: {setting.phone}
-                </p>
-              )}
+
+          <h3
+            className="
+            text-4xl
+            font-semibold
+            tracking-tight
+            "
+          >
+            Let&apos;s build something meaningful.
+          </h3>
 
 
-              {setting.location && (
-                <p>
-                  Location: {setting.location}
-                </p>
-              )}
 
 
-            </div>
+
+          <p
+            className="
+            max-w-xl
+            leading-8
+            text-muted-foreground
+            "
+          >
+            Open to opportunities, collaborations,
+            research discussions and challenging
+            technical problems.
+          </p>
+
+
+
+
+
+
+
+          <div
+            className="
+            space-y-3
+            text-muted-foreground
+            "
+          >
+
+
+
+            {setting.email && (
+
+              <p>
+                {setting.email}
+              </p>
+
+            )}
+
+
+
+            {setting.location && (
+
+              <p>
+                {setting.location}
+              </p>
+
+            )}
+
+
+
+            {setting.phone && (
+
+              <p>
+                {setting.phone}
+              </p>
+
+            )}
+
 
 
           </div>
 
 
 
+        </div>
 
 
-          <div>
 
 
-            <h3 className="text-xl font-semibold">
-              Social Links
-            </h3>
 
 
-            <div className="mt-4 flex flex-wrap gap-3">
+
+
+
+        {/* RIGHT */}
+
+
+
+        <div
+          className="
+          md:flex
+          md:justify-end
+          "
+        >
+
+
+
+          <div
+            className="
+            space-y-5
+            "
+          >
+
+
+
+            <p
+              className="
+              text-xs
+              uppercase
+              tracking-[0.35em]
+              text-muted-foreground
+              "
+            >
+              Connect
+            </p>
+
+
+
+
+
+
+
+            <div
+              className="
+              flex
+              flex-wrap
+              gap-3
+              "
+            >
+
 
 
               {setting.socialLinks.map(
@@ -96,7 +212,15 @@ export function ContactSection({
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rounded-lg border px-4 py-2 text-sm"
+                    className="
+                    rounded-full
+                    border
+                    px-6
+                    py-2.5
+                    text-sm
+                    transition
+                    hover:bg-muted
+                    "
                   >
                     {link.label ?? link.platform}
                   </a>
@@ -105,16 +229,23 @@ export function ContactSection({
               )}
 
 
+
             </div>
+
 
 
           </div>
 
 
+
         </div>
 
 
+
       </div>
+
+
+
 
 
     </section>

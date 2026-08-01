@@ -21,69 +21,173 @@ export function SkillsSection({
 
 
   return (
-    <section className="container mx-auto px-6 py-20">
+    <section
+      className="
+      container
+      mx-auto
+      px-8
+      py-28
+      lg:px-16
+      "
+    >
 
 
       <SectionTitle
         title="Skills"
-        description="Technologies and areas I work with."
+        description="Technical domains, concepts and technologies I work with."
       />
 
 
 
-      <div className="grid gap-8 md:grid-cols-2">
+
+      <div
+        className="
+        mt-16
+        space-y-12
+        "
+      >
 
 
-        {categories.map((category) => (
 
-          <div
+        {categories.map((category, index) => (
+
+
+          <article
             key={category.id}
-            className="rounded-xl border p-6"
+            className="
+            grid
+            gap-8
+            border-b
+            pb-12
+            lg:grid-cols-[100px_1fr]
+            "
           >
 
 
-            <h3 className="mb-4 text-xl font-semibold">
-              {category.name}
-            </h3>
+
+            {/* NUMBER */}
+
+
+            <div
+              className="
+              text-4xl
+              font-light
+              text-muted-foreground/40
+              "
+            >
+              {String(index + 1).padStart(2, "0")}
+            </div>
 
 
 
-            {category.description && (
-
-              <p className="mb-5 text-sm text-muted-foreground">
-                {category.description}
-              </p>
-
-            )}
 
 
 
-            <div className="flex flex-wrap gap-3">
+
+            {/* CONTENT */}
 
 
-              {category.skills.map((skill) => (
 
-                <span
-                  key={skill.id}
-                  className="rounded-full border px-4 py-2 text-sm"
+            <div
+              className="
+              space-y-6
+              "
+            >
+
+
+
+              <div>
+
+
+                <h3
+                  className="
+                  text-3xl
+                  font-semibold
+                  tracking-tight
+                  "
                 >
+                  {category.name}
+                </h3>
 
-                  {skill.name}
 
-                </span>
 
-              ))}
+
+                {category.description && (
+
+                  <p
+                    className="
+                    mt-3
+                    max-w-2xl
+                    leading-7
+                    text-muted-foreground
+                    "
+                  >
+                    {category.description}
+                  </p>
+
+                )}
+
+
+              </div>
+
+
+
+
+
+
+
+
+
+              <div
+                className="
+                flex
+                flex-wrap
+                gap-3
+                "
+              >
+
+
+
+                {category.skills.map((skill) => (
+
+
+                  <span
+                    key={skill.id}
+                    className="
+                    rounded-full
+                    border
+                    px-5
+                    py-2
+                    text-sm
+                    transition
+                    hover:bg-muted
+                    "
+                  >
+                    {skill.name}
+                  </span>
+
+
+                ))}
+
+
+              </div>
+
 
 
             </div>
 
 
-          </div>
+
+
+          </article>
+
 
         ))}
 
 
+
       </div>
+
 
 
     </section>
