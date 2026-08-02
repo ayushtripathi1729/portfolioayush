@@ -2,19 +2,18 @@ import Image from "next/image";
 import Link from "next/link";
 
 import {
-  GitBranch,
   ExternalLink,
+  FileText,
 } from "lucide-react";
 
-
-import type { Project } from "@/types/portfolio";
-
+import type { Research } from "@/types/portfolio";
 
 
 
-interface ProjectsPageContentProps {
 
-  projects: Project[];
+interface ResearchPageContentProps {
+
+  research: Research[];
 
 }
 
@@ -24,13 +23,13 @@ interface ProjectsPageContentProps {
 
 
 
-export function ProjectsPageContent({
-  projects,
-}: ProjectsPageContentProps) {
+export function ResearchPageContent({
+  research,
+}: ResearchPageContentProps) {
 
 
 
-  if (!projects.length) {
+  if (!research.length) {
 
     return null;
 
@@ -40,20 +39,22 @@ export function ProjectsPageContent({
 
 
 
-  const featuredProjects =
-    projects.filter(
-      (project) =>
-        project.featured
+
+  const featuredResearch =
+    research.filter(
+      item =>
+        item.featured
     );
 
 
 
 
 
-  const otherProjects =
-    projects.filter(
-      (project) =>
-        !project.featured
+
+  const otherResearch =
+    research.filter(
+      item =>
+        !item.featured
     );
 
 
@@ -63,7 +64,6 @@ export function ProjectsPageContent({
 
 
   return (
-
 
     <div
       className="
@@ -81,6 +81,7 @@ export function ProjectsPageContent({
 
 
       <section
+
         className="
         max-w-screen-2xl
         mx-auto
@@ -89,44 +90,56 @@ export function ProjectsPageContent({
         pb-24
         lg:px-16
         "
+
       >
 
 
 
         <p
+
           className="
           text-sm
           uppercase
           tracking-[0.4em]
           text-violet-600
           "
+
         >
-          Projects
+
+          Research
+
         </p>
 
 
 
 
 
+
+
         <h1
+
           className="
           mt-8
           max-w-none
           text-5xl
           font-semibold
-          leading-tight
           tracking-tight
-          lg:text-7xl
+          leading-[1.05]
+          lg:text-8xl
           "
+
         >
 
-          Things I have
+          Exploring ideas,
+          <br />
+
+          building knowledge
           <span
             className="
             text-violet-600
             "
           >
-            {" "}built.
+            {" "}and discoveries.
           </span>
 
 
@@ -139,19 +152,20 @@ export function ProjectsPageContent({
 
 
         <p
+
           className="
           mt-10
-          max-w-3xl
+          max-w-4xl
           text-xl
           leading-9
           text-muted-foreground
           "
+
         >
 
-          A collection of software projects,
-          experiments and systems built around
-          artificial intelligence, cybersecurity,
-          algorithms and modern technologies.
+          Research work, technical investigations
+          and publications exploring computer science,
+          artificial intelligence and emerging technologies.
 
         </p>
 
@@ -167,14 +181,15 @@ export function ProjectsPageContent({
 
 
 
-      {/* FEATURED PROJECTS */}
+      {/* FEATURED */}
+
 
 
       {
-        featuredProjects.length > 0 && (
-
+        featuredResearch.length > 0 && (
 
           <section
+
             className="
             max-w-screen-2xl
             mx-auto
@@ -182,18 +197,22 @@ export function ProjectsPageContent({
             pb-20
             lg:px-16
             "
+
           >
 
 
+
             <h2
+
               className="
               mb-10
               text-3xl
               font-semibold
               "
+
             >
 
-              Featured Projects
+              Featured Research
 
             </h2>
 
@@ -204,25 +223,32 @@ export function ProjectsPageContent({
 
 
             <div
+
               className="
-              grid
-              gap-10
+              space-y-10
               "
+
             >
 
 
 
               {
-                featuredProjects.map(
-                  (project) => (
+                featuredResearch.map(
+                  item => (
 
+                    <ResearchCard
 
-                    <ProjectCard
-                      key={project.id}
-                      project={project}
+                      key={
+                        item.id
+                      }
+
+                      research={
+                        item
+                      }
+
                       featured
-                    />
 
+                    />
 
                   )
                 )
@@ -236,7 +262,6 @@ export function ProjectsPageContent({
 
           </section>
 
-
         )
       }
 
@@ -248,24 +273,26 @@ export function ProjectsPageContent({
 
 
 
-      {/* ALL PROJECTS */}
+      {/* ALL RESEARCH */}
 
 
 
       {
-        otherProjects.length > 0 && (
-
+        otherResearch.length > 0 && (
 
           <section
+
             className="
-            border-t
+            border-y
             bg-muted/20
             "
+
           >
 
 
 
             <div
+
               className="
               max-w-screen-2xl
               mx-auto
@@ -273,20 +300,22 @@ export function ProjectsPageContent({
               py-24
               lg:px-16
               "
+
             >
 
 
 
-
               <h2
+
                 className="
                 mb-10
                 text-3xl
                 font-semibold
                 "
+
               >
 
-                Other Projects
+                Publications
 
               </h2>
 
@@ -297,28 +326,32 @@ export function ProjectsPageContent({
 
 
               <div
+
                 className="
                 grid
                 gap-8
                 md:grid-cols-2
                 "
+
               >
 
 
 
                 {
-                  otherProjects.map(
-                    (project) => (
+                  otherResearch.map(
+                    item => (
 
+                      <ResearchCard
 
-                      <ProjectCard
+                        key={
+                          item.id
+                        }
 
-                        key={project.id}
-
-                        project={project}
+                        research={
+                          item
+                        }
 
                       />
-
 
                     )
                   )
@@ -330,13 +363,11 @@ export function ProjectsPageContent({
 
 
 
-
             </div>
 
 
 
           </section>
-
 
         )
       }
@@ -346,8 +377,8 @@ export function ProjectsPageContent({
 
 
 
-    </div>
 
+    </div>
 
   );
 
@@ -361,15 +392,15 @@ export function ProjectsPageContent({
 
 
 
-function ProjectCard({
+function ResearchCard({
 
-  project,
+  research,
 
   featured = false,
 
 }: {
 
-  project: Project;
+  research: Research;
 
   featured?: boolean;
 
@@ -377,28 +408,21 @@ function ProjectCard({
 
 
 
-  const image =
-    project.assets[0]?.asset;
-
-
-
-
-
-
   return (
-
 
     <article
 
       className={`
+
       overflow-hidden
       rounded-3xl
       border
       bg-card
       transition
-      hover:-translate-y-1
       hover:shadow-xl
+
       ${featured ? "grid lg:grid-cols-2" : ""}
+
       `}
 
     >
@@ -408,39 +432,41 @@ function ProjectCard({
 
 
 
+
       {
-        image && (
+        research.coverImage && (
 
           <div
+
             className="
             relative
             aspect-video
             overflow-hidden
             bg-muted
             "
+
           >
+
 
             <Image
 
               src={
-                image.url
+                research.coverImage.url
               }
 
               alt={
-                image.altText ??
-                project.title
+                research.coverImage.altText ??
+                research.title
               }
 
               fill
 
               className="
               object-cover
-              transition
-              duration-500
-              hover:scale-105
               "
 
             />
+
 
           </div>
 
@@ -454,29 +480,34 @@ function ProjectCard({
 
 
 
+
       <div
+
         className="
-        flex
-        flex-col
         p-8
         "
+
       >
 
 
 
 
+
         <p
+
           className="
           text-xs
           uppercase
           tracking-[0.3em]
           text-violet-600
           "
+
         >
 
-          {project.category.name}
+          Research Paper
 
         </p>
+
 
 
 
@@ -484,42 +515,60 @@ function ProjectCard({
 
 
         <Link
-            href={`/projects/${project.slug}`}
-            >
-            
-            <h3
-                className="
-                mt-4
-                text-3xl
-                font-semibold
-                tracking-tight
-                hover:text-violet-600
-                transition
-                "
-            >
 
-                {project.title}
+          href={
+            `/research/${research.slug}`
+          }
 
-            </h3>
-
-            </Link>
-
-
-
-
-
-
-        <p
-          className="
-          mt-4
-          leading-7
-          text-muted-foreground
-          "
         >
 
-          {project.shortDescription}
 
-        </p>
+          <h3
+
+            className="
+            mt-4
+            text-2xl
+            font-semibold
+            transition
+            hover:text-violet-600
+            "
+
+          >
+
+            {research.title}
+
+          </h3>
+
+
+        </Link>
+
+
+
+
+
+
+
+
+
+        {
+          research.abstract && (
+
+            <p
+
+              className="
+              mt-4
+              leading-7
+              text-muted-foreground
+              "
+
+            >
+
+              {research.abstract}
+
+            </p>
+
+          )
+        }
 
 
 
@@ -530,46 +579,58 @@ function ProjectCard({
 
 
         <div
+
           className="
           mt-6
-          flex
-          flex-wrap
-          gap-2
+          space-y-2
+          text-sm
+          text-muted-foreground
           "
+
         >
 
 
+
           {
-            project.technologies.map(
-              ({
-                technology,
-              }) => (
+            research.publisher && (
 
+              <p>
+                Publisher: {research.publisher}
+              </p>
 
-                <span
-
-                  key={
-                    technology.id
-                  }
-
-                  className="
-                  rounded-full
-                  border
-                  px-3
-                  py-1
-                  text-xs
-                  "
-
-                >
-
-                  {technology.name}
-
-                </span>
-
-
-              )
             )
           }
+
+
+
+
+
+
+          {
+            research.journal && (
+
+              <p>
+                Journal: {research.journal}
+              </p>
+
+            )
+          }
+
+
+
+
+
+
+          {
+            research.doi && (
+
+              <p>
+                DOI: {research.doi}
+              </p>
+
+            )
+          }
+
 
 
         </div>
@@ -583,22 +644,25 @@ function ProjectCard({
 
 
         <div
+
           className="
-          mt-auto
+          mt-8
           flex
+          flex-wrap
           gap-4
-          pt-8
           "
+
         >
 
 
+
           {
-            project.githubUrl && (
+            research.pdfAsset && (
 
               <Link
 
                 href={
-                  project.githubUrl
+                  research.pdfAsset.url
                 }
 
                 target="_blank"
@@ -607,16 +671,21 @@ function ProjectCard({
                 flex
                 items-center
                 gap-2
+                rounded-full
+                border
+                px-4
+                py-2
                 text-sm
-                text-muted-foreground
-                hover:text-foreground
+                hover:bg-muted
                 "
 
               >
 
-                <GitBranch className="size-4" />
+                <FileText
+                  className="size-4"
+                />
 
-                Github
+                Read PDF
 
               </Link>
 
@@ -630,12 +699,12 @@ function ProjectCard({
 
 
           {
-            project.liveUrl && (
+            research.externalUrl && (
 
               <Link
 
                 href={
-                  project.liveUrl
+                  research.externalUrl
                 }
 
                 target="_blank"
@@ -644,21 +713,27 @@ function ProjectCard({
                 flex
                 items-center
                 gap-2
+                rounded-full
+                bg-foreground
+                px-4
+                py-2
                 text-sm
-                text-muted-foreground
-                hover:text-foreground
+                text-background
                 "
 
               >
 
-                <ExternalLink className="size-4" />
+                <ExternalLink
+                  className="size-4"
+                />
 
-                Live Demo
+                View Publication
 
               </Link>
 
             )
           }
+
 
 
 
@@ -675,9 +750,7 @@ function ProjectCard({
 
 
 
-
     </article>
-
 
   );
 

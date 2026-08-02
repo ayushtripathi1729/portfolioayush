@@ -10,6 +10,9 @@ export class SettingRepository {
     return prisma.setting.findMany({
       include: {
         profileImage: true,
+        aboutImage: true,
+        ogImage: true,
+        favicon: true,
         resume: true,
         socialLinks: true,
         user: true,
@@ -30,6 +33,9 @@ export class SettingRepository {
       },
       include: {
         profileImage: true,
+        aboutImage: true,
+        ogImage: true,
+        favicon: true,
         resume: true,
         socialLinks: true,
         user: true,
@@ -50,6 +56,9 @@ export class SettingRepository {
       },
       include: {
         profileImage: true,
+        aboutImage: true,
+        ogImage: true,
+        favicon: true,
         resume: true,
         socialLinks: true,
         user: true,

@@ -1,10 +1,23 @@
+"use client";
+
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
+
+import {
+  Menu,
+  X,
+} from "lucide-react";
 
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 
 
 
+
+
 const navItems = [
+
   {
     label: "Home",
     href: "/",
@@ -54,7 +67,13 @@ const navItems = [
     label: "Contact",
     href: "/contact",
   },
+
 ];
+
+
+
+
+
 
 
 
@@ -62,9 +81,24 @@ const navItems = [
 export function Navbar() {
 
 
+  const pathname =
+    usePathname();
+
+
+
+  const [open,setOpen] =
+    useState(false);
+
+
+
+
+
+
+
   return (
 
     <header
+
       className="
       sticky
       top-0
@@ -73,11 +107,13 @@ export function Navbar() {
       bg-background/80
       backdrop-blur-xl
       "
+
     >
 
 
 
       <div
+
         className="
         container
         mx-auto
@@ -88,7 +124,12 @@ export function Navbar() {
         px-8
         lg:px-16
         "
+
       >
+
+
+
+
 
 
 
@@ -98,37 +139,50 @@ export function Navbar() {
 
 
         <Link
+
           href="/"
+
+          onClick={() => setOpen(false)}
+
           className="
           flex
           flex-col
-          hover:opacity-80
           transition
+          hover:opacity-80
           "
+
         >
 
 
           <span
+
             className="
             text-xl
             font-semibold
             tracking-tight
             "
+
           >
+
             SHUNYAM
+
           </span>
 
 
 
           <span
+
             className="
             text-[10px]
             uppercase
             tracking-[0.35em]
             text-muted-foreground
             "
+
           >
+
             Ayush Tripathi
+
           </span>
 
 
@@ -143,49 +197,139 @@ export function Navbar() {
 
 
 
+
+
+
+
+        {/* RIGHT SECTION */}
+
+
+
         <div
+
           className="
           flex
           items-center
-          gap-8
+          gap-5
           "
+
         >
 
 
 
+
+
+
+
+          {/* DESKTOP NAV */}
+
+
           <nav
+
             className="
             hidden
             items-center
-            gap-7
-            md:flex
+            gap-5
+            xl:flex
             "
+
           >
 
 
+
             {
-              navItems.map((item)=>(
-                
-                <Link
+              navItems.map(
 
-                  key={item.href}
+                item => {
 
-                  href={item.href}
 
-                  className="
-                  text-sm
-                  text-muted-foreground
-                  transition
-                  hover:text-foreground
-                  "
-                >
+                  const active =
+                    item.href === "/"
+                    ?
+                    pathname === "/"
+                    :
+                    pathname.startsWith(item.href);
 
-                  {item.label}
 
-                </Link>
 
-              ))
+
+
+                  return (
+
+                    <Link
+
+                      key={
+                        item.href
+                      }
+
+
+                      href={
+                        item.href
+                      }
+
+
+                      className={`
+
+                      relative
+
+                      whitespace-nowrap
+
+                      text-sm
+
+                      transition
+
+                      ${
+                        active
+                        ?
+                        "text-foreground"
+                        :
+                        "text-muted-foreground hover:text-foreground"
+                      }
+
+                      `}
+
+
+                    >
+
+
+                      {item.label}
+
+
+
+
+
+                      {
+                        active && (
+
+                          <span
+
+                            className="
+                            absolute
+                            -bottom-2
+                            left-0
+                            h-0.5
+                            w-full
+                            bg-violet-600
+                            "
+
+                          />
+
+                        )
+                      }
+
+
+
+
+                    </Link>
+
+                  );
+
+
+                }
+
+              )
             }
+
 
 
           </nav>
@@ -194,13 +338,204 @@ export function Navbar() {
 
 
 
+
+
+
+
+          {/* THEME */}
+
+
           <ThemeToggle />
+
+
+
+
+
+
+
+
+
+          {/* MOBILE BUTTON */}
+
+
+          <button
+
+            onClick={() =>
+              setOpen(!open)
+            }
+
+
+            className="
+            rounded-lg
+            border
+            p-2
+            xl:hidden
+            "
+
+          >
+
+
+
+            {
+              open
+
+              ?
+
+              <X
+                className="size-5"
+              />
+
+              :
+
+              <Menu
+                className="size-5"
+              />
+
+            }
+
+
+
+          </button>
+
+
+
 
 
         </div>
 
 
+
+
+
+
       </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+      {/* MOBILE MENU */}
+
+
+
+      {
+        open && (
+
+
+          <nav
+
+            className="
+            border-t
+            px-8
+            py-6
+            xl:hidden
+            "
+
+          >
+
+
+
+            <div
+
+              className="
+              flex
+              flex-col
+              gap-5
+              "
+
+            >
+
+
+
+              {
+                navItems.map(
+
+                  item => {
+
+
+                    const active =
+                      pathname === item.href;
+
+
+
+
+
+                    return (
+
+                      <Link
+
+                        key={
+                          item.href
+                        }
+
+
+                        href={
+                          item.href
+                        }
+
+
+                        onClick={() =>
+                          setOpen(false)
+                        }
+
+
+                        className={`
+
+                        text-sm
+
+                        transition
+
+                        ${
+                          active
+                          ?
+                          "font-medium text-violet-600"
+                          :
+                          "text-muted-foreground"
+                        }
+
+                        `}
+
+
+                      >
+
+                        {item.label}
+
+
+                      </Link>
+
+
+                    );
+
+
+                  }
+
+                )
+              }
+
+
+
+            </div>
+
+
+
+          </nav>
+
+
+        )
+      }
+
+
+
+
+
 
 
     </header>
