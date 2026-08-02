@@ -9,6 +9,8 @@ interface AchievementsSectionProps {
 
 
 
+
+
 export function AchievementsSection({
   achievements,
 }: AchievementsSectionProps) {
@@ -20,22 +22,38 @@ export function AchievementsSection({
 
 
 
+
+
   return (
+
     <section
       className="
-      container
-      mx-auto
-      px-8
+      relative
+      overflow-hidden
+      bg-background
       py-28
-      lg:px-16
       "
     >
 
 
 
-      <SectionTitle
-        title="Achievements"
-        description="Awards, certifications and milestones."
+
+
+      {/* Ambient Glow */}
+
+      <div
+        className="
+        pointer-events-none
+        absolute
+        left-0
+        top-20
+        -z-10
+        h-96
+        w-96
+        rounded-full
+        bg-violet-500/10
+        blur-3xl
+        "
       />
 
 
@@ -47,44 +65,26 @@ export function AchievementsSection({
 
       <div
         className="
-        mt-16
-        space-y-12
+        container
+        mx-auto
+        px-8
+        lg:px-16
         "
       >
 
 
 
-        {achievements.map((achievement, index) => (
 
 
-          <article
-            key={achievement.id}
-            className="
-            grid
-            gap-8
-            border-b
-            pb-12
-            lg:grid-cols-[100px_1fr_180px]
-            "
-          >
+        <SectionTitle
 
+          title="Achievements"
 
+          description="
+          Milestones, recognitions and important accomplishments.
+          "
 
-
-
-
-            {/* NUMBER */}
-
-
-            <div
-              className="
-              text-4xl
-              font-light
-              text-muted-foreground/40
-              "
-            >
-              {String(index + 1).padStart(2, "0")}
-            </div>
+        />
 
 
 
@@ -93,123 +93,46 @@ export function AchievementsSection({
 
 
 
-            {/* CONTENT */}
-
-
-
-            <div
-              className="
-              space-y-5
-              "
-            >
-
-
-
-              <h3
-                className="
-                text-3xl
-                font-semibold
-                tracking-tight
-                "
-              >
-                {achievement.title}
-              </h3>
+        <div
+          className="
+          mt-16
+          grid
+          gap-8
+          md:grid-cols-2
+          "
+        >
 
 
 
 
 
+          {
+            achievements.map(
+              (
+                achievement,
+                index
+              ) => (
 
 
-              <div
-                className="
-                flex
-                flex-wrap
-                gap-x-4
-                text-sm
-                text-muted-foreground
-                "
-              >
+                <article
 
+                  key={achievement.id}
 
-
-                {achievement.category && (
-
-                  <span>
-                    {achievement.category}
-                  </span>
-
-                )}
-
-
-
-                {achievement.issuer && (
-
-                  <span>
-                    • {achievement.issuer}
-                  </span>
-
-                )}
-
-
-
-              </div>
-
-
-
-
-
-
-
-
-
-              {achievement.description && (
-
-                <p
                   className="
-                  max-w-3xl
-                  whitespace-pre-line
-                  leading-8
-                  text-muted-foreground
-                  "
-                >
-                  {achievement.description}
-                </p>
-
-              )}
-
-
-
-
-
-
-
-
-              {achievement.credentialUrl && (
-
-                <a
-                  href={achievement.credentialUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="
-                  inline-flex
-                  rounded-full
+                  group
+                  rounded-2xl
                   border
-                  px-6
-                  py-2.5
-                  text-sm
-                  transition
-                  hover:bg-muted
+                  border-border
+                  bg-card
+                  p-8
+                  transition-all
+                  duration-300
+                  hover:-translate-y-1
+                  hover:border-violet-400/50
+                  hover:shadow-lg
                   "
+
                 >
-                  Verify Credential
-                </a>
-
-              )}
-
-
-
-            </div>
 
 
 
@@ -219,33 +142,225 @@ export function AchievementsSection({
 
 
 
-            {/* DATE */}
+                  <div
+                    className="
+                    flex
+                    items-start
+                    justify-between
+                    "
+                  >
 
 
 
-            <div
-              className="
-              text-sm
-              text-muted-foreground
-              lg:text-right
-              "
-            >
+                    <span
+                      className="
+                      text-sm
+                      tracking-[0.3em]
+                      text-muted-foreground/50
+                      "
+                    >
 
-              {achievement.issueDate
-                ? achievement.issueDate.getFullYear()
-                : ""
-              }
+                      {String(index + 1).padStart(2, "0")}
 
-            </div>
+                    </span>
 
 
 
 
 
-          </article>
+
+                    {
+                      achievement.issueDate && (
+
+                        <span
+                          className="
+                          text-sm
+                          text-muted-foreground
+                          "
+                        >
+
+                          {
+                            achievement.issueDate
+                              .getFullYear()
+                          }
+
+                        </span>
+
+                      )
+                    }
 
 
-        ))}
+
+
+                  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                  <h3
+                    className="
+                    mt-6
+                    text-2xl
+                    font-semibold
+                    tracking-tight
+                    transition
+                    group-hover:text-violet-600
+                    "
+                  >
+
+                    {achievement.title}
+
+                  </h3>
+
+
+
+
+
+
+
+
+
+                  <div
+                    className="
+                    mt-3
+                    flex
+                    flex-wrap
+                    gap-2
+                    text-sm
+                    text-muted-foreground
+                    "
+                  >
+
+
+
+                    {
+                      achievement.category && (
+
+                        <span>
+                          {achievement.category}
+                        </span>
+
+                      )
+                    }
+
+
+
+
+
+                    {
+                      achievement.issuer && (
+
+                        <span>
+                          • {achievement.issuer}
+                        </span>
+
+                      )
+                    }
+
+
+
+                  </div>
+
+
+
+
+
+
+
+
+
+                  {
+                    achievement.description && (
+
+                      <p
+                        className="
+                        mt-5
+                        line-clamp-3
+                        leading-7
+                        text-muted-foreground
+                        "
+                      >
+
+                        {achievement.description}
+
+                      </p>
+
+                    )
+                  }
+
+
+
+
+
+
+
+
+
+                  {
+                    achievement.credentialUrl && (
+
+                      <a
+
+                        href={
+                          achievement.credentialUrl
+                        }
+
+                        target="_blank"
+
+                        rel="noopener noreferrer"
+
+                        className="
+                        mt-6
+                        inline-flex
+                        rounded-full
+                        border
+                        px-5
+                        py-2
+                        text-sm
+                        transition
+                        hover:bg-muted
+                        "
+
+                      >
+
+                        Verify Credential
+
+                      </a>
+
+                    )
+                  }
+
+
+
+
+
+
+                </article>
+
+
+              )
+            )
+          }
+
+
+
+
+
+
+        </div>
+
+
+
+
+
 
 
 
@@ -253,6 +368,12 @@ export function AchievementsSection({
 
 
 
+
+
+
+
     </section>
+
   );
+
 }

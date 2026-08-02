@@ -16,13 +16,17 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 
+
 export function SkillCategoryForm() {
+
 
   const router = useRouter();
 
 
   const [serverError, setServerError] =
     useState("");
+
+
 
 
 
@@ -47,7 +51,11 @@ export function SkillCategoryForm() {
 
       slug: "",
 
+      description: "",
+
       displayOrder: 0,
+
+      featured: false,
 
       visible: true,
 
@@ -61,9 +69,11 @@ export function SkillCategoryForm() {
 
 
 
+
   async function onSubmit(
     values: CreateSkillCategoryInput
   ) {
+
 
     setServerError("");
 
@@ -71,10 +81,12 @@ export function SkillCategoryForm() {
 
     try {
 
+
       const response =
         await fetch(
           "/api/skill-categories",
           {
+
             method: "POST",
 
             headers: {
@@ -84,6 +96,7 @@ export function SkillCategoryForm() {
 
             body:
               JSON.stringify(values),
+
           }
         );
 
@@ -110,6 +123,7 @@ export function SkillCategoryForm() {
 
 
 
+
       router.push(
         "/admin/skill-categories"
       );
@@ -121,13 +135,17 @@ export function SkillCategoryForm() {
 
     } catch {
 
+
       setServerError(
         "Something went wrong."
       );
 
+
     }
 
+
   }
+
 
 
 
@@ -147,6 +165,8 @@ export function SkillCategoryForm() {
 
 
 
+
+
       <div className="space-y-2">
 
         <Label>
@@ -155,8 +175,11 @@ export function SkillCategoryForm() {
 
 
         <Input
+
           {...register("name")}
+
           placeholder="Frontend Development"
+
         />
 
 
@@ -177,6 +200,7 @@ export function SkillCategoryForm() {
 
 
 
+
       <div className="space-y-2">
 
         <Label>
@@ -185,8 +209,11 @@ export function SkillCategoryForm() {
 
 
         <Input
+
           {...register("slug")}
+
           placeholder="frontend-development"
+
         />
 
 
@@ -199,6 +226,53 @@ export function SkillCategoryForm() {
         )}
 
       </div>
+
+
+
+
+
+
+
+
+
+      <div className="space-y-2">
+
+        <Label>
+          Description
+        </Label>
+
+
+        <textarea
+
+          {...register("description")}
+
+          placeholder="Programming languages and development technologies."
+
+          className="
+          min-h-28
+          w-full
+          rounded-lg
+          border
+          bg-transparent
+          px-3
+          py-2
+          text-sm
+          outline-none
+          "
+
+        />
+
+
+        {errors.description && (
+
+          <p className="text-sm text-destructive">
+            {errors.description.message}
+          </p>
+
+        )}
+
+      </div>
+
 
 
 
@@ -228,7 +302,6 @@ export function SkillCategoryForm() {
         />
 
 
-
         {errors.displayOrder && (
 
           <p className="text-sm text-destructive">
@@ -246,21 +319,45 @@ export function SkillCategoryForm() {
 
 
 
-      <label className="flex items-center gap-2 text-sm">
 
-        <input
-
-          type="checkbox"
-
-          {...register("visible")}
-
-        />
+      <div className="flex gap-6">
 
 
-        Visible
+        <label className="flex items-center gap-2 text-sm">
+
+          <input
+
+            type="checkbox"
+
+            {...register("featured")}
+
+          />
+
+          Featured
+
+        </label>
 
 
-      </label>
+
+
+
+        <label className="flex items-center gap-2 text-sm">
+
+          <input
+
+            type="checkbox"
+
+            {...register("visible")}
+
+          />
+
+          Visible
+
+        </label>
+
+
+      </div>
+
 
 
 
@@ -271,7 +368,15 @@ export function SkillCategoryForm() {
 
       {serverError && (
 
-        <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">
+        <div
+          className="
+          rounded-md
+          bg-destructive/10
+          p-3
+          text-sm
+          text-destructive
+          "
+        >
 
           {serverError}
 
@@ -286,10 +391,15 @@ export function SkillCategoryForm() {
 
 
 
+
       <Button
+
         type="submit"
+
         disabled={isSubmitting}
+
       >
+
 
         {isSubmitting ? (
 
@@ -307,11 +417,15 @@ export function SkillCategoryForm() {
 
         )}
 
+
       </Button>
+
+
 
 
 
     </form>
 
   );
+
 }

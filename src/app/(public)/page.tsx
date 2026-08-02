@@ -1,6 +1,7 @@
 import { portfolioService } from "@/services/portfolio.service";
 
 import { HeroSection } from "@/components/public/hero-section";
+import { AboutSection } from "@/components/public/about-section";
 import { SkillsSection } from "@/components/public/skills-section";
 import { ProjectsSection } from "@/components/public/projects-section";
 import { ExperienceSection } from "@/components/public/experience-section";
@@ -12,24 +13,52 @@ import { ContactSection } from "@/components/public/contact-section";
 
 
 
+
 export default async function HomePage() {
 
 
   const portfolio =
-    await portfolioService.getPortfolio();
+    await portfolioService.getHomepagePortfolio();
+
 
 
 
   return (
 
-    <main className="min-h-screen">
+    <main
+      className="
+      min-h-screen
+      bg-background
+      "
+    >
 
+
+
+      {/* Hero */}
 
       <HeroSection
-        setting={portfolio.setting}
+        setting={
+          portfolio.setting
+        }
       />
 
 
+
+
+
+      {/* About Preview */}
+
+      <AboutSection
+        setting={
+          portfolio.setting
+        }
+      />
+
+
+
+
+
+      {/* Skills */}
 
       <SkillsSection
         categories={
@@ -39,21 +68,10 @@ export default async function HomePage() {
 
 
 
-      <ProjectsSection
-        projects={
-          portfolio.projects
-        }
-      />
 
 
 
-      <ExperienceSection
-        experiences={
-          portfolio.experiences
-        }
-      />
-
-
+      {/* Current Education */}
 
       <EducationSection
         education={
@@ -63,6 +81,41 @@ export default async function HomePage() {
 
 
 
+
+
+
+
+      {/* Featured Experience */}
+
+      <ExperienceSection
+        experiences={
+          portfolio.experiences
+        }
+      />
+
+
+
+
+
+
+
+      {/* Featured Projects */}
+
+      <ProjectsSection
+        projects={
+          portfolio.projects
+        }
+      />
+
+
+
+
+
+
+
+
+      {/* Featured Research */}
+
       <ResearchSection
         research={
           portfolio.research
@@ -70,6 +123,12 @@ export default async function HomePage() {
       />
 
 
+
+
+
+
+
+      {/* Achievements */}
 
       <AchievementsSection
         achievements={
@@ -79,6 +138,12 @@ export default async function HomePage() {
 
 
 
+
+
+
+
+      {/* Latest Blogs */}
+
       <BlogSection
         blogs={
           portfolio.blogs
@@ -87,6 +152,12 @@ export default async function HomePage() {
 
 
 
+
+
+
+
+      {/* Contact */}
+
       <ContactSection
         setting={
           portfolio.setting
@@ -94,7 +165,9 @@ export default async function HomePage() {
       />
 
 
+
     </main>
 
   );
+
 }

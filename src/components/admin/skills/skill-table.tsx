@@ -5,20 +5,59 @@ import { Button } from "@/components/ui/button";
 import { SkillActions } from "./skill-actions";
 
 
+
 interface SkillTableProps {
+
   skills: Array<{
+
     id: string;
+
     name: string;
+
     slug: string;
+
+    level:
+      | "BEGINNER"
+      | "INTERMEDIATE"
+      | "ADVANCED"
+      | "EXPERT";
+
     featured: boolean;
+
     visible: boolean;
-    proficiency?: number | null;
+
     category?: {
       name: string;
     } | null;
+
     createdAt: Date;
+
   }>;
+
 }
+
+
+
+
+
+
+function formatLevel(
+  level: string
+) {
+
+  return level
+    .toLowerCase()
+    .replace(
+      /^./,
+      (char) =>
+        char.toUpperCase()
+    );
+
+}
+
+
+
+
 
 
 
@@ -29,12 +68,16 @@ export function SkillTable({
 
   if (skills.length === 0) {
 
+
     return (
+
       <div className="rounded-xl border p-8 text-center">
+
 
         <h3 className="text-lg font-semibold">
           No skills found
         </h3>
+
 
 
         <p className="mt-2 text-sm text-muted-foreground">
@@ -43,20 +86,29 @@ export function SkillTable({
 
 
 
+
+
         <Link href="/admin/skills/new">
+
 
           <Button className="mt-5">
 
+
             <Plus className="size-4" />
+
 
             New Skill
 
+
           </Button>
+
 
         </Link>
 
 
+
       </div>
+
     );
 
   }
@@ -65,7 +117,10 @@ export function SkillTable({
 
 
 
+
+
   return (
+
     <div className="overflow-hidden rounded-xl border">
 
 
@@ -86,14 +141,17 @@ export function SkillTable({
               </th>
 
 
+
               <th className="px-5 py-3 font-medium">
                 Category
               </th>
 
 
+
               <th className="px-5 py-3 font-medium">
-                Proficiency
+                Level
               </th>
+
 
 
               <th className="px-5 py-3 font-medium">
@@ -101,9 +159,11 @@ export function SkillTable({
               </th>
 
 
+
               <th className="px-5 py-3 font-medium">
                 Actions
               </th>
+
 
 
             </tr>
@@ -114,15 +174,34 @@ export function SkillTable({
 
 
 
+
+
+
+
           <tbody>
 
 
             {skills.map((skill) => (
 
+
               <tr
+
                 key={skill.id}
-                className="border-b transition-colors hover:bg-muted/30 last:border-0"
+
+                className="
+                border-b
+                transition-colors
+                hover:bg-muted/30
+                last:border-0
+                "
+
               >
+
+
+
+
+
+                {/* SKILL */}
 
 
                 <td className="px-5 py-4">
@@ -137,16 +216,27 @@ export function SkillTable({
 
 
 
+
                     {skill.featured && (
 
                       <Star
-                        className="size-4 fill-current text-yellow-500"
+
+                        className="
+                        size-4
+                        fill-current
+                        text-yellow-500
+                        "
+
                       />
 
                     )}
 
 
+
                   </div>
+
+
+
 
 
                   <p className="mt-1 text-xs text-muted-foreground">
@@ -154,61 +244,78 @@ export function SkillTable({
                   </p>
 
 
-                </td>
-
-
-
-
-
-                <td className="px-5 py-4 text-sm">
-
-                  {skill.category?.name ??
-                    "Uncategorized"}
 
                 </td>
 
 
 
+
+
+
+
+
+
+                {/* CATEGORY */}
 
 
                 <td className="px-5 py-4 text-sm">
 
 
-                  {skill.proficiency !== null &&
-                  skill.proficiency !== undefined ? (
-
-                    <div className="flex items-center gap-3">
-
-                      <div className="h-2 w-28 overflow-hidden rounded-full bg-muted">
-
-                        <div
-                          className="h-full bg-primary"
-                          style={{
-                            width: `${skill.proficiency}%`,
-                          }}
-                        />
-
-                      </div>
-
-
-                      <span>
-                        {skill.proficiency}%
-                      </span>
-
-
-                    </div>
-
-                  ) : (
-
-                    "—"
-
-                  )}
+                  {
+                    skill.category?.name ??
+                    "Uncategorized"
+                  }
 
 
                 </td>
 
 
 
+
+
+
+
+
+
+                {/* LEVEL */}
+
+
+                <td className="px-5 py-4 text-sm">
+
+
+                  <span
+
+                    className="
+                    rounded-full
+                    border
+                    px-3
+                    py-1
+                    text-xs
+                    "
+
+                  >
+
+                    {
+                      formatLevel(
+                        skill.level
+                      )
+                    }
+
+
+                  </span>
+
+
+                </td>
+
+
+
+
+
+
+
+
+
+                {/* STATUS */}
 
 
                 <td className="px-5 py-4 text-sm">
@@ -218,10 +325,18 @@ export function SkillTable({
 
 
                     <p>
-                      {skill.visible
-                        ? "Visible"
-                        : "Hidden"}
+
+                      {
+                        skill.visible
+                          ? "Visible"
+                          : "Hidden"
+                      }
+
+
                     </p>
+
+
+
 
 
                     {skill.featured && (
@@ -233,6 +348,7 @@ export function SkillTable({
                     )}
 
 
+
                   </div>
 
 
@@ -242,11 +358,20 @@ export function SkillTable({
 
 
 
+
+
+
+
+                {/* ACTIONS */}
+
+
                 <td className="px-5 py-4">
+
 
                   <SkillActions
                     id={skill.id}
                   />
+
 
                 </td>
 
@@ -255,18 +380,24 @@ export function SkillTable({
               </tr>
 
 
+
             ))}
 
 
           </tbody>
 
 
+
         </table>
+
 
 
       </div>
 
 
+
     </div>
+
   );
+
 }

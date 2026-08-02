@@ -3,34 +3,67 @@ import Link from "next/link";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 
 
+
 const navItems = [
   {
     label: "Home",
     href: "/",
   },
+
+  {
+    label: "About",
+    href: "/about",
+  },
+
+  {
+    label: "Skills",
+    href: "/skills",
+  },
+
   {
     label: "Projects",
-    href: "#projects",
+    href: "/projects",
   },
+
+  {
+    label: "Experience",
+    href: "/experience",
+  },
+
+  {
+    label: "Education",
+    href: "/education",
+  },
+
   {
     label: "Research",
-    href: "#research",
+    href: "/research",
   },
+
+  {
+    label: "Achievements",
+    href: "/achievements",
+  },
+
   {
     label: "Blog",
-    href: "#blog",
+    href: "/blog",
   },
+
   {
     label: "Contact",
-    href: "#contact",
+    href: "/contact",
   },
 ];
 
 
 
+
 export function Navbar() {
 
+
   return (
+
     <header
       className="
       sticky
@@ -41,6 +74,7 @@ export function Navbar() {
       backdrop-blur-xl
       "
     >
+
 
 
       <div
@@ -59,19 +93,20 @@ export function Navbar() {
 
 
 
+
         {/* BRAND */}
 
 
         <Link
           href="/"
-          aria-label="Go to homepage"
           className="
           flex
           flex-col
-          transition-opacity
           hover:opacity-80
+          transition
           "
         >
+
 
           <span
             className="
@@ -82,6 +117,7 @@ export function Navbar() {
           >
             SHUNYAM
           </span>
+
 
 
           <span
@@ -96,6 +132,7 @@ export function Navbar() {
           </span>
 
 
+
         </Link>
 
 
@@ -104,9 +141,6 @@ export function Navbar() {
 
 
 
-
-
-        {/* NAVIGATION + THEME */}
 
 
         <div
@@ -120,40 +154,38 @@ export function Navbar() {
 
 
           <nav
-            aria-label="Main navigation"
             className="
             hidden
             items-center
-            gap-8
+            gap-7
             md:flex
             "
           >
 
-            {navItems.map((item) => (
 
-              <Link
-                key={item.label}
-                href={item.href}
-                className="
-                relative
-                text-sm
-                text-muted-foreground
-                transition
-                hover:text-foreground
-                after:absolute
-                after:-bottom-2
-                after:left-0
-                after:h-px
-                after:w-0
-                after:bg-foreground
-                after:transition-all
-                hover:after:w-full
-                "
-              >
-                {item.label}
-              </Link>
+            {
+              navItems.map((item)=>(
+                
+                <Link
 
-            ))}
+                  key={item.href}
+
+                  href={item.href}
+
+                  className="
+                  text-sm
+                  text-muted-foreground
+                  transition
+                  hover:text-foreground
+                  "
+                >
+
+                  {item.label}
+
+                </Link>
+
+              ))
+            }
 
 
           </nav>
@@ -165,15 +197,14 @@ export function Navbar() {
           <ThemeToggle />
 
 
-
         </div>
-
-
 
 
       </div>
 
 
     </header>
+
   );
+
 }

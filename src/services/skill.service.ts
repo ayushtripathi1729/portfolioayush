@@ -9,6 +9,9 @@ export class SkillService {
 
 
 
+
+
+  // ADMIN
   async getAll() {
 
     return skillRepository.findAll();
@@ -19,11 +22,35 @@ export class SkillService {
 
 
 
+
+
+
+
+  // PUBLIC
+  async getVisible() {
+
+    return skillRepository.findVisible();
+
+  }
+
+
+
+
+
+
+
+
+
+  // HOMEPAGE
   async getFeatured() {
 
     return skillRepository.findFeatured();
 
   }
+
+
+
+
 
 
 
@@ -43,6 +70,10 @@ export class SkillService {
 
 
 
+
+
+
+
   async getBySlug(
     slug: string
   ) {
@@ -52,6 +83,10 @@ export class SkillService {
     );
 
   }
+
+
+
+
 
 
 
@@ -97,6 +132,7 @@ export class SkillService {
 
 
 
+
   async update(
     id: string,
     data: Prisma.SkillUpdateInput
@@ -129,6 +165,7 @@ export class SkillService {
     return skill;
 
   }
+
 
 
 
@@ -184,11 +221,13 @@ export class SkillService {
 
 
 
+
   async count() {
 
     return skillRepository.count();
 
   }
+
 
 
 }

@@ -3,9 +3,28 @@ import type { SkillCategory } from "@/types/portfolio";
 import { SectionTitle } from "./section-title";
 
 
+
 interface SkillsSectionProps {
   categories: SkillCategory[];
 }
+
+
+
+
+
+function formatLevel(level: string) {
+
+  return level
+    .toLowerCase()
+    .replace(
+      /^./,
+      (char) => char.toUpperCase()
+    );
+
+}
+
+
+
 
 
 
@@ -14,69 +33,88 @@ export function SkillsSection({
 }: SkillsSectionProps) {
 
 
-  if (!categories.length) {
+  const visibleCategories =
+    categories.filter(
+      (category) =>
+        category.skills.length > 0
+    );
+
+
+
+  if (!visibleCategories.length) {
     return null;
   }
 
 
 
+
+
   return (
+
     <section
       className="
-      container
-      mx-auto
-      px-8
+      relative
+      overflow-hidden
+      bg-background
       py-28
-      lg:px-16
       "
     >
 
 
-      <SectionTitle
-        title="Skills"
-        description="Technical domains, concepts and technologies I work with."
+
+
+
+
+
+      {/* Ambient Glow */}
+
+      <div
+        className="
+        pointer-events-none
+        absolute
+        right-0
+        top-20
+        -z-10
+        h-96
+        w-96
+        rounded-full
+        bg-violet-500/10
+        blur-3xl
+        "
       />
+
+
+
+
+
+
 
 
 
 
       <div
         className="
-        mt-16
-        space-y-12
+        container
+        mx-auto
+        px-8
+        lg:px-16
         "
       >
 
 
 
-        {categories.map((category, index) => (
-
-
-          <article
-            key={category.id}
-            className="
-            grid
-            gap-8
-            border-b
-            pb-12
-            lg:grid-cols-[100px_1fr]
-            "
-          >
 
 
 
-            {/* NUMBER */}
+        <SectionTitle
 
+          title="Skills"
 
-            <div
-              className="
-              text-4xl
-              font-light
-              text-muted-foreground/40
-              "
-            >
-              {String(index + 1).padStart(2, "0")}
-            </div>
+          description="
+          Core technical domains and technologies I actively work with.
+          "
+
+        />
 
 
 
@@ -84,105 +122,279 @@ export function SkillsSection({
 
 
 
-            {/* CONTENT */}
+
+
+        <div
+          className="
+          mt-16
+          grid
+          gap-8
+          md:grid-cols-2
+          "
+        >
 
 
 
-            <div
-              className="
-              space-y-6
-              "
-            >
 
 
 
-              <div>
+          {
+            visibleCategories.map(
+              (
+                category,
+                index
+              ) => (
 
 
-                <h3
+
+                <article
+
+                  key={category.id}
+
                   className="
-                  text-3xl
-                  font-semibold
-                  tracking-tight
+                  group
+                  rounded-2xl
+                  border
+                  border-border
+                  bg-card
+                  p-8
+                  transition-all
+                  duration-300
+                  hover:-translate-y-1
+                  hover:border-violet-400/50
+                  hover:shadow-lg
                   "
+
                 >
-                  {category.name}
-                </h3>
 
 
 
 
-                {category.description && (
 
-                  <p
+
+
+                  <div
                     className="
-                    mt-3
-                    max-w-2xl
-                    leading-7
-                    text-muted-foreground
+                    mb-6
+                    flex
+                    items-center
+                    justify-between
                     "
                   >
-                    {category.description}
-                  </p>
-
-                )}
-
-
-              </div>
 
 
 
+                    <span
+                      className="
+                      text-sm
+                      tracking-[0.3em]
+                      text-muted-foreground/60
+                      "
+                    >
+
+                      {String(index + 1).padStart(2, "0")}
+
+                    </span>
 
 
 
 
 
 
-              <div
-                className="
-                flex
-                flex-wrap
-                gap-3
-                "
-              >
+                    <span
+                      className="
+                      h-2
+                      w-2
+                      rounded-full
+                      bg-violet-500
+                      opacity-70
+                      transition
+                      group-hover:scale-150
+                      "
+                    />
 
 
 
-                {category.skills.map((skill) => (
+                  </div>
 
 
-                  <span
-                    key={skill.id}
+
+
+
+
+
+
+
+                  <h3
+
                     className="
-                    rounded-full
-                    border
-                    px-5
-                    py-2
-                    text-sm
+                    text-2xl
+                    font-semibold
+                    tracking-tight
                     transition
-                    hover:bg-muted
+                    group-hover:text-violet-600
                     "
+
                   >
-                    {skill.name}
-                  </span>
 
+                    {category.name}
 
-                ))}
-
-
-              </div>
-
-
-
-            </div>
+                  </h3>
 
 
 
 
-          </article>
 
 
-        ))}
+
+
+
+                  {
+                    category.description && (
+
+                      <p
+
+                        className="
+                        mt-3
+                        leading-7
+                        text-muted-foreground
+                        "
+
+                      >
+
+                        {category.description}
+
+                      </p>
+
+                    )
+                  }
+
+
+
+
+
+
+
+
+
+
+
+
+                  <div
+
+                    className="
+                    mt-6
+                    flex
+                    flex-wrap
+                    gap-3
+                    "
+
+                  >
+
+
+
+
+
+                    {
+                      category.skills.map(
+                        (skill) => (
+
+
+
+                          <div
+
+                            key={skill.id}
+
+                            className="
+                            flex
+                            items-center
+                            gap-2
+                            rounded-full
+                            border
+                            border-border
+                            px-4
+                            py-2
+                            text-sm
+                            transition
+                            hover:border-violet-400
+                            hover:bg-muted
+                            "
+
+                          >
+
+
+                            <span>
+
+                              {skill.name}
+
+                            </span>
+
+
+
+
+                            {
+                              skill.level && (
+
+                                <span
+                                  className="
+                                  border-l
+                                  pl-2
+                                  text-xs
+                                  uppercase
+                                  tracking-wide
+                                  text-muted-foreground
+                                  "
+                                >
+
+                                  {formatLevel(skill.level)}
+
+                                </span>
+
+                              )
+                            }
+
+
+
+
+                          </div>
+
+
+
+                        )
+                      )
+                    }
+
+
+
+
+                  </div>
+
+
+
+
+
+
+
+                </article>
+
+
+
+              )
+            )
+          }
+
+
+
+
+
+
+
+        </div>
+
+
+
+
+
 
 
 
@@ -190,6 +402,13 @@ export function SkillsSection({
 
 
 
+
+
+
+
+
     </section>
+
   );
+
 }

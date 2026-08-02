@@ -31,11 +31,15 @@ export type SettingMinAggregateOutputType = {
   fullName: string | null
   tagline: string | null
   bio: string | null
+  about: string | null
   email: string | null
   phone: string | null
   location: string | null
   profileImageId: string | null
   resumeAssetId: string | null
+  aboutImageId: string | null
+  ogImageId: string | null
+  faviconId: string | null
   userId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -48,11 +52,15 @@ export type SettingMaxAggregateOutputType = {
   fullName: string | null
   tagline: string | null
   bio: string | null
+  about: string | null
   email: string | null
   phone: string | null
   location: string | null
   profileImageId: string | null
   resumeAssetId: string | null
+  aboutImageId: string | null
+  ogImageId: string | null
+  faviconId: string | null
   userId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -65,11 +73,15 @@ export type SettingCountAggregateOutputType = {
   fullName: number
   tagline: number
   bio: number
+  about: number
   email: number
   phone: number
   location: number
   profileImageId: number
   resumeAssetId: number
+  aboutImageId: number
+  ogImageId: number
+  faviconId: number
   userId: number
   createdAt: number
   updatedAt: number
@@ -84,11 +96,15 @@ export type SettingMinAggregateInputType = {
   fullName?: true
   tagline?: true
   bio?: true
+  about?: true
   email?: true
   phone?: true
   location?: true
   profileImageId?: true
   resumeAssetId?: true
+  aboutImageId?: true
+  ogImageId?: true
+  faviconId?: true
   userId?: true
   createdAt?: true
   updatedAt?: true
@@ -101,11 +117,15 @@ export type SettingMaxAggregateInputType = {
   fullName?: true
   tagline?: true
   bio?: true
+  about?: true
   email?: true
   phone?: true
   location?: true
   profileImageId?: true
   resumeAssetId?: true
+  aboutImageId?: true
+  ogImageId?: true
+  faviconId?: true
   userId?: true
   createdAt?: true
   updatedAt?: true
@@ -118,11 +138,15 @@ export type SettingCountAggregateInputType = {
   fullName?: true
   tagline?: true
   bio?: true
+  about?: true
   email?: true
   phone?: true
   location?: true
   profileImageId?: true
   resumeAssetId?: true
+  aboutImageId?: true
+  ogImageId?: true
+  faviconId?: true
   userId?: true
   createdAt?: true
   updatedAt?: true
@@ -208,11 +232,15 @@ export type SettingGroupByOutputType = {
   fullName: string
   tagline: string | null
   bio: string | null
+  about: string | null
   email: string | null
   phone: string | null
   location: string | null
   profileImageId: string | null
   resumeAssetId: string | null
+  aboutImageId: string | null
+  ogImageId: string | null
+  faviconId: string | null
   userId: string
   createdAt: Date
   updatedAt: Date
@@ -246,16 +274,23 @@ export type SettingWhereInput = {
   fullName?: Prisma.StringFilter<"Setting"> | string
   tagline?: Prisma.StringNullableFilter<"Setting"> | string | null
   bio?: Prisma.StringNullableFilter<"Setting"> | string | null
+  about?: Prisma.StringNullableFilter<"Setting"> | string | null
   email?: Prisma.StringNullableFilter<"Setting"> | string | null
   phone?: Prisma.StringNullableFilter<"Setting"> | string | null
   location?: Prisma.StringNullableFilter<"Setting"> | string | null
   profileImageId?: Prisma.StringNullableFilter<"Setting"> | string | null
   resumeAssetId?: Prisma.StringNullableFilter<"Setting"> | string | null
+  aboutImageId?: Prisma.StringNullableFilter<"Setting"> | string | null
+  ogImageId?: Prisma.StringNullableFilter<"Setting"> | string | null
+  faviconId?: Prisma.StringNullableFilter<"Setting"> | string | null
   userId?: Prisma.StringFilter<"Setting"> | string
   createdAt?: Prisma.DateTimeFilter<"Setting"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Setting"> | Date | string
   profileImage?: Prisma.XOR<Prisma.AssetNullableScalarRelationFilter, Prisma.AssetWhereInput> | null
   resume?: Prisma.XOR<Prisma.AssetNullableScalarRelationFilter, Prisma.AssetWhereInput> | null
+  aboutImage?: Prisma.XOR<Prisma.AssetNullableScalarRelationFilter, Prisma.AssetWhereInput> | null
+  ogImage?: Prisma.XOR<Prisma.AssetNullableScalarRelationFilter, Prisma.AssetWhereInput> | null
+  favicon?: Prisma.XOR<Prisma.AssetNullableScalarRelationFilter, Prisma.AssetWhereInput> | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   socialLinks?: Prisma.SocialLinkListRelationFilter
 }
@@ -267,16 +302,23 @@ export type SettingOrderByWithRelationInput = {
   fullName?: Prisma.SortOrder
   tagline?: Prisma.SortOrderInput | Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
+  about?: Prisma.SortOrderInput | Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
   profileImageId?: Prisma.SortOrderInput | Prisma.SortOrder
   resumeAssetId?: Prisma.SortOrderInput | Prisma.SortOrder
+  aboutImageId?: Prisma.SortOrderInput | Prisma.SortOrder
+  ogImageId?: Prisma.SortOrderInput | Prisma.SortOrder
+  faviconId?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   profileImage?: Prisma.AssetOrderByWithRelationInput
   resume?: Prisma.AssetOrderByWithRelationInput
+  aboutImage?: Prisma.AssetOrderByWithRelationInput
+  ogImage?: Prisma.AssetOrderByWithRelationInput
+  favicon?: Prisma.AssetOrderByWithRelationInput
   user?: Prisma.UserOrderByWithRelationInput
   socialLinks?: Prisma.SocialLinkOrderByRelationAggregateInput
 }
@@ -292,15 +334,22 @@ export type SettingWhereUniqueInput = Prisma.AtLeast<{
   fullName?: Prisma.StringFilter<"Setting"> | string
   tagline?: Prisma.StringNullableFilter<"Setting"> | string | null
   bio?: Prisma.StringNullableFilter<"Setting"> | string | null
+  about?: Prisma.StringNullableFilter<"Setting"> | string | null
   email?: Prisma.StringNullableFilter<"Setting"> | string | null
   phone?: Prisma.StringNullableFilter<"Setting"> | string | null
   location?: Prisma.StringNullableFilter<"Setting"> | string | null
   profileImageId?: Prisma.StringNullableFilter<"Setting"> | string | null
   resumeAssetId?: Prisma.StringNullableFilter<"Setting"> | string | null
+  aboutImageId?: Prisma.StringNullableFilter<"Setting"> | string | null
+  ogImageId?: Prisma.StringNullableFilter<"Setting"> | string | null
+  faviconId?: Prisma.StringNullableFilter<"Setting"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Setting"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Setting"> | Date | string
   profileImage?: Prisma.XOR<Prisma.AssetNullableScalarRelationFilter, Prisma.AssetWhereInput> | null
   resume?: Prisma.XOR<Prisma.AssetNullableScalarRelationFilter, Prisma.AssetWhereInput> | null
+  aboutImage?: Prisma.XOR<Prisma.AssetNullableScalarRelationFilter, Prisma.AssetWhereInput> | null
+  ogImage?: Prisma.XOR<Prisma.AssetNullableScalarRelationFilter, Prisma.AssetWhereInput> | null
+  favicon?: Prisma.XOR<Prisma.AssetNullableScalarRelationFilter, Prisma.AssetWhereInput> | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   socialLinks?: Prisma.SocialLinkListRelationFilter
 }, "id" | "userId">
@@ -312,11 +361,15 @@ export type SettingOrderByWithAggregationInput = {
   fullName?: Prisma.SortOrder
   tagline?: Prisma.SortOrderInput | Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
+  about?: Prisma.SortOrderInput | Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
   profileImageId?: Prisma.SortOrderInput | Prisma.SortOrder
   resumeAssetId?: Prisma.SortOrderInput | Prisma.SortOrder
+  aboutImageId?: Prisma.SortOrderInput | Prisma.SortOrder
+  ogImageId?: Prisma.SortOrderInput | Prisma.SortOrder
+  faviconId?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -335,11 +388,15 @@ export type SettingScalarWhereWithAggregatesInput = {
   fullName?: Prisma.StringWithAggregatesFilter<"Setting"> | string
   tagline?: Prisma.StringNullableWithAggregatesFilter<"Setting"> | string | null
   bio?: Prisma.StringNullableWithAggregatesFilter<"Setting"> | string | null
+  about?: Prisma.StringNullableWithAggregatesFilter<"Setting"> | string | null
   email?: Prisma.StringNullableWithAggregatesFilter<"Setting"> | string | null
   phone?: Prisma.StringNullableWithAggregatesFilter<"Setting"> | string | null
   location?: Prisma.StringNullableWithAggregatesFilter<"Setting"> | string | null
   profileImageId?: Prisma.StringNullableWithAggregatesFilter<"Setting"> | string | null
   resumeAssetId?: Prisma.StringNullableWithAggregatesFilter<"Setting"> | string | null
+  aboutImageId?: Prisma.StringNullableWithAggregatesFilter<"Setting"> | string | null
+  ogImageId?: Prisma.StringNullableWithAggregatesFilter<"Setting"> | string | null
+  faviconId?: Prisma.StringNullableWithAggregatesFilter<"Setting"> | string | null
   userId?: Prisma.StringWithAggregatesFilter<"Setting"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Setting"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Setting"> | Date | string
@@ -352,6 +409,7 @@ export type SettingCreateInput = {
   fullName: string
   tagline?: string | null
   bio?: string | null
+  about?: string | null
   email?: string | null
   phone?: string | null
   location?: string | null
@@ -359,6 +417,9 @@ export type SettingCreateInput = {
   updatedAt?: Date | string
   profileImage?: Prisma.AssetCreateNestedOneWithoutProfileImageInput
   resume?: Prisma.AssetCreateNestedOneWithoutResumeFileInput
+  aboutImage?: Prisma.AssetCreateNestedOneWithoutAboutImageInput
+  ogImage?: Prisma.AssetCreateNestedOneWithoutOgImagesInput
+  favicon?: Prisma.AssetCreateNestedOneWithoutFaviconInput
   user: Prisma.UserCreateNestedOneWithoutSettingsInput
   socialLinks?: Prisma.SocialLinkCreateNestedManyWithoutSettingInput
 }
@@ -370,11 +431,15 @@ export type SettingUncheckedCreateInput = {
   fullName: string
   tagline?: string | null
   bio?: string | null
+  about?: string | null
   email?: string | null
   phone?: string | null
   location?: string | null
   profileImageId?: string | null
   resumeAssetId?: string | null
+  aboutImageId?: string | null
+  ogImageId?: string | null
+  faviconId?: string | null
   userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -388,6 +453,7 @@ export type SettingUpdateInput = {
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -395,6 +461,9 @@ export type SettingUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profileImage?: Prisma.AssetUpdateOneWithoutProfileImageNestedInput
   resume?: Prisma.AssetUpdateOneWithoutResumeFileNestedInput
+  aboutImage?: Prisma.AssetUpdateOneWithoutAboutImageNestedInput
+  ogImage?: Prisma.AssetUpdateOneWithoutOgImagesNestedInput
+  favicon?: Prisma.AssetUpdateOneWithoutFaviconNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutSettingsNestedInput
   socialLinks?: Prisma.SocialLinkUpdateManyWithoutSettingNestedInput
 }
@@ -406,11 +475,15 @@ export type SettingUncheckedUpdateInput = {
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aboutImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ogImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faviconId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -424,11 +497,15 @@ export type SettingCreateManyInput = {
   fullName: string
   tagline?: string | null
   bio?: string | null
+  about?: string | null
   email?: string | null
   phone?: string | null
   location?: string | null
   profileImageId?: string | null
   resumeAssetId?: string | null
+  aboutImageId?: string | null
+  ogImageId?: string | null
+  faviconId?: string | null
   userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -441,6 +518,7 @@ export type SettingUpdateManyMutationInput = {
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -455,11 +533,15 @@ export type SettingUncheckedUpdateManyInput = {
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aboutImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ogImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faviconId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -477,11 +559,15 @@ export type SettingCountOrderByAggregateInput = {
   fullName?: Prisma.SortOrder
   tagline?: Prisma.SortOrder
   bio?: Prisma.SortOrder
+  about?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   location?: Prisma.SortOrder
   profileImageId?: Prisma.SortOrder
   resumeAssetId?: Prisma.SortOrder
+  aboutImageId?: Prisma.SortOrder
+  ogImageId?: Prisma.SortOrder
+  faviconId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -494,11 +580,15 @@ export type SettingMaxOrderByAggregateInput = {
   fullName?: Prisma.SortOrder
   tagline?: Prisma.SortOrder
   bio?: Prisma.SortOrder
+  about?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   location?: Prisma.SortOrder
   profileImageId?: Prisma.SortOrder
   resumeAssetId?: Prisma.SortOrder
+  aboutImageId?: Prisma.SortOrder
+  ogImageId?: Prisma.SortOrder
+  faviconId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -511,11 +601,15 @@ export type SettingMinOrderByAggregateInput = {
   fullName?: Prisma.SortOrder
   tagline?: Prisma.SortOrder
   bio?: Prisma.SortOrder
+  about?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   location?: Prisma.SortOrder
   profileImageId?: Prisma.SortOrder
   resumeAssetId?: Prisma.SortOrder
+  aboutImageId?: Prisma.SortOrder
+  ogImageId?: Prisma.SortOrder
+  faviconId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -596,6 +690,27 @@ export type SettingCreateNestedManyWithoutResumeInput = {
   connect?: Prisma.SettingWhereUniqueInput | Prisma.SettingWhereUniqueInput[]
 }
 
+export type SettingCreateNestedManyWithoutAboutImageInput = {
+  create?: Prisma.XOR<Prisma.SettingCreateWithoutAboutImageInput, Prisma.SettingUncheckedCreateWithoutAboutImageInput> | Prisma.SettingCreateWithoutAboutImageInput[] | Prisma.SettingUncheckedCreateWithoutAboutImageInput[]
+  connectOrCreate?: Prisma.SettingCreateOrConnectWithoutAboutImageInput | Prisma.SettingCreateOrConnectWithoutAboutImageInput[]
+  createMany?: Prisma.SettingCreateManyAboutImageInputEnvelope
+  connect?: Prisma.SettingWhereUniqueInput | Prisma.SettingWhereUniqueInput[]
+}
+
+export type SettingCreateNestedManyWithoutOgImageInput = {
+  create?: Prisma.XOR<Prisma.SettingCreateWithoutOgImageInput, Prisma.SettingUncheckedCreateWithoutOgImageInput> | Prisma.SettingCreateWithoutOgImageInput[] | Prisma.SettingUncheckedCreateWithoutOgImageInput[]
+  connectOrCreate?: Prisma.SettingCreateOrConnectWithoutOgImageInput | Prisma.SettingCreateOrConnectWithoutOgImageInput[]
+  createMany?: Prisma.SettingCreateManyOgImageInputEnvelope
+  connect?: Prisma.SettingWhereUniqueInput | Prisma.SettingWhereUniqueInput[]
+}
+
+export type SettingCreateNestedManyWithoutFaviconInput = {
+  create?: Prisma.XOR<Prisma.SettingCreateWithoutFaviconInput, Prisma.SettingUncheckedCreateWithoutFaviconInput> | Prisma.SettingCreateWithoutFaviconInput[] | Prisma.SettingUncheckedCreateWithoutFaviconInput[]
+  connectOrCreate?: Prisma.SettingCreateOrConnectWithoutFaviconInput | Prisma.SettingCreateOrConnectWithoutFaviconInput[]
+  createMany?: Prisma.SettingCreateManyFaviconInputEnvelope
+  connect?: Prisma.SettingWhereUniqueInput | Prisma.SettingWhereUniqueInput[]
+}
+
 export type SettingUncheckedCreateNestedManyWithoutProfileImageInput = {
   create?: Prisma.XOR<Prisma.SettingCreateWithoutProfileImageInput, Prisma.SettingUncheckedCreateWithoutProfileImageInput> | Prisma.SettingCreateWithoutProfileImageInput[] | Prisma.SettingUncheckedCreateWithoutProfileImageInput[]
   connectOrCreate?: Prisma.SettingCreateOrConnectWithoutProfileImageInput | Prisma.SettingCreateOrConnectWithoutProfileImageInput[]
@@ -607,6 +722,27 @@ export type SettingUncheckedCreateNestedManyWithoutResumeInput = {
   create?: Prisma.XOR<Prisma.SettingCreateWithoutResumeInput, Prisma.SettingUncheckedCreateWithoutResumeInput> | Prisma.SettingCreateWithoutResumeInput[] | Prisma.SettingUncheckedCreateWithoutResumeInput[]
   connectOrCreate?: Prisma.SettingCreateOrConnectWithoutResumeInput | Prisma.SettingCreateOrConnectWithoutResumeInput[]
   createMany?: Prisma.SettingCreateManyResumeInputEnvelope
+  connect?: Prisma.SettingWhereUniqueInput | Prisma.SettingWhereUniqueInput[]
+}
+
+export type SettingUncheckedCreateNestedManyWithoutAboutImageInput = {
+  create?: Prisma.XOR<Prisma.SettingCreateWithoutAboutImageInput, Prisma.SettingUncheckedCreateWithoutAboutImageInput> | Prisma.SettingCreateWithoutAboutImageInput[] | Prisma.SettingUncheckedCreateWithoutAboutImageInput[]
+  connectOrCreate?: Prisma.SettingCreateOrConnectWithoutAboutImageInput | Prisma.SettingCreateOrConnectWithoutAboutImageInput[]
+  createMany?: Prisma.SettingCreateManyAboutImageInputEnvelope
+  connect?: Prisma.SettingWhereUniqueInput | Prisma.SettingWhereUniqueInput[]
+}
+
+export type SettingUncheckedCreateNestedManyWithoutOgImageInput = {
+  create?: Prisma.XOR<Prisma.SettingCreateWithoutOgImageInput, Prisma.SettingUncheckedCreateWithoutOgImageInput> | Prisma.SettingCreateWithoutOgImageInput[] | Prisma.SettingUncheckedCreateWithoutOgImageInput[]
+  connectOrCreate?: Prisma.SettingCreateOrConnectWithoutOgImageInput | Prisma.SettingCreateOrConnectWithoutOgImageInput[]
+  createMany?: Prisma.SettingCreateManyOgImageInputEnvelope
+  connect?: Prisma.SettingWhereUniqueInput | Prisma.SettingWhereUniqueInput[]
+}
+
+export type SettingUncheckedCreateNestedManyWithoutFaviconInput = {
+  create?: Prisma.XOR<Prisma.SettingCreateWithoutFaviconInput, Prisma.SettingUncheckedCreateWithoutFaviconInput> | Prisma.SettingCreateWithoutFaviconInput[] | Prisma.SettingUncheckedCreateWithoutFaviconInput[]
+  connectOrCreate?: Prisma.SettingCreateOrConnectWithoutFaviconInput | Prisma.SettingCreateOrConnectWithoutFaviconInput[]
+  createMany?: Prisma.SettingCreateManyFaviconInputEnvelope
   connect?: Prisma.SettingWhereUniqueInput | Prisma.SettingWhereUniqueInput[]
 }
 
@@ -638,6 +774,48 @@ export type SettingUpdateManyWithoutResumeNestedInput = {
   deleteMany?: Prisma.SettingScalarWhereInput | Prisma.SettingScalarWhereInput[]
 }
 
+export type SettingUpdateManyWithoutAboutImageNestedInput = {
+  create?: Prisma.XOR<Prisma.SettingCreateWithoutAboutImageInput, Prisma.SettingUncheckedCreateWithoutAboutImageInput> | Prisma.SettingCreateWithoutAboutImageInput[] | Prisma.SettingUncheckedCreateWithoutAboutImageInput[]
+  connectOrCreate?: Prisma.SettingCreateOrConnectWithoutAboutImageInput | Prisma.SettingCreateOrConnectWithoutAboutImageInput[]
+  upsert?: Prisma.SettingUpsertWithWhereUniqueWithoutAboutImageInput | Prisma.SettingUpsertWithWhereUniqueWithoutAboutImageInput[]
+  createMany?: Prisma.SettingCreateManyAboutImageInputEnvelope
+  set?: Prisma.SettingWhereUniqueInput | Prisma.SettingWhereUniqueInput[]
+  disconnect?: Prisma.SettingWhereUniqueInput | Prisma.SettingWhereUniqueInput[]
+  delete?: Prisma.SettingWhereUniqueInput | Prisma.SettingWhereUniqueInput[]
+  connect?: Prisma.SettingWhereUniqueInput | Prisma.SettingWhereUniqueInput[]
+  update?: Prisma.SettingUpdateWithWhereUniqueWithoutAboutImageInput | Prisma.SettingUpdateWithWhereUniqueWithoutAboutImageInput[]
+  updateMany?: Prisma.SettingUpdateManyWithWhereWithoutAboutImageInput | Prisma.SettingUpdateManyWithWhereWithoutAboutImageInput[]
+  deleteMany?: Prisma.SettingScalarWhereInput | Prisma.SettingScalarWhereInput[]
+}
+
+export type SettingUpdateManyWithoutOgImageNestedInput = {
+  create?: Prisma.XOR<Prisma.SettingCreateWithoutOgImageInput, Prisma.SettingUncheckedCreateWithoutOgImageInput> | Prisma.SettingCreateWithoutOgImageInput[] | Prisma.SettingUncheckedCreateWithoutOgImageInput[]
+  connectOrCreate?: Prisma.SettingCreateOrConnectWithoutOgImageInput | Prisma.SettingCreateOrConnectWithoutOgImageInput[]
+  upsert?: Prisma.SettingUpsertWithWhereUniqueWithoutOgImageInput | Prisma.SettingUpsertWithWhereUniqueWithoutOgImageInput[]
+  createMany?: Prisma.SettingCreateManyOgImageInputEnvelope
+  set?: Prisma.SettingWhereUniqueInput | Prisma.SettingWhereUniqueInput[]
+  disconnect?: Prisma.SettingWhereUniqueInput | Prisma.SettingWhereUniqueInput[]
+  delete?: Prisma.SettingWhereUniqueInput | Prisma.SettingWhereUniqueInput[]
+  connect?: Prisma.SettingWhereUniqueInput | Prisma.SettingWhereUniqueInput[]
+  update?: Prisma.SettingUpdateWithWhereUniqueWithoutOgImageInput | Prisma.SettingUpdateWithWhereUniqueWithoutOgImageInput[]
+  updateMany?: Prisma.SettingUpdateManyWithWhereWithoutOgImageInput | Prisma.SettingUpdateManyWithWhereWithoutOgImageInput[]
+  deleteMany?: Prisma.SettingScalarWhereInput | Prisma.SettingScalarWhereInput[]
+}
+
+export type SettingUpdateManyWithoutFaviconNestedInput = {
+  create?: Prisma.XOR<Prisma.SettingCreateWithoutFaviconInput, Prisma.SettingUncheckedCreateWithoutFaviconInput> | Prisma.SettingCreateWithoutFaviconInput[] | Prisma.SettingUncheckedCreateWithoutFaviconInput[]
+  connectOrCreate?: Prisma.SettingCreateOrConnectWithoutFaviconInput | Prisma.SettingCreateOrConnectWithoutFaviconInput[]
+  upsert?: Prisma.SettingUpsertWithWhereUniqueWithoutFaviconInput | Prisma.SettingUpsertWithWhereUniqueWithoutFaviconInput[]
+  createMany?: Prisma.SettingCreateManyFaviconInputEnvelope
+  set?: Prisma.SettingWhereUniqueInput | Prisma.SettingWhereUniqueInput[]
+  disconnect?: Prisma.SettingWhereUniqueInput | Prisma.SettingWhereUniqueInput[]
+  delete?: Prisma.SettingWhereUniqueInput | Prisma.SettingWhereUniqueInput[]
+  connect?: Prisma.SettingWhereUniqueInput | Prisma.SettingWhereUniqueInput[]
+  update?: Prisma.SettingUpdateWithWhereUniqueWithoutFaviconInput | Prisma.SettingUpdateWithWhereUniqueWithoutFaviconInput[]
+  updateMany?: Prisma.SettingUpdateManyWithWhereWithoutFaviconInput | Prisma.SettingUpdateManyWithWhereWithoutFaviconInput[]
+  deleteMany?: Prisma.SettingScalarWhereInput | Prisma.SettingScalarWhereInput[]
+}
+
 export type SettingUncheckedUpdateManyWithoutProfileImageNestedInput = {
   create?: Prisma.XOR<Prisma.SettingCreateWithoutProfileImageInput, Prisma.SettingUncheckedCreateWithoutProfileImageInput> | Prisma.SettingCreateWithoutProfileImageInput[] | Prisma.SettingUncheckedCreateWithoutProfileImageInput[]
   connectOrCreate?: Prisma.SettingCreateOrConnectWithoutProfileImageInput | Prisma.SettingCreateOrConnectWithoutProfileImageInput[]
@@ -666,6 +844,48 @@ export type SettingUncheckedUpdateManyWithoutResumeNestedInput = {
   deleteMany?: Prisma.SettingScalarWhereInput | Prisma.SettingScalarWhereInput[]
 }
 
+export type SettingUncheckedUpdateManyWithoutAboutImageNestedInput = {
+  create?: Prisma.XOR<Prisma.SettingCreateWithoutAboutImageInput, Prisma.SettingUncheckedCreateWithoutAboutImageInput> | Prisma.SettingCreateWithoutAboutImageInput[] | Prisma.SettingUncheckedCreateWithoutAboutImageInput[]
+  connectOrCreate?: Prisma.SettingCreateOrConnectWithoutAboutImageInput | Prisma.SettingCreateOrConnectWithoutAboutImageInput[]
+  upsert?: Prisma.SettingUpsertWithWhereUniqueWithoutAboutImageInput | Prisma.SettingUpsertWithWhereUniqueWithoutAboutImageInput[]
+  createMany?: Prisma.SettingCreateManyAboutImageInputEnvelope
+  set?: Prisma.SettingWhereUniqueInput | Prisma.SettingWhereUniqueInput[]
+  disconnect?: Prisma.SettingWhereUniqueInput | Prisma.SettingWhereUniqueInput[]
+  delete?: Prisma.SettingWhereUniqueInput | Prisma.SettingWhereUniqueInput[]
+  connect?: Prisma.SettingWhereUniqueInput | Prisma.SettingWhereUniqueInput[]
+  update?: Prisma.SettingUpdateWithWhereUniqueWithoutAboutImageInput | Prisma.SettingUpdateWithWhereUniqueWithoutAboutImageInput[]
+  updateMany?: Prisma.SettingUpdateManyWithWhereWithoutAboutImageInput | Prisma.SettingUpdateManyWithWhereWithoutAboutImageInput[]
+  deleteMany?: Prisma.SettingScalarWhereInput | Prisma.SettingScalarWhereInput[]
+}
+
+export type SettingUncheckedUpdateManyWithoutOgImageNestedInput = {
+  create?: Prisma.XOR<Prisma.SettingCreateWithoutOgImageInput, Prisma.SettingUncheckedCreateWithoutOgImageInput> | Prisma.SettingCreateWithoutOgImageInput[] | Prisma.SettingUncheckedCreateWithoutOgImageInput[]
+  connectOrCreate?: Prisma.SettingCreateOrConnectWithoutOgImageInput | Prisma.SettingCreateOrConnectWithoutOgImageInput[]
+  upsert?: Prisma.SettingUpsertWithWhereUniqueWithoutOgImageInput | Prisma.SettingUpsertWithWhereUniqueWithoutOgImageInput[]
+  createMany?: Prisma.SettingCreateManyOgImageInputEnvelope
+  set?: Prisma.SettingWhereUniqueInput | Prisma.SettingWhereUniqueInput[]
+  disconnect?: Prisma.SettingWhereUniqueInput | Prisma.SettingWhereUniqueInput[]
+  delete?: Prisma.SettingWhereUniqueInput | Prisma.SettingWhereUniqueInput[]
+  connect?: Prisma.SettingWhereUniqueInput | Prisma.SettingWhereUniqueInput[]
+  update?: Prisma.SettingUpdateWithWhereUniqueWithoutOgImageInput | Prisma.SettingUpdateWithWhereUniqueWithoutOgImageInput[]
+  updateMany?: Prisma.SettingUpdateManyWithWhereWithoutOgImageInput | Prisma.SettingUpdateManyWithWhereWithoutOgImageInput[]
+  deleteMany?: Prisma.SettingScalarWhereInput | Prisma.SettingScalarWhereInput[]
+}
+
+export type SettingUncheckedUpdateManyWithoutFaviconNestedInput = {
+  create?: Prisma.XOR<Prisma.SettingCreateWithoutFaviconInput, Prisma.SettingUncheckedCreateWithoutFaviconInput> | Prisma.SettingCreateWithoutFaviconInput[] | Prisma.SettingUncheckedCreateWithoutFaviconInput[]
+  connectOrCreate?: Prisma.SettingCreateOrConnectWithoutFaviconInput | Prisma.SettingCreateOrConnectWithoutFaviconInput[]
+  upsert?: Prisma.SettingUpsertWithWhereUniqueWithoutFaviconInput | Prisma.SettingUpsertWithWhereUniqueWithoutFaviconInput[]
+  createMany?: Prisma.SettingCreateManyFaviconInputEnvelope
+  set?: Prisma.SettingWhereUniqueInput | Prisma.SettingWhereUniqueInput[]
+  disconnect?: Prisma.SettingWhereUniqueInput | Prisma.SettingWhereUniqueInput[]
+  delete?: Prisma.SettingWhereUniqueInput | Prisma.SettingWhereUniqueInput[]
+  connect?: Prisma.SettingWhereUniqueInput | Prisma.SettingWhereUniqueInput[]
+  update?: Prisma.SettingUpdateWithWhereUniqueWithoutFaviconInput | Prisma.SettingUpdateWithWhereUniqueWithoutFaviconInput[]
+  updateMany?: Prisma.SettingUpdateManyWithWhereWithoutFaviconInput | Prisma.SettingUpdateManyWithWhereWithoutFaviconInput[]
+  deleteMany?: Prisma.SettingScalarWhereInput | Prisma.SettingScalarWhereInput[]
+}
+
 export type SettingCreateWithoutUserInput = {
   id?: string
   siteTitle: string
@@ -673,6 +893,7 @@ export type SettingCreateWithoutUserInput = {
   fullName: string
   tagline?: string | null
   bio?: string | null
+  about?: string | null
   email?: string | null
   phone?: string | null
   location?: string | null
@@ -680,6 +901,9 @@ export type SettingCreateWithoutUserInput = {
   updatedAt?: Date | string
   profileImage?: Prisma.AssetCreateNestedOneWithoutProfileImageInput
   resume?: Prisma.AssetCreateNestedOneWithoutResumeFileInput
+  aboutImage?: Prisma.AssetCreateNestedOneWithoutAboutImageInput
+  ogImage?: Prisma.AssetCreateNestedOneWithoutOgImagesInput
+  favicon?: Prisma.AssetCreateNestedOneWithoutFaviconInput
   socialLinks?: Prisma.SocialLinkCreateNestedManyWithoutSettingInput
 }
 
@@ -690,11 +914,15 @@ export type SettingUncheckedCreateWithoutUserInput = {
   fullName: string
   tagline?: string | null
   bio?: string | null
+  about?: string | null
   email?: string | null
   phone?: string | null
   location?: string | null
   profileImageId?: string | null
   resumeAssetId?: string | null
+  aboutImageId?: string | null
+  ogImageId?: string | null
+  faviconId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   socialLinks?: Prisma.SocialLinkUncheckedCreateNestedManyWithoutSettingInput
@@ -723,6 +951,7 @@ export type SettingUpdateWithoutUserInput = {
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -730,6 +959,9 @@ export type SettingUpdateWithoutUserInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profileImage?: Prisma.AssetUpdateOneWithoutProfileImageNestedInput
   resume?: Prisma.AssetUpdateOneWithoutResumeFileNestedInput
+  aboutImage?: Prisma.AssetUpdateOneWithoutAboutImageNestedInput
+  ogImage?: Prisma.AssetUpdateOneWithoutOgImagesNestedInput
+  favicon?: Prisma.AssetUpdateOneWithoutFaviconNestedInput
   socialLinks?: Prisma.SocialLinkUpdateManyWithoutSettingNestedInput
 }
 
@@ -740,11 +972,15 @@ export type SettingUncheckedUpdateWithoutUserInput = {
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aboutImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ogImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faviconId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   socialLinks?: Prisma.SocialLinkUncheckedUpdateManyWithoutSettingNestedInput
@@ -757,6 +993,7 @@ export type SettingCreateWithoutSocialLinksInput = {
   fullName: string
   tagline?: string | null
   bio?: string | null
+  about?: string | null
   email?: string | null
   phone?: string | null
   location?: string | null
@@ -764,6 +1001,9 @@ export type SettingCreateWithoutSocialLinksInput = {
   updatedAt?: Date | string
   profileImage?: Prisma.AssetCreateNestedOneWithoutProfileImageInput
   resume?: Prisma.AssetCreateNestedOneWithoutResumeFileInput
+  aboutImage?: Prisma.AssetCreateNestedOneWithoutAboutImageInput
+  ogImage?: Prisma.AssetCreateNestedOneWithoutOgImagesInput
+  favicon?: Prisma.AssetCreateNestedOneWithoutFaviconInput
   user: Prisma.UserCreateNestedOneWithoutSettingsInput
 }
 
@@ -774,11 +1014,15 @@ export type SettingUncheckedCreateWithoutSocialLinksInput = {
   fullName: string
   tagline?: string | null
   bio?: string | null
+  about?: string | null
   email?: string | null
   phone?: string | null
   location?: string | null
   profileImageId?: string | null
   resumeAssetId?: string | null
+  aboutImageId?: string | null
+  ogImageId?: string | null
+  faviconId?: string | null
   userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -807,6 +1051,7 @@ export type SettingUpdateWithoutSocialLinksInput = {
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -814,6 +1059,9 @@ export type SettingUpdateWithoutSocialLinksInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profileImage?: Prisma.AssetUpdateOneWithoutProfileImageNestedInput
   resume?: Prisma.AssetUpdateOneWithoutResumeFileNestedInput
+  aboutImage?: Prisma.AssetUpdateOneWithoutAboutImageNestedInput
+  ogImage?: Prisma.AssetUpdateOneWithoutOgImagesNestedInput
+  favicon?: Prisma.AssetUpdateOneWithoutFaviconNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutSettingsNestedInput
 }
 
@@ -824,11 +1072,15 @@ export type SettingUncheckedUpdateWithoutSocialLinksInput = {
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aboutImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ogImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faviconId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -841,12 +1093,16 @@ export type SettingCreateWithoutProfileImageInput = {
   fullName: string
   tagline?: string | null
   bio?: string | null
+  about?: string | null
   email?: string | null
   phone?: string | null
   location?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   resume?: Prisma.AssetCreateNestedOneWithoutResumeFileInput
+  aboutImage?: Prisma.AssetCreateNestedOneWithoutAboutImageInput
+  ogImage?: Prisma.AssetCreateNestedOneWithoutOgImagesInput
+  favicon?: Prisma.AssetCreateNestedOneWithoutFaviconInput
   user: Prisma.UserCreateNestedOneWithoutSettingsInput
   socialLinks?: Prisma.SocialLinkCreateNestedManyWithoutSettingInput
 }
@@ -858,10 +1114,14 @@ export type SettingUncheckedCreateWithoutProfileImageInput = {
   fullName: string
   tagline?: string | null
   bio?: string | null
+  about?: string | null
   email?: string | null
   phone?: string | null
   location?: string | null
   resumeAssetId?: string | null
+  aboutImageId?: string | null
+  ogImageId?: string | null
+  faviconId?: string | null
   userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -885,12 +1145,16 @@ export type SettingCreateWithoutResumeInput = {
   fullName: string
   tagline?: string | null
   bio?: string | null
+  about?: string | null
   email?: string | null
   phone?: string | null
   location?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   profileImage?: Prisma.AssetCreateNestedOneWithoutProfileImageInput
+  aboutImage?: Prisma.AssetCreateNestedOneWithoutAboutImageInput
+  ogImage?: Prisma.AssetCreateNestedOneWithoutOgImagesInput
+  favicon?: Prisma.AssetCreateNestedOneWithoutFaviconInput
   user: Prisma.UserCreateNestedOneWithoutSettingsInput
   socialLinks?: Prisma.SocialLinkCreateNestedManyWithoutSettingInput
 }
@@ -902,10 +1166,14 @@ export type SettingUncheckedCreateWithoutResumeInput = {
   fullName: string
   tagline?: string | null
   bio?: string | null
+  about?: string | null
   email?: string | null
   phone?: string | null
   location?: string | null
   profileImageId?: string | null
+  aboutImageId?: string | null
+  ogImageId?: string | null
+  faviconId?: string | null
   userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -919,6 +1187,162 @@ export type SettingCreateOrConnectWithoutResumeInput = {
 
 export type SettingCreateManyResumeInputEnvelope = {
   data: Prisma.SettingCreateManyResumeInput | Prisma.SettingCreateManyResumeInput[]
+  skipDuplicates?: boolean
+}
+
+export type SettingCreateWithoutAboutImageInput = {
+  id?: string
+  siteTitle: string
+  siteDescription?: string | null
+  fullName: string
+  tagline?: string | null
+  bio?: string | null
+  about?: string | null
+  email?: string | null
+  phone?: string | null
+  location?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profileImage?: Prisma.AssetCreateNestedOneWithoutProfileImageInput
+  resume?: Prisma.AssetCreateNestedOneWithoutResumeFileInput
+  ogImage?: Prisma.AssetCreateNestedOneWithoutOgImagesInput
+  favicon?: Prisma.AssetCreateNestedOneWithoutFaviconInput
+  user: Prisma.UserCreateNestedOneWithoutSettingsInput
+  socialLinks?: Prisma.SocialLinkCreateNestedManyWithoutSettingInput
+}
+
+export type SettingUncheckedCreateWithoutAboutImageInput = {
+  id?: string
+  siteTitle: string
+  siteDescription?: string | null
+  fullName: string
+  tagline?: string | null
+  bio?: string | null
+  about?: string | null
+  email?: string | null
+  phone?: string | null
+  location?: string | null
+  profileImageId?: string | null
+  resumeAssetId?: string | null
+  ogImageId?: string | null
+  faviconId?: string | null
+  userId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  socialLinks?: Prisma.SocialLinkUncheckedCreateNestedManyWithoutSettingInput
+}
+
+export type SettingCreateOrConnectWithoutAboutImageInput = {
+  where: Prisma.SettingWhereUniqueInput
+  create: Prisma.XOR<Prisma.SettingCreateWithoutAboutImageInput, Prisma.SettingUncheckedCreateWithoutAboutImageInput>
+}
+
+export type SettingCreateManyAboutImageInputEnvelope = {
+  data: Prisma.SettingCreateManyAboutImageInput | Prisma.SettingCreateManyAboutImageInput[]
+  skipDuplicates?: boolean
+}
+
+export type SettingCreateWithoutOgImageInput = {
+  id?: string
+  siteTitle: string
+  siteDescription?: string | null
+  fullName: string
+  tagline?: string | null
+  bio?: string | null
+  about?: string | null
+  email?: string | null
+  phone?: string | null
+  location?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profileImage?: Prisma.AssetCreateNestedOneWithoutProfileImageInput
+  resume?: Prisma.AssetCreateNestedOneWithoutResumeFileInput
+  aboutImage?: Prisma.AssetCreateNestedOneWithoutAboutImageInput
+  favicon?: Prisma.AssetCreateNestedOneWithoutFaviconInput
+  user: Prisma.UserCreateNestedOneWithoutSettingsInput
+  socialLinks?: Prisma.SocialLinkCreateNestedManyWithoutSettingInput
+}
+
+export type SettingUncheckedCreateWithoutOgImageInput = {
+  id?: string
+  siteTitle: string
+  siteDescription?: string | null
+  fullName: string
+  tagline?: string | null
+  bio?: string | null
+  about?: string | null
+  email?: string | null
+  phone?: string | null
+  location?: string | null
+  profileImageId?: string | null
+  resumeAssetId?: string | null
+  aboutImageId?: string | null
+  faviconId?: string | null
+  userId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  socialLinks?: Prisma.SocialLinkUncheckedCreateNestedManyWithoutSettingInput
+}
+
+export type SettingCreateOrConnectWithoutOgImageInput = {
+  where: Prisma.SettingWhereUniqueInput
+  create: Prisma.XOR<Prisma.SettingCreateWithoutOgImageInput, Prisma.SettingUncheckedCreateWithoutOgImageInput>
+}
+
+export type SettingCreateManyOgImageInputEnvelope = {
+  data: Prisma.SettingCreateManyOgImageInput | Prisma.SettingCreateManyOgImageInput[]
+  skipDuplicates?: boolean
+}
+
+export type SettingCreateWithoutFaviconInput = {
+  id?: string
+  siteTitle: string
+  siteDescription?: string | null
+  fullName: string
+  tagline?: string | null
+  bio?: string | null
+  about?: string | null
+  email?: string | null
+  phone?: string | null
+  location?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profileImage?: Prisma.AssetCreateNestedOneWithoutProfileImageInput
+  resume?: Prisma.AssetCreateNestedOneWithoutResumeFileInput
+  aboutImage?: Prisma.AssetCreateNestedOneWithoutAboutImageInput
+  ogImage?: Prisma.AssetCreateNestedOneWithoutOgImagesInput
+  user: Prisma.UserCreateNestedOneWithoutSettingsInput
+  socialLinks?: Prisma.SocialLinkCreateNestedManyWithoutSettingInput
+}
+
+export type SettingUncheckedCreateWithoutFaviconInput = {
+  id?: string
+  siteTitle: string
+  siteDescription?: string | null
+  fullName: string
+  tagline?: string | null
+  bio?: string | null
+  about?: string | null
+  email?: string | null
+  phone?: string | null
+  location?: string | null
+  profileImageId?: string | null
+  resumeAssetId?: string | null
+  aboutImageId?: string | null
+  ogImageId?: string | null
+  userId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  socialLinks?: Prisma.SocialLinkUncheckedCreateNestedManyWithoutSettingInput
+}
+
+export type SettingCreateOrConnectWithoutFaviconInput = {
+  where: Prisma.SettingWhereUniqueInput
+  create: Prisma.XOR<Prisma.SettingCreateWithoutFaviconInput, Prisma.SettingUncheckedCreateWithoutFaviconInput>
+}
+
+export type SettingCreateManyFaviconInputEnvelope = {
+  data: Prisma.SettingCreateManyFaviconInput | Prisma.SettingCreateManyFaviconInput[]
   skipDuplicates?: boolean
 }
 
@@ -948,11 +1372,15 @@ export type SettingScalarWhereInput = {
   fullName?: Prisma.StringFilter<"Setting"> | string
   tagline?: Prisma.StringNullableFilter<"Setting"> | string | null
   bio?: Prisma.StringNullableFilter<"Setting"> | string | null
+  about?: Prisma.StringNullableFilter<"Setting"> | string | null
   email?: Prisma.StringNullableFilter<"Setting"> | string | null
   phone?: Prisma.StringNullableFilter<"Setting"> | string | null
   location?: Prisma.StringNullableFilter<"Setting"> | string | null
   profileImageId?: Prisma.StringNullableFilter<"Setting"> | string | null
   resumeAssetId?: Prisma.StringNullableFilter<"Setting"> | string | null
+  aboutImageId?: Prisma.StringNullableFilter<"Setting"> | string | null
+  ogImageId?: Prisma.StringNullableFilter<"Setting"> | string | null
+  faviconId?: Prisma.StringNullableFilter<"Setting"> | string | null
   userId?: Prisma.StringFilter<"Setting"> | string
   createdAt?: Prisma.DateTimeFilter<"Setting"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Setting"> | Date | string
@@ -974,6 +1402,54 @@ export type SettingUpdateManyWithWhereWithoutResumeInput = {
   data: Prisma.XOR<Prisma.SettingUpdateManyMutationInput, Prisma.SettingUncheckedUpdateManyWithoutResumeInput>
 }
 
+export type SettingUpsertWithWhereUniqueWithoutAboutImageInput = {
+  where: Prisma.SettingWhereUniqueInput
+  update: Prisma.XOR<Prisma.SettingUpdateWithoutAboutImageInput, Prisma.SettingUncheckedUpdateWithoutAboutImageInput>
+  create: Prisma.XOR<Prisma.SettingCreateWithoutAboutImageInput, Prisma.SettingUncheckedCreateWithoutAboutImageInput>
+}
+
+export type SettingUpdateWithWhereUniqueWithoutAboutImageInput = {
+  where: Prisma.SettingWhereUniqueInput
+  data: Prisma.XOR<Prisma.SettingUpdateWithoutAboutImageInput, Prisma.SettingUncheckedUpdateWithoutAboutImageInput>
+}
+
+export type SettingUpdateManyWithWhereWithoutAboutImageInput = {
+  where: Prisma.SettingScalarWhereInput
+  data: Prisma.XOR<Prisma.SettingUpdateManyMutationInput, Prisma.SettingUncheckedUpdateManyWithoutAboutImageInput>
+}
+
+export type SettingUpsertWithWhereUniqueWithoutOgImageInput = {
+  where: Prisma.SettingWhereUniqueInput
+  update: Prisma.XOR<Prisma.SettingUpdateWithoutOgImageInput, Prisma.SettingUncheckedUpdateWithoutOgImageInput>
+  create: Prisma.XOR<Prisma.SettingCreateWithoutOgImageInput, Prisma.SettingUncheckedCreateWithoutOgImageInput>
+}
+
+export type SettingUpdateWithWhereUniqueWithoutOgImageInput = {
+  where: Prisma.SettingWhereUniqueInput
+  data: Prisma.XOR<Prisma.SettingUpdateWithoutOgImageInput, Prisma.SettingUncheckedUpdateWithoutOgImageInput>
+}
+
+export type SettingUpdateManyWithWhereWithoutOgImageInput = {
+  where: Prisma.SettingScalarWhereInput
+  data: Prisma.XOR<Prisma.SettingUpdateManyMutationInput, Prisma.SettingUncheckedUpdateManyWithoutOgImageInput>
+}
+
+export type SettingUpsertWithWhereUniqueWithoutFaviconInput = {
+  where: Prisma.SettingWhereUniqueInput
+  update: Prisma.XOR<Prisma.SettingUpdateWithoutFaviconInput, Prisma.SettingUncheckedUpdateWithoutFaviconInput>
+  create: Prisma.XOR<Prisma.SettingCreateWithoutFaviconInput, Prisma.SettingUncheckedCreateWithoutFaviconInput>
+}
+
+export type SettingUpdateWithWhereUniqueWithoutFaviconInput = {
+  where: Prisma.SettingWhereUniqueInput
+  data: Prisma.XOR<Prisma.SettingUpdateWithoutFaviconInput, Prisma.SettingUncheckedUpdateWithoutFaviconInput>
+}
+
+export type SettingUpdateManyWithWhereWithoutFaviconInput = {
+  where: Prisma.SettingScalarWhereInput
+  data: Prisma.XOR<Prisma.SettingUpdateManyMutationInput, Prisma.SettingUncheckedUpdateManyWithoutFaviconInput>
+}
+
 export type SettingCreateManyProfileImageInput = {
   id?: string
   siteTitle: string
@@ -981,10 +1457,14 @@ export type SettingCreateManyProfileImageInput = {
   fullName: string
   tagline?: string | null
   bio?: string | null
+  about?: string | null
   email?: string | null
   phone?: string | null
   location?: string | null
   resumeAssetId?: string | null
+  aboutImageId?: string | null
+  ogImageId?: string | null
+  faviconId?: string | null
   userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -997,10 +1477,74 @@ export type SettingCreateManyResumeInput = {
   fullName: string
   tagline?: string | null
   bio?: string | null
+  about?: string | null
   email?: string | null
   phone?: string | null
   location?: string | null
   profileImageId?: string | null
+  aboutImageId?: string | null
+  ogImageId?: string | null
+  faviconId?: string | null
+  userId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type SettingCreateManyAboutImageInput = {
+  id?: string
+  siteTitle: string
+  siteDescription?: string | null
+  fullName: string
+  tagline?: string | null
+  bio?: string | null
+  about?: string | null
+  email?: string | null
+  phone?: string | null
+  location?: string | null
+  profileImageId?: string | null
+  resumeAssetId?: string | null
+  ogImageId?: string | null
+  faviconId?: string | null
+  userId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type SettingCreateManyOgImageInput = {
+  id?: string
+  siteTitle: string
+  siteDescription?: string | null
+  fullName: string
+  tagline?: string | null
+  bio?: string | null
+  about?: string | null
+  email?: string | null
+  phone?: string | null
+  location?: string | null
+  profileImageId?: string | null
+  resumeAssetId?: string | null
+  aboutImageId?: string | null
+  faviconId?: string | null
+  userId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type SettingCreateManyFaviconInput = {
+  id?: string
+  siteTitle: string
+  siteDescription?: string | null
+  fullName: string
+  tagline?: string | null
+  bio?: string | null
+  about?: string | null
+  email?: string | null
+  phone?: string | null
+  location?: string | null
+  profileImageId?: string | null
+  resumeAssetId?: string | null
+  aboutImageId?: string | null
+  ogImageId?: string | null
   userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1013,12 +1557,16 @@ export type SettingUpdateWithoutProfileImageInput = {
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resume?: Prisma.AssetUpdateOneWithoutResumeFileNestedInput
+  aboutImage?: Prisma.AssetUpdateOneWithoutAboutImageNestedInput
+  ogImage?: Prisma.AssetUpdateOneWithoutOgImagesNestedInput
+  favicon?: Prisma.AssetUpdateOneWithoutFaviconNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutSettingsNestedInput
   socialLinks?: Prisma.SocialLinkUpdateManyWithoutSettingNestedInput
 }
@@ -1030,10 +1578,14 @@ export type SettingUncheckedUpdateWithoutProfileImageInput = {
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aboutImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ogImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faviconId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1047,10 +1599,14 @@ export type SettingUncheckedUpdateManyWithoutProfileImageInput = {
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aboutImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ogImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faviconId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1063,12 +1619,16 @@ export type SettingUpdateWithoutResumeInput = {
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profileImage?: Prisma.AssetUpdateOneWithoutProfileImageNestedInput
+  aboutImage?: Prisma.AssetUpdateOneWithoutAboutImageNestedInput
+  ogImage?: Prisma.AssetUpdateOneWithoutOgImagesNestedInput
+  favicon?: Prisma.AssetUpdateOneWithoutFaviconNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutSettingsNestedInput
   socialLinks?: Prisma.SocialLinkUpdateManyWithoutSettingNestedInput
 }
@@ -1080,10 +1640,14 @@ export type SettingUncheckedUpdateWithoutResumeInput = {
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aboutImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ogImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faviconId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1097,10 +1661,200 @@ export type SettingUncheckedUpdateManyWithoutResumeInput = {
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aboutImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ogImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faviconId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type SettingUpdateWithoutAboutImageInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  siteTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  siteDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profileImage?: Prisma.AssetUpdateOneWithoutProfileImageNestedInput
+  resume?: Prisma.AssetUpdateOneWithoutResumeFileNestedInput
+  ogImage?: Prisma.AssetUpdateOneWithoutOgImagesNestedInput
+  favicon?: Prisma.AssetUpdateOneWithoutFaviconNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutSettingsNestedInput
+  socialLinks?: Prisma.SocialLinkUpdateManyWithoutSettingNestedInput
+}
+
+export type SettingUncheckedUpdateWithoutAboutImageInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  siteTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  siteDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resumeAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ogImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faviconId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  socialLinks?: Prisma.SocialLinkUncheckedUpdateManyWithoutSettingNestedInput
+}
+
+export type SettingUncheckedUpdateManyWithoutAboutImageInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  siteTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  siteDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resumeAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ogImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faviconId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type SettingUpdateWithoutOgImageInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  siteTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  siteDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profileImage?: Prisma.AssetUpdateOneWithoutProfileImageNestedInput
+  resume?: Prisma.AssetUpdateOneWithoutResumeFileNestedInput
+  aboutImage?: Prisma.AssetUpdateOneWithoutAboutImageNestedInput
+  favicon?: Prisma.AssetUpdateOneWithoutFaviconNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutSettingsNestedInput
+  socialLinks?: Prisma.SocialLinkUpdateManyWithoutSettingNestedInput
+}
+
+export type SettingUncheckedUpdateWithoutOgImageInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  siteTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  siteDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resumeAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aboutImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faviconId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  socialLinks?: Prisma.SocialLinkUncheckedUpdateManyWithoutSettingNestedInput
+}
+
+export type SettingUncheckedUpdateManyWithoutOgImageInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  siteTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  siteDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resumeAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aboutImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faviconId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type SettingUpdateWithoutFaviconInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  siteTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  siteDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profileImage?: Prisma.AssetUpdateOneWithoutProfileImageNestedInput
+  resume?: Prisma.AssetUpdateOneWithoutResumeFileNestedInput
+  aboutImage?: Prisma.AssetUpdateOneWithoutAboutImageNestedInput
+  ogImage?: Prisma.AssetUpdateOneWithoutOgImagesNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutSettingsNestedInput
+  socialLinks?: Prisma.SocialLinkUpdateManyWithoutSettingNestedInput
+}
+
+export type SettingUncheckedUpdateWithoutFaviconInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  siteTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  siteDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resumeAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aboutImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ogImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  socialLinks?: Prisma.SocialLinkUncheckedUpdateManyWithoutSettingNestedInput
+}
+
+export type SettingUncheckedUpdateManyWithoutFaviconInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  siteTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  siteDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resumeAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aboutImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ogImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1144,16 +1898,23 @@ export type SettingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   fullName?: boolean
   tagline?: boolean
   bio?: boolean
+  about?: boolean
   email?: boolean
   phone?: boolean
   location?: boolean
   profileImageId?: boolean
   resumeAssetId?: boolean
+  aboutImageId?: boolean
+  ogImageId?: boolean
+  faviconId?: boolean
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   profileImage?: boolean | Prisma.Setting$profileImageArgs<ExtArgs>
   resume?: boolean | Prisma.Setting$resumeArgs<ExtArgs>
+  aboutImage?: boolean | Prisma.Setting$aboutImageArgs<ExtArgs>
+  ogImage?: boolean | Prisma.Setting$ogImageArgs<ExtArgs>
+  favicon?: boolean | Prisma.Setting$faviconArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   socialLinks?: boolean | Prisma.Setting$socialLinksArgs<ExtArgs>
   _count?: boolean | Prisma.SettingCountOutputTypeDefaultArgs<ExtArgs>
@@ -1166,16 +1927,23 @@ export type SettingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   fullName?: boolean
   tagline?: boolean
   bio?: boolean
+  about?: boolean
   email?: boolean
   phone?: boolean
   location?: boolean
   profileImageId?: boolean
   resumeAssetId?: boolean
+  aboutImageId?: boolean
+  ogImageId?: boolean
+  faviconId?: boolean
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   profileImage?: boolean | Prisma.Setting$profileImageArgs<ExtArgs>
   resume?: boolean | Prisma.Setting$resumeArgs<ExtArgs>
+  aboutImage?: boolean | Prisma.Setting$aboutImageArgs<ExtArgs>
+  ogImage?: boolean | Prisma.Setting$ogImageArgs<ExtArgs>
+  favicon?: boolean | Prisma.Setting$faviconArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["setting"]>
 
@@ -1186,16 +1954,23 @@ export type SettingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   fullName?: boolean
   tagline?: boolean
   bio?: boolean
+  about?: boolean
   email?: boolean
   phone?: boolean
   location?: boolean
   profileImageId?: boolean
   resumeAssetId?: boolean
+  aboutImageId?: boolean
+  ogImageId?: boolean
+  faviconId?: boolean
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   profileImage?: boolean | Prisma.Setting$profileImageArgs<ExtArgs>
   resume?: boolean | Prisma.Setting$resumeArgs<ExtArgs>
+  aboutImage?: boolean | Prisma.Setting$aboutImageArgs<ExtArgs>
+  ogImage?: boolean | Prisma.Setting$ogImageArgs<ExtArgs>
+  favicon?: boolean | Prisma.Setting$faviconArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["setting"]>
 
@@ -1206,20 +1981,27 @@ export type SettingSelectScalar = {
   fullName?: boolean
   tagline?: boolean
   bio?: boolean
+  about?: boolean
   email?: boolean
   phone?: boolean
   location?: boolean
   profileImageId?: boolean
   resumeAssetId?: boolean
+  aboutImageId?: boolean
+  ogImageId?: boolean
+  faviconId?: boolean
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type SettingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "siteTitle" | "siteDescription" | "fullName" | "tagline" | "bio" | "email" | "phone" | "location" | "profileImageId" | "resumeAssetId" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["setting"]>
+export type SettingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "siteTitle" | "siteDescription" | "fullName" | "tagline" | "bio" | "about" | "email" | "phone" | "location" | "profileImageId" | "resumeAssetId" | "aboutImageId" | "ogImageId" | "faviconId" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["setting"]>
 export type SettingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   profileImage?: boolean | Prisma.Setting$profileImageArgs<ExtArgs>
   resume?: boolean | Prisma.Setting$resumeArgs<ExtArgs>
+  aboutImage?: boolean | Prisma.Setting$aboutImageArgs<ExtArgs>
+  ogImage?: boolean | Prisma.Setting$ogImageArgs<ExtArgs>
+  favicon?: boolean | Prisma.Setting$faviconArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   socialLinks?: boolean | Prisma.Setting$socialLinksArgs<ExtArgs>
   _count?: boolean | Prisma.SettingCountOutputTypeDefaultArgs<ExtArgs>
@@ -1227,11 +2009,17 @@ export type SettingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
 export type SettingIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   profileImage?: boolean | Prisma.Setting$profileImageArgs<ExtArgs>
   resume?: boolean | Prisma.Setting$resumeArgs<ExtArgs>
+  aboutImage?: boolean | Prisma.Setting$aboutImageArgs<ExtArgs>
+  ogImage?: boolean | Prisma.Setting$ogImageArgs<ExtArgs>
+  favicon?: boolean | Prisma.Setting$faviconArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type SettingIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   profileImage?: boolean | Prisma.Setting$profileImageArgs<ExtArgs>
   resume?: boolean | Prisma.Setting$resumeArgs<ExtArgs>
+  aboutImage?: boolean | Prisma.Setting$aboutImageArgs<ExtArgs>
+  ogImage?: boolean | Prisma.Setting$ogImageArgs<ExtArgs>
+  favicon?: boolean | Prisma.Setting$faviconArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
@@ -1240,6 +2028,9 @@ export type $SettingPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   objects: {
     profileImage: Prisma.$AssetPayload<ExtArgs> | null
     resume: Prisma.$AssetPayload<ExtArgs> | null
+    aboutImage: Prisma.$AssetPayload<ExtArgs> | null
+    ogImage: Prisma.$AssetPayload<ExtArgs> | null
+    favicon: Prisma.$AssetPayload<ExtArgs> | null
     user: Prisma.$UserPayload<ExtArgs>
     socialLinks: Prisma.$SocialLinkPayload<ExtArgs>[]
   }
@@ -1250,11 +2041,15 @@ export type $SettingPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     fullName: string
     tagline: string | null
     bio: string | null
+    about: string | null
     email: string | null
     phone: string | null
     location: string | null
     profileImageId: string | null
     resumeAssetId: string | null
+    aboutImageId: string | null
+    ogImageId: string | null
+    faviconId: string | null
     userId: string
     createdAt: Date
     updatedAt: Date
@@ -1654,6 +2449,9 @@ export interface Prisma__SettingClient<T, Null = never, ExtArgs extends runtime.
   readonly [Symbol.toStringTag]: "PrismaPromise"
   profileImage<T extends Prisma.Setting$profileImageArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Setting$profileImageArgs<ExtArgs>>): Prisma.Prisma__AssetClient<runtime.Types.Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   resume<T extends Prisma.Setting$resumeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Setting$resumeArgs<ExtArgs>>): Prisma.Prisma__AssetClient<runtime.Types.Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  aboutImage<T extends Prisma.Setting$aboutImageArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Setting$aboutImageArgs<ExtArgs>>): Prisma.Prisma__AssetClient<runtime.Types.Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  ogImage<T extends Prisma.Setting$ogImageArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Setting$ogImageArgs<ExtArgs>>): Prisma.Prisma__AssetClient<runtime.Types.Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  favicon<T extends Prisma.Setting$faviconArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Setting$faviconArgs<ExtArgs>>): Prisma.Prisma__AssetClient<runtime.Types.Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   socialLinks<T extends Prisma.Setting$socialLinksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Setting$socialLinksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SocialLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1691,11 +2489,15 @@ export interface SettingFieldRefs {
   readonly fullName: Prisma.FieldRef<"Setting", 'String'>
   readonly tagline: Prisma.FieldRef<"Setting", 'String'>
   readonly bio: Prisma.FieldRef<"Setting", 'String'>
+  readonly about: Prisma.FieldRef<"Setting", 'String'>
   readonly email: Prisma.FieldRef<"Setting", 'String'>
   readonly phone: Prisma.FieldRef<"Setting", 'String'>
   readonly location: Prisma.FieldRef<"Setting", 'String'>
   readonly profileImageId: Prisma.FieldRef<"Setting", 'String'>
   readonly resumeAssetId: Prisma.FieldRef<"Setting", 'String'>
+  readonly aboutImageId: Prisma.FieldRef<"Setting", 'String'>
+  readonly ogImageId: Prisma.FieldRef<"Setting", 'String'>
+  readonly faviconId: Prisma.FieldRef<"Setting", 'String'>
   readonly userId: Prisma.FieldRef<"Setting", 'String'>
   readonly createdAt: Prisma.FieldRef<"Setting", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Setting", 'DateTime'>
@@ -2122,6 +2924,63 @@ export type Setting$profileImageArgs<ExtArgs extends runtime.Types.Extensions.In
  * Setting.resume
  */
 export type Setting$resumeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Asset
+   */
+  select?: Prisma.AssetSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Asset
+   */
+  omit?: Prisma.AssetOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AssetInclude<ExtArgs> | null
+  where?: Prisma.AssetWhereInput
+}
+
+/**
+ * Setting.aboutImage
+ */
+export type Setting$aboutImageArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Asset
+   */
+  select?: Prisma.AssetSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Asset
+   */
+  omit?: Prisma.AssetOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AssetInclude<ExtArgs> | null
+  where?: Prisma.AssetWhereInput
+}
+
+/**
+ * Setting.ogImage
+ */
+export type Setting$ogImageArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Asset
+   */
+  select?: Prisma.AssetSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Asset
+   */
+  omit?: Prisma.AssetOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AssetInclude<ExtArgs> | null
+  where?: Prisma.AssetWhereInput
+}
+
+/**
+ * Setting.favicon
+ */
+export type Setting$faviconArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Asset
    */

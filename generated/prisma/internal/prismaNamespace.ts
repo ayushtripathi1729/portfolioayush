@@ -1825,11 +1825,15 @@ export const SettingScalarFieldEnum = {
   fullName: 'fullName',
   tagline: 'tagline',
   bio: 'bio',
+  about: 'about',
   email: 'email',
   phone: 'phone',
   location: 'location',
   profileImageId: 'profileImageId',
   resumeAssetId: 'resumeAssetId',
+  aboutImageId: 'aboutImageId',
+  ogImageId: 'ogImageId',
+  faviconId: 'faviconId',
   userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -1878,6 +1882,7 @@ export const SkillCategoryScalarFieldEnum = {
   slug: 'slug',
   description: 'description',
   displayOrder: 'displayOrder',
+  featured: 'featured',
   visible: 'visible',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -1985,6 +1990,7 @@ export const ExperienceScalarFieldEnum = {
   description: 'description',
   companyLogoId: 'companyLogoId',
   displayOrder: 'displayOrder',
+  featured: 'featured',
   visible: 'visible',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -2067,6 +2073,7 @@ export const AchievementScalarFieldEnum = {
   credentialUrl: 'credentialUrl',
   imageId: 'imageId',
   displayOrder: 'displayOrder',
+  featured: 'featured',
   visible: 'visible',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

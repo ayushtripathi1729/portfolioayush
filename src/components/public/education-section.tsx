@@ -3,9 +3,12 @@ import type { Education } from "@/types/portfolio";
 import { SectionTitle } from "./section-title";
 
 
+
 interface EducationSectionProps {
   education: Education[];
 }
+
+
 
 
 
@@ -20,23 +23,40 @@ export function EducationSection({
 
 
 
+
+
   return (
+
     <section
       className="
-      container
-      mx-auto
-      px-8
+      relative
+      overflow-hidden
+      bg-background
       py-28
-      lg:px-16
       "
     >
 
 
 
-      <SectionTitle
-        title="Education"
-        description="Academic foundation and qualifications."
+
+
+      {/* Ambient Glow */}
+
+      <div
+        className="
+        pointer-events-none
+        absolute
+        left-0
+        top-20
+        -z-10
+        h-96
+        w-96
+        rounded-full
+        bg-violet-500/10
+        blur-3xl
+        "
       />
+
 
 
 
@@ -46,43 +66,26 @@ export function EducationSection({
 
       <div
         className="
-        mt-16
-        space-y-12
+        container
+        mx-auto
+        px-8
+        lg:px-16
         "
       >
 
 
 
-        {education.map((item, index) => (
 
 
-          <article
-            key={item.id}
-            className="
-            grid
-            gap-8
-            border-b
-            pb-12
-            lg:grid-cols-[100px_1fr_180px]
-            "
-          >
+        <SectionTitle
 
+          title="Education"
 
+          description="
+          Current academic journey and foundation.
+          "
 
-
-
-            {/* NUMBER */}
-
-
-            <div
-              className="
-              text-4xl
-              font-light
-              text-muted-foreground/40
-              "
-            >
-              {String(index + 1).padStart(2, "0")}
-            </div>
+        />
 
 
 
@@ -92,50 +95,40 @@ export function EducationSection({
 
 
 
-            {/* CONTENT */}
+        <div
+          className="
+          mt-16
+          grid
+          gap-8
+          "
+        >
 
 
 
-            <div
-              className="
-              space-y-5
-              "
-            >
 
 
 
-              <div>
+          {
+            education.map(
+              (item) => (
 
 
-                {/* INSTITUTION */}
+                <article
 
+                  key={item.id}
 
-                <h3
                   className="
-                  text-3xl
-                  font-semibold
-                  tracking-tight
+                  rounded-3xl
+                  border
+                  border-border
+                  bg-card
+                  p-10
+                  transition
+                  hover:border-violet-400/50
+                  hover:shadow-lg
                   "
+
                 >
-                  {item.institution}
-                </h3>
-
-
-
-
-                {/* DEGREE */}
-
-
-                <p
-                  className="
-                  mt-3
-                  text-2xl
-                  font-medium
-                  tracking-tight
-                  "
-                >
-                  {item.degree}
-                </p>
 
 
 
@@ -143,51 +136,48 @@ export function EducationSection({
 
 
 
-                {/* BRANCH */}
-
-
-                {item.branch && (
-
-                  <p
+                  <div
                     className="
-                    mt-2
-                    text-lg
-                    font-medium
+                    flex
+                    flex-col
+                    gap-8
+                    md:flex-row
+                    md:items-start
+                    md:justify-between
                     "
                   >
-                    {item.branch}
-                  </p>
 
-                )}
 
 
 
 
 
 
+                    {/* MAIN INFO */}
 
-                {/* LOCATION */}
 
+                    <div
+                      className="
+                      space-y-5
+                      "
+                    >
 
-                {item.location && (
 
-                  <p
-                    className="
-                    mt-1
-                    text-sm
-                    text-muted-foreground
-                    "
-                  >
-                    {item.location}
-                  </p>
 
-                )}
 
 
 
-              </div>
+                      <h3
+                        className="
+                        text-3xl
+                        font-semibold
+                        tracking-tight
+                        "
+                      >
 
+                        {item.institution}
 
+                      </h3>
 
 
 
@@ -196,22 +186,23 @@ export function EducationSection({
 
 
 
+                      <p
+                        className="
+                        text-xl
+                        font-medium
+                        text-violet-600
+                        "
+                      >
 
+                        {item.degree}
 
-              {item.description && (
+                        {
+                          item.branch &&
+                          ` • ${item.branch}`
+                        }
 
-                <p
-                  className="
-                  max-w-2xl
-                  whitespace-pre-line
-                  leading-8
-                  text-muted-foreground
-                  "
-                >
-                  {item.description}
-                </p>
+                      </p>
 
-              )}
 
 
 
@@ -220,70 +211,172 @@ export function EducationSection({
 
 
 
+                      {
+                        item.location && (
 
-              <div
-                className="
-                inline-flex
-                rounded-full
-                border
-                px-5
-                py-2
-                text-sm
-                "
-              >
+                          <p
+                            className="
+                            text-sm
+                            text-muted-foreground
+                            "
+                          >
 
-                {item.gradeType}:{" "}
+                            {item.location}
 
-                <span className="ml-2 font-semibold">
-                  {item.gradeValue.toString()}
-                </span>
+                          </p>
 
+                        )
+                      }
 
-              </div>
 
 
 
-            </div>
 
 
 
 
 
+                      {
+                        item.description && (
 
+                          <p
+                            className="
+                            max-w-3xl
+                            leading-8
+                            text-muted-foreground
+                            "
+                          >
 
+                            {item.description}
 
+                          </p>
 
-            {/* TIMELINE */}
+                        )
+                      }
 
 
 
-            <div
-              className="
-              text-sm
-              text-muted-foreground
-              lg:text-right
-              "
-            >
 
-              {item.startDate.getFullYear()}
 
-              {" — "}
 
-              {item.endDate
-                ? item.endDate.getFullYear()
-                : "Present"
-              }
 
 
-            </div>
 
+                    </div>
 
 
 
-          </article>
 
 
-        ))}
+
+
+
+
+                    {/* SIDE INFO */}
+
+
+                    <div
+                      className="
+                      flex
+                      flex-col
+                      gap-4
+                      text-sm
+                      text-muted-foreground
+                      md:text-right
+                      "
+                    >
+
+
+
+
+
+
+                      <div>
+
+                        {item.startDate.getFullYear()}
+
+                        {" — "}
+
+                        {
+                          item.endDate
+                            ? item.endDate.getFullYear()
+                            : "Present"
+                        }
+
+                      </div>
+
+
+
+
+
+
+
+
+                      <div
+                        className="
+                        inline-flex
+                        rounded-full
+                        border
+                        px-5
+                        py-2
+                        "
+                      >
+
+                        {item.gradeType}:{" "}
+
+                        <span
+                          className="
+                          ml-2
+                          font-semibold
+                          text-foreground
+                          "
+                        >
+
+                          {item.gradeValue}
+
+                        </span>
+
+
+                      </div>
+
+
+
+
+
+
+
+
+                    </div>
+
+
+
+
+
+
+
+                  </div>
+
+
+
+
+
+
+                </article>
+
+
+              )
+            )
+          }
+
+
+
+
+
+
+        </div>
+
+
+
 
 
 
@@ -291,6 +384,12 @@ export function EducationSection({
 
 
 
+
+
+
+
     </section>
+
   );
+
 }

@@ -3,9 +3,12 @@ import type { Blog } from "@/types/portfolio";
 import { SectionTitle } from "./section-title";
 
 
+
 interface BlogSectionProps {
   blogs: Blog[];
 }
+
+
 
 
 
@@ -20,23 +23,40 @@ export function BlogSection({
 
 
 
+
+
   return (
+
     <section
       className="
-      container
-      mx-auto
-      px-8
+      relative
+      overflow-hidden
+      bg-background
       py-28
-      lg:px-16
       "
     >
 
 
 
-      <SectionTitle
-        title="Blog"
-        description="Technical writing, notes and engineering explorations."
+
+
+      {/* Ambient Glow */}
+
+      <div
+        className="
+        pointer-events-none
+        absolute
+        right-0
+        top-20
+        -z-10
+        h-96
+        w-96
+        rounded-full
+        bg-violet-500/10
+        blur-3xl
+        "
       />
+
 
 
 
@@ -46,42 +66,26 @@ export function BlogSection({
 
       <div
         className="
-        mt-16
-        space-y-12
+        container
+        mx-auto
+        px-8
+        lg:px-16
         "
       >
 
 
 
-        {blogs.map((blog, index) => (
 
 
-          <article
-            key={blog.id}
-            className="
-            grid
-            gap-8
-            border-b
-            pb-12
-            lg:grid-cols-[100px_1fr_180px]
-            "
-          >
+        <SectionTitle
 
+          title="Blog"
 
+          description="
+          Technical writing, notes and engineering explorations.
+          "
 
-
-            {/* NUMBER */}
-
-
-            <div
-              className="
-              text-4xl
-              font-light
-              text-muted-foreground/40
-              "
-            >
-              {String(index + 1).padStart(2, "0")}
-            </div>
+        />
 
 
 
@@ -91,47 +95,48 @@ export function BlogSection({
 
 
 
-            {/* CONTENT */}
-
-
-
-            <div
-              className="
-              space-y-5
-              "
-            >
-
-
-
-              <h3
-                className="
-                text-3xl
-                font-semibold
-                tracking-tight
-                "
-              >
-                {blog.title}
-              </h3>
+        <div
+          className="
+          mt-16
+          grid
+          gap-8
+          md:grid-cols-3
+          "
+        >
 
 
 
 
 
+          {
+            blogs.map(
+              (
+                blog,
+                index
+              ) => (
 
 
-              {blog.excerpt && (
+                <article
 
-                <p
+                  key={blog.id}
+
                   className="
-                  max-w-3xl
-                  leading-8
-                  text-muted-foreground
+                  group
+                  flex
+                  flex-col
+                  rounded-2xl
+                  border
+                  border-border
+                  bg-card
+                  p-7
+                  transition-all
+                  duration-300
+                  hover:-translate-y-1
+                  hover:border-violet-400/50
+                  hover:shadow-lg
                   "
+
                 >
-                  {blog.excerpt}
-                </p>
-
-              )}
 
 
 
@@ -139,75 +144,185 @@ export function BlogSection({
 
 
 
-
-              <a
-                href={`/blog/${blog.slug}`}
-                className="
-                inline-flex
-                rounded-full
-                border
-                px-6
-                py-2.5
-                text-sm
-                transition
-                hover:bg-muted
-                "
-              >
-                Read Article
-              </a>
+                  <div
+                    className="
+                    flex
+                    items-center
+                    justify-between
+                    text-sm
+                    text-muted-foreground
+                    "
+                  >
 
 
 
-            </div>
+                    <span
+                      className="
+                      tracking-[0.3em]
+                      text-muted-foreground/50
+                      "
+                    >
 
+                      {String(index + 1).padStart(2, "0")}
 
-
-
+                    </span>
 
 
 
 
 
-            {/* META */}
+                    {
+                      blog.publishedAt && (
+
+                        <span>
+
+                          {
+                            new Date(
+                              blog.publishedAt
+                            ).getFullYear()
+                          }
+
+                        </span>
+
+                      )
+                    }
 
 
 
-            <div
-              className="
-              text-sm
-              text-muted-foreground
-              lg:text-right
-              "
-            >
-
-
-              {blog.publishedAt && (
-
-                <p>
-                  {new Date(
-                    blog.publishedAt
-                  ).getFullYear()}
-                </p>
-
-              )}
-
-
-
-              <p className="mt-2">
-                {blog.author.name}
-              </p>
-
-
-            </div>
+                  </div>
 
 
 
 
 
-          </article>
 
 
-        ))}
+
+
+                  <h3
+                    className="
+                    mt-6
+                    text-xl
+                    font-semibold
+                    leading-snug
+                    tracking-tight
+                    transition
+                    group-hover:text-violet-600
+                    "
+                  >
+
+                    {blog.title}
+
+                  </h3>
+
+
+
+
+
+
+
+
+
+                  {
+                    blog.excerpt && (
+
+                      <p
+                        className="
+                        mt-4
+                        line-clamp-3
+                        leading-7
+                        text-muted-foreground
+                        "
+                      >
+
+                        {blog.excerpt}
+
+                      </p>
+
+                    )
+                  }
+
+
+
+
+
+
+
+
+
+                  <div
+                    className="
+                    mt-auto
+                    pt-6
+                    flex
+                    items-center
+                    justify-between
+                    "
+                  >
+
+
+
+                    <span
+                      className="
+                      text-sm
+                      text-muted-foreground
+                      "
+                    >
+
+                      {blog.author.name}
+
+                    </span>
+
+
+
+
+
+
+                    <a
+
+                      href={`/blog/${blog.slug}`}
+
+                      className="
+                      rounded-full
+                      border
+                      px-4
+                      py-2
+                      text-sm
+                      transition
+                      hover:bg-muted
+                      "
+
+                    >
+
+                      Read
+
+                    </a>
+
+
+
+                  </div>
+
+
+
+
+
+
+
+                </article>
+
+
+              )
+            )
+          }
+
+
+
+
+
+        </div>
+
+
+
 
 
 
@@ -215,6 +330,12 @@ export function BlogSection({
 
 
 
+
+
+
+
     </section>
+
   );
+
 }

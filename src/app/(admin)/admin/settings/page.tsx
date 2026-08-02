@@ -63,6 +63,9 @@ export default async function SettingsPage() {
 
           bio:
             settings?.bio ?? "",
+          
+          about:
+            settings?.about ?? "",
 
           email:
             settings?.email ?? "",
@@ -75,6 +78,19 @@ export default async function SettingsPage() {
 
           profileImageId:
             settings?.profileImageId ?? "",
+
+          
+          aboutImageId:
+            settings?.aboutImageId ?? "",
+
+
+          ogImageId:
+            settings?.ogImageId ?? "",
+
+
+          faviconId:
+            settings?.faviconId ?? "",
+
 
           resumeAssetId:
             settings?.resumeAssetId ?? "",

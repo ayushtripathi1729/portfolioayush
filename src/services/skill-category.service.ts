@@ -9,6 +9,8 @@ export class SkillCategoryService {
 
 
 
+
+
   async getAll() {
 
     return skillCategoryRepository.findAll();
@@ -19,11 +21,33 @@ export class SkillCategoryService {
 
 
 
+
+
+
+
+  async getFeatured() {
+
+    return skillCategoryRepository.findFeatured();
+
+  }
+
+
+
+
+
+
+
+
+
   async getAllIncludingHidden() {
 
     return skillCategoryRepository.findAllIncludingHidden();
 
   }
+
+
+
+
 
 
 
@@ -43,6 +67,10 @@ export class SkillCategoryService {
 
 
 
+
+
+
+
   async getBySlug(
     slug: string
   ) {
@@ -52,6 +80,10 @@ export class SkillCategoryService {
     );
 
   }
+
+
+
+
 
 
 
@@ -95,6 +127,7 @@ export class SkillCategoryService {
 
 
 
+
   async update(
     id: string,
     data: Prisma.SkillCategoryUpdateInput
@@ -127,6 +160,7 @@ export class SkillCategoryService {
     return category;
 
   }
+
 
 
 
@@ -182,11 +216,13 @@ export class SkillCategoryService {
 
 
 
+
   async count() {
 
     return skillCategoryRepository.count();
 
   }
+
 
 
 }

@@ -6,8 +6,11 @@ const slugRegex =
 
 
 
+
+
 export const createSkillCategorySchema =
   z.object({
+
 
     name: z
       .string()
@@ -20,6 +23,8 @@ export const createSkillCategorySchema =
         100,
         "Name cannot exceed 100 characters."
       ),
+
+
 
 
 
@@ -41,6 +46,8 @@ export const createSkillCategorySchema =
 
 
 
+
+
     description: z
       .string()
       .trim()
@@ -52,6 +59,8 @@ export const createSkillCategorySchema =
       .or(
         z.literal("")
       ),
+
+
 
 
 
@@ -68,11 +77,25 @@ export const createSkillCategorySchema =
 
 
 
+
+
+    featured: z
+      .boolean()
+      .default(false),
+
+
+
+
+
     visible: z
       .boolean()
       .default(true),
 
+
   });
+
+
+
 
 
 
@@ -84,7 +107,10 @@ export const updateSkillCategorySchema =
 
 
 
-// Input types are used by React Hook Form
+
+
+// Input types for React Hook Form
+
 export type CreateSkillCategoryInput =
   z.input<
     typeof createSkillCategorySchema
@@ -99,7 +125,12 @@ export type UpdateSkillCategoryInput =
 
 
 
-// Output types are used after validation/parsing
+
+
+
+
+// Output types after validation
+
 export type CreateSkillCategoryOutput =
   z.output<
     typeof createSkillCategorySchema

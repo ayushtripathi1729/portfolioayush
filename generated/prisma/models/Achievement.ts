@@ -44,6 +44,7 @@ export type AchievementMinAggregateOutputType = {
   credentialUrl: string | null
   imageId: string | null
   displayOrder: number | null
+  featured: boolean | null
   visible: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -59,6 +60,7 @@ export type AchievementMaxAggregateOutputType = {
   credentialUrl: string | null
   imageId: string | null
   displayOrder: number | null
+  featured: boolean | null
   visible: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -74,6 +76,7 @@ export type AchievementCountAggregateOutputType = {
   credentialUrl: number
   imageId: number
   displayOrder: number
+  featured: number
   visible: number
   createdAt: number
   updatedAt: number
@@ -99,6 +102,7 @@ export type AchievementMinAggregateInputType = {
   credentialUrl?: true
   imageId?: true
   displayOrder?: true
+  featured?: true
   visible?: true
   createdAt?: true
   updatedAt?: true
@@ -114,6 +118,7 @@ export type AchievementMaxAggregateInputType = {
   credentialUrl?: true
   imageId?: true
   displayOrder?: true
+  featured?: true
   visible?: true
   createdAt?: true
   updatedAt?: true
@@ -129,6 +134,7 @@ export type AchievementCountAggregateInputType = {
   credentialUrl?: true
   imageId?: true
   displayOrder?: true
+  featured?: true
   visible?: true
   createdAt?: true
   updatedAt?: true
@@ -231,6 +237,7 @@ export type AchievementGroupByOutputType = {
   credentialUrl: string | null
   imageId: string | null
   displayOrder: number
+  featured: boolean
   visible: boolean
   createdAt: Date
   updatedAt: Date
@@ -269,6 +276,7 @@ export type AchievementWhereInput = {
   credentialUrl?: Prisma.StringNullableFilter<"Achievement"> | string | null
   imageId?: Prisma.StringNullableFilter<"Achievement"> | string | null
   displayOrder?: Prisma.IntFilter<"Achievement"> | number
+  featured?: Prisma.BoolFilter<"Achievement"> | boolean
   visible?: Prisma.BoolFilter<"Achievement"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Achievement"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Achievement"> | Date | string
@@ -285,6 +293,7 @@ export type AchievementOrderByWithRelationInput = {
   credentialUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   imageId?: Prisma.SortOrderInput | Prisma.SortOrder
   displayOrder?: Prisma.SortOrder
+  featured?: Prisma.SortOrder
   visible?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -304,6 +313,7 @@ export type AchievementWhereUniqueInput = Prisma.AtLeast<{
   credentialUrl?: Prisma.StringNullableFilter<"Achievement"> | string | null
   imageId?: Prisma.StringNullableFilter<"Achievement"> | string | null
   displayOrder?: Prisma.IntFilter<"Achievement"> | number
+  featured?: Prisma.BoolFilter<"Achievement"> | boolean
   visible?: Prisma.BoolFilter<"Achievement"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Achievement"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Achievement"> | Date | string
@@ -320,6 +330,7 @@ export type AchievementOrderByWithAggregationInput = {
   credentialUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   imageId?: Prisma.SortOrderInput | Prisma.SortOrder
   displayOrder?: Prisma.SortOrder
+  featured?: Prisma.SortOrder
   visible?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -343,6 +354,7 @@ export type AchievementScalarWhereWithAggregatesInput = {
   credentialUrl?: Prisma.StringNullableWithAggregatesFilter<"Achievement"> | string | null
   imageId?: Prisma.StringNullableWithAggregatesFilter<"Achievement"> | string | null
   displayOrder?: Prisma.IntWithAggregatesFilter<"Achievement"> | number
+  featured?: Prisma.BoolWithAggregatesFilter<"Achievement"> | boolean
   visible?: Prisma.BoolWithAggregatesFilter<"Achievement"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Achievement"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Achievement"> | Date | string
@@ -357,6 +369,7 @@ export type AchievementCreateInput = {
   issueDate?: Date | string | null
   credentialUrl?: string | null
   displayOrder?: number
+  featured?: boolean
   visible?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -373,6 +386,7 @@ export type AchievementUncheckedCreateInput = {
   credentialUrl?: string | null
   imageId?: string | null
   displayOrder?: number
+  featured?: boolean
   visible?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -387,6 +401,7 @@ export type AchievementUpdateInput = {
   issueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   credentialUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   visible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -403,6 +418,7 @@ export type AchievementUncheckedUpdateInput = {
   credentialUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   visible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -418,6 +434,7 @@ export type AchievementCreateManyInput = {
   credentialUrl?: string | null
   imageId?: string | null
   displayOrder?: number
+  featured?: boolean
   visible?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -432,6 +449,7 @@ export type AchievementUpdateManyMutationInput = {
   issueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   credentialUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   visible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -447,6 +465,7 @@ export type AchievementUncheckedUpdateManyInput = {
   credentialUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   visible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -472,6 +491,7 @@ export type AchievementCountOrderByAggregateInput = {
   credentialUrl?: Prisma.SortOrder
   imageId?: Prisma.SortOrder
   displayOrder?: Prisma.SortOrder
+  featured?: Prisma.SortOrder
   visible?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -491,6 +511,7 @@ export type AchievementMaxOrderByAggregateInput = {
   credentialUrl?: Prisma.SortOrder
   imageId?: Prisma.SortOrder
   displayOrder?: Prisma.SortOrder
+  featured?: Prisma.SortOrder
   visible?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -506,6 +527,7 @@ export type AchievementMinOrderByAggregateInput = {
   credentialUrl?: Prisma.SortOrder
   imageId?: Prisma.SortOrder
   displayOrder?: Prisma.SortOrder
+  featured?: Prisma.SortOrder
   visible?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -566,6 +588,7 @@ export type AchievementCreateWithoutImageInput = {
   issueDate?: Date | string | null
   credentialUrl?: string | null
   displayOrder?: number
+  featured?: boolean
   visible?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -580,6 +603,7 @@ export type AchievementUncheckedCreateWithoutImageInput = {
   issueDate?: Date | string | null
   credentialUrl?: string | null
   displayOrder?: number
+  featured?: boolean
   visible?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -624,6 +648,7 @@ export type AchievementScalarWhereInput = {
   credentialUrl?: Prisma.StringNullableFilter<"Achievement"> | string | null
   imageId?: Prisma.StringNullableFilter<"Achievement"> | string | null
   displayOrder?: Prisma.IntFilter<"Achievement"> | number
+  featured?: Prisma.BoolFilter<"Achievement"> | boolean
   visible?: Prisma.BoolFilter<"Achievement"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Achievement"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Achievement"> | Date | string
@@ -638,6 +663,7 @@ export type AchievementCreateManyImageInput = {
   issueDate?: Date | string | null
   credentialUrl?: string | null
   displayOrder?: number
+  featured?: boolean
   visible?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -652,6 +678,7 @@ export type AchievementUpdateWithoutImageInput = {
   issueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   credentialUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   visible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -666,6 +693,7 @@ export type AchievementUncheckedUpdateWithoutImageInput = {
   issueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   credentialUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   visible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -680,6 +708,7 @@ export type AchievementUncheckedUpdateManyWithoutImageInput = {
   issueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   credentialUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   visible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -697,6 +726,7 @@ export type AchievementSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   credentialUrl?: boolean
   imageId?: boolean
   displayOrder?: boolean
+  featured?: boolean
   visible?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -713,6 +743,7 @@ export type AchievementSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   credentialUrl?: boolean
   imageId?: boolean
   displayOrder?: boolean
+  featured?: boolean
   visible?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -729,6 +760,7 @@ export type AchievementSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   credentialUrl?: boolean
   imageId?: boolean
   displayOrder?: boolean
+  featured?: boolean
   visible?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -745,12 +777,13 @@ export type AchievementSelectScalar = {
   credentialUrl?: boolean
   imageId?: boolean
   displayOrder?: boolean
+  featured?: boolean
   visible?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type AchievementOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "category" | "issuer" | "issueDate" | "credentialUrl" | "imageId" | "displayOrder" | "visible" | "createdAt" | "updatedAt", ExtArgs["result"]["achievement"]>
+export type AchievementOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "category" | "issuer" | "issueDate" | "credentialUrl" | "imageId" | "displayOrder" | "featured" | "visible" | "createdAt" | "updatedAt", ExtArgs["result"]["achievement"]>
 export type AchievementInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   image?: boolean | Prisma.Achievement$imageArgs<ExtArgs>
 }
@@ -776,6 +809,7 @@ export type $AchievementPayload<ExtArgs extends runtime.Types.Extensions.Interna
     credentialUrl: string | null
     imageId: string | null
     displayOrder: number
+    featured: boolean
     visible: boolean
     createdAt: Date
     updatedAt: Date
@@ -1212,6 +1246,7 @@ export interface AchievementFieldRefs {
   readonly credentialUrl: Prisma.FieldRef<"Achievement", 'String'>
   readonly imageId: Prisma.FieldRef<"Achievement", 'String'>
   readonly displayOrder: Prisma.FieldRef<"Achievement", 'Int'>
+  readonly featured: Prisma.FieldRef<"Achievement", 'Boolean'>
   readonly visible: Prisma.FieldRef<"Achievement", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Achievement", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Achievement", 'DateTime'>

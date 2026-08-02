@@ -3,9 +3,14 @@ import type { Research } from "@/types/portfolio";
 import { SectionTitle } from "./section-title";
 
 
+
 interface ResearchSectionProps {
   research: Research[];
 }
+
+
+
+
 
 
 
@@ -20,23 +25,43 @@ export function ResearchSection({
 
 
 
+
+
+
   return (
+
     <section
       className="
-      container
-      mx-auto
-      px-8
+      relative
+      overflow-hidden
+      bg-background
       py-28
-      lg:px-16
       "
     >
 
 
 
-      <SectionTitle
-        title="Research"
-        description="Research work, publications and technical investigations."
+
+
+
+      {/* Ambient Glow */}
+
+      <div
+        className="
+        pointer-events-none
+        absolute
+        right-0
+        top-20
+        -z-10
+        h-96
+        w-96
+        rounded-full
+        bg-violet-500/10
+        blur-3xl
+        "
       />
+
+
 
 
 
@@ -46,45 +71,27 @@ export function ResearchSection({
 
       <div
         className="
-        mt-16
-        space-y-12
+        container
+        mx-auto
+        px-8
+        lg:px-16
         "
       >
 
 
 
-        {research.map((item, index) => (
-
-
-          <article
-            key={item.id}
-            className="
-            grid
-            gap-8
-            border-b
-            pb-12
-            lg:grid-cols-[100px_1fr_180px]
-            "
-          >
 
 
 
+        <SectionTitle
 
+          title="Research"
 
-            {/* NUMBER */}
+          description="
+          Research work, publications and technical investigations.
+          "
 
-
-            <div
-              className="
-              text-4xl
-              font-light
-              text-muted-foreground/40
-              "
-            >
-
-              {String(index + 1).padStart(2, "0")}
-
-            </div>
+        />
 
 
 
@@ -94,75 +101,13 @@ export function ResearchSection({
 
 
 
-            {/* CONTENT */}
-
-
-
-            <div
-              className="
-              space-y-5
-              "
-            >
-
-
-
-              <h3
-                className="
-                text-3xl
-                font-semibold
-                tracking-tight
-                "
-              >
-                {item.title}
-              </h3>
-
-
-
-
-
-
-              <div
-                className="
-                flex
-                flex-wrap
-                gap-x-4
-                text-sm
-                text-muted-foreground
-                "
-              >
-
-
-                {item.publisher && (
-
-                  <span>
-                    {item.publisher}
-                  </span>
-
-                )}
-
-
-
-                {item.journal && (
-
-                  <span>
-                    • {item.journal}
-                  </span>
-
-                )}
-
-
-
-                {item.publishedAt && (
-
-                  <span>
-                    • {item.publishedAt.getFullYear()}
-                  </span>
-
-                )}
-
-
-
-              </div>
+        <div
+          className="
+          mt-16
+          grid
+          gap-8
+          "
+        >
 
 
 
@@ -171,20 +116,30 @@ export function ResearchSection({
 
 
 
-              {item.abstract && (
+          {
+            research.map(
+              (item, index) => (
 
-                <p
+
+                <article
+
+                  key={item.id}
+
                   className="
-                  max-w-3xl
-                  whitespace-pre-line
-                  leading-8
-                  text-muted-foreground
+                  group
+                  rounded-3xl
+                  border
+                  border-border
+                  bg-card
+                  p-10
+                  transition-all
+                  duration-300
+                  hover:-translate-y-1
+                  hover:border-violet-400/50
+                  hover:shadow-lg
                   "
+
                 >
-                  {item.abstract}
-                </p>
-
-              )}
 
 
 
@@ -192,72 +147,15 @@ export function ResearchSection({
 
 
 
-
-              <div
-                className="
-                flex
-                flex-wrap
-                gap-4
-                pt-3
-                "
-              >
-
-
-
-                {item.externalUrl && (
-
-                  <a
-                    href={item.externalUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <div
                     className="
-                    rounded-full
-                    border
-                    px-6
-                    py-2.5
-                    text-sm
-                    transition
-                    hover:bg-muted
+                    flex
+                    flex-col
+                    gap-8
+                    md:flex-row
+                    md:justify-between
                     "
                   >
-                    View Publication
-                  </a>
-
-                )}
-
-
-
-
-
-                {item.pdfAsset && (
-
-                  <a
-                    href={item.pdfAsset.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="
-                    rounded-full
-                    bg-foreground
-                    px-6
-                    py-2.5
-                    text-sm
-                    text-background
-                    transition
-                    hover:opacity-80
-                    "
-                  >
-                    PDF
-                  </a>
-
-                )}
-
-
-
-              </div>
-
-
-
-            </div>
 
 
 
@@ -266,35 +164,330 @@ export function ResearchSection({
 
 
 
-
-            {/* DATE */}
-
+                    {/* CONTENT */}
 
 
-            <div
-              className="
-              text-sm
-              text-muted-foreground
-              lg:text-right
-              "
-            >
 
-              {item.publishedAt
-                ? item.publishedAt.getFullYear()
-                : ""
-              }
-
-
-            </div>
+                    <div
+                      className="
+                      space-y-6
+                      "
+                    >
 
 
 
 
 
-          </article>
+                      <div>
 
 
-        ))}
+                        <span
+                          className="
+                          text-sm
+                          tracking-[0.3em]
+                          text-muted-foreground/50
+                          "
+                        >
+
+                          {String(index + 1).padStart(2, "0")}
+
+                        </span>
+
+
+
+
+
+
+
+                        <h3
+                          className="
+                          mt-4
+                          text-3xl
+                          font-semibold
+                          tracking-tight
+                          transition
+                          group-hover:text-violet-600
+                          "
+                        >
+
+                          {item.title}
+
+                        </h3>
+
+
+
+                      </div>
+
+
+
+
+
+
+
+
+
+                      <div
+                        className="
+                        flex
+                        flex-wrap
+                        gap-x-4
+                        text-sm
+                        text-muted-foreground
+                        "
+                      >
+
+
+
+                        {
+                          item.publisher && (
+
+                            <span>
+                              {item.publisher}
+                            </span>
+
+                          )
+                        }
+
+
+
+
+
+
+                        {
+                          item.journal && (
+
+                            <span>
+                              • {item.journal}
+                            </span>
+
+                          )
+                        }
+
+
+
+
+
+
+                        {
+                          item.publishedAt && (
+
+                            <span>
+                              • {item.publishedAt.getFullYear()}
+                            </span>
+
+                          )
+                        }
+
+
+
+
+                      </div>
+
+
+
+
+
+
+
+
+
+                      {
+                        item.abstract && (
+
+                          <p
+                            className="
+                            max-w-3xl
+                            leading-8
+                            text-muted-foreground
+                            "
+                          >
+
+                            {item.abstract}
+
+                          </p>
+
+                        )
+                      }
+
+
+
+
+
+
+
+
+
+                      <div
+                        className="
+                        flex
+                        flex-wrap
+                        gap-4
+                        pt-3
+                        "
+                      >
+
+
+
+
+
+
+
+
+                        {
+                          item.externalUrl && (
+
+                            <a
+
+                              href={item.externalUrl}
+
+                              target="_blank"
+
+                              rel="noopener noreferrer"
+
+                              className="
+                              rounded-full
+                              border
+                              px-6
+                              py-2.5
+                              text-sm
+                              transition
+                              hover:bg-muted
+                              "
+
+                            >
+
+                              Publication
+
+                            </a>
+
+                          )
+                        }
+
+
+
+
+
+
+
+
+
+                        {
+                          item.pdfAsset && (
+
+                            <a
+
+                              href={item.pdfAsset.url}
+
+                              target="_blank"
+
+                              rel="noopener noreferrer"
+
+                              className="
+                              rounded-full
+                              bg-foreground
+                              px-6
+                              py-2.5
+                              text-sm
+                              text-background
+                              transition
+                              hover:opacity-80
+                              "
+
+                            >
+
+                              PDF
+
+                            </a>
+
+                          )
+                        }
+
+
+
+
+
+
+
+                      </div>
+
+
+
+
+
+
+
+                    </div>
+
+
+
+
+
+
+
+
+
+                    {/* DATE */}
+
+
+
+                    <div
+                      className="
+                      text-sm
+                      text-muted-foreground
+                      md:text-right
+                      "
+                    >
+
+
+
+                      {
+                        item.publishedAt && (
+
+                          <p>
+                            {item.publishedAt.getFullYear()}
+                          </p>
+
+                        )
+                      }
+
+
+
+                    </div>
+
+
+
+
+
+
+
+
+                  </div>
+
+
+
+
+
+
+
+                </article>
+
+
+              )
+            )
+          }
+
+
+
+
+
+
+
+
+        </div>
+
+
+
+
 
 
 
@@ -302,6 +495,12 @@ export function ResearchSection({
 
 
 
+
+
+
+
     </section>
+
   );
+
 }

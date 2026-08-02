@@ -1,82 +1,200 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
+
+import {
+  useEffect,
+  useState,
+} from "react";
+
+
+import {
+  useRouter,
+} from "next/navigation";
+
+
+import {
+  useForm,
+} from "react-hook-form";
+
+
+import {
+  zodResolver,
+} from "@hookform/resolvers/zod";
+
+
+import {
+  Loader2,
+} from "lucide-react";
+
+
 
 import {
   createSkillSchema,
   type CreateSkillInput,
 } from "@/validations/skill.schema";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
+import {
+  Button,
+} from "@/components/ui/button";
+
+
+import {
+  Input,
+} from "@/components/ui/input";
+
+
+import {
+  Label,
+} from "@/components/ui/label";
+
+
+import {
+  CreateSkillCategoryDialog,
+} from "./create-skill-category-dialog";
+
+
+
 
 
 interface SkillCategory {
+
   id: string;
+
   name: string;
+
 }
+
+
+
+
 
 
 
 export function SkillForm() {
 
-  const router = useRouter();
+
+  const router =
+    useRouter();
 
 
-  const [serverError, setServerError] =
-    useState("");
 
-  const [categories, setCategories] =
-    useState<SkillCategory[]>([]);
 
-  const [loadingCategories, setLoadingCategories] =
-    useState(true);
+  const [
+    serverError,
+    setServerError,
+  ] = useState("");
+
+
+
+
+
+  const [
+    categories,
+    setCategories,
+  ] = useState<SkillCategory[]>([]);
+
+
+
+
+
+  const [
+    loadingCategories,
+    setLoadingCategories,
+  ] = useState(true);
+
+
+
+
 
 
 
   useEffect(() => {
 
+
     async function loadCategories() {
 
+
       try {
+
 
         const response =
           await fetch(
             "/api/skill-categories"
           );
 
+
+
         const result =
           await response.json();
 
 
+
+
         if (result.success) {
-          setCategories(result.data);
+
+          setCategories(
+            result.data
+          );
+
         }
 
 
+
       } catch {
+
 
         setServerError(
           "Failed to load skill categories."
         );
 
+
       } finally {
+
 
         setLoadingCategories(false);
 
+
       }
+
 
     }
 
 
+
+
     loadCategories();
 
+
+
   }, []);
+
+
+
+
+
+
+
+
+
+  function handleCategoryCreated(
+    category: SkillCategory
+  ) {
+
+
+    setCategories(
+      (previous) => [
+        ...previous,
+        category,
+      ]
+    );
+
+
+  }
+
+
+
+
 
 
 
@@ -89,31 +207,50 @@ export function SkillForm() {
       errors,
       isSubmitting,
     },
-  } = useForm<CreateSkillInput>({
-    resolver: zodResolver(
-      createSkillSchema
-    ),
+  } =
+    useForm<CreateSkillInput>({
 
-    defaultValues: {
 
-      name: "",
+      resolver:
+        zodResolver(
+          createSkillSchema
+        ),
 
-      slug: "",
 
-      level: "BEGINNER",
 
-      icon: "",
+      defaultValues: {
 
-      displayOrder: 0,
 
-      featured: false,
+        name: "",
 
-      visible: true,
 
-      categoryId: "",
+        slug: "",
 
-    },
-  });
+
+        level: "BEGINNER",
+
+
+        icon: "",
+
+
+        displayOrder: 0,
+
+
+        featured: false,
+
+
+        visible: true,
+
+
+        categoryId: "",
+
+
+      },
+
+
+    });
+
+
 
 
 
@@ -125,26 +262,43 @@ export function SkillForm() {
     values: CreateSkillInput
   ) {
 
+
     setServerError("");
 
 
+
     try {
+
 
       const response =
         await fetch(
           "/api/skills",
           {
+
+
             method: "POST",
 
+
+
             headers: {
+
+
               "Content-Type":
                 "application/json",
+
+
             },
+
+
 
             body:
               JSON.stringify(values),
+
+
           }
         );
+
+
 
 
       const result =
@@ -152,16 +306,25 @@ export function SkillForm() {
 
 
 
+
+
+
       if (!response.ok) {
+
 
         setServerError(
           result.message ??
           "Failed to create skill."
         );
 
+
         return;
 
+
       }
+
+
+
 
 
 
@@ -169,17 +332,23 @@ export function SkillForm() {
         "/admin/skills"
       );
 
+
       router.refresh();
+
+
 
 
 
     } catch {
 
+
       setServerError(
         "Something went wrong."
       );
 
+
     }
+
 
   }
 
@@ -189,34 +358,63 @@ export function SkillForm() {
 
 
 
+
+
   return (
 
+
     <form
+
       onSubmit={
         handleSubmit(onSubmit)
       }
-      className="space-y-6 rounded-xl border p-6"
+
+      className="
+      space-y-6
+      rounded-xl
+      border
+      p-6
+      "
+
     >
 
 
+
+
+
+
+
       <div className="space-y-2">
+
 
         <Label>
           Skill Name
         </Label>
 
 
+
         <Input
+
           {...register("name")}
+
           placeholder="React"
+
         />
 
 
-        {errors.name && (
-          <p className="text-sm text-destructive">
-            {errors.name.message}
-          </p>
-        )}
+
+        {
+          errors.name && (
+
+            <p className="text-sm text-destructive">
+
+              {errors.name.message}
+
+            </p>
+
+          )
+        }
+
 
       </div>
 
@@ -225,24 +423,40 @@ export function SkillForm() {
 
 
 
+
+
+
       <div className="space-y-2">
+
 
         <Label>
           Slug
         </Label>
 
 
+
         <Input
+
           {...register("slug")}
+
           placeholder="react"
+
         />
 
 
-        {errors.slug && (
-          <p className="text-sm text-destructive">
-            {errors.slug.message}
-          </p>
-        )}
+
+        {
+          errors.slug && (
+
+            <p className="text-sm text-destructive">
+
+              {errors.slug.message}
+
+            </p>
+
+          )
+        }
+
 
       </div>
 
@@ -251,17 +465,26 @@ export function SkillForm() {
 
 
 
+
+
+
       <div className="space-y-2">
+
 
         <Label>
           Icon
         </Label>
 
 
+
         <Input
+
           {...register("icon")}
+
           placeholder="react-icon"
+
         />
+
 
       </div>
 
@@ -271,21 +494,39 @@ export function SkillForm() {
 
 
 
+
+
       <div className="space-y-2">
+
 
         <Label>
           Level
         </Label>
 
 
+
+
         <select
+
           {...register("level")}
-          className="h-9 w-full rounded-lg border bg-transparent px-3 text-sm"
+
+          className="
+          h-9
+          w-full
+          rounded-lg
+          border
+          bg-transparent
+          px-3
+          text-sm
+          "
+
         >
+
 
           <option value="BEGINNER">
             Beginner
           </option>
+
 
 
           <option value="INTERMEDIATE">
@@ -293,9 +534,11 @@ export function SkillForm() {
           </option>
 
 
+
           <option value="ADVANCED">
             Advanced
           </option>
+
 
 
           <option value="EXPERT">
@@ -306,11 +549,21 @@ export function SkillForm() {
         </select>
 
 
-        {errors.level && (
-          <p className="text-sm text-destructive">
-            {errors.level.message}
-          </p>
-        )}
+
+
+
+        {
+          errors.level && (
+
+            <p className="text-sm text-destructive">
+
+              {errors.level.message}
+
+            </p>
+
+          )
+        }
+
 
       </div>
 
@@ -320,49 +573,122 @@ export function SkillForm() {
 
 
 
+
+
       <div className="space-y-2">
+
 
         <Label>
           Category
         </Label>
 
 
-        <select
-          {...register("categoryId")}
-          disabled={
-            loadingCategories
-          }
-          className="h-9 w-full rounded-lg border bg-transparent px-3 text-sm"
-        >
-
-          <option value="">
-            Select category
-          </option>
 
 
-          {categories.map(
-            (category) => (
 
-              <option
-                key={category.id}
-                value={category.id}
-              >
-                {category.name}
-              </option>
-
-            )
-          )}
-
-        </select>
+        <div className="flex gap-3">
 
 
-        {errors.categoryId && (
-          <p className="text-sm text-destructive">
-            {errors.categoryId.message}
-          </p>
-        )}
+          <select
+
+            {...register("categoryId")}
+
+            disabled={
+              loadingCategories
+            }
+
+            className="
+            h-9
+            flex-1
+            rounded-lg
+            border
+            bg-transparent
+            px-3
+            text-sm
+            "
+
+          >
+
+
+            <option value="">
+              Select category
+            </option>
+
+
+
+
+            {
+              categories.map(
+                (category) => (
+
+
+                  <option
+
+                    key={
+                      category.id
+                    }
+
+                    value={
+                      category.id
+                    }
+
+                  >
+
+                    {
+                      category.name
+                    }
+
+
+                  </option>
+
+
+                )
+              )
+            }
+
+
+
+
+          </select>
+
+
+
+
+
+
+          <CreateSkillCategoryDialog
+
+            onCreated={
+              handleCategoryCreated
+            }
+
+          />
+
+
+
+        </div>
+
+
+
+
+
+
+        {
+          errors.categoryId && (
+
+            <p className="text-sm text-destructive">
+
+              {errors.categoryId.message}
+
+            </p>
+
+          )
+        }
+
+
 
       </div>
+
 
 
 
@@ -373,22 +699,29 @@ export function SkillForm() {
 
       <div className="space-y-2">
 
+
         <Label>
           Display Order
         </Label>
 
 
+
         <Input
+
           type="number"
+
           {...register(
             "displayOrder",
             {
               valueAsNumber: true,
             }
           )}
+
         />
 
+
       </div>
+
 
 
 
@@ -400,30 +733,50 @@ export function SkillForm() {
       <div className="flex gap-6">
 
 
+
         <label className="flex items-center gap-2 text-sm">
 
+
           <input
+
             type="checkbox"
+
             {...register("featured")}
+
           />
+
 
           Featured
 
+
+
         </label>
+
+
+
+
 
 
 
 
         <label className="flex items-center gap-2 text-sm">
 
+
           <input
+
             type="checkbox"
+
             {...register("visible")}
+
           />
+
 
           Visible
 
+
+
         </label>
+
 
 
       </div>
@@ -435,15 +788,28 @@ export function SkillForm() {
 
 
 
-      {serverError && (
 
-        <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">
+      {
+        serverError && (
 
-          {serverError}
+          <div
+            className="
+            rounded-md
+            bg-destructive/10
+            p-3
+            text-sm
+            text-destructive
+            "
+          >
 
-        </div>
+            {serverError}
 
-      )}
+          </div>
+
+
+        )
+      }
+
 
 
 
@@ -453,31 +819,59 @@ export function SkillForm() {
 
 
       <Button
+
         type="submit"
-        disabled={isSubmitting}
+
+        disabled={
+          isSubmitting
+        }
+
       >
 
-        {isSubmitting ? (
 
-          <>
 
-            <Loader2 className="size-4 animate-spin" />
+        {
+          isSubmitting ? (
 
-            Creating...
 
-          </>
+            <>
 
-        ) : (
 
-          "Create Skill"
+              <Loader2
+                className="
+                size-4
+                animate-spin
+                "
+              />
 
-        )}
+
+              Creating...
+
+
+
+            </>
+
+
+          ) : (
+
+
+            "Create Skill"
+
+
+          )
+        }
+
+
 
       </Button>
 
 
 
+
+
     </form>
 
+
   );
+
 }

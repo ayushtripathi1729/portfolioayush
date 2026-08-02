@@ -288,6 +288,9 @@ export type AssetWhereInput = {
   researchPdfs?: Prisma.ResearchListRelationFilter
   profileImage?: Prisma.SettingListRelationFilter
   resumeFile?: Prisma.SettingListRelationFilter
+  aboutImage?: Prisma.SettingListRelationFilter
+  ogImages?: Prisma.SettingListRelationFilter
+  favicon?: Prisma.SettingListRelationFilter
   userAvatar?: Prisma.UserListRelationFilter
   achievementImages?: Prisma.AchievementListRelationFilter
 }
@@ -313,6 +316,9 @@ export type AssetOrderByWithRelationInput = {
   researchPdfs?: Prisma.ResearchOrderByRelationAggregateInput
   profileImage?: Prisma.SettingOrderByRelationAggregateInput
   resumeFile?: Prisma.SettingOrderByRelationAggregateInput
+  aboutImage?: Prisma.SettingOrderByRelationAggregateInput
+  ogImages?: Prisma.SettingOrderByRelationAggregateInput
+  favicon?: Prisma.SettingOrderByRelationAggregateInput
   userAvatar?: Prisma.UserOrderByRelationAggregateInput
   achievementImages?: Prisma.AchievementOrderByRelationAggregateInput
 }
@@ -341,6 +347,9 @@ export type AssetWhereUniqueInput = Prisma.AtLeast<{
   researchPdfs?: Prisma.ResearchListRelationFilter
   profileImage?: Prisma.SettingListRelationFilter
   resumeFile?: Prisma.SettingListRelationFilter
+  aboutImage?: Prisma.SettingListRelationFilter
+  ogImages?: Prisma.SettingListRelationFilter
+  favicon?: Prisma.SettingListRelationFilter
   userAvatar?: Prisma.UserListRelationFilter
   achievementImages?: Prisma.AchievementListRelationFilter
 }, "id">
@@ -404,6 +413,9 @@ export type AssetCreateInput = {
   researchPdfs?: Prisma.ResearchCreateNestedManyWithoutPdfAssetInput
   profileImage?: Prisma.SettingCreateNestedManyWithoutProfileImageInput
   resumeFile?: Prisma.SettingCreateNestedManyWithoutResumeInput
+  aboutImage?: Prisma.SettingCreateNestedManyWithoutAboutImageInput
+  ogImages?: Prisma.SettingCreateNestedManyWithoutOgImageInput
+  favicon?: Prisma.SettingCreateNestedManyWithoutFaviconInput
   userAvatar?: Prisma.UserCreateNestedManyWithoutAvatarInput
   achievementImages?: Prisma.AchievementCreateNestedManyWithoutImageInput
 }
@@ -429,6 +441,9 @@ export type AssetUncheckedCreateInput = {
   researchPdfs?: Prisma.ResearchUncheckedCreateNestedManyWithoutPdfAssetInput
   profileImage?: Prisma.SettingUncheckedCreateNestedManyWithoutProfileImageInput
   resumeFile?: Prisma.SettingUncheckedCreateNestedManyWithoutResumeInput
+  aboutImage?: Prisma.SettingUncheckedCreateNestedManyWithoutAboutImageInput
+  ogImages?: Prisma.SettingUncheckedCreateNestedManyWithoutOgImageInput
+  favicon?: Prisma.SettingUncheckedCreateNestedManyWithoutFaviconInput
   userAvatar?: Prisma.UserUncheckedCreateNestedManyWithoutAvatarInput
   achievementImages?: Prisma.AchievementUncheckedCreateNestedManyWithoutImageInput
 }
@@ -454,6 +469,9 @@ export type AssetUpdateInput = {
   researchPdfs?: Prisma.ResearchUpdateManyWithoutPdfAssetNestedInput
   profileImage?: Prisma.SettingUpdateManyWithoutProfileImageNestedInput
   resumeFile?: Prisma.SettingUpdateManyWithoutResumeNestedInput
+  aboutImage?: Prisma.SettingUpdateManyWithoutAboutImageNestedInput
+  ogImages?: Prisma.SettingUpdateManyWithoutOgImageNestedInput
+  favicon?: Prisma.SettingUpdateManyWithoutFaviconNestedInput
   userAvatar?: Prisma.UserUpdateManyWithoutAvatarNestedInput
   achievementImages?: Prisma.AchievementUpdateManyWithoutImageNestedInput
 }
@@ -479,6 +497,9 @@ export type AssetUncheckedUpdateInput = {
   researchPdfs?: Prisma.ResearchUncheckedUpdateManyWithoutPdfAssetNestedInput
   profileImage?: Prisma.SettingUncheckedUpdateManyWithoutProfileImageNestedInput
   resumeFile?: Prisma.SettingUncheckedUpdateManyWithoutResumeNestedInput
+  aboutImage?: Prisma.SettingUncheckedUpdateManyWithoutAboutImageNestedInput
+  ogImages?: Prisma.SettingUncheckedUpdateManyWithoutOgImageNestedInput
+  favicon?: Prisma.SettingUncheckedUpdateManyWithoutFaviconNestedInput
   userAvatar?: Prisma.UserUncheckedUpdateManyWithoutAvatarNestedInput
   achievementImages?: Prisma.AchievementUncheckedUpdateManyWithoutImageNestedInput
 }
@@ -623,6 +644,24 @@ export type AssetCreateNestedOneWithoutResumeFileInput = {
   connect?: Prisma.AssetWhereUniqueInput
 }
 
+export type AssetCreateNestedOneWithoutAboutImageInput = {
+  create?: Prisma.XOR<Prisma.AssetCreateWithoutAboutImageInput, Prisma.AssetUncheckedCreateWithoutAboutImageInput>
+  connectOrCreate?: Prisma.AssetCreateOrConnectWithoutAboutImageInput
+  connect?: Prisma.AssetWhereUniqueInput
+}
+
+export type AssetCreateNestedOneWithoutOgImagesInput = {
+  create?: Prisma.XOR<Prisma.AssetCreateWithoutOgImagesInput, Prisma.AssetUncheckedCreateWithoutOgImagesInput>
+  connectOrCreate?: Prisma.AssetCreateOrConnectWithoutOgImagesInput
+  connect?: Prisma.AssetWhereUniqueInput
+}
+
+export type AssetCreateNestedOneWithoutFaviconInput = {
+  create?: Prisma.XOR<Prisma.AssetCreateWithoutFaviconInput, Prisma.AssetUncheckedCreateWithoutFaviconInput>
+  connectOrCreate?: Prisma.AssetCreateOrConnectWithoutFaviconInput
+  connect?: Prisma.AssetWhereUniqueInput
+}
+
 export type AssetUpdateOneWithoutProfileImageNestedInput = {
   create?: Prisma.XOR<Prisma.AssetCreateWithoutProfileImageInput, Prisma.AssetUncheckedCreateWithoutProfileImageInput>
   connectOrCreate?: Prisma.AssetCreateOrConnectWithoutProfileImageInput
@@ -641,6 +680,36 @@ export type AssetUpdateOneWithoutResumeFileNestedInput = {
   delete?: Prisma.AssetWhereInput | boolean
   connect?: Prisma.AssetWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.AssetUpdateToOneWithWhereWithoutResumeFileInput, Prisma.AssetUpdateWithoutResumeFileInput>, Prisma.AssetUncheckedUpdateWithoutResumeFileInput>
+}
+
+export type AssetUpdateOneWithoutAboutImageNestedInput = {
+  create?: Prisma.XOR<Prisma.AssetCreateWithoutAboutImageInput, Prisma.AssetUncheckedCreateWithoutAboutImageInput>
+  connectOrCreate?: Prisma.AssetCreateOrConnectWithoutAboutImageInput
+  upsert?: Prisma.AssetUpsertWithoutAboutImageInput
+  disconnect?: Prisma.AssetWhereInput | boolean
+  delete?: Prisma.AssetWhereInput | boolean
+  connect?: Prisma.AssetWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AssetUpdateToOneWithWhereWithoutAboutImageInput, Prisma.AssetUpdateWithoutAboutImageInput>, Prisma.AssetUncheckedUpdateWithoutAboutImageInput>
+}
+
+export type AssetUpdateOneWithoutOgImagesNestedInput = {
+  create?: Prisma.XOR<Prisma.AssetCreateWithoutOgImagesInput, Prisma.AssetUncheckedCreateWithoutOgImagesInput>
+  connectOrCreate?: Prisma.AssetCreateOrConnectWithoutOgImagesInput
+  upsert?: Prisma.AssetUpsertWithoutOgImagesInput
+  disconnect?: Prisma.AssetWhereInput | boolean
+  delete?: Prisma.AssetWhereInput | boolean
+  connect?: Prisma.AssetWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AssetUpdateToOneWithWhereWithoutOgImagesInput, Prisma.AssetUpdateWithoutOgImagesInput>, Prisma.AssetUncheckedUpdateWithoutOgImagesInput>
+}
+
+export type AssetUpdateOneWithoutFaviconNestedInput = {
+  create?: Prisma.XOR<Prisma.AssetCreateWithoutFaviconInput, Prisma.AssetUncheckedCreateWithoutFaviconInput>
+  connectOrCreate?: Prisma.AssetCreateOrConnectWithoutFaviconInput
+  upsert?: Prisma.AssetUpsertWithoutFaviconInput
+  disconnect?: Prisma.AssetWhereInput | boolean
+  delete?: Prisma.AssetWhereInput | boolean
+  connect?: Prisma.AssetWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AssetUpdateToOneWithWhereWithoutFaviconInput, Prisma.AssetUpdateWithoutFaviconInput>, Prisma.AssetUncheckedUpdateWithoutFaviconInput>
 }
 
 export type EnumAssetTypeFieldUpdateOperationsInput = {
@@ -786,6 +855,9 @@ export type AssetCreateWithoutUserAvatarInput = {
   researchPdfs?: Prisma.ResearchCreateNestedManyWithoutPdfAssetInput
   profileImage?: Prisma.SettingCreateNestedManyWithoutProfileImageInput
   resumeFile?: Prisma.SettingCreateNestedManyWithoutResumeInput
+  aboutImage?: Prisma.SettingCreateNestedManyWithoutAboutImageInput
+  ogImages?: Prisma.SettingCreateNestedManyWithoutOgImageInput
+  favicon?: Prisma.SettingCreateNestedManyWithoutFaviconInput
   achievementImages?: Prisma.AchievementCreateNestedManyWithoutImageInput
 }
 
@@ -810,6 +882,9 @@ export type AssetUncheckedCreateWithoutUserAvatarInput = {
   researchPdfs?: Prisma.ResearchUncheckedCreateNestedManyWithoutPdfAssetInput
   profileImage?: Prisma.SettingUncheckedCreateNestedManyWithoutProfileImageInput
   resumeFile?: Prisma.SettingUncheckedCreateNestedManyWithoutResumeInput
+  aboutImage?: Prisma.SettingUncheckedCreateNestedManyWithoutAboutImageInput
+  ogImages?: Prisma.SettingUncheckedCreateNestedManyWithoutOgImageInput
+  favicon?: Prisma.SettingUncheckedCreateNestedManyWithoutFaviconInput
   achievementImages?: Prisma.AchievementUncheckedCreateNestedManyWithoutImageInput
 }
 
@@ -850,6 +925,9 @@ export type AssetUpdateWithoutUserAvatarInput = {
   researchPdfs?: Prisma.ResearchUpdateManyWithoutPdfAssetNestedInput
   profileImage?: Prisma.SettingUpdateManyWithoutProfileImageNestedInput
   resumeFile?: Prisma.SettingUpdateManyWithoutResumeNestedInput
+  aboutImage?: Prisma.SettingUpdateManyWithoutAboutImageNestedInput
+  ogImages?: Prisma.SettingUpdateManyWithoutOgImageNestedInput
+  favicon?: Prisma.SettingUpdateManyWithoutFaviconNestedInput
   achievementImages?: Prisma.AchievementUpdateManyWithoutImageNestedInput
 }
 
@@ -874,6 +952,9 @@ export type AssetUncheckedUpdateWithoutUserAvatarInput = {
   researchPdfs?: Prisma.ResearchUncheckedUpdateManyWithoutPdfAssetNestedInput
   profileImage?: Prisma.SettingUncheckedUpdateManyWithoutProfileImageNestedInput
   resumeFile?: Prisma.SettingUncheckedUpdateManyWithoutResumeNestedInput
+  aboutImage?: Prisma.SettingUncheckedUpdateManyWithoutAboutImageNestedInput
+  ogImages?: Prisma.SettingUncheckedUpdateManyWithoutOgImageNestedInput
+  favicon?: Prisma.SettingUncheckedUpdateManyWithoutFaviconNestedInput
   achievementImages?: Prisma.AchievementUncheckedUpdateManyWithoutImageNestedInput
 }
 
@@ -897,6 +978,9 @@ export type AssetCreateWithoutProfileImageInput = {
   researchCovers?: Prisma.ResearchCreateNestedManyWithoutCoverImageInput
   researchPdfs?: Prisma.ResearchCreateNestedManyWithoutPdfAssetInput
   resumeFile?: Prisma.SettingCreateNestedManyWithoutResumeInput
+  aboutImage?: Prisma.SettingCreateNestedManyWithoutAboutImageInput
+  ogImages?: Prisma.SettingCreateNestedManyWithoutOgImageInput
+  favicon?: Prisma.SettingCreateNestedManyWithoutFaviconInput
   userAvatar?: Prisma.UserCreateNestedManyWithoutAvatarInput
   achievementImages?: Prisma.AchievementCreateNestedManyWithoutImageInput
 }
@@ -921,6 +1005,9 @@ export type AssetUncheckedCreateWithoutProfileImageInput = {
   researchCovers?: Prisma.ResearchUncheckedCreateNestedManyWithoutCoverImageInput
   researchPdfs?: Prisma.ResearchUncheckedCreateNestedManyWithoutPdfAssetInput
   resumeFile?: Prisma.SettingUncheckedCreateNestedManyWithoutResumeInput
+  aboutImage?: Prisma.SettingUncheckedCreateNestedManyWithoutAboutImageInput
+  ogImages?: Prisma.SettingUncheckedCreateNestedManyWithoutOgImageInput
+  favicon?: Prisma.SettingUncheckedCreateNestedManyWithoutFaviconInput
   userAvatar?: Prisma.UserUncheckedCreateNestedManyWithoutAvatarInput
   achievementImages?: Prisma.AchievementUncheckedCreateNestedManyWithoutImageInput
 }
@@ -950,6 +1037,9 @@ export type AssetCreateWithoutResumeFileInput = {
   researchCovers?: Prisma.ResearchCreateNestedManyWithoutCoverImageInput
   researchPdfs?: Prisma.ResearchCreateNestedManyWithoutPdfAssetInput
   profileImage?: Prisma.SettingCreateNestedManyWithoutProfileImageInput
+  aboutImage?: Prisma.SettingCreateNestedManyWithoutAboutImageInput
+  ogImages?: Prisma.SettingCreateNestedManyWithoutOgImageInput
+  favicon?: Prisma.SettingCreateNestedManyWithoutFaviconInput
   userAvatar?: Prisma.UserCreateNestedManyWithoutAvatarInput
   achievementImages?: Prisma.AchievementCreateNestedManyWithoutImageInput
 }
@@ -974,6 +1064,9 @@ export type AssetUncheckedCreateWithoutResumeFileInput = {
   researchCovers?: Prisma.ResearchUncheckedCreateNestedManyWithoutCoverImageInput
   researchPdfs?: Prisma.ResearchUncheckedCreateNestedManyWithoutPdfAssetInput
   profileImage?: Prisma.SettingUncheckedCreateNestedManyWithoutProfileImageInput
+  aboutImage?: Prisma.SettingUncheckedCreateNestedManyWithoutAboutImageInput
+  ogImages?: Prisma.SettingUncheckedCreateNestedManyWithoutOgImageInput
+  favicon?: Prisma.SettingUncheckedCreateNestedManyWithoutFaviconInput
   userAvatar?: Prisma.UserUncheckedCreateNestedManyWithoutAvatarInput
   achievementImages?: Prisma.AchievementUncheckedCreateNestedManyWithoutImageInput
 }
@@ -981,6 +1074,183 @@ export type AssetUncheckedCreateWithoutResumeFileInput = {
 export type AssetCreateOrConnectWithoutResumeFileInput = {
   where: Prisma.AssetWhereUniqueInput
   create: Prisma.XOR<Prisma.AssetCreateWithoutResumeFileInput, Prisma.AssetUncheckedCreateWithoutResumeFileInput>
+}
+
+export type AssetCreateWithoutAboutImageInput = {
+  id?: string
+  fileName: string
+  originalName: string
+  url: string
+  mimeType: string
+  type: $Enums.AssetType
+  extension?: string | null
+  size: number
+  width?: number | null
+  height?: number | null
+  altText?: string | null
+  uploadedAt?: Date | string
+  blogCovers?: Prisma.BlogCreateNestedManyWithoutCoverImageInput
+  educationLogos?: Prisma.EducationCreateNestedManyWithoutInstitutionLogoInput
+  experienceLogos?: Prisma.ExperienceCreateNestedManyWithoutCompanyLogoInput
+  projectAssets?: Prisma.ProjectAssetCreateNestedManyWithoutAssetInput
+  researchCovers?: Prisma.ResearchCreateNestedManyWithoutCoverImageInput
+  researchPdfs?: Prisma.ResearchCreateNestedManyWithoutPdfAssetInput
+  profileImage?: Prisma.SettingCreateNestedManyWithoutProfileImageInput
+  resumeFile?: Prisma.SettingCreateNestedManyWithoutResumeInput
+  ogImages?: Prisma.SettingCreateNestedManyWithoutOgImageInput
+  favicon?: Prisma.SettingCreateNestedManyWithoutFaviconInput
+  userAvatar?: Prisma.UserCreateNestedManyWithoutAvatarInput
+  achievementImages?: Prisma.AchievementCreateNestedManyWithoutImageInput
+}
+
+export type AssetUncheckedCreateWithoutAboutImageInput = {
+  id?: string
+  fileName: string
+  originalName: string
+  url: string
+  mimeType: string
+  type: $Enums.AssetType
+  extension?: string | null
+  size: number
+  width?: number | null
+  height?: number | null
+  altText?: string | null
+  uploadedAt?: Date | string
+  blogCovers?: Prisma.BlogUncheckedCreateNestedManyWithoutCoverImageInput
+  educationLogos?: Prisma.EducationUncheckedCreateNestedManyWithoutInstitutionLogoInput
+  experienceLogos?: Prisma.ExperienceUncheckedCreateNestedManyWithoutCompanyLogoInput
+  projectAssets?: Prisma.ProjectAssetUncheckedCreateNestedManyWithoutAssetInput
+  researchCovers?: Prisma.ResearchUncheckedCreateNestedManyWithoutCoverImageInput
+  researchPdfs?: Prisma.ResearchUncheckedCreateNestedManyWithoutPdfAssetInput
+  profileImage?: Prisma.SettingUncheckedCreateNestedManyWithoutProfileImageInput
+  resumeFile?: Prisma.SettingUncheckedCreateNestedManyWithoutResumeInput
+  ogImages?: Prisma.SettingUncheckedCreateNestedManyWithoutOgImageInput
+  favicon?: Prisma.SettingUncheckedCreateNestedManyWithoutFaviconInput
+  userAvatar?: Prisma.UserUncheckedCreateNestedManyWithoutAvatarInput
+  achievementImages?: Prisma.AchievementUncheckedCreateNestedManyWithoutImageInput
+}
+
+export type AssetCreateOrConnectWithoutAboutImageInput = {
+  where: Prisma.AssetWhereUniqueInput
+  create: Prisma.XOR<Prisma.AssetCreateWithoutAboutImageInput, Prisma.AssetUncheckedCreateWithoutAboutImageInput>
+}
+
+export type AssetCreateWithoutOgImagesInput = {
+  id?: string
+  fileName: string
+  originalName: string
+  url: string
+  mimeType: string
+  type: $Enums.AssetType
+  extension?: string | null
+  size: number
+  width?: number | null
+  height?: number | null
+  altText?: string | null
+  uploadedAt?: Date | string
+  blogCovers?: Prisma.BlogCreateNestedManyWithoutCoverImageInput
+  educationLogos?: Prisma.EducationCreateNestedManyWithoutInstitutionLogoInput
+  experienceLogos?: Prisma.ExperienceCreateNestedManyWithoutCompanyLogoInput
+  projectAssets?: Prisma.ProjectAssetCreateNestedManyWithoutAssetInput
+  researchCovers?: Prisma.ResearchCreateNestedManyWithoutCoverImageInput
+  researchPdfs?: Prisma.ResearchCreateNestedManyWithoutPdfAssetInput
+  profileImage?: Prisma.SettingCreateNestedManyWithoutProfileImageInput
+  resumeFile?: Prisma.SettingCreateNestedManyWithoutResumeInput
+  aboutImage?: Prisma.SettingCreateNestedManyWithoutAboutImageInput
+  favicon?: Prisma.SettingCreateNestedManyWithoutFaviconInput
+  userAvatar?: Prisma.UserCreateNestedManyWithoutAvatarInput
+  achievementImages?: Prisma.AchievementCreateNestedManyWithoutImageInput
+}
+
+export type AssetUncheckedCreateWithoutOgImagesInput = {
+  id?: string
+  fileName: string
+  originalName: string
+  url: string
+  mimeType: string
+  type: $Enums.AssetType
+  extension?: string | null
+  size: number
+  width?: number | null
+  height?: number | null
+  altText?: string | null
+  uploadedAt?: Date | string
+  blogCovers?: Prisma.BlogUncheckedCreateNestedManyWithoutCoverImageInput
+  educationLogos?: Prisma.EducationUncheckedCreateNestedManyWithoutInstitutionLogoInput
+  experienceLogos?: Prisma.ExperienceUncheckedCreateNestedManyWithoutCompanyLogoInput
+  projectAssets?: Prisma.ProjectAssetUncheckedCreateNestedManyWithoutAssetInput
+  researchCovers?: Prisma.ResearchUncheckedCreateNestedManyWithoutCoverImageInput
+  researchPdfs?: Prisma.ResearchUncheckedCreateNestedManyWithoutPdfAssetInput
+  profileImage?: Prisma.SettingUncheckedCreateNestedManyWithoutProfileImageInput
+  resumeFile?: Prisma.SettingUncheckedCreateNestedManyWithoutResumeInput
+  aboutImage?: Prisma.SettingUncheckedCreateNestedManyWithoutAboutImageInput
+  favicon?: Prisma.SettingUncheckedCreateNestedManyWithoutFaviconInput
+  userAvatar?: Prisma.UserUncheckedCreateNestedManyWithoutAvatarInput
+  achievementImages?: Prisma.AchievementUncheckedCreateNestedManyWithoutImageInput
+}
+
+export type AssetCreateOrConnectWithoutOgImagesInput = {
+  where: Prisma.AssetWhereUniqueInput
+  create: Prisma.XOR<Prisma.AssetCreateWithoutOgImagesInput, Prisma.AssetUncheckedCreateWithoutOgImagesInput>
+}
+
+export type AssetCreateWithoutFaviconInput = {
+  id?: string
+  fileName: string
+  originalName: string
+  url: string
+  mimeType: string
+  type: $Enums.AssetType
+  extension?: string | null
+  size: number
+  width?: number | null
+  height?: number | null
+  altText?: string | null
+  uploadedAt?: Date | string
+  blogCovers?: Prisma.BlogCreateNestedManyWithoutCoverImageInput
+  educationLogos?: Prisma.EducationCreateNestedManyWithoutInstitutionLogoInput
+  experienceLogos?: Prisma.ExperienceCreateNestedManyWithoutCompanyLogoInput
+  projectAssets?: Prisma.ProjectAssetCreateNestedManyWithoutAssetInput
+  researchCovers?: Prisma.ResearchCreateNestedManyWithoutCoverImageInput
+  researchPdfs?: Prisma.ResearchCreateNestedManyWithoutPdfAssetInput
+  profileImage?: Prisma.SettingCreateNestedManyWithoutProfileImageInput
+  resumeFile?: Prisma.SettingCreateNestedManyWithoutResumeInput
+  aboutImage?: Prisma.SettingCreateNestedManyWithoutAboutImageInput
+  ogImages?: Prisma.SettingCreateNestedManyWithoutOgImageInput
+  userAvatar?: Prisma.UserCreateNestedManyWithoutAvatarInput
+  achievementImages?: Prisma.AchievementCreateNestedManyWithoutImageInput
+}
+
+export type AssetUncheckedCreateWithoutFaviconInput = {
+  id?: string
+  fileName: string
+  originalName: string
+  url: string
+  mimeType: string
+  type: $Enums.AssetType
+  extension?: string | null
+  size: number
+  width?: number | null
+  height?: number | null
+  altText?: string | null
+  uploadedAt?: Date | string
+  blogCovers?: Prisma.BlogUncheckedCreateNestedManyWithoutCoverImageInput
+  educationLogos?: Prisma.EducationUncheckedCreateNestedManyWithoutInstitutionLogoInput
+  experienceLogos?: Prisma.ExperienceUncheckedCreateNestedManyWithoutCompanyLogoInput
+  projectAssets?: Prisma.ProjectAssetUncheckedCreateNestedManyWithoutAssetInput
+  researchCovers?: Prisma.ResearchUncheckedCreateNestedManyWithoutCoverImageInput
+  researchPdfs?: Prisma.ResearchUncheckedCreateNestedManyWithoutPdfAssetInput
+  profileImage?: Prisma.SettingUncheckedCreateNestedManyWithoutProfileImageInput
+  resumeFile?: Prisma.SettingUncheckedCreateNestedManyWithoutResumeInput
+  aboutImage?: Prisma.SettingUncheckedCreateNestedManyWithoutAboutImageInput
+  ogImages?: Prisma.SettingUncheckedCreateNestedManyWithoutOgImageInput
+  userAvatar?: Prisma.UserUncheckedCreateNestedManyWithoutAvatarInput
+  achievementImages?: Prisma.AchievementUncheckedCreateNestedManyWithoutImageInput
+}
+
+export type AssetCreateOrConnectWithoutFaviconInput = {
+  where: Prisma.AssetWhereUniqueInput
+  create: Prisma.XOR<Prisma.AssetCreateWithoutFaviconInput, Prisma.AssetUncheckedCreateWithoutFaviconInput>
 }
 
 export type AssetUpsertWithoutProfileImageInput = {
@@ -1014,6 +1284,9 @@ export type AssetUpdateWithoutProfileImageInput = {
   researchCovers?: Prisma.ResearchUpdateManyWithoutCoverImageNestedInput
   researchPdfs?: Prisma.ResearchUpdateManyWithoutPdfAssetNestedInput
   resumeFile?: Prisma.SettingUpdateManyWithoutResumeNestedInput
+  aboutImage?: Prisma.SettingUpdateManyWithoutAboutImageNestedInput
+  ogImages?: Prisma.SettingUpdateManyWithoutOgImageNestedInput
+  favicon?: Prisma.SettingUpdateManyWithoutFaviconNestedInput
   userAvatar?: Prisma.UserUpdateManyWithoutAvatarNestedInput
   achievementImages?: Prisma.AchievementUpdateManyWithoutImageNestedInput
 }
@@ -1038,6 +1311,9 @@ export type AssetUncheckedUpdateWithoutProfileImageInput = {
   researchCovers?: Prisma.ResearchUncheckedUpdateManyWithoutCoverImageNestedInput
   researchPdfs?: Prisma.ResearchUncheckedUpdateManyWithoutPdfAssetNestedInput
   resumeFile?: Prisma.SettingUncheckedUpdateManyWithoutResumeNestedInput
+  aboutImage?: Prisma.SettingUncheckedUpdateManyWithoutAboutImageNestedInput
+  ogImages?: Prisma.SettingUncheckedUpdateManyWithoutOgImageNestedInput
+  favicon?: Prisma.SettingUncheckedUpdateManyWithoutFaviconNestedInput
   userAvatar?: Prisma.UserUncheckedUpdateManyWithoutAvatarNestedInput
   achievementImages?: Prisma.AchievementUncheckedUpdateManyWithoutImageNestedInput
 }
@@ -1073,6 +1349,9 @@ export type AssetUpdateWithoutResumeFileInput = {
   researchCovers?: Prisma.ResearchUpdateManyWithoutCoverImageNestedInput
   researchPdfs?: Prisma.ResearchUpdateManyWithoutPdfAssetNestedInput
   profileImage?: Prisma.SettingUpdateManyWithoutProfileImageNestedInput
+  aboutImage?: Prisma.SettingUpdateManyWithoutAboutImageNestedInput
+  ogImages?: Prisma.SettingUpdateManyWithoutOgImageNestedInput
+  favicon?: Prisma.SettingUpdateManyWithoutFaviconNestedInput
   userAvatar?: Prisma.UserUpdateManyWithoutAvatarNestedInput
   achievementImages?: Prisma.AchievementUpdateManyWithoutImageNestedInput
 }
@@ -1097,6 +1376,204 @@ export type AssetUncheckedUpdateWithoutResumeFileInput = {
   researchCovers?: Prisma.ResearchUncheckedUpdateManyWithoutCoverImageNestedInput
   researchPdfs?: Prisma.ResearchUncheckedUpdateManyWithoutPdfAssetNestedInput
   profileImage?: Prisma.SettingUncheckedUpdateManyWithoutProfileImageNestedInput
+  aboutImage?: Prisma.SettingUncheckedUpdateManyWithoutAboutImageNestedInput
+  ogImages?: Prisma.SettingUncheckedUpdateManyWithoutOgImageNestedInput
+  favicon?: Prisma.SettingUncheckedUpdateManyWithoutFaviconNestedInput
+  userAvatar?: Prisma.UserUncheckedUpdateManyWithoutAvatarNestedInput
+  achievementImages?: Prisma.AchievementUncheckedUpdateManyWithoutImageNestedInput
+}
+
+export type AssetUpsertWithoutAboutImageInput = {
+  update: Prisma.XOR<Prisma.AssetUpdateWithoutAboutImageInput, Prisma.AssetUncheckedUpdateWithoutAboutImageInput>
+  create: Prisma.XOR<Prisma.AssetCreateWithoutAboutImageInput, Prisma.AssetUncheckedCreateWithoutAboutImageInput>
+  where?: Prisma.AssetWhereInput
+}
+
+export type AssetUpdateToOneWithWhereWithoutAboutImageInput = {
+  where?: Prisma.AssetWhereInput
+  data: Prisma.XOR<Prisma.AssetUpdateWithoutAboutImageInput, Prisma.AssetUncheckedUpdateWithoutAboutImageInput>
+}
+
+export type AssetUpdateWithoutAboutImageInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fileName?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+  extension?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  uploadedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  blogCovers?: Prisma.BlogUpdateManyWithoutCoverImageNestedInput
+  educationLogos?: Prisma.EducationUpdateManyWithoutInstitutionLogoNestedInput
+  experienceLogos?: Prisma.ExperienceUpdateManyWithoutCompanyLogoNestedInput
+  projectAssets?: Prisma.ProjectAssetUpdateManyWithoutAssetNestedInput
+  researchCovers?: Prisma.ResearchUpdateManyWithoutCoverImageNestedInput
+  researchPdfs?: Prisma.ResearchUpdateManyWithoutPdfAssetNestedInput
+  profileImage?: Prisma.SettingUpdateManyWithoutProfileImageNestedInput
+  resumeFile?: Prisma.SettingUpdateManyWithoutResumeNestedInput
+  ogImages?: Prisma.SettingUpdateManyWithoutOgImageNestedInput
+  favicon?: Prisma.SettingUpdateManyWithoutFaviconNestedInput
+  userAvatar?: Prisma.UserUpdateManyWithoutAvatarNestedInput
+  achievementImages?: Prisma.AchievementUpdateManyWithoutImageNestedInput
+}
+
+export type AssetUncheckedUpdateWithoutAboutImageInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fileName?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+  extension?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  uploadedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  blogCovers?: Prisma.BlogUncheckedUpdateManyWithoutCoverImageNestedInput
+  educationLogos?: Prisma.EducationUncheckedUpdateManyWithoutInstitutionLogoNestedInput
+  experienceLogos?: Prisma.ExperienceUncheckedUpdateManyWithoutCompanyLogoNestedInput
+  projectAssets?: Prisma.ProjectAssetUncheckedUpdateManyWithoutAssetNestedInput
+  researchCovers?: Prisma.ResearchUncheckedUpdateManyWithoutCoverImageNestedInput
+  researchPdfs?: Prisma.ResearchUncheckedUpdateManyWithoutPdfAssetNestedInput
+  profileImage?: Prisma.SettingUncheckedUpdateManyWithoutProfileImageNestedInput
+  resumeFile?: Prisma.SettingUncheckedUpdateManyWithoutResumeNestedInput
+  ogImages?: Prisma.SettingUncheckedUpdateManyWithoutOgImageNestedInput
+  favicon?: Prisma.SettingUncheckedUpdateManyWithoutFaviconNestedInput
+  userAvatar?: Prisma.UserUncheckedUpdateManyWithoutAvatarNestedInput
+  achievementImages?: Prisma.AchievementUncheckedUpdateManyWithoutImageNestedInput
+}
+
+export type AssetUpsertWithoutOgImagesInput = {
+  update: Prisma.XOR<Prisma.AssetUpdateWithoutOgImagesInput, Prisma.AssetUncheckedUpdateWithoutOgImagesInput>
+  create: Prisma.XOR<Prisma.AssetCreateWithoutOgImagesInput, Prisma.AssetUncheckedCreateWithoutOgImagesInput>
+  where?: Prisma.AssetWhereInput
+}
+
+export type AssetUpdateToOneWithWhereWithoutOgImagesInput = {
+  where?: Prisma.AssetWhereInput
+  data: Prisma.XOR<Prisma.AssetUpdateWithoutOgImagesInput, Prisma.AssetUncheckedUpdateWithoutOgImagesInput>
+}
+
+export type AssetUpdateWithoutOgImagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fileName?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+  extension?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  uploadedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  blogCovers?: Prisma.BlogUpdateManyWithoutCoverImageNestedInput
+  educationLogos?: Prisma.EducationUpdateManyWithoutInstitutionLogoNestedInput
+  experienceLogos?: Prisma.ExperienceUpdateManyWithoutCompanyLogoNestedInput
+  projectAssets?: Prisma.ProjectAssetUpdateManyWithoutAssetNestedInput
+  researchCovers?: Prisma.ResearchUpdateManyWithoutCoverImageNestedInput
+  researchPdfs?: Prisma.ResearchUpdateManyWithoutPdfAssetNestedInput
+  profileImage?: Prisma.SettingUpdateManyWithoutProfileImageNestedInput
+  resumeFile?: Prisma.SettingUpdateManyWithoutResumeNestedInput
+  aboutImage?: Prisma.SettingUpdateManyWithoutAboutImageNestedInput
+  favicon?: Prisma.SettingUpdateManyWithoutFaviconNestedInput
+  userAvatar?: Prisma.UserUpdateManyWithoutAvatarNestedInput
+  achievementImages?: Prisma.AchievementUpdateManyWithoutImageNestedInput
+}
+
+export type AssetUncheckedUpdateWithoutOgImagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fileName?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+  extension?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  uploadedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  blogCovers?: Prisma.BlogUncheckedUpdateManyWithoutCoverImageNestedInput
+  educationLogos?: Prisma.EducationUncheckedUpdateManyWithoutInstitutionLogoNestedInput
+  experienceLogos?: Prisma.ExperienceUncheckedUpdateManyWithoutCompanyLogoNestedInput
+  projectAssets?: Prisma.ProjectAssetUncheckedUpdateManyWithoutAssetNestedInput
+  researchCovers?: Prisma.ResearchUncheckedUpdateManyWithoutCoverImageNestedInput
+  researchPdfs?: Prisma.ResearchUncheckedUpdateManyWithoutPdfAssetNestedInput
+  profileImage?: Prisma.SettingUncheckedUpdateManyWithoutProfileImageNestedInput
+  resumeFile?: Prisma.SettingUncheckedUpdateManyWithoutResumeNestedInput
+  aboutImage?: Prisma.SettingUncheckedUpdateManyWithoutAboutImageNestedInput
+  favicon?: Prisma.SettingUncheckedUpdateManyWithoutFaviconNestedInput
+  userAvatar?: Prisma.UserUncheckedUpdateManyWithoutAvatarNestedInput
+  achievementImages?: Prisma.AchievementUncheckedUpdateManyWithoutImageNestedInput
+}
+
+export type AssetUpsertWithoutFaviconInput = {
+  update: Prisma.XOR<Prisma.AssetUpdateWithoutFaviconInput, Prisma.AssetUncheckedUpdateWithoutFaviconInput>
+  create: Prisma.XOR<Prisma.AssetCreateWithoutFaviconInput, Prisma.AssetUncheckedCreateWithoutFaviconInput>
+  where?: Prisma.AssetWhereInput
+}
+
+export type AssetUpdateToOneWithWhereWithoutFaviconInput = {
+  where?: Prisma.AssetWhereInput
+  data: Prisma.XOR<Prisma.AssetUpdateWithoutFaviconInput, Prisma.AssetUncheckedUpdateWithoutFaviconInput>
+}
+
+export type AssetUpdateWithoutFaviconInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fileName?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+  extension?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  uploadedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  blogCovers?: Prisma.BlogUpdateManyWithoutCoverImageNestedInput
+  educationLogos?: Prisma.EducationUpdateManyWithoutInstitutionLogoNestedInput
+  experienceLogos?: Prisma.ExperienceUpdateManyWithoutCompanyLogoNestedInput
+  projectAssets?: Prisma.ProjectAssetUpdateManyWithoutAssetNestedInput
+  researchCovers?: Prisma.ResearchUpdateManyWithoutCoverImageNestedInput
+  researchPdfs?: Prisma.ResearchUpdateManyWithoutPdfAssetNestedInput
+  profileImage?: Prisma.SettingUpdateManyWithoutProfileImageNestedInput
+  resumeFile?: Prisma.SettingUpdateManyWithoutResumeNestedInput
+  aboutImage?: Prisma.SettingUpdateManyWithoutAboutImageNestedInput
+  ogImages?: Prisma.SettingUpdateManyWithoutOgImageNestedInput
+  userAvatar?: Prisma.UserUpdateManyWithoutAvatarNestedInput
+  achievementImages?: Prisma.AchievementUpdateManyWithoutImageNestedInput
+}
+
+export type AssetUncheckedUpdateWithoutFaviconInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fileName?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+  extension?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  uploadedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  blogCovers?: Prisma.BlogUncheckedUpdateManyWithoutCoverImageNestedInput
+  educationLogos?: Prisma.EducationUncheckedUpdateManyWithoutInstitutionLogoNestedInput
+  experienceLogos?: Prisma.ExperienceUncheckedUpdateManyWithoutCompanyLogoNestedInput
+  projectAssets?: Prisma.ProjectAssetUncheckedUpdateManyWithoutAssetNestedInput
+  researchCovers?: Prisma.ResearchUncheckedUpdateManyWithoutCoverImageNestedInput
+  researchPdfs?: Prisma.ResearchUncheckedUpdateManyWithoutPdfAssetNestedInput
+  profileImage?: Prisma.SettingUncheckedUpdateManyWithoutProfileImageNestedInput
+  resumeFile?: Prisma.SettingUncheckedUpdateManyWithoutResumeNestedInput
+  aboutImage?: Prisma.SettingUncheckedUpdateManyWithoutAboutImageNestedInput
+  ogImages?: Prisma.SettingUncheckedUpdateManyWithoutOgImageNestedInput
   userAvatar?: Prisma.UserUncheckedUpdateManyWithoutAvatarNestedInput
   achievementImages?: Prisma.AchievementUncheckedUpdateManyWithoutImageNestedInput
 }
@@ -1121,6 +1598,9 @@ export type AssetCreateWithoutProjectAssetsInput = {
   researchPdfs?: Prisma.ResearchCreateNestedManyWithoutPdfAssetInput
   profileImage?: Prisma.SettingCreateNestedManyWithoutProfileImageInput
   resumeFile?: Prisma.SettingCreateNestedManyWithoutResumeInput
+  aboutImage?: Prisma.SettingCreateNestedManyWithoutAboutImageInput
+  ogImages?: Prisma.SettingCreateNestedManyWithoutOgImageInput
+  favicon?: Prisma.SettingCreateNestedManyWithoutFaviconInput
   userAvatar?: Prisma.UserCreateNestedManyWithoutAvatarInput
   achievementImages?: Prisma.AchievementCreateNestedManyWithoutImageInput
 }
@@ -1145,6 +1625,9 @@ export type AssetUncheckedCreateWithoutProjectAssetsInput = {
   researchPdfs?: Prisma.ResearchUncheckedCreateNestedManyWithoutPdfAssetInput
   profileImage?: Prisma.SettingUncheckedCreateNestedManyWithoutProfileImageInput
   resumeFile?: Prisma.SettingUncheckedCreateNestedManyWithoutResumeInput
+  aboutImage?: Prisma.SettingUncheckedCreateNestedManyWithoutAboutImageInput
+  ogImages?: Prisma.SettingUncheckedCreateNestedManyWithoutOgImageInput
+  favicon?: Prisma.SettingUncheckedCreateNestedManyWithoutFaviconInput
   userAvatar?: Prisma.UserUncheckedCreateNestedManyWithoutAvatarInput
   achievementImages?: Prisma.AchievementUncheckedCreateNestedManyWithoutImageInput
 }
@@ -1185,6 +1668,9 @@ export type AssetUpdateWithoutProjectAssetsInput = {
   researchPdfs?: Prisma.ResearchUpdateManyWithoutPdfAssetNestedInput
   profileImage?: Prisma.SettingUpdateManyWithoutProfileImageNestedInput
   resumeFile?: Prisma.SettingUpdateManyWithoutResumeNestedInput
+  aboutImage?: Prisma.SettingUpdateManyWithoutAboutImageNestedInput
+  ogImages?: Prisma.SettingUpdateManyWithoutOgImageNestedInput
+  favicon?: Prisma.SettingUpdateManyWithoutFaviconNestedInput
   userAvatar?: Prisma.UserUpdateManyWithoutAvatarNestedInput
   achievementImages?: Prisma.AchievementUpdateManyWithoutImageNestedInput
 }
@@ -1209,6 +1695,9 @@ export type AssetUncheckedUpdateWithoutProjectAssetsInput = {
   researchPdfs?: Prisma.ResearchUncheckedUpdateManyWithoutPdfAssetNestedInput
   profileImage?: Prisma.SettingUncheckedUpdateManyWithoutProfileImageNestedInput
   resumeFile?: Prisma.SettingUncheckedUpdateManyWithoutResumeNestedInput
+  aboutImage?: Prisma.SettingUncheckedUpdateManyWithoutAboutImageNestedInput
+  ogImages?: Prisma.SettingUncheckedUpdateManyWithoutOgImageNestedInput
+  favicon?: Prisma.SettingUncheckedUpdateManyWithoutFaviconNestedInput
   userAvatar?: Prisma.UserUncheckedUpdateManyWithoutAvatarNestedInput
   achievementImages?: Prisma.AchievementUncheckedUpdateManyWithoutImageNestedInput
 }
@@ -1233,6 +1722,9 @@ export type AssetCreateWithoutExperienceLogosInput = {
   researchPdfs?: Prisma.ResearchCreateNestedManyWithoutPdfAssetInput
   profileImage?: Prisma.SettingCreateNestedManyWithoutProfileImageInput
   resumeFile?: Prisma.SettingCreateNestedManyWithoutResumeInput
+  aboutImage?: Prisma.SettingCreateNestedManyWithoutAboutImageInput
+  ogImages?: Prisma.SettingCreateNestedManyWithoutOgImageInput
+  favicon?: Prisma.SettingCreateNestedManyWithoutFaviconInput
   userAvatar?: Prisma.UserCreateNestedManyWithoutAvatarInput
   achievementImages?: Prisma.AchievementCreateNestedManyWithoutImageInput
 }
@@ -1257,6 +1749,9 @@ export type AssetUncheckedCreateWithoutExperienceLogosInput = {
   researchPdfs?: Prisma.ResearchUncheckedCreateNestedManyWithoutPdfAssetInput
   profileImage?: Prisma.SettingUncheckedCreateNestedManyWithoutProfileImageInput
   resumeFile?: Prisma.SettingUncheckedCreateNestedManyWithoutResumeInput
+  aboutImage?: Prisma.SettingUncheckedCreateNestedManyWithoutAboutImageInput
+  ogImages?: Prisma.SettingUncheckedCreateNestedManyWithoutOgImageInput
+  favicon?: Prisma.SettingUncheckedCreateNestedManyWithoutFaviconInput
   userAvatar?: Prisma.UserUncheckedCreateNestedManyWithoutAvatarInput
   achievementImages?: Prisma.AchievementUncheckedCreateNestedManyWithoutImageInput
 }
@@ -1297,6 +1792,9 @@ export type AssetUpdateWithoutExperienceLogosInput = {
   researchPdfs?: Prisma.ResearchUpdateManyWithoutPdfAssetNestedInput
   profileImage?: Prisma.SettingUpdateManyWithoutProfileImageNestedInput
   resumeFile?: Prisma.SettingUpdateManyWithoutResumeNestedInput
+  aboutImage?: Prisma.SettingUpdateManyWithoutAboutImageNestedInput
+  ogImages?: Prisma.SettingUpdateManyWithoutOgImageNestedInput
+  favicon?: Prisma.SettingUpdateManyWithoutFaviconNestedInput
   userAvatar?: Prisma.UserUpdateManyWithoutAvatarNestedInput
   achievementImages?: Prisma.AchievementUpdateManyWithoutImageNestedInput
 }
@@ -1321,6 +1819,9 @@ export type AssetUncheckedUpdateWithoutExperienceLogosInput = {
   researchPdfs?: Prisma.ResearchUncheckedUpdateManyWithoutPdfAssetNestedInput
   profileImage?: Prisma.SettingUncheckedUpdateManyWithoutProfileImageNestedInput
   resumeFile?: Prisma.SettingUncheckedUpdateManyWithoutResumeNestedInput
+  aboutImage?: Prisma.SettingUncheckedUpdateManyWithoutAboutImageNestedInput
+  ogImages?: Prisma.SettingUncheckedUpdateManyWithoutOgImageNestedInput
+  favicon?: Prisma.SettingUncheckedUpdateManyWithoutFaviconNestedInput
   userAvatar?: Prisma.UserUncheckedUpdateManyWithoutAvatarNestedInput
   achievementImages?: Prisma.AchievementUncheckedUpdateManyWithoutImageNestedInput
 }
@@ -1345,6 +1846,9 @@ export type AssetCreateWithoutEducationLogosInput = {
   researchPdfs?: Prisma.ResearchCreateNestedManyWithoutPdfAssetInput
   profileImage?: Prisma.SettingCreateNestedManyWithoutProfileImageInput
   resumeFile?: Prisma.SettingCreateNestedManyWithoutResumeInput
+  aboutImage?: Prisma.SettingCreateNestedManyWithoutAboutImageInput
+  ogImages?: Prisma.SettingCreateNestedManyWithoutOgImageInput
+  favicon?: Prisma.SettingCreateNestedManyWithoutFaviconInput
   userAvatar?: Prisma.UserCreateNestedManyWithoutAvatarInput
   achievementImages?: Prisma.AchievementCreateNestedManyWithoutImageInput
 }
@@ -1369,6 +1873,9 @@ export type AssetUncheckedCreateWithoutEducationLogosInput = {
   researchPdfs?: Prisma.ResearchUncheckedCreateNestedManyWithoutPdfAssetInput
   profileImage?: Prisma.SettingUncheckedCreateNestedManyWithoutProfileImageInput
   resumeFile?: Prisma.SettingUncheckedCreateNestedManyWithoutResumeInput
+  aboutImage?: Prisma.SettingUncheckedCreateNestedManyWithoutAboutImageInput
+  ogImages?: Prisma.SettingUncheckedCreateNestedManyWithoutOgImageInput
+  favicon?: Prisma.SettingUncheckedCreateNestedManyWithoutFaviconInput
   userAvatar?: Prisma.UserUncheckedCreateNestedManyWithoutAvatarInput
   achievementImages?: Prisma.AchievementUncheckedCreateNestedManyWithoutImageInput
 }
@@ -1409,6 +1916,9 @@ export type AssetUpdateWithoutEducationLogosInput = {
   researchPdfs?: Prisma.ResearchUpdateManyWithoutPdfAssetNestedInput
   profileImage?: Prisma.SettingUpdateManyWithoutProfileImageNestedInput
   resumeFile?: Prisma.SettingUpdateManyWithoutResumeNestedInput
+  aboutImage?: Prisma.SettingUpdateManyWithoutAboutImageNestedInput
+  ogImages?: Prisma.SettingUpdateManyWithoutOgImageNestedInput
+  favicon?: Prisma.SettingUpdateManyWithoutFaviconNestedInput
   userAvatar?: Prisma.UserUpdateManyWithoutAvatarNestedInput
   achievementImages?: Prisma.AchievementUpdateManyWithoutImageNestedInput
 }
@@ -1433,6 +1943,9 @@ export type AssetUncheckedUpdateWithoutEducationLogosInput = {
   researchPdfs?: Prisma.ResearchUncheckedUpdateManyWithoutPdfAssetNestedInput
   profileImage?: Prisma.SettingUncheckedUpdateManyWithoutProfileImageNestedInput
   resumeFile?: Prisma.SettingUncheckedUpdateManyWithoutResumeNestedInput
+  aboutImage?: Prisma.SettingUncheckedUpdateManyWithoutAboutImageNestedInput
+  ogImages?: Prisma.SettingUncheckedUpdateManyWithoutOgImageNestedInput
+  favicon?: Prisma.SettingUncheckedUpdateManyWithoutFaviconNestedInput
   userAvatar?: Prisma.UserUncheckedUpdateManyWithoutAvatarNestedInput
   achievementImages?: Prisma.AchievementUncheckedUpdateManyWithoutImageNestedInput
 }
@@ -1457,6 +1970,9 @@ export type AssetCreateWithoutResearchCoversInput = {
   researchPdfs?: Prisma.ResearchCreateNestedManyWithoutPdfAssetInput
   profileImage?: Prisma.SettingCreateNestedManyWithoutProfileImageInput
   resumeFile?: Prisma.SettingCreateNestedManyWithoutResumeInput
+  aboutImage?: Prisma.SettingCreateNestedManyWithoutAboutImageInput
+  ogImages?: Prisma.SettingCreateNestedManyWithoutOgImageInput
+  favicon?: Prisma.SettingCreateNestedManyWithoutFaviconInput
   userAvatar?: Prisma.UserCreateNestedManyWithoutAvatarInput
   achievementImages?: Prisma.AchievementCreateNestedManyWithoutImageInput
 }
@@ -1481,6 +1997,9 @@ export type AssetUncheckedCreateWithoutResearchCoversInput = {
   researchPdfs?: Prisma.ResearchUncheckedCreateNestedManyWithoutPdfAssetInput
   profileImage?: Prisma.SettingUncheckedCreateNestedManyWithoutProfileImageInput
   resumeFile?: Prisma.SettingUncheckedCreateNestedManyWithoutResumeInput
+  aboutImage?: Prisma.SettingUncheckedCreateNestedManyWithoutAboutImageInput
+  ogImages?: Prisma.SettingUncheckedCreateNestedManyWithoutOgImageInput
+  favicon?: Prisma.SettingUncheckedCreateNestedManyWithoutFaviconInput
   userAvatar?: Prisma.UserUncheckedCreateNestedManyWithoutAvatarInput
   achievementImages?: Prisma.AchievementUncheckedCreateNestedManyWithoutImageInput
 }
@@ -1510,6 +2029,9 @@ export type AssetCreateWithoutResearchPdfsInput = {
   researchCovers?: Prisma.ResearchCreateNestedManyWithoutCoverImageInput
   profileImage?: Prisma.SettingCreateNestedManyWithoutProfileImageInput
   resumeFile?: Prisma.SettingCreateNestedManyWithoutResumeInput
+  aboutImage?: Prisma.SettingCreateNestedManyWithoutAboutImageInput
+  ogImages?: Prisma.SettingCreateNestedManyWithoutOgImageInput
+  favicon?: Prisma.SettingCreateNestedManyWithoutFaviconInput
   userAvatar?: Prisma.UserCreateNestedManyWithoutAvatarInput
   achievementImages?: Prisma.AchievementCreateNestedManyWithoutImageInput
 }
@@ -1534,6 +2056,9 @@ export type AssetUncheckedCreateWithoutResearchPdfsInput = {
   researchCovers?: Prisma.ResearchUncheckedCreateNestedManyWithoutCoverImageInput
   profileImage?: Prisma.SettingUncheckedCreateNestedManyWithoutProfileImageInput
   resumeFile?: Prisma.SettingUncheckedCreateNestedManyWithoutResumeInput
+  aboutImage?: Prisma.SettingUncheckedCreateNestedManyWithoutAboutImageInput
+  ogImages?: Prisma.SettingUncheckedCreateNestedManyWithoutOgImageInput
+  favicon?: Prisma.SettingUncheckedCreateNestedManyWithoutFaviconInput
   userAvatar?: Prisma.UserUncheckedCreateNestedManyWithoutAvatarInput
   achievementImages?: Prisma.AchievementUncheckedCreateNestedManyWithoutImageInput
 }
@@ -1574,6 +2099,9 @@ export type AssetUpdateWithoutResearchCoversInput = {
   researchPdfs?: Prisma.ResearchUpdateManyWithoutPdfAssetNestedInput
   profileImage?: Prisma.SettingUpdateManyWithoutProfileImageNestedInput
   resumeFile?: Prisma.SettingUpdateManyWithoutResumeNestedInput
+  aboutImage?: Prisma.SettingUpdateManyWithoutAboutImageNestedInput
+  ogImages?: Prisma.SettingUpdateManyWithoutOgImageNestedInput
+  favicon?: Prisma.SettingUpdateManyWithoutFaviconNestedInput
   userAvatar?: Prisma.UserUpdateManyWithoutAvatarNestedInput
   achievementImages?: Prisma.AchievementUpdateManyWithoutImageNestedInput
 }
@@ -1598,6 +2126,9 @@ export type AssetUncheckedUpdateWithoutResearchCoversInput = {
   researchPdfs?: Prisma.ResearchUncheckedUpdateManyWithoutPdfAssetNestedInput
   profileImage?: Prisma.SettingUncheckedUpdateManyWithoutProfileImageNestedInput
   resumeFile?: Prisma.SettingUncheckedUpdateManyWithoutResumeNestedInput
+  aboutImage?: Prisma.SettingUncheckedUpdateManyWithoutAboutImageNestedInput
+  ogImages?: Prisma.SettingUncheckedUpdateManyWithoutOgImageNestedInput
+  favicon?: Prisma.SettingUncheckedUpdateManyWithoutFaviconNestedInput
   userAvatar?: Prisma.UserUncheckedUpdateManyWithoutAvatarNestedInput
   achievementImages?: Prisma.AchievementUncheckedUpdateManyWithoutImageNestedInput
 }
@@ -1633,6 +2164,9 @@ export type AssetUpdateWithoutResearchPdfsInput = {
   researchCovers?: Prisma.ResearchUpdateManyWithoutCoverImageNestedInput
   profileImage?: Prisma.SettingUpdateManyWithoutProfileImageNestedInput
   resumeFile?: Prisma.SettingUpdateManyWithoutResumeNestedInput
+  aboutImage?: Prisma.SettingUpdateManyWithoutAboutImageNestedInput
+  ogImages?: Prisma.SettingUpdateManyWithoutOgImageNestedInput
+  favicon?: Prisma.SettingUpdateManyWithoutFaviconNestedInput
   userAvatar?: Prisma.UserUpdateManyWithoutAvatarNestedInput
   achievementImages?: Prisma.AchievementUpdateManyWithoutImageNestedInput
 }
@@ -1657,6 +2191,9 @@ export type AssetUncheckedUpdateWithoutResearchPdfsInput = {
   researchCovers?: Prisma.ResearchUncheckedUpdateManyWithoutCoverImageNestedInput
   profileImage?: Prisma.SettingUncheckedUpdateManyWithoutProfileImageNestedInput
   resumeFile?: Prisma.SettingUncheckedUpdateManyWithoutResumeNestedInput
+  aboutImage?: Prisma.SettingUncheckedUpdateManyWithoutAboutImageNestedInput
+  ogImages?: Prisma.SettingUncheckedUpdateManyWithoutOgImageNestedInput
+  favicon?: Prisma.SettingUncheckedUpdateManyWithoutFaviconNestedInput
   userAvatar?: Prisma.UserUncheckedUpdateManyWithoutAvatarNestedInput
   achievementImages?: Prisma.AchievementUncheckedUpdateManyWithoutImageNestedInput
 }
@@ -1681,6 +2218,9 @@ export type AssetCreateWithoutBlogCoversInput = {
   researchPdfs?: Prisma.ResearchCreateNestedManyWithoutPdfAssetInput
   profileImage?: Prisma.SettingCreateNestedManyWithoutProfileImageInput
   resumeFile?: Prisma.SettingCreateNestedManyWithoutResumeInput
+  aboutImage?: Prisma.SettingCreateNestedManyWithoutAboutImageInput
+  ogImages?: Prisma.SettingCreateNestedManyWithoutOgImageInput
+  favicon?: Prisma.SettingCreateNestedManyWithoutFaviconInput
   userAvatar?: Prisma.UserCreateNestedManyWithoutAvatarInput
   achievementImages?: Prisma.AchievementCreateNestedManyWithoutImageInput
 }
@@ -1705,6 +2245,9 @@ export type AssetUncheckedCreateWithoutBlogCoversInput = {
   researchPdfs?: Prisma.ResearchUncheckedCreateNestedManyWithoutPdfAssetInput
   profileImage?: Prisma.SettingUncheckedCreateNestedManyWithoutProfileImageInput
   resumeFile?: Prisma.SettingUncheckedCreateNestedManyWithoutResumeInput
+  aboutImage?: Prisma.SettingUncheckedCreateNestedManyWithoutAboutImageInput
+  ogImages?: Prisma.SettingUncheckedCreateNestedManyWithoutOgImageInput
+  favicon?: Prisma.SettingUncheckedCreateNestedManyWithoutFaviconInput
   userAvatar?: Prisma.UserUncheckedCreateNestedManyWithoutAvatarInput
   achievementImages?: Prisma.AchievementUncheckedCreateNestedManyWithoutImageInput
 }
@@ -1745,6 +2288,9 @@ export type AssetUpdateWithoutBlogCoversInput = {
   researchPdfs?: Prisma.ResearchUpdateManyWithoutPdfAssetNestedInput
   profileImage?: Prisma.SettingUpdateManyWithoutProfileImageNestedInput
   resumeFile?: Prisma.SettingUpdateManyWithoutResumeNestedInput
+  aboutImage?: Prisma.SettingUpdateManyWithoutAboutImageNestedInput
+  ogImages?: Prisma.SettingUpdateManyWithoutOgImageNestedInput
+  favicon?: Prisma.SettingUpdateManyWithoutFaviconNestedInput
   userAvatar?: Prisma.UserUpdateManyWithoutAvatarNestedInput
   achievementImages?: Prisma.AchievementUpdateManyWithoutImageNestedInput
 }
@@ -1769,6 +2315,9 @@ export type AssetUncheckedUpdateWithoutBlogCoversInput = {
   researchPdfs?: Prisma.ResearchUncheckedUpdateManyWithoutPdfAssetNestedInput
   profileImage?: Prisma.SettingUncheckedUpdateManyWithoutProfileImageNestedInput
   resumeFile?: Prisma.SettingUncheckedUpdateManyWithoutResumeNestedInput
+  aboutImage?: Prisma.SettingUncheckedUpdateManyWithoutAboutImageNestedInput
+  ogImages?: Prisma.SettingUncheckedUpdateManyWithoutOgImageNestedInput
+  favicon?: Prisma.SettingUncheckedUpdateManyWithoutFaviconNestedInput
   userAvatar?: Prisma.UserUncheckedUpdateManyWithoutAvatarNestedInput
   achievementImages?: Prisma.AchievementUncheckedUpdateManyWithoutImageNestedInput
 }
@@ -1794,6 +2343,9 @@ export type AssetCreateWithoutAchievementImagesInput = {
   researchPdfs?: Prisma.ResearchCreateNestedManyWithoutPdfAssetInput
   profileImage?: Prisma.SettingCreateNestedManyWithoutProfileImageInput
   resumeFile?: Prisma.SettingCreateNestedManyWithoutResumeInput
+  aboutImage?: Prisma.SettingCreateNestedManyWithoutAboutImageInput
+  ogImages?: Prisma.SettingCreateNestedManyWithoutOgImageInput
+  favicon?: Prisma.SettingCreateNestedManyWithoutFaviconInput
   userAvatar?: Prisma.UserCreateNestedManyWithoutAvatarInput
 }
 
@@ -1818,6 +2370,9 @@ export type AssetUncheckedCreateWithoutAchievementImagesInput = {
   researchPdfs?: Prisma.ResearchUncheckedCreateNestedManyWithoutPdfAssetInput
   profileImage?: Prisma.SettingUncheckedCreateNestedManyWithoutProfileImageInput
   resumeFile?: Prisma.SettingUncheckedCreateNestedManyWithoutResumeInput
+  aboutImage?: Prisma.SettingUncheckedCreateNestedManyWithoutAboutImageInput
+  ogImages?: Prisma.SettingUncheckedCreateNestedManyWithoutOgImageInput
+  favicon?: Prisma.SettingUncheckedCreateNestedManyWithoutFaviconInput
   userAvatar?: Prisma.UserUncheckedCreateNestedManyWithoutAvatarInput
 }
 
@@ -1858,6 +2413,9 @@ export type AssetUpdateWithoutAchievementImagesInput = {
   researchPdfs?: Prisma.ResearchUpdateManyWithoutPdfAssetNestedInput
   profileImage?: Prisma.SettingUpdateManyWithoutProfileImageNestedInput
   resumeFile?: Prisma.SettingUpdateManyWithoutResumeNestedInput
+  aboutImage?: Prisma.SettingUpdateManyWithoutAboutImageNestedInput
+  ogImages?: Prisma.SettingUpdateManyWithoutOgImageNestedInput
+  favicon?: Prisma.SettingUpdateManyWithoutFaviconNestedInput
   userAvatar?: Prisma.UserUpdateManyWithoutAvatarNestedInput
 }
 
@@ -1882,6 +2440,9 @@ export type AssetUncheckedUpdateWithoutAchievementImagesInput = {
   researchPdfs?: Prisma.ResearchUncheckedUpdateManyWithoutPdfAssetNestedInput
   profileImage?: Prisma.SettingUncheckedUpdateManyWithoutProfileImageNestedInput
   resumeFile?: Prisma.SettingUncheckedUpdateManyWithoutResumeNestedInput
+  aboutImage?: Prisma.SettingUncheckedUpdateManyWithoutAboutImageNestedInput
+  ogImages?: Prisma.SettingUncheckedUpdateManyWithoutOgImageNestedInput
+  favicon?: Prisma.SettingUncheckedUpdateManyWithoutFaviconNestedInput
   userAvatar?: Prisma.UserUncheckedUpdateManyWithoutAvatarNestedInput
 }
 
@@ -1899,6 +2460,9 @@ export type AssetCountOutputType = {
   researchPdfs: number
   profileImage: number
   resumeFile: number
+  aboutImage: number
+  ogImages: number
+  favicon: number
   userAvatar: number
   achievementImages: number
 }
@@ -1912,6 +2476,9 @@ export type AssetCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.
   researchPdfs?: boolean | AssetCountOutputTypeCountResearchPdfsArgs
   profileImage?: boolean | AssetCountOutputTypeCountProfileImageArgs
   resumeFile?: boolean | AssetCountOutputTypeCountResumeFileArgs
+  aboutImage?: boolean | AssetCountOutputTypeCountAboutImageArgs
+  ogImages?: boolean | AssetCountOutputTypeCountOgImagesArgs
+  favicon?: boolean | AssetCountOutputTypeCountFaviconArgs
   userAvatar?: boolean | AssetCountOutputTypeCountUserAvatarArgs
   achievementImages?: boolean | AssetCountOutputTypeCountAchievementImagesArgs
 }
@@ -1985,6 +2552,27 @@ export type AssetCountOutputTypeCountResumeFileArgs<ExtArgs extends runtime.Type
 /**
  * AssetCountOutputType without action
  */
+export type AssetCountOutputTypeCountAboutImageArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SettingWhereInput
+}
+
+/**
+ * AssetCountOutputType without action
+ */
+export type AssetCountOutputTypeCountOgImagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SettingWhereInput
+}
+
+/**
+ * AssetCountOutputType without action
+ */
+export type AssetCountOutputTypeCountFaviconArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SettingWhereInput
+}
+
+/**
+ * AssetCountOutputType without action
+ */
 export type AssetCountOutputTypeCountUserAvatarArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.UserWhereInput
 }
@@ -2018,6 +2606,9 @@ export type AssetSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   researchPdfs?: boolean | Prisma.Asset$researchPdfsArgs<ExtArgs>
   profileImage?: boolean | Prisma.Asset$profileImageArgs<ExtArgs>
   resumeFile?: boolean | Prisma.Asset$resumeFileArgs<ExtArgs>
+  aboutImage?: boolean | Prisma.Asset$aboutImageArgs<ExtArgs>
+  ogImages?: boolean | Prisma.Asset$ogImagesArgs<ExtArgs>
+  favicon?: boolean | Prisma.Asset$faviconArgs<ExtArgs>
   userAvatar?: boolean | Prisma.Asset$userAvatarArgs<ExtArgs>
   achievementImages?: boolean | Prisma.Asset$achievementImagesArgs<ExtArgs>
   _count?: boolean | Prisma.AssetCountOutputTypeDefaultArgs<ExtArgs>
@@ -2078,6 +2669,9 @@ export type AssetInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   researchPdfs?: boolean | Prisma.Asset$researchPdfsArgs<ExtArgs>
   profileImage?: boolean | Prisma.Asset$profileImageArgs<ExtArgs>
   resumeFile?: boolean | Prisma.Asset$resumeFileArgs<ExtArgs>
+  aboutImage?: boolean | Prisma.Asset$aboutImageArgs<ExtArgs>
+  ogImages?: boolean | Prisma.Asset$ogImagesArgs<ExtArgs>
+  favicon?: boolean | Prisma.Asset$faviconArgs<ExtArgs>
   userAvatar?: boolean | Prisma.Asset$userAvatarArgs<ExtArgs>
   achievementImages?: boolean | Prisma.Asset$achievementImagesArgs<ExtArgs>
   _count?: boolean | Prisma.AssetCountOutputTypeDefaultArgs<ExtArgs>
@@ -2096,6 +2690,9 @@ export type $AssetPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     researchPdfs: Prisma.$ResearchPayload<ExtArgs>[]
     profileImage: Prisma.$SettingPayload<ExtArgs>[]
     resumeFile: Prisma.$SettingPayload<ExtArgs>[]
+    aboutImage: Prisma.$SettingPayload<ExtArgs>[]
+    ogImages: Prisma.$SettingPayload<ExtArgs>[]
+    favicon: Prisma.$SettingPayload<ExtArgs>[]
     userAvatar: Prisma.$UserPayload<ExtArgs>[]
     achievementImages: Prisma.$AchievementPayload<ExtArgs>[]
   }
@@ -2514,6 +3111,9 @@ export interface Prisma__AssetClient<T, Null = never, ExtArgs extends runtime.Ty
   researchPdfs<T extends Prisma.Asset$researchPdfsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Asset$researchPdfsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ResearchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   profileImage<T extends Prisma.Asset$profileImageArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Asset$profileImageArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SettingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   resumeFile<T extends Prisma.Asset$resumeFileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Asset$resumeFileArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SettingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  aboutImage<T extends Prisma.Asset$aboutImageArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Asset$aboutImageArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SettingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  ogImages<T extends Prisma.Asset$ogImagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Asset$ogImagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SettingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  favicon<T extends Prisma.Asset$faviconArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Asset$faviconArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SettingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   userAvatar<T extends Prisma.Asset$userAvatarArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Asset$userAvatarArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   achievementImages<T extends Prisma.Asset$achievementImagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Asset$achievementImagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -3121,6 +3721,78 @@ export type Asset$profileImageArgs<ExtArgs extends runtime.Types.Extensions.Inte
  * Asset.resumeFile
  */
 export type Asset$resumeFileArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Setting
+   */
+  select?: Prisma.SettingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Setting
+   */
+  omit?: Prisma.SettingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SettingInclude<ExtArgs> | null
+  where?: Prisma.SettingWhereInput
+  orderBy?: Prisma.SettingOrderByWithRelationInput | Prisma.SettingOrderByWithRelationInput[]
+  cursor?: Prisma.SettingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SettingScalarFieldEnum | Prisma.SettingScalarFieldEnum[]
+}
+
+/**
+ * Asset.aboutImage
+ */
+export type Asset$aboutImageArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Setting
+   */
+  select?: Prisma.SettingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Setting
+   */
+  omit?: Prisma.SettingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SettingInclude<ExtArgs> | null
+  where?: Prisma.SettingWhereInput
+  orderBy?: Prisma.SettingOrderByWithRelationInput | Prisma.SettingOrderByWithRelationInput[]
+  cursor?: Prisma.SettingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SettingScalarFieldEnum | Prisma.SettingScalarFieldEnum[]
+}
+
+/**
+ * Asset.ogImages
+ */
+export type Asset$ogImagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Setting
+   */
+  select?: Prisma.SettingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Setting
+   */
+  omit?: Prisma.SettingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SettingInclude<ExtArgs> | null
+  where?: Prisma.SettingWhereInput
+  orderBy?: Prisma.SettingOrderByWithRelationInput | Prisma.SettingOrderByWithRelationInput[]
+  cursor?: Prisma.SettingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SettingScalarFieldEnum | Prisma.SettingScalarFieldEnum[]
+}
+
+/**
+ * Asset.favicon
+ */
+export type Asset$faviconArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Setting
    */

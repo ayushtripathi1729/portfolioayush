@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 
+
 interface SettingsFormProps {
   settings: {
     siteTitle: string;
@@ -23,13 +24,22 @@ interface SettingsFormProps {
     fullName: string;
     tagline: string;
     bio: string;
+    about: string;
     email: string;
     phone: string;
     location: string;
+
     profileImageId: string;
+    aboutImageId: string;
+    ogImageId: string;
+    faviconId: string;
+
     resumeAssetId: string;
   };
 }
+
+
+
 
 
 
@@ -37,10 +47,14 @@ export function SettingsForm({
   settings,
 }: SettingsFormProps) {
 
+
   const router = useRouter();
+
 
   const [serverError, setServerError] =
     useState("");
+
+
 
 
 
@@ -57,6 +71,7 @@ export function SettingsForm({
       zodResolver(
         updateSettingSchema
       ),
+
 
     defaultValues: {
 
@@ -75,6 +90,9 @@ export function SettingsForm({
       bio:
         settings.bio,
 
+      about:
+        settings.about,
+
       email:
         settings.email,
 
@@ -84,8 +102,22 @@ export function SettingsForm({
       location:
         settings.location,
 
+
       profileImageId:
         settings.profileImageId,
+
+
+      aboutImageId:
+        settings.aboutImageId,
+
+
+      ogImageId:
+        settings.ogImageId,
+
+
+      faviconId:
+        settings.faviconId,
+
 
       resumeAssetId:
         settings.resumeAssetId,
@@ -98,18 +130,26 @@ export function SettingsForm({
 
 
 
+
+
+
   async function onSubmit(
     values: UpdateSettingInput
   ) {
 
+
     setServerError("");
 
+
+
     try {
+
 
       const response =
         await fetch(
           "/api/settings",
           {
+
             method: "PUT",
 
             headers: {
@@ -119,8 +159,10 @@ export function SettingsForm({
 
             body:
               JSON.stringify(values),
+
           }
         );
+
 
 
 
@@ -129,12 +171,15 @@ export function SettingsForm({
 
 
 
+
       if (!response.ok) {
+
 
         setServerError(
           result.message ??
           "Failed to update settings."
         );
+
 
         return;
 
@@ -142,16 +187,22 @@ export function SettingsForm({
 
 
 
+
+
       router.refresh();
 
 
+
     } catch {
+
 
       setServerError(
         "Something went wrong."
       );
 
+
     }
+
 
   }
 
@@ -159,16 +210,40 @@ export function SettingsForm({
 
 
 
+
+
+
+
   return (
+
     <form
+
       onSubmit={
         handleSubmit(onSubmit)
       }
-      className="space-y-6 rounded-xl border p-6"
+
+      className="
+      space-y-8
+      rounded-xl
+      border
+      p-6
+      "
+
     >
 
 
-      <div className="grid gap-6 md:grid-cols-2">
+
+
+
+      <div
+        className="
+        grid
+        gap-6
+        md:grid-cols-2
+        "
+      >
+
+
 
 
         <div className="space-y-2">
@@ -177,17 +252,25 @@ export function SettingsForm({
             Site Title
           </Label>
 
+
           <Input
             {...register("siteTitle")}
+            placeholder="Ayush Tripathi Portfolio"
           />
 
+
           {errors.siteTitle && (
+
             <p className="text-sm text-destructive">
               {errors.siteTitle.message}
             </p>
+
           )}
 
         </div>
+
+
+
 
 
 
@@ -198,11 +281,17 @@ export function SettingsForm({
             Full Name
           </Label>
 
+
           <Input
             {...register("fullName")}
+            placeholder="Ayush Tripathi"
           />
 
         </div>
+
+
+
+
 
 
 
@@ -213,11 +302,27 @@ export function SettingsForm({
             Email
           </Label>
 
+
           <Input
+            type="email"
             {...register("email")}
+            placeholder="email@example.com"
           />
 
+
+          {errors.email && (
+
+            <p className="text-sm text-destructive">
+              {errors.email.message}
+            </p>
+
+          )}
+
         </div>
+
+
+
+
 
 
 
@@ -228,11 +333,17 @@ export function SettingsForm({
             Phone
           </Label>
 
+
           <Input
             {...register("phone")}
+            placeholder="+91 XXXXX XXXXX"
           />
 
         </div>
+
+
+
+
 
 
 
@@ -243,8 +354,10 @@ export function SettingsForm({
             Location
           </Label>
 
+
           <Input
             {...register("location")}
+            placeholder="Prayagraj, India"
           />
 
         </div>
@@ -252,14 +365,20 @@ export function SettingsForm({
 
 
 
+
+
+
+
         <div className="space-y-2">
 
           <Label>
-            Tagline
+            Hero Tagline
           </Label>
+
 
           <Input
             {...register("tagline")}
+            placeholder="Competitive Programmer | Cybersecurity Analyst"
           />
 
         </div>
@@ -271,18 +390,42 @@ export function SettingsForm({
 
 
 
+
+
+
+
       <div className="space-y-2">
+
 
         <Label>
           Site Description
         </Label>
 
+
         <textarea
+
           {...register("siteDescription")}
-          className="min-h-24 w-full rounded-lg border bg-transparent px-3 py-2 text-sm"
+
+          className="
+          min-h-28
+          w-full
+          rounded-lg
+          border
+          bg-transparent
+          px-3
+          py-2
+          text-sm
+          outline-none
+          "
+
         />
 
+
       </div>
+
+
+
+
 
 
 
@@ -290,53 +433,137 @@ export function SettingsForm({
 
       <div className="space-y-2">
 
+
         <Label>
-          Bio
+          Hero Bio
         </Label>
 
+
         <textarea
+
           {...register("bio")}
-          className="min-h-40 w-full rounded-lg border bg-transparent px-3 py-2 text-sm"
+
+          className="
+          min-h-36
+          w-full
+          rounded-lg
+          border
+          bg-transparent
+          px-3
+          py-2
+          text-sm
+          outline-none
+          "
+
         />
 
+
+      </div>
+
+
+
+
+
+
+
+
+
+      <div className="space-y-2">
+
+
+        <Label>
+          About Section
+        </Label>
+
+
+        <textarea
+
+          {...register("about")}
+
+          className="
+          min-h-60
+          w-full
+          rounded-lg
+          border
+          bg-transparent
+          px-3
+          py-2
+          text-sm
+          outline-none
+          "
+
+          placeholder="
+          Detailed story about yourself, education, interests, journey and expertise.
+          "
+
+        />
+
+
       </div>
 
 
 
 
 
-      <div className="grid gap-6 md:grid-cols-2">
-
-
-        <div className="space-y-2">
-
-          <Label>
-            Profile Image Asset ID
-          </Label>
-
-          <Input
-            {...register("profileImageId")}
-          />
-
-        </div>
 
 
 
 
-        <div className="space-y-2">
+      <div
+        className="
+        grid
+        gap-6
+        md:grid-cols-2
+        "
+      >
 
-          <Label>
-            Resume Asset ID
-          </Label>
 
-          <Input
-            {...register("resumeAssetId")}
-          />
 
-        </div>
+
+        <AssetInput
+          label="Profile Image Asset ID"
+          register={register}
+          name="profileImageId"
+        />
+
+
+
+        <AssetInput
+          label="About Page Image Asset ID"
+          register={register}
+          name="aboutImageId"
+        />
+
+
+
+        <AssetInput
+          label="OG Image Asset ID"
+          register={register}
+          name="ogImageId"
+        />
+
+
+
+        <AssetInput
+          label="Favicon Asset ID"
+          register={register}
+          name="faviconId"
+        />
+
+
+
+        <AssetInput
+          label="Resume Asset ID"
+          register={register}
+          name="resumeAssetId"
+        />
 
 
       </div>
+
+
+
+
 
 
 
@@ -344,7 +571,15 @@ export function SettingsForm({
 
       {serverError && (
 
-        <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">
+        <div
+          className="
+          rounded-md
+          bg-destructive/10
+          p-3
+          text-sm
+          text-destructive
+          "
+        >
 
           {serverError}
 
@@ -356,17 +591,31 @@ export function SettingsForm({
 
 
 
+
+
+
+
       <Button
         type="submit"
         disabled={isSubmitting}
       >
 
+
         {isSubmitting ? (
 
           <>
-            <Loader2 className="size-4 animate-spin" />
+
+            <Loader2
+              className="
+              size-4
+              animate-spin
+              "
+            />
+
             Saving...
+
           </>
+
 
         ) : (
 
@@ -374,9 +623,63 @@ export function SettingsForm({
 
         )}
 
+
+
       </Button>
 
 
+
+
     </form>
+
   );
+
+}
+
+
+
+
+
+
+
+
+function AssetInput({
+  label,
+  register,
+  name,
+}: {
+  label: string;
+  register: ReturnType<typeof useForm<UpdateSettingInput>>["register"];
+  name:
+    | "profileImageId"
+    | "aboutImageId"
+    | "ogImageId"
+    | "faviconId"
+    | "resumeAssetId";
+}) {
+
+
+  return (
+
+    <div className="space-y-2">
+
+
+      <Label>
+        {label}
+      </Label>
+
+
+      <Input
+
+        {...register(name)}
+
+        placeholder="Asset ID"
+
+      />
+
+
+    </div>
+
+  );
+
 }

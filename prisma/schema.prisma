@@ -29,16 +29,23 @@ model Setting {
   fullName        String
   tagline         String?
   bio             String?
+  about           String?
   email           String?
   phone           String?
   location        String?
   profileImageId  String?
   resumeAssetId   String?
+  aboutImageId    String?
+  ogImageId       String?
+  faviconId       String?
   userId          String       @unique
   createdAt       DateTime     @default(now())
   updatedAt       DateTime     @updatedAt
   profileImage    Asset?       @relation("ProfileImage", fields: [profileImageId], references: [id])
   resume          Asset?       @relation("ResumeFile", fields: [resumeAssetId], references: [id])
+  aboutImage      Asset?       @relation("AboutImage", fields: [aboutImageId], references: [id])
+  ogImage         Asset?       @relation("OGImage", fields: [ogImageId], references: [id])
+  favicon         Asset?       @relation("Favicon", fields: [faviconId], references: [id])
   user            User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   socialLinks     SocialLink[]
 }
@@ -81,6 +88,9 @@ model Asset {
   researchPdfs      Research[]     @relation("ResearchPdf")
   profileImage      Setting[]      @relation("ProfileImage")
   resumeFile        Setting[]      @relation("ResumeFile")
+  aboutImage        Setting[]      @relation("AboutImage")
+  ogImages          Setting[]      @relation("OGImage")
+  favicon           Setting[]      @relation("Favicon")
   userAvatar        User[]         @relation("UserAvatar")
   achievementImages Achievement[]  @relation("AchievementImage")
 }
@@ -91,6 +101,7 @@ model SkillCategory {
   slug         String   @unique
   description  String?
   displayOrder Int      @default(0)
+  featured     Boolean  @default(false)
   visible      Boolean  @default(true)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
@@ -212,6 +223,7 @@ model Experience {
   description    String
   companyLogoId  String?
   displayOrder   Int       @default(0)
+  featured       Boolean   @default(false)
   visible        Boolean   @default(true)
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
@@ -304,6 +316,7 @@ model Achievement {
   credentialUrl String?
   imageId       String?
   displayOrder  Int       @default(0)
+  featured      Boolean   @default(false)
   visible       Boolean   @default(true)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
