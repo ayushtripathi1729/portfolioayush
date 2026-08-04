@@ -7,8 +7,21 @@ const globalForPrisma = globalThis as unknown as {
 };
 
 function createPrismaClient() {
+  // The application performs long-lived ORM queries. Use the direct Neon
+  // endpoint when it is configured: it is also the endpoint used for Prisma
+  // migrations and avoids failures from an unavailable pooled endpoint.
+  const connectionString =
+    process.env.DIRECT_URL ??
+    process.env.DATABASE_URL;
+
+  if (!connectionString) {
+    throw new Error(
+      "A DIRECT_URL or DATABASE_URL environment variable is required."
+    );
+  }
+
   const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
+    connectionString,
     // Prevent individual serverless instances from opening an unbounded
     // number of Neon connections while retaining useful request concurrency.
     max: 5,

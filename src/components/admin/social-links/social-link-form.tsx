@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,6 +9,7 @@ import { z } from "zod";
 
 import {
   createSocialLinkSchema,
+  socialPlatformValues,
 } from "@/validations/social-link.schema";
 
 import { Button } from "@/components/ui/button";
@@ -25,6 +26,33 @@ type SocialLinkFormValues =
 type SocialLinkFormInput =
   z.output<typeof socialLinkFormSchema>;
 
+const platformLabels: Record<(typeof socialPlatformValues)[number], string> = {
+  GITHUB: "GitHub",
+  LINKEDIN: "LinkedIn",
+  LEETCODE: "LeetCode",
+  CODEFORCES: "Codeforces",
+  CODECHEF: "CodeChef",
+  HACKERRANK: "HackerRank",
+  HACKERONE: "HackerOne",
+  TRYHACKME: "TryHackMe",
+  ROOTME: "RootMe",
+  HTB: "Hack The Box",
+  CTFTIME: "CTFtime",
+  INTIGRITI: "Intigriti",
+  BUGCROWD: "Bugcrowd",
+  KAGGLE: "Kaggle",
+  GOOGLE_SCHOLAR: "Google Scholar",
+  ORCID: "ORCID",
+  RESEARCHGATE: "ResearchGate",
+  MEDIUM: "Medium",
+  DEVTO: "DEV Community",
+  YOUTUBE: "YouTube",
+  X: "X",
+  INSTAGRAM: "Instagram",
+  FACEBOOK: "Facebook",
+  CUSTOM: "Custom",
+};
+
 
 
 export function SocialLinkForm() {
@@ -36,10 +64,14 @@ export function SocialLinkForm() {
   const [serverError, setServerError] =
     useState("");
 
+  const [usedPlatforms, setUsedPlatforms] =
+    useState<Set<string>>(new Set());
+
 
 
   const {
     register,
+    setValue,
     handleSubmit,
     formState: {
       errors,
@@ -74,6 +106,36 @@ export function SocialLinkForm() {
     },
 
   });
+
+  useEffect(() => {
+    async function loadUsedPlatforms() {
+      try {
+        const response = await fetch("/api/social-links");
+        const result = await response.json();
+
+        if (!response.ok || !result.success) {
+          return;
+        }
+
+        const used = new Set<string>(
+          result.data.map((link: { platform: string }) => link.platform)
+        );
+        setUsedPlatforms(used);
+
+        const nextPlatform = socialPlatformValues.find(
+          (platform) => !used.has(platform)
+        );
+
+        if (nextPlatform) {
+          setValue("platform", nextPlatform, { shouldValidate: true });
+        }
+      } catch {
+        // Creation still has server-side uniqueness validation as a fallback.
+      }
+    }
+
+    loadUsedPlatforms();
+  }, [setValue]);
 
 
 
@@ -194,44 +256,25 @@ export function SocialLinkForm() {
 
           >
 
-            <option value="GITHUB">
-              GitHub
-            </option>
-
-            <option value="LINKEDIN">
-              LinkedIn
-            </option>
-
-            <option value="LEETCODE">
-              LeetCode
-            </option>
-
-            <option value="CODEFORCES">
-              Codeforces
-            </option>
-
-            <option value="CODECHEF">
-              CodeChef
-            </option>
-
-            <option value="HACKERONE">
-              HackerOne
-            </option>
-
-            <option value="TRYHACKME">
-              TryHackMe
-            </option>
-
-            <option value="ROOTME">
-              RootMe
-            </option>
-
-            <option value="CUSTOM">
-              Custom
-            </option>
+            {socialPlatformValues.map((platform) => (
+              <option
+                key={platform}
+                value={platform}
+                disabled={usedPlatforms.has(platform)}
+              >
+                {platformLabels[platform]}
+                {usedPlatforms.has(platform) ? " (already added)" : ""}
+              </option>
+            ))}
 
 
           </select>
+
+          {errors.platform && (
+            <p className="text-sm text-destructive">
+              {errors.platform.message}
+            </p>
+          )}
 
 
         </div>
@@ -256,6 +299,12 @@ export function SocialLinkForm() {
 
           />
 
+          {errors.label && (
+            <p className="text-sm text-destructive">
+              {errors.label.message}
+            </p>
+          )}
+
 
         </div>
 
@@ -279,6 +328,12 @@ export function SocialLinkForm() {
             placeholder="username"
 
           />
+
+          {errors.username && (
+            <p className="text-sm text-destructive">
+              {errors.username.message}
+            </p>
+          )}
 
 
         </div>
@@ -308,6 +363,12 @@ export function SocialLinkForm() {
             )}
 
           />
+
+          {errors.displayOrder && (
+            <p className="text-sm text-destructive">
+              {errors.displayOrder.message}
+            </p>
+          )}
 
 
         </div>
