@@ -14,6 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { CreateSkillCategoryDialog } from "./create-skill-category-dialog";
 
 
 interface SkillCategory {
@@ -104,6 +105,7 @@ export function EditSkillForm({
 
   const {
     register,
+    setValue,
     handleSubmit,
     formState: {
       errors,
@@ -359,13 +361,12 @@ export function EditSkillForm({
         </Label>
 
 
-        <select
-          {...register("categoryId")}
-          disabled={
-            loadingCategories
-          }
-          className="h-9 w-full rounded-lg border bg-transparent px-3 text-sm"
-        >
+        <div className="flex gap-3">
+          <select
+            {...register("categoryId")}
+            disabled={loadingCategories}
+            className="h-9 flex-1 rounded-lg border bg-transparent px-3 text-sm"
+          >
 
           <option value="">
             Select category
@@ -387,7 +388,27 @@ export function EditSkillForm({
             )
           )}
 
-        </select>
+          </select>
+
+          <CreateSkillCategoryDialog
+            onCreated={(category) => {
+              setCategories((previous) => [
+                ...previous,
+                category,
+              ]);
+              setValue("categoryId", category.id, {
+                shouldDirty: true,
+                shouldValidate: true,
+              });
+            }}
+          />
+        </div>
+
+        {errors.categoryId && (
+          <p className="text-sm text-destructive">
+            {errors.categoryId.message}
+          </p>
+        )}
 
 
       </div>

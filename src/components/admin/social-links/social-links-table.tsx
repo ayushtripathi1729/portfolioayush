@@ -1,7 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import { Pencil, Trash2 } from "lucide-react";
+import { Loader2, Pencil, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
@@ -33,6 +34,11 @@ export function SocialLinksTable({
 
   const router = useRouter();
 
+  const [deletingId, setDeletingId] =
+    useState<string | null>(null);
+
+  const [error, setError] = useState("");
+
 
 
   async function deleteSocialLink(
@@ -48,15 +54,27 @@ export function SocialLinksTable({
     if (!confirmed) return;
 
 
-    await fetch(
-      `/api/social-links/${id}`,
-      {
-        method: "DELETE",
+    setDeletingId(id);
+    setError("");
+
+    try {
+      const response = await fetch(
+        `/api/social-links/${id}`,
+        { method: "DELETE" }
+      );
+      const result = await response.json();
+
+      if (!response.ok) {
+        setError(result.message ?? "Failed to delete social link.");
+        return;
       }
-    );
 
-
-    router.refresh();
+      router.refresh();
+    } catch {
+      setError("Unable to delete the social link. Please try again.");
+    } finally {
+      setDeletingId(null);
+    }
 
   }
 
@@ -77,6 +95,12 @@ export function SocialLinksTable({
 
   return (
     <div className="rounded-xl border">
+
+      {error && (
+        <p className="border-b bg-destructive/10 px-4 py-3 text-sm text-destructive">
+          {error}
+        </p>
+      )}
 
 
       <div className="overflow-x-auto">
@@ -208,12 +232,16 @@ export function SocialLinksTable({
                       <Button
                         variant="destructive"
                         size="icon"
+                        disabled={deletingId === link.id}
                         onClick={() =>
                           deleteSocialLink(link.id)
                         }
                       >
-
-                        <Trash2 className="size-4" />
+                        {deletingId === link.id ? (
+                          <Loader2 className="size-4 animate-spin" />
+                        ) : (
+                          <Trash2 className="size-4" />
+                        )}
 
                       </Button>
 

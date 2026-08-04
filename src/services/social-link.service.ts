@@ -89,7 +89,7 @@ export class SocialLinkService {
 
   async update(
     id: string,
-    data: Prisma.SocialLinkUpdateInput
+    data: Prisma.SocialLinkUncheckedUpdateInput
   ) {
 
 

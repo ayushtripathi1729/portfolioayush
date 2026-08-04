@@ -51,7 +51,7 @@ export class SocialLinkRepository {
 
   async update(
     id: string,
-    data: Prisma.SocialLinkUpdateInput
+    data: Prisma.SocialLinkUncheckedUpdateInput
   ) {
     return prisma.socialLink.update({
       where: {

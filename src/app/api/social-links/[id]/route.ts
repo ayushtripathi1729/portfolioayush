@@ -163,6 +163,16 @@ export async function GET(
 
     }
 
+    if ((error as { code?: string }).code === "P2002") {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "A social link for this platform already exists.",
+        },
+        { status: 409 }
+      );
+    }
+
 
 
 
@@ -381,6 +391,16 @@ return NextResponse.json(
 
 
 
+
+    if ((error as { code?: string }).code === "P2002") {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "A social link for this platform already exists.",
+        },
+        { status: 409 }
+      );
+    }
 
     console.error(
       "PUT /api/social-links/[id] error:",

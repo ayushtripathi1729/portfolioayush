@@ -78,7 +78,9 @@ export const createSocialLinkSchema = z.object({
 
 
 export const updateSocialLinkSchema =
-  createSocialLinkSchema.partial();
+  createSocialLinkSchema
+    .omit({ settingId: true })
+    .partial();
 
 
 

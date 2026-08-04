@@ -189,6 +189,15 @@ export function SkillForm() {
       ]
     );
 
+    setValue(
+      "categoryId",
+      category.id,
+      {
+        shouldDirty: true,
+        shouldValidate: true,
+      }
+    );
+
 
   }
 
@@ -202,6 +211,7 @@ export function SkillForm() {
 
   const {
     register,
+    setValue,
     handleSubmit,
     formState: {
       errors,

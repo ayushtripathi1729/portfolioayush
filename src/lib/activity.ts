@@ -1,4 +1,5 @@
 import { activityService } from "@/services/activity.service";
+import { revalidatePath } from "next/cache";
 
 
 type ActivityAction =
@@ -31,6 +32,10 @@ export async function logActivity(
   try {
 
     await activityService.create(data);
+
+    // Every CMS write logs an activity. Invalidate the public layout here so
+    // successful CMS changes are visible immediately instead of after ISR.
+    revalidatePath("/", "layout");
 
   } catch (error) {
 

@@ -1,7 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import { Pencil, Trash2 } from "lucide-react";
+import { Loader2, Pencil, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
@@ -26,6 +27,8 @@ export function AchievementTable({
 
 
   const router = useRouter();
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [error, setError] = useState("");
 
 
 
@@ -45,15 +48,27 @@ export function AchievementTable({
 
 
 
-    await fetch(
-      `/api/achievement/${id}`,
-      {
-        method: "DELETE",
+    setDeletingId(id);
+    setError("");
+
+    try {
+      const response = await fetch(
+        `/api/achievement/${id}`,
+        { method: "DELETE" }
+      );
+      const result = await response.json();
+
+      if (!response.ok) {
+        setError(result.message ?? "Failed to delete achievement.");
+        return;
       }
-    );
 
-
-    router.refresh();
+      router.refresh();
+    } catch {
+      setError("Unable to delete the achievement. Please try again.");
+    } finally {
+      setDeletingId(null);
+    }
 
   }
 
@@ -64,6 +79,12 @@ export function AchievementTable({
   return (
 
     <div className="rounded-xl border">
+
+      {error && (
+        <p className="border-b bg-destructive/10 px-4 py-3 text-sm text-destructive">
+          {error}
+        </p>
+      )}
 
       <div className="overflow-x-auto">
 
@@ -211,6 +232,7 @@ export function AchievementTable({
                       <Button
                         variant="destructive"
                         size="icon"
+                        disabled={deletingId === achievement.id}
                         onClick={() =>
                           deleteAchievement(
                             achievement.id
@@ -218,7 +240,11 @@ export function AchievementTable({
                         }
                       >
 
-                        <Trash2 className="size-4" />
+                        {deletingId === achievement.id ? (
+                          <Loader2 className="size-4 animate-spin" />
+                        ) : (
+                          <Trash2 className="size-4" />
+                        )}
 
                       </Button>
 
