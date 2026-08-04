@@ -6,6 +6,9 @@ export const AssetTypeEnum = z.enum([
   "IMAGE",
   "DOCUMENT",
   "PDF",
+  "VIDEO",
+  "AUDIO",
+  "OTHER",
 ]);
 
 

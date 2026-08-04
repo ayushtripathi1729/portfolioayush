@@ -91,7 +91,7 @@ export class BlogRepository {
 
   async update(
     id: string,
-    data: Prisma.BlogUpdateInput
+    data: Prisma.BlogUncheckedUpdateInput
   ) {
     return prisma.blog.update({
       where: {

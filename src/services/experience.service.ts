@@ -92,7 +92,7 @@ export class ExperienceService {
 
   async update(
     id: string,
-    data: Prisma.ExperienceUpdateInput
+    data: Prisma.ExperienceUncheckedUpdateInput
   ) {
 
 

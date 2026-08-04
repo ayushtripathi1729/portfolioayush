@@ -135,7 +135,7 @@ export class SkillService {
 
   async update(
     id: string,
-    data: Prisma.SkillUpdateInput
+    data: Prisma.SkillUncheckedUpdateInput
   ) {
 
 

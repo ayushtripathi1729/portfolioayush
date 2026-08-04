@@ -77,7 +77,7 @@ export class AchievementService {
 
   async update(
     id: string,
-    data: Prisma.AchievementUpdateInput
+    data: Prisma.AchievementUncheckedUpdateInput
   ) {
 
 

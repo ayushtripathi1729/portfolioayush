@@ -59,6 +59,8 @@ export function AchievementForm() {
 
       visible: true,
 
+      featured: false,
+
     },
 
   });
@@ -304,6 +306,21 @@ export function AchievementForm() {
 
 
 
+      <div className="flex gap-6">
+
+      <label className="flex items-center gap-2 text-sm">
+
+        <input
+          type="checkbox"
+          {...register("featured")}
+        />
+
+        Featured
+
+      </label>
+
+
+
       <label className="flex items-center gap-2 text-sm">
 
         <input
@@ -314,6 +331,8 @@ export function AchievementForm() {
         Visible
 
       </label>
+
+      </div>
 
 
 

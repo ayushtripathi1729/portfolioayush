@@ -137,7 +137,7 @@ export class ProjectRepository {
 
   async update(
     id: string,
-    data: Prisma.ProjectUpdateInput
+    data: Prisma.ProjectUncheckedUpdateInput
   ) {
     return prisma.project.update({
       where: {

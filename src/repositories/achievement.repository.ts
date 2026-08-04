@@ -98,7 +98,7 @@ export class AchievementRepository {
 
   async update(
     id: string,
-    data: Prisma.AchievementUpdateInput
+    data: Prisma.AchievementUncheckedUpdateInput
   ) {
 
     return prisma.achievement.update({

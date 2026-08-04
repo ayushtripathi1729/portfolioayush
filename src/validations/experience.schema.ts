@@ -51,6 +51,8 @@ const experienceFields = {
     .default(0),
 
   visible: z.boolean().default(true),
+
+  featured: z.boolean().default(false),
 };
 
 
@@ -117,6 +119,9 @@ export const updateExperienceSchema = z.object({
 
   visible:
     experienceFields.visible.optional(),
+
+  featured:
+    experienceFields.featured.optional(),
 });
 
 

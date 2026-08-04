@@ -75,7 +75,7 @@ export class ExperienceRepository {
 
   async update(
     id: string,
-    data: Prisma.ExperienceUpdateInput
+    data: Prisma.ExperienceUncheckedUpdateInput
   ) {
     return prisma.experience.update({
       where: {

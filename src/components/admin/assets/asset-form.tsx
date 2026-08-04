@@ -246,6 +246,18 @@ export function AssetForm() {
               PDF
             </option>
 
+            <option value="AUDIO">
+              Audio
+            </option>
+
+            <option value="VIDEO">
+              Video
+            </option>
+
+            <option value="OTHER">
+              Other
+            </option>
+
           </select>
 
 

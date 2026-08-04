@@ -369,6 +369,42 @@ export function ProjectForm() {
 
       <div className="flex gap-6">
 
+        <div className="space-y-2">
+
+          <Label>
+            Status
+          </Label>
+
+          <select
+            {...register("status")}
+            className="h-9 w-full rounded-lg border bg-transparent px-3 text-sm"
+          >
+            <option value="DRAFT">Draft</option>
+            <option value="PUBLISHED">Published</option>
+            <option value="ARCHIVED">Archived</option>
+          </select>
+
+        </div>
+
+        <div className="space-y-2">
+
+          <Label>
+            Display Order
+          </Label>
+
+          <Input
+            type="number"
+            {...register("displayOrder", { valueAsNumber: true })}
+          />
+
+        </div>
+
+      </div>
+
+
+
+      <div className="flex gap-6">
+
 
         <label className="flex items-center gap-2 text-sm">
 

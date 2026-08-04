@@ -129,6 +129,9 @@ export default async function EditAchievementPage({
           visible:
             achievement.visible,
 
+          featured:
+            achievement.featured,
+
         }}
 
       />

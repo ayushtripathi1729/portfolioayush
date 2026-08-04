@@ -54,6 +54,10 @@ export const createAchievementSchema = z.object({
     .boolean()
     .default(true),
 
+  featured: z
+    .boolean()
+    .default(false),
+
 });
 
 

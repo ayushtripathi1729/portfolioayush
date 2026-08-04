@@ -207,7 +207,7 @@ export class SkillRepository {
 
   async update(
     id: string,
-    data: Prisma.SkillUpdateInput
+    data: Prisma.SkillUncheckedUpdateInput
   ) {
 
     return prisma.skill.update({

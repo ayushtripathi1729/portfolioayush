@@ -109,7 +109,7 @@ export class BlogService {
 
   async update(
     id: string,
-    data: Prisma.BlogUpdateInput
+    data: Prisma.BlogUncheckedUpdateInput
   ) {
 
 

@@ -99,7 +99,7 @@ export class ProjectService {
 
   async update(
     id: string,
-    data: Prisma.ProjectUpdateInput
+    data: Prisma.ProjectUncheckedUpdateInput
   ) {
 
 

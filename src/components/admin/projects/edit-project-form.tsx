@@ -439,6 +439,27 @@ export function EditProjectForm({
 
 
 
+      <div className="space-y-2">
+
+        <Label>
+          Display Order
+        </Label>
+
+        <Input
+          type="number"
+          {...register("displayOrder", { valueAsNumber: true })}
+        />
+
+        {errors.displayOrder && (
+          <p className="text-sm text-destructive">
+            {errors.displayOrder.message}
+          </p>
+        )}
+
+      </div>
+
+
+
 
 
       <div className="flex gap-6">

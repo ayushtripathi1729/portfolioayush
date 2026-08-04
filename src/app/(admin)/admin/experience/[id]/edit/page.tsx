@@ -116,6 +116,9 @@ export default async function EditExperiencePage({
 
           visible:
             experience.visible,
+
+          featured:
+            experience.featured,
         }}
       />
 

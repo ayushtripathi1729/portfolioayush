@@ -92,7 +92,7 @@ export class ResearchRepository {
 
   async update(
     id: string,
-    data: Prisma.ResearchUpdateInput
+    data: Prisma.ResearchUncheckedUpdateInput
   ) {
     return prisma.research.update({
       where: {

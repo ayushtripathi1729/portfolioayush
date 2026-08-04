@@ -107,7 +107,7 @@ export class ResearchService {
 
   async update(
     id: string,
-    data: Prisma.ResearchUpdateInput
+    data: Prisma.ResearchUncheckedUpdateInput
   ) {
 
 

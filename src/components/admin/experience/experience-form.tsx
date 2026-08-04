@@ -65,6 +65,8 @@ export function ExperienceForm() {
 
       visible: true,
 
+      featured: false,
+
     },
 
   });
@@ -443,6 +445,18 @@ export function ExperienceForm() {
 
 
       <div className="flex gap-6">
+
+
+        <label className="flex items-center gap-2 text-sm">
+
+          <input
+            type="checkbox"
+            {...register("featured")}
+          />
+
+          Featured
+
+        </label>
 
 
         <label className="flex items-center gap-2 text-sm">
