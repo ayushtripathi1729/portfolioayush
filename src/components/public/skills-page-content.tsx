@@ -282,9 +282,9 @@ export function SkillsPageContent({
         <div
 
           className="
-          grid
+          columns-1
           gap-8
-          lg:grid-cols-2
+          lg:columns-2
           "
 
         >
@@ -309,6 +309,10 @@ export function SkillsPageContent({
 
                   className="
                   group
+                  mb-8
+                  inline-block
+                  w-full
+                  break-inside-avoid
                   rounded-3xl
                   border
                   bg-card
@@ -333,6 +337,7 @@ export function SkillsPageContent({
                     flex
                     items-center
                     justify-between
+                    gap-3
                     "
 
                   >
@@ -350,6 +355,25 @@ export function SkillsPageContent({
                     >
 
                       {String(index + 1).padStart(2,"0")}
+
+                    </span>
+
+
+                    <span
+
+                      className="
+                      rounded-full
+                      bg-muted
+                      px-3
+                      py-1
+                      text-xs
+                      font-medium
+                      text-muted-foreground
+                      "
+
+                    >
+
+                      {category.skills.length} {category.skills.length === 1 ? "skill" : "skills"}
 
                     </span>
 
