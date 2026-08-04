@@ -284,9 +284,10 @@ export function SkillsSection({
 
                     className="
                     mt-6
-                    flex
-                    flex-wrap
+                    grid
+                    grid-cols-1
                     gap-3
+                    sm:grid-cols-2
                     "
 
                   >
@@ -309,7 +310,7 @@ export function SkillsSection({
                             flex
                             items-center
                             gap-2
-                            rounded-full
+                            rounded-xl
                             border
                             border-border
                             px-4
@@ -318,6 +319,7 @@ export function SkillsSection({
                             transition
                             hover:border-primary
                             hover:bg-muted
+                            last:odd:sm:col-span-2
                             "
 
                           >

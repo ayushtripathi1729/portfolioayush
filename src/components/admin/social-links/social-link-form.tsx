@@ -9,7 +9,6 @@ import { z } from "zod";
 
 import {
   createSocialLinkSchema,
-  type CreateSocialLinkInput,
 } from "@/validations/social-link.schema";
 
 import { Button } from "@/components/ui/button";
@@ -17,8 +16,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 
+const socialLinkFormSchema =
+  createSocialLinkSchema.omit({ settingId: true });
+
 type SocialLinkFormValues =
-  z.input<typeof createSocialLinkSchema>;
+  z.input<typeof socialLinkFormSchema>;
+
+type SocialLinkFormInput =
+  z.output<typeof socialLinkFormSchema>;
 
 
 
@@ -43,12 +48,12 @@ export function SocialLinkForm() {
   } = useForm<
     SocialLinkFormValues,
     unknown,
-    CreateSocialLinkInput
+    SocialLinkFormInput
   >({
 
     resolver:
       zodResolver(
-        createSocialLinkSchema
+        socialLinkFormSchema
       ),
 
 
@@ -66,8 +71,6 @@ export function SocialLinkForm() {
 
       displayOrder: 0,
 
-      settingId: "",
-
     },
 
   });
@@ -78,7 +81,7 @@ export function SocialLinkForm() {
 
 
   async function onSubmit(
-    values: CreateSocialLinkInput
+    values: SocialLinkFormInput
   ) {
 
 

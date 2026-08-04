@@ -528,15 +528,13 @@ export class PortfolioRepository {
 
 
 
-      // FEATURED SKILLS ONLY
+      // Show every visible skill on the homepage so each category is complete.
 
       prisma.skillCategory.findMany({
 
         where: {
 
           visible: true,
-
-          featured: true,
 
         },
 
@@ -555,8 +553,6 @@ export class PortfolioRepository {
             where: {
 
               visible: true,
-
-              featured: true,
 
             },
 

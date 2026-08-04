@@ -439,7 +439,10 @@ export function SkillsPageContent({
 
                     className="
                     mt-8
-                    space-y-3
+                    grid
+                    grid-cols-1
+                    gap-3
+                    sm:grid-cols-2
                     "
 
                   >
@@ -470,6 +473,7 @@ export function SkillsPageContent({
                             py-3
                             transition
                             hover:bg-muted/40
+                            last:odd:sm:col-span-2
                             "
 
                           >
