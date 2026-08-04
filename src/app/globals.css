@@ -327,6 +327,13 @@
   text-wrap: balance;
 }
 
+/* Keep portfolio prose easy to scan across every public page. Headings and
+   navigation remain untouched; this applies only to paragraph content. */
+.public-site main p {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
 
 
 
