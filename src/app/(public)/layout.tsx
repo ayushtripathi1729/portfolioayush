@@ -119,6 +119,7 @@ export default async function PublicLayout({
 
     <div
       className="
+      public-site
       min-h-screen
       flex
       flex-col

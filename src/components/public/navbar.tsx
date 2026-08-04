@@ -121,7 +121,8 @@ export function Navbar() {
         h-20
         items-center
         justify-between
-        px-8
+        px-6
+        sm:px-8
         lg:px-16
         "
 
@@ -364,6 +365,10 @@ export function Navbar() {
               setOpen(!open)
             }
 
+            aria-label={open ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={open}
+            aria-controls="mobile-navigation"
+
 
             className="
             rounded-lg
@@ -431,6 +436,7 @@ export function Navbar() {
 
 
           <nav
+            id="mobile-navigation"
 
             className="
             border-t
@@ -462,7 +468,9 @@ export function Navbar() {
 
 
                     const active =
-                      pathname === item.href;
+                      item.href === "/"
+                        ? pathname === "/"
+                        : pathname.startsWith(item.href);
 
 
 

@@ -9,6 +9,10 @@ export function SectionTitle({
   description,
 }: SectionTitleProps) {
 
+  const words = title.trim().split(/\s+/);
+  const accent = words.pop();
+  const neutralTitle = words.join(" ");
+
   return (
     <div
       className="
@@ -58,7 +62,8 @@ export function SectionTitle({
         md:text-5xl
         "
       >
-        {title}
+        {neutralTitle && `${neutralTitle} `}
+        <span className="text-primary">{accent}</span>
       </h2>
 
 

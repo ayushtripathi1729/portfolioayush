@@ -120,7 +120,7 @@ export function ProjectDetailContent({
 
         >
 
-          {project.title}
+          <AccentTitle title={project.title} />
 
         </h1>
 
@@ -679,4 +679,11 @@ export function ProjectDetailContent({
 
   );
 
+}
+
+function AccentTitle({ title }: { title: string }) {
+  const words = title.trim().split(/\s+/);
+  const accent = words.pop();
+
+  return <>{words.join(" ") && `${words.join(" ")} `}<span className="text-primary">{accent}</span></>;
 }

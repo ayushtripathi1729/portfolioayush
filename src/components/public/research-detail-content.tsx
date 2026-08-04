@@ -97,7 +97,7 @@ export function ResearchDetailContent({
 
         >
 
-          {research.title}
+          <AccentTitle title={research.title} />
 
         </h1>
 
@@ -644,4 +644,11 @@ function InfoCard({
 
   );
 
+}
+
+function AccentTitle({ title }: { title: string }) {
+  const words = title.trim().split(/\s+/);
+  const accent = words.pop();
+
+  return <>{words.join(" ") && `${words.join(" ")} `}<span className="text-primary">{accent}</span></>;
 }

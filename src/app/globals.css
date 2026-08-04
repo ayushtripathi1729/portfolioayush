@@ -293,6 +293,40 @@
 
 }
 
+/* Public portfolio visual system: keep the application UI neutral while giving
+   the portfolio its precise violet research/engineering signature. */
+.public-site {
+  --primary: oklch(0.52 0.2 292);
+  --primary-foreground: oklch(0.99 0 0);
+  --ring: oklch(0.62 0.18 292);
+}
+
+.dark .public-site {
+  --primary: oklch(0.76 0.16 292);
+  --primary-foreground: oklch(0.18 0.03 292);
+  --ring: oklch(0.7 0.16 292);
+}
+
+.public-site :is(input, textarea, select) {
+  border-color: color-mix(in oklab, var(--primary) 18%, var(--border));
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.public-site :is(input, textarea, select):focus-visible {
+  border-color: color-mix(in oklab, var(--primary) 62%, var(--border));
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 15%, transparent);
+}
+
+.public-site article {
+  border-color: color-mix(in oklab, var(--foreground) 10%, var(--border));
+}
+
+.public-site h1,
+.public-site h2,
+.public-site h3 {
+  text-wrap: balance;
+}
+
 
 
 
