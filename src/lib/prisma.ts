@@ -6,22 +6,27 @@ const globalForPrisma = globalThis as unknown as {
   prisma?: PrismaClient;
 };
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-});
+function createPrismaClient() {
+  const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    // Prevent individual serverless instances from opening an unbounded
+    // number of Neon connections while retaining useful request concurrency.
+    max: 5,
+    idleTimeoutMillis: 30_000,
+    connectionTimeoutMillis: 10_000,
+  });
 
-const adapter = new PrismaPg(pool);
-
-export const prisma =
-  globalForPrisma.prisma ??
-  new PrismaClient({
-    adapter,
+  return new PrismaClient({
+    adapter: new PrismaPg(pool),
     log:
       process.env.NODE_ENV === "development"
         ? ["query", "warn", "error"]
         : ["error"],
   });
-
-if (process.env.NODE_ENV !== "production") {
-  globalForPrisma.prisma = prisma;
 }
+
+export const prisma =
+  globalForPrisma.prisma ??
+  createPrismaClient();
+
+globalForPrisma.prisma = prisma;

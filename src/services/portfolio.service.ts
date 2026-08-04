@@ -106,6 +106,11 @@ export class PortfolioService {
   }
 
 
+  async getSiteMetadata() {
+    return getSiteMetadata();
+  }
+
+
 
 
 
@@ -132,3 +137,7 @@ const getHomepagePortfolio = cache(async (): Promise<PortfolioData> => {
   const portfolio = await portfolioRepository.getHomepagePortfolio();
   return portfolioService.transformPortfolio(portfolio);
 });
+
+const getSiteMetadata = cache(async () =>
+  portfolioRepository.getSiteMetadata()
+);

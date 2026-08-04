@@ -14,13 +14,8 @@ export const revalidate = 300;
 export async function generateMetadata() {
 
 
-  const portfolio =
-    await portfolioService.getPortfolio();
-
-
-
   const setting =
-    portfolio.setting;
+    await portfolioService.getSiteMetadata();
 
 
 

@@ -5,6 +5,29 @@ import { prisma } from "@/lib/prisma";
 export class PortfolioRepository {
 
 
+  async getSiteMetadata() {
+    return prisma.setting.findFirst({
+      select: {
+        siteTitle: true,
+        siteDescription: true,
+        favicon: {
+          select: {
+            url: true,
+          },
+        },
+        ogImage: {
+          select: {
+            url: true,
+            width: true,
+            height: true,
+            altText: true,
+          },
+        },
+      },
+    });
+  }
+
+
 
 
 
@@ -17,6 +40,12 @@ export class PortfolioRepository {
         include: {
 
           profileImage: true,
+
+          aboutImage: true,
+
+          favicon: true,
+
+          ogImage: true,
 
           resume: true,
 
@@ -436,6 +465,12 @@ export class PortfolioRepository {
         include: {
 
           profileImage: true,
+
+          aboutImage: true,
+
+          favicon: true,
+
+          ogImage: true,
 
           resume: true,
 
