@@ -60,7 +60,7 @@ export function HeroSection({ setting }: HeroSectionProps) {
             <a href="https://github.com/ayushtripathi1729" target="_blank" rel="noopener noreferrer" className="rounded-full border px-6 py-3 text-sm font-medium transition-colors hover:bg-muted">
               GitHub
             </a>
-            <a href="#contact" className="rounded-full border px-6 py-3 text-sm font-medium transition-colors hover:bg-muted">
+            <a href="/contact" className="rounded-full border px-6 py-3 text-sm font-medium transition-colors hover:bg-muted">
               Contact
             </a>
           </div>
