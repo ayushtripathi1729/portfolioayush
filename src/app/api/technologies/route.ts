@@ -20,25 +20,17 @@ import {
 } from "@/lib/auth-guard";
 
 
-import {
-  logActivity,
-} from "@/lib/activity";
-
-
-
-
-
-
-
-
-
 export async function GET() {
 
 
   try {
 
 
-    const technologies =
+
+
+    await requireAuth();
+
+const technologies =
       await technologyService.getAll();
 
 
@@ -58,6 +50,28 @@ export async function GET() {
 
 
   } catch (error) {
+
+
+    if (
+      error instanceof UnauthorizedError
+    ) {
+
+
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Unauthorized.",
+        },
+        {
+          status: 401,
+        }
+      );
+
+
+    }
+
+
 
 
     console.error(
@@ -158,36 +172,7 @@ export async function POST(
         validation.data
       );
 
-
-
-
-
-
-
-
-    await logActivity({
-
-      action:
-        "CREATE",
-
-      entity:
-        "Technology",
-
-      entityId:
-        technology.id,
-
-      description:
-        `Created technology: ${technology.name}`,
-
-    });
-
-
-
-
-
-
-
-    return NextResponse.json(
+return NextResponse.json(
       {
         success: true,
         data: technology,

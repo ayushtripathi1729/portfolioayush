@@ -18,18 +18,10 @@ import {
   requireAuth,
   UnauthorizedError,
 } from "@/lib/auth-guard";
-
-
 import {
-  logActivity,
-} from "@/lib/activity";
-
-
-
-
-
-
-
+  getClientIp,
+  getUserAgent,
+} from "@/lib/request";
 
 
 export async function POST(
@@ -53,15 +45,11 @@ export async function POST(
         ...body,
 
         ipAddress:
-          request.headers.get(
-            "x-forwarded-for"
-          ) ?? null,
+          getClientIp(request),
 
 
         userAgent:
-          request.headers.get(
-            "user-agent"
-          ) ?? null,
+          getUserAgent(request),
 
       });
 
@@ -112,29 +100,7 @@ export async function POST(
     // Contact messages are public submissions.
     // Log only creation, no authentication required.
 
-    await logActivity({
-
-      action:
-        "CREATE",
-
-      entity:
-        "ContactMessage",
-
-      entityId:
-        message.id,
-
-      description:
-        `New contact message received from ${message.name}`,
-
-    });
-
-
-
-
-
-
-
-    return NextResponse.json(
+return NextResponse.json(
       {
         success: true,
         data: message,

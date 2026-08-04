@@ -52,7 +52,7 @@ export function BlogSection({
         h-96
         w-96
         rounded-full
-        bg-violet-500/10
+        bg-primary/10
         blur-3xl
         "
       />
@@ -132,7 +132,7 @@ export function BlogSection({
                   transition-all
                   duration-300
                   hover:-translate-y-1
-                  hover:border-violet-400/50
+                  hover:border-primary/50
                   hover:shadow-lg
                   "
 
@@ -207,7 +207,7 @@ export function BlogSection({
                     leading-snug
                     tracking-tight
                     transition
-                    group-hover:text-violet-600
+                    group-hover:text-primary
                     "
                   >
 

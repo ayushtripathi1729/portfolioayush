@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
 
+import { isTokenInactive } from "@/lib/auth-session";
+
 
 export async function proxy(
   request: NextRequest
@@ -36,7 +38,10 @@ export async function proxy(
     !isPublicContactPost;
 
   const isExpired =
-    token?.expired === true;
+    token?.expired === true ||
+    isTokenInactive(
+      token?.lastActivity
+    );
 
 
   // Protect admin routes
@@ -63,7 +68,7 @@ export async function proxy(
 
 
   // Prevent logged-in users from seeing login page again
-  if (isLoginRoute && token) {
+  if (isLoginRoute && token && !isExpired) {
     const adminUrl =
       new URL("/admin", request.url);
 

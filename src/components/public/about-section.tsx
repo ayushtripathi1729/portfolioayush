@@ -47,7 +47,7 @@ export function AboutSection({
         h-96
         w-96
         rounded-full
-        bg-violet-500/10
+        bg-primary/10
         blur-3xl
         "
       />
@@ -90,7 +90,7 @@ export function AboutSection({
               text-xs
               uppercase
               tracking-[0.35em]
-              text-violet-600
+              text-primary
               "
             >
               About Me
@@ -116,7 +116,7 @@ export function AboutSection({
               mt-6
               h-px
               w-32
-              bg-violet-500
+              bg-primary
               "
             />
 

@@ -25,18 +25,6 @@ import {
 } from "@/lib/auth-guard";
 
 
-import {
-  logActivity,
-} from "@/lib/activity";
-
-
-
-
-
-
-
-
-
 interface RouteContext {
 
   params: Promise<{
@@ -354,36 +342,7 @@ export async function PUT(
         validation.data
       );
 
-
-
-
-
-
-
-
-    await logActivity({
-
-      action:
-        "UPDATE",
-
-      entity:
-        "SocialLink",
-
-      entityId:
-        link.id,
-
-      description:
-        `Updated social link: ${link.platform}`,
-
-    });
-
-
-
-
-
-
-
-    return NextResponse.json(
+return NextResponse.json(
       {
         success: true,
         data: link,
@@ -549,36 +508,7 @@ export async function DELETE(
 
     await socialLinkService.delete(id);
 
-
-
-
-
-
-
-
-    await logActivity({
-
-      action:
-        "DELETE",
-
-      entity:
-        "SocialLink",
-
-      entityId:
-        id,
-
-      description:
-        `Deleted social link: ${existingLink.platform}`,
-
-    });
-
-
-
-
-
-
-
-    return NextResponse.json(
+return NextResponse.json(
       {
         success: true,
         message:

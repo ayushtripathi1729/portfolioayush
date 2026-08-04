@@ -104,7 +104,7 @@ export function BlogPageContent({
           text-sm
           uppercase
           tracking-[0.4em]
-          text-violet-600
+          text-primary
           "
 
         >
@@ -139,7 +139,7 @@ export function BlogPageContent({
           experiments
           <span
             className="
-            text-violet-600
+            text-primary
             "
           >
             {" "}and ideas.
@@ -505,7 +505,7 @@ function BlogCard({
             text-2xl
             font-semibold
             transition
-            hover:text-violet-600
+            hover:text-primary
             "
 
           >

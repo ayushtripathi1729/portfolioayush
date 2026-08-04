@@ -14,18 +14,6 @@ import {
 } from "@/lib/auth-guard";
 
 
-import {
-  logActivity,
-} from "@/lib/activity";
-
-
-
-
-
-
-
-
-
 interface RouteParams {
 
   params: Promise<{
@@ -51,7 +39,7 @@ export async function DELETE(
   try {
 
 
-    await requireAuth();
+    const session = await requireAuth();
 
 
 
@@ -59,6 +47,16 @@ export async function DELETE(
 
     const { id } =
       await params;
+
+    if (id === session.user.id) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "You cannot delete your own account.",
+        },
+        { status: 400 }
+      );
+    }
 
 
 
@@ -97,36 +95,7 @@ export async function DELETE(
 
     await userService.delete(id);
 
-
-
-
-
-
-
-
-    await logActivity({
-
-      action:
-        "DELETE",
-
-      entity:
-        "User",
-
-      entityId:
-        id,
-
-      description:
-        `Deleted user: ${user.name}`,
-
-    });
-
-
-
-
-
-
-
-    return NextResponse.json(
+return NextResponse.json(
       {
         success: true,
         message:
@@ -159,6 +128,19 @@ export async function DELETE(
       );
 
 
+    }
+
+    if (
+      error instanceof Error &&
+      error.message === "LAST_USER"
+    ) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "The final administrator account cannot be deleted.",
+        },
+        { status: 409 }
+      );
     }
 
 

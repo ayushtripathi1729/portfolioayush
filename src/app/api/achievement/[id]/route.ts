@@ -20,14 +20,6 @@ import {
 } from "@/lib/auth-guard";
 
 
-import {
-  logActivity,
-} from "@/lib/activity";
-
-
-
-
-
 interface RouteContext {
 
   params: Promise<{
@@ -53,7 +45,11 @@ export async function GET(
   try {
 
 
-    const { id } =
+
+
+    await requireAuth();
+
+const { id } =
       await params;
 
 
@@ -103,6 +99,28 @@ export async function GET(
 
 
   } catch (error) {
+
+
+    if (
+      error instanceof UnauthorizedError
+    ) {
+
+
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Unauthorized.",
+        },
+        {
+          status: 401,
+        }
+      );
+
+
+    }
+
+
 
 
 
@@ -239,36 +257,7 @@ export async function PUT(
         validation.data
       );
 
-
-
-
-
-
-
-    await logActivity({
-
-      action:
-        "UPDATE",
-
-      entity:
-        "Achievement",
-
-      entityId:
-        achievement.id,
-
-      description:
-        `Updated achievement: ${achievement.title}`,
-
-    });
-
-
-
-
-
-
-
-
-    return NextResponse.json(
+return NextResponse.json(
       {
         success: true,
         data: achievement,
@@ -398,35 +387,7 @@ export async function DELETE(
 
     await achievementService.delete(id);
 
-
-
-
-
-
-
-    await logActivity({
-
-      action:
-        "DELETE",
-
-      entity:
-        "Achievement",
-
-      entityId:
-        id,
-
-      description:
-        `Deleted achievement: ${existingAchievement.title}`,
-
-    });
-
-
-
-
-
-
-
-    return NextResponse.json(
+return NextResponse.json(
       {
         success: true,
         message:

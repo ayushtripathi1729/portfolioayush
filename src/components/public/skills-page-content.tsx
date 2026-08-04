@@ -83,7 +83,7 @@ export function SkillsPageContent({
           text-sm
           uppercase
           tracking-[0.4em]
-          text-violet-600
+          text-primary
           "
 
         >
@@ -122,7 +122,7 @@ export function SkillsPageContent({
 
           <span
             className="
-            text-violet-600
+            text-primary
             "
           >
 
@@ -364,7 +364,7 @@ export function SkillsPageContent({
                       h-3
                       w-3
                       rounded-full
-                      bg-violet-500
+                      bg-primary
                       transition
                       group-hover:scale-150
                       "
@@ -564,13 +564,13 @@ export function SkillsPageContent({
 
                                     className="
                                     rounded-full
-                                    bg-violet-500/10
+                                    bg-primary/10
                                     px-2
                                     py-1
                                     text-[10px]
                                     uppercase
                                     tracking-wider
-                                    text-violet-600
+                                    text-primary
                                     "
 
                                   >

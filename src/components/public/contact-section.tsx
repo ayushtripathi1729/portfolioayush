@@ -53,7 +53,7 @@ export function ContactSection({
         w-96
         -translate-x-1/2
         rounded-full
-        bg-violet-500/10
+        bg-primary/10
         blur-3xl
         "
       />
@@ -347,7 +347,7 @@ export function ContactSection({
                         py-2.5
                         text-sm
                         transition
-                        hover:border-violet-400
+                        hover:border-primary
                         hover:bg-muted
                         "
 

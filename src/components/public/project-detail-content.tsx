@@ -91,7 +91,7 @@ export function ProjectDetailContent({
           text-sm
           uppercase
           tracking-[0.4em]
-          text-violet-600
+          text-primary
           "
 
         >
@@ -177,6 +177,7 @@ export function ProjectDetailContent({
                 }
 
                 target="_blank"
+                rel="noopener noreferrer"
 
                 className="
                 flex
@@ -220,6 +221,7 @@ export function ProjectDetailContent({
                 }
 
                 target="_blank"
+                rel="noopener noreferrer"
 
                 className="
                 flex

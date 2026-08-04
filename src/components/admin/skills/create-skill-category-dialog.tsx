@@ -366,7 +366,7 @@ export function CreateSkillCategoryDialog({
             flex
             items-center
             justify-center
-            bg-black/50
+            bg-foreground/50
             px-4
             "
 

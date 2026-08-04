@@ -98,7 +98,7 @@ export function ProjectsPageContent({
           text-sm
           uppercase
           tracking-[0.4em]
-          text-violet-600
+          text-primary
           "
         >
           Projects
@@ -123,7 +123,7 @@ export function ProjectsPageContent({
           Things I have
           <span
             className="
-            text-violet-600
+            text-primary
             "
           >
             {" "}built.
@@ -470,7 +470,7 @@ function ProjectCard({
           text-xs
           uppercase
           tracking-[0.3em]
-          text-violet-600
+          text-primary
           "
         >
 
@@ -486,14 +486,14 @@ function ProjectCard({
         <Link
             href={`/projects/${project.slug}`}
             >
-            
+
             <h3
                 className="
                 mt-4
                 text-3xl
                 font-semibold
                 tracking-tight
-                hover:text-violet-600
+                hover:text-primary
                 transition
                 "
             >
@@ -602,6 +602,7 @@ function ProjectCard({
                 }
 
                 target="_blank"
+                rel="noopener noreferrer"
 
                 className="
                 flex
@@ -639,6 +640,7 @@ function ProjectCard({
                 }
 
                 target="_blank"
+                rel="noopener noreferrer"
 
                 className="
                 flex

@@ -58,7 +58,7 @@ export function ProjectsSection({
         h-96
         w-96
         rounded-full
-        bg-violet-500/10
+        bg-primary/10
         blur-3xl
         "
       />
@@ -136,7 +136,7 @@ export function ProjectsSection({
                   transition-all
                   duration-300
                   hover:-translate-y-2
-                  hover:border-violet-400/50
+                  hover:border-primary/50
                   hover:shadow-xl
                   "
 
@@ -248,7 +248,7 @@ export function ProjectsSection({
                         text-xs
                         uppercase
                         tracking-[0.3em]
-                        text-violet-600
+                        text-primary
                         "
                       >
 

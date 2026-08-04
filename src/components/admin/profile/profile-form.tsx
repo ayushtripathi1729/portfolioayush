@@ -169,13 +169,14 @@ export function ProfileForm({
 
       <div className="space-y-2">
 
-        <Label>
+        <Label htmlFor="profile-name">
           Name
         </Label>
 
 
         <Input
 
+          id="profile-name"
           value={name}
 
           onChange={(event) =>
@@ -198,13 +199,14 @@ export function ProfileForm({
       <div className="space-y-2">
 
 
-        <Label>
+        <Label htmlFor="profile-email">
           Email
         </Label>
 
 
         <Input
 
+          id="profile-email"
           value={user.email}
 
           disabled
@@ -226,13 +228,14 @@ export function ProfileForm({
       <div className="space-y-2">
 
 
-        <Label>
+        <Label htmlFor="profile-avatar-id">
           Avatar ID
         </Label>
 
 
         <Input
 
+          id="profile-avatar-id"
           value={avatarId}
 
           onChange={(event) =>
@@ -259,7 +262,10 @@ export function ProfileForm({
 
       {error && (
 
-        <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">
+        <div
+          className="rounded-md bg-destructive/10 p-3 text-sm text-destructive"
+          role="alert"
+        >
 
           {error}
 
@@ -273,7 +279,10 @@ export function ProfileForm({
 
       {success && (
 
-        <div className="rounded-md bg-green-500/10 p-3 text-sm text-green-600">
+        <div
+          className="rounded-md bg-primary/10 p-3 text-sm text-primary"
+          role="status"
+        >
 
           {success}
 

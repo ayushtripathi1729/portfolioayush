@@ -78,7 +78,7 @@ export function SkillsSection({
         h-96
         w-96
         rounded-full
-        bg-violet-500/10
+        bg-primary/10
         blur-3xl
         "
       />
@@ -161,7 +161,7 @@ export function SkillsSection({
                   transition-all
                   duration-300
                   hover:-translate-y-1
-                  hover:border-violet-400/50
+                  hover:border-primary/50
                   hover:shadow-lg
                   "
 
@@ -206,7 +206,7 @@ export function SkillsSection({
                       h-2
                       w-2
                       rounded-full
-                      bg-violet-500
+                      bg-primary
                       opacity-70
                       transition
                       group-hover:scale-150
@@ -232,7 +232,7 @@ export function SkillsSection({
                     font-semibold
                     tracking-tight
                     transition
-                    group-hover:text-violet-600
+                    group-hover:text-primary
                     "
 
                   >
@@ -316,7 +316,7 @@ export function SkillsSection({
                             py-2
                             text-sm
                             transition
-                            hover:border-violet-400
+                            hover:border-primary
                             hover:bg-muted
                             "
 

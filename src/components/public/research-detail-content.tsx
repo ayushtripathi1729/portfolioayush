@@ -68,7 +68,7 @@ export function ResearchDetailContent({
           text-sm
           uppercase
           tracking-[0.4em]
-          text-violet-600
+          text-primary
           "
 
         >
@@ -158,6 +158,7 @@ export function ResearchDetailContent({
                 }
 
                 target="_blank"
+                rel="noopener noreferrer"
 
                 className="
                 flex
@@ -198,6 +199,7 @@ export function ResearchDetailContent({
                 }
 
                 target="_blank"
+                rel="noopener noreferrer"
 
                 className="
                 flex

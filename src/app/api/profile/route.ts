@@ -20,18 +20,6 @@ import {
 } from "@/validations/user.schema";
 
 
-import {
-  logActivity,
-} from "@/lib/activity";
-
-
-
-
-
-
-
-
-
 export async function GET() {
 
 
@@ -214,39 +202,21 @@ export async function PATCH(
     const updatedUser =
       await userService.update(
         session.user.id,
-        validation.data
+        {
+          ...(validation.data.name !== undefined
+            ? { name: validation.data.name }
+            : {}),
+          ...(validation.data.avatarId !== undefined
+            ? {
+                avatar: validation.data.avatarId
+                  ? { connect: { id: validation.data.avatarId } }
+                  : { disconnect: true },
+              }
+            : {}),
+        }
       );
 
-
-
-
-
-
-
-
-    await logActivity({
-
-      action:
-        "UPDATE",
-
-      entity:
-        "User",
-
-      entityId:
-        updatedUser.id,
-
-      description:
-        `Updated profile: ${updatedUser.name}`,
-
-    });
-
-
-
-
-
-
-
-    return NextResponse.json(
+return NextResponse.json(
       {
         success: true,
         data: updatedUser,

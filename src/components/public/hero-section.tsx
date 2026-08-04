@@ -40,7 +40,7 @@ function DotGrid() {
             h-1
             w-1
             rounded-full
-            bg-violet-500
+            bg-primary
             "
           />
 
@@ -99,7 +99,7 @@ export function HeroSection({
         bg-linear-to-br
         from-background
         via-background
-        to-violet-500/10
+        to-primary/10
         "
       />
 
@@ -116,7 +116,7 @@ export function HeroSection({
         h-96
         w-96
         rounded-full
-        bg-violet-500/10
+        bg-primary/10
         blur-3xl
         "
       />
@@ -186,7 +186,7 @@ export function HeroSection({
                 text-xs
                 uppercase
                 tracking-[0.35em]
-                text-violet-600
+                text-primary
                 "
               >
 
@@ -246,7 +246,7 @@ export function HeroSection({
                     className="
                     font-semibold
                     tracking-[0.25em]
-                    text-violet-600
+                    text-primary
                     "
                   >
 
@@ -265,7 +265,7 @@ export function HeroSection({
                   className="
                   h-px
                   w-48
-                  bg-violet-500
+                  bg-primary
                   "
                 />
 
@@ -468,7 +468,7 @@ export function HeroSection({
 
 
 
-              <span className="text-violet-500">
+              <span className="text-primary">
                 |
               </span>
 
@@ -480,7 +480,7 @@ export function HeroSection({
 
 
 
-              <span className="text-violet-500">
+              <span className="text-primary">
                 |
               </span>
 
@@ -551,7 +551,7 @@ export function HeroSection({
                 absolute
                 inset-12
                 rounded-full
-                bg-violet-500/20
+                bg-primary/20
                 blur-3xl
                 "
               />
@@ -624,7 +624,7 @@ export function HeroSection({
                 w-104
                 rounded-full
                 border
-                border-violet-500/25
+                border-primary/25
                 "
               />
 
@@ -647,7 +647,7 @@ export function HeroSection({
                 rounded-full
                 border
                 border-dashed
-                border-violet-400/40
+                border-primary/40
                 animate-[spin_20s_linear_infinite]
                 "
               />
@@ -686,7 +686,7 @@ export function HeroSection({
                   h-4
                   w-4
                   rounded-full
-                  bg-violet-600
+                  bg-primary
                   shadow-[0_0_30px_rgba(124,58,237,1)]
                   "
                 />
@@ -725,7 +725,7 @@ export function HeroSection({
                   h-3
                   w-3
                   rounded-full
-                  bg-violet-400
+                  bg-primary
                   shadow-[0_0_25px_rgba(167,139,250,1)]
                   "
                 />
@@ -755,7 +755,7 @@ export function HeroSection({
                 w-124
                 rounded-full
                 border-t
-                border-violet-500/40
+                border-primary/40
                 rotate-45
                 "
               />

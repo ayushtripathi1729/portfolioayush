@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Trash2 } from "lucide-react";
 
@@ -18,16 +19,21 @@ interface User {
 
 interface UsersTableProps {
   users: User[];
+  currentUserId: string;
 }
 
 
 
 export function UsersTable({
   users,
+  currentUserId,
 }: UsersTableProps) {
 
 
   const router = useRouter();
+
+  const [deleting, setDeleting] = useState<string | null>(null);
+  const [error, setError] = useState("");
 
 
 
@@ -48,15 +54,29 @@ export function UsersTable({
 
 
 
-    await fetch(
-      `/api/users/${id}`,
-      {
+    try {
+      setError("");
+      setDeleting(id);
+
+      const response = await fetch(`/api/users/${id}`, {
         method: "DELETE",
+      });
+      const result = await response.json().catch(() => null);
+
+      if (!response.ok) {
+        throw new Error(result?.message ?? "Failed to delete user.");
       }
-    );
 
-
-    router.refresh();
+      router.refresh();
+    } catch (error) {
+      setError(
+        error instanceof Error
+          ? error.message
+          : "Failed to delete user."
+      );
+    } finally {
+      setDeleting(null);
+    }
 
   }
 
@@ -70,6 +90,12 @@ export function UsersTable({
 
 
       <div className="overflow-x-auto">
+
+        {error && (
+          <p className="px-4 pt-4 text-sm text-destructive" role="alert">
+            {error}
+          </p>
+        )}
 
 
         <table className="w-full text-sm">
@@ -182,6 +208,16 @@ export function UsersTable({
                       <Button
                         variant="destructive"
                         size="icon"
+                        aria-label={`Delete ${user.name}`}
+                        title={
+                          user.id === currentUserId
+                            ? "You cannot delete your own account"
+                            : "Delete user"
+                        }
+                        disabled={
+                          user.id === currentUserId ||
+                          deleting === user.id
+                        }
                         onClick={() =>
                           deleteUser(user.id)
                         }

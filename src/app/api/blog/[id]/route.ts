@@ -20,15 +20,6 @@ import {
 } from "@/lib/auth-guard";
 
 
-import {
-  logActivity,
-} from "@/lib/activity";
-
-
-
-
-
-
 interface RouteContext {
 
   params: Promise<{
@@ -54,7 +45,11 @@ export async function GET(
   try {
 
 
-    const { id } =
+
+
+    await requireAuth();
+
+const { id } =
       await params;
 
 
@@ -104,6 +99,28 @@ export async function GET(
 
 
   } catch (error) {
+
+
+    if (
+      error instanceof UnauthorizedError
+    ) {
+
+
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Unauthorized.",
+        },
+        {
+          status: 401,
+        }
+      );
+
+
+    }
+
+
 
 
     console.error(
@@ -239,36 +256,7 @@ export async function PUT(
         validation.data
       );
 
-
-
-
-
-
-
-
-    await logActivity({
-
-      action:
-        "UPDATE",
-
-      entity:
-        "Blog",
-
-      entityId:
-        blog.id,
-
-      description:
-        `Updated blog: ${blog.title}`,
-
-    });
-
-
-
-
-
-
-
-    return NextResponse.json(
+return NextResponse.json(
       {
         success: true,
         data: blog,
@@ -397,36 +385,7 @@ export async function DELETE(
 
     await blogService.delete(id);
 
-
-
-
-
-
-
-
-    await logActivity({
-
-      action:
-        "DELETE",
-
-      entity:
-        "Blog",
-
-      entityId:
-        id,
-
-      description:
-        `Deleted blog: ${existingBlog.title}`,
-
-    });
-
-
-
-
-
-
-
-    return NextResponse.json(
+return NextResponse.json(
       {
         success: true,
         message:

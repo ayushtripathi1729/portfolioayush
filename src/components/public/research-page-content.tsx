@@ -101,7 +101,7 @@ export function ResearchPageContent({
           text-sm
           uppercase
           tracking-[0.4em]
-          text-violet-600
+          text-primary
           "
 
         >
@@ -136,7 +136,7 @@ export function ResearchPageContent({
           building knowledge
           <span
             className="
-            text-violet-600
+            text-primary
             "
           >
             {" "}and discoveries.
@@ -499,7 +499,7 @@ function ResearchCard({
           text-xs
           uppercase
           tracking-[0.3em]
-          text-violet-600
+          text-primary
           "
 
         >
@@ -530,7 +530,7 @@ function ResearchCard({
             text-2xl
             font-semibold
             transition
-            hover:text-violet-600
+            hover:text-primary
             "
 
           >
@@ -666,6 +666,7 @@ function ResearchCard({
                 }
 
                 target="_blank"
+                rel="noopener noreferrer"
 
                 className="
                 flex
@@ -708,6 +709,7 @@ function ResearchCard({
                 }
 
                 target="_blank"
+                rel="noopener noreferrer"
 
                 className="
                 flex

@@ -52,7 +52,7 @@ export function EducationSection({
         h-96
         w-96
         rounded-full
-        bg-violet-500/10
+        bg-primary/10
         blur-3xl
         "
       />
@@ -124,7 +124,7 @@ export function EducationSection({
                   bg-card
                   p-10
                   transition
-                  hover:border-violet-400/50
+                  hover:border-primary/50
                   hover:shadow-lg
                   "
 
@@ -190,7 +190,7 @@ export function EducationSection({
                         className="
                         text-xl
                         font-medium
-                        text-violet-600
+                        text-primary
                         "
                       >
 

@@ -21,18 +21,6 @@ import {
 } from "@/lib/auth-guard";
 
 
-import {
-  logActivity,
-} from "@/lib/activity";
-
-
-
-
-
-
-
-
-
 export async function GET() {
 
 
@@ -218,35 +206,7 @@ export async function PUT(
       validation.data as Prisma.SettingUncheckedUpdateInput
     );
 
-
-
-
-
-
-
-    await logActivity({
-
-      action:
-        "UPDATE",
-
-      entity:
-        "Setting",
-
-      entityId:
-        setting.id,
-
-      description:
-        "Updated website settings",
-
-    });
-
-
-
-
-
-
-
-    return NextResponse.json(
+return NextResponse.json(
       {
         success: true,
         data: setting,

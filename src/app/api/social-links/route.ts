@@ -25,18 +25,6 @@ import {
 } from "@/lib/auth-guard";
 
 
-import {
-  logActivity,
-} from "@/lib/activity";
-
-
-
-
-
-
-
-
-
 export async function GET() {
 
 
@@ -269,36 +257,7 @@ export async function POST(
         validation.data
       );
 
-
-
-
-
-
-
-
-    await logActivity({
-
-      action:
-        "CREATE",
-
-      entity:
-        "SocialLink",
-
-      entityId:
-        link.id,
-
-      description:
-        `Added social link: ${link.platform}`,
-
-    });
-
-
-
-
-
-
-
-    return NextResponse.json(
+return NextResponse.json(
       {
         success: true,
         data: link,

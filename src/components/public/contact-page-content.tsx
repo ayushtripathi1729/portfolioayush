@@ -295,7 +295,7 @@ export function ContactPageContent({
           text-sm
           uppercase
           tracking-[0.4em]
-          text-violet-600
+          text-primary
           "
 
         >
@@ -333,7 +333,7 @@ export function ContactPageContent({
           <span
 
             className="
-            text-violet-600
+            text-primary
             "
 
           >
@@ -482,7 +482,7 @@ export function ContactPageContent({
                       }
 
                       className="
-                      hover:text-violet-600
+                      hover:text-primary
                       "
 
                     >
@@ -582,6 +582,7 @@ export function ContactPageContent({
 
 
                       target="_blank"
+                      rel="noopener noreferrer"
 
 
                       className="

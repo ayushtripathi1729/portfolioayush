@@ -1,11 +1,14 @@
 import { Users } from "lucide-react";
 
 import { userService } from "@/services/user.service";
+import { requireAuth } from "@/lib/auth-guard";
 import { UsersTable } from "@/components/admin/users/users-table";
 
 
 export default async function UsersPage() {
 
+
+  const session = await requireAuth();
 
   const users =
     await userService.getAll();
@@ -46,6 +49,8 @@ export default async function UsersPage() {
 
 
       <UsersTable
+
+        currentUserId={session.user.id}
 
         users={
           users.map(

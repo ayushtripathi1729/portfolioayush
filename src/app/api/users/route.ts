@@ -14,17 +14,11 @@ import {
   userService,
 } from "@/services/user.service";
 
+import { hashPassword } from "@/lib/password";
 
 import {
-  logActivity,
-} from "@/lib/activity";
-
-
-
-
-
-
-
+  createUserWithPasswordSchema,
+} from "@/validations/user.schema";
 
 
 export async function GET() {
@@ -142,41 +136,45 @@ export async function POST(
 
 
 
-    const user =
-      await userService.create(
-        body
+    const validation =
+      createUserWithPasswordSchema.safeParse(body);
+
+    if (!validation.success) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Validation failed.",
+          errors: validation.error.flatten(),
+        },
+        { status: 400 }
       );
+    }
 
+    if (await userService.getByEmail(validation.data.email)) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "An account with this email already exists.",
+        },
+        { status: 409 }
+      );
+    }
 
+    const user =
+      await userService.create({
+        name: validation.data.name,
+        email: validation.data.email,
+        passwordHash: await hashPassword(validation.data.password),
+        ...(validation.data.avatarId
+          ? {
+              avatar: {
+                connect: { id: validation.data.avatarId },
+              },
+            }
+          : {}),
+      });
 
-
-
-
-
-
-    await logActivity({
-
-      action:
-        "CREATE",
-
-      entity:
-        "User",
-
-      entityId:
-        user.id,
-
-      description:
-        `Created user: ${user.name}`,
-
-    });
-
-
-
-
-
-
-
-    return NextResponse.json(
+return NextResponse.json(
       {
         success: true,
         data: user,

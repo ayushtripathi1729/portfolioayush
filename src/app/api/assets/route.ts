@@ -20,24 +20,17 @@ import {
 } from "@/lib/auth-guard";
 
 
-import {
-  logActivity,
-} from "@/lib/activity";
-
-
-
-
-
-
-
-
 export async function GET() {
 
 
   try {
 
 
-    const assets =
+
+
+    await requireAuth();
+
+const assets =
       await assetService.getAll();
 
 
@@ -57,6 +50,28 @@ export async function GET() {
 
 
   } catch (error) {
+
+
+    if (
+      error instanceof UnauthorizedError
+    ) {
+
+
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Unauthorized.",
+        },
+        {
+          status: 401,
+        }
+      );
+
+
+    }
+
+
 
 
     console.error(
@@ -151,36 +166,7 @@ export async function POST(
         validation.data
       );
 
-
-
-
-
-
-
-
-    await logActivity({
-
-      action:
-        "UPLOAD",
-
-      entity:
-        "Asset",
-
-      entityId:
-        asset.id,
-
-      description:
-        `Uploaded asset: ${asset.originalName}`,
-
-    });
-
-
-
-
-
-
-
-    return NextResponse.json(
+return NextResponse.json(
       {
         success: true,
         data: asset,

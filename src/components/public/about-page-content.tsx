@@ -74,7 +74,7 @@ export function AboutPageContent({
               text-sm
               uppercase
               tracking-[0.4em]
-              text-violet-600
+              text-primary
               "
             >
               About Me
@@ -99,7 +99,7 @@ export function AboutPageContent({
               I build,
               <span
                 className="
-                text-violet-600
+                text-primary
                 "
               >
                 {" "}learn,
@@ -373,7 +373,7 @@ export function AboutPageContent({
             text-xs
             uppercase
             tracking-[0.35em]
-            text-violet-600
+            text-primary
             "
           >
             Philosophy
@@ -559,8 +559,8 @@ export function AboutPageContent({
 
       <section
         className="
-        bg-black
-        text-white
+        bg-foreground
+        text-background
         "
       >
 
@@ -603,7 +603,7 @@ export function AboutPageContent({
             mt-8
             max-w-2xl
             text-lg
-            text-white/60
+            text-background/60
             "
           >
 
@@ -666,7 +666,7 @@ function JourneyItem({
         className="
         text-xl
         font-semibold
-        text-violet-600
+        text-primary
         "
       >
 

@@ -2,17 +2,10 @@ import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 import { authService } from "@/services/auth.service";
-
-
-const SESSION_MAX_AGE =
-  8 * 60 * 60; // 8 hours
-
-
-const INACTIVITY_TIMEOUT =
-  30 * 60; // 30 minutes
-
-
-
+import {
+  SESSION_MAX_AGE,
+  isTokenInactive,
+} from "@/lib/auth-session";
 
 
 export const authOptions: NextAuthOptions = {
@@ -196,10 +189,10 @@ export const authOptions: NextAuthOptions = {
 
         token.lastActivity &&
 
-        now -
-          (token.lastActivity as number)
-          >
-          INACTIVITY_TIMEOUT
+        isTokenInactive(
+          token.lastActivity,
+          now
+        )
 
       ) {
 

@@ -20,18 +20,6 @@ import {
 } from "@/lib/auth-guard";
 
 
-import {
-  logActivity,
-} from "@/lib/activity";
-
-
-
-
-
-
-
-
-
 interface RouteContext {
 
   params: Promise<{
@@ -277,36 +265,7 @@ export async function PUT(
         validation.data
       );
 
-
-
-
-
-
-
-
-    await logActivity({
-
-      action:
-        "UPDATE",
-
-      entity:
-        "ContactMessage",
-
-      entityId:
-        message.id,
-
-      description:
-        `Updated contact message from ${message.name}`,
-
-    });
-
-
-
-
-
-
-
-    return NextResponse.json(
+return NextResponse.json(
       {
         success: true,
         data: message,
@@ -436,36 +395,7 @@ export async function DELETE(
 
     await contactMessageService.delete(id);
 
-
-
-
-
-
-
-
-    await logActivity({
-
-      action:
-        "DELETE",
-
-      entity:
-        "ContactMessage",
-
-      entityId:
-        id,
-
-      description:
-        `Deleted contact message from ${existingMessage.name}`,
-
-    });
-
-
-
-
-
-
-
-    return NextResponse.json(
+return NextResponse.json(
       {
         success: true,
         message:

@@ -46,6 +46,19 @@ export class AuthService {
 
     }
 
+    await logActivity({
+
+      action: "LOGIN",
+
+      entity: "User",
+
+      entityId: user.id,
+
+      description:
+        `Administrator login: ${user.email}`,
+
+    });
+
 
 
     return {
@@ -150,7 +163,7 @@ export class AuthService {
 
     await logActivity({
 
-      action: "UPDATE",
+      action: "PASSWORD_CHANGE",
 
       entity: "User",
 

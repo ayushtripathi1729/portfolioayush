@@ -24,17 +24,9 @@ export const createUserWithPasswordSchema = z.object({
 
   avatarId: z
     .string()
+    .max(255, "Avatar ID cannot exceed 255 characters.")
     .optional()
     .or(z.literal("")),
-
-
-  role: z
-    .enum([
-      "ADMIN",
-      "EDITOR",
-    ])
-    .default("ADMIN"),
-
 });
 
 
@@ -93,34 +85,11 @@ export const updateUserSchema = z.object({
 
 
 
-  email: z
-    .email("Please enter a valid email address.")
-    .max(255, "Email cannot exceed 255 characters.")
-    .optional(),
-
-
-
-  passwordHash: z
-    .string()
-    .min(8, "Password hash is invalid.")
-    .optional(),
-
-
-
   avatarId: z
     .string()
+    .max(255, "Avatar ID cannot exceed 255 characters.")
     .optional()
     .or(z.literal("")),
-
-
-
-  role: z
-    .enum([
-      "ADMIN",
-      "EDITOR",
-    ])
-    .optional(),
-
 });
 
 

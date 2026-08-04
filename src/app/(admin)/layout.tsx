@@ -1,8 +1,6 @@
 import type { ReactNode } from "react";
 
-import { getServerSession } from "next-auth";
-
-import { authOptions } from "@/lib/auth";
+import { requireAuth } from "@/lib/auth-guard";
 import { DashboardLayout } from "@/components/admin/layout/dashboard-layout";
 
 export default async function AdminLayout({
@@ -10,7 +8,7 @@ export default async function AdminLayout({
 }: {
   children: ReactNode;
 }) {
-  const session = await getServerSession(authOptions);
+  const session = await requireAuth();
 
   return (
     <DashboardLayout session={session}>

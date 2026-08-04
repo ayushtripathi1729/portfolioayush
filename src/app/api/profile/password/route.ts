@@ -20,18 +20,6 @@ import {
 } from "@/validations/profile.schema";
 
 
-import {
-  logActivity,
-} from "@/lib/activity";
-
-
-
-
-
-
-
-
-
 export async function PATCH(
   request: NextRequest
 ) {
@@ -101,36 +89,7 @@ export async function PATCH(
 
     );
 
-
-
-
-
-
-
-
-    await logActivity({
-
-      action:
-        "UPDATE",
-
-      entity:
-        "User",
-
-      entityId:
-        session.user.id,
-
-      description:
-        "Changed account password",
-
-    });
-
-
-
-
-
-
-
-    return NextResponse.json(
+return NextResponse.json(
       {
         success: true,
         message:

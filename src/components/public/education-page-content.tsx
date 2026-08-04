@@ -62,7 +62,7 @@ export function EducationPageContent({
           text-sm
           uppercase
           tracking-[0.4em]
-          text-violet-600
+          text-primary
           "
         >
 
@@ -89,7 +89,7 @@ export function EducationPageContent({
           Academic journey
           <span
             className="
-            text-violet-600
+            text-primary
             "
           >
             {" "}and foundations.
@@ -253,7 +253,7 @@ export function EducationPageContent({
                           text-sm
                           uppercase
                           tracking-[0.3em]
-                          text-violet-600
+                          text-primary
                           "
                         >
 

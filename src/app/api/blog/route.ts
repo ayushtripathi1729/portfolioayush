@@ -31,7 +31,11 @@ export async function GET() {
   try {
 
 
-    const blogs =
+
+
+    await requireAuth();
+
+const blogs =
       await blogService.getAll();
 
 
@@ -51,6 +55,28 @@ export async function GET() {
 
 
   } catch (error) {
+
+
+    if (
+      error instanceof UnauthorizedError
+    ) {
+
+
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Unauthorized.",
+        },
+        {
+          status: 401,
+        }
+      );
+
+
+    }
+
+
 
 
     console.error(

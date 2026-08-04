@@ -102,9 +102,9 @@ export function ProfileFlipCard({
           justify-center
           rounded-full
           bg-linear-to-br
-          from-violet-600
+          from-primary
           to-purple-900
-          text-white
+          text-background
           rotate-y-180
           backface-hidden
           "

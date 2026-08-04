@@ -73,7 +73,7 @@ export function ExperiencePageContent({
           text-sm
           uppercase
           tracking-[0.4em]
-          text-violet-600
+          text-primary
           "
 
         >
@@ -103,7 +103,7 @@ export function ExperiencePageContent({
           Building,
           <span
             className="
-            text-violet-600
+            text-primary
             "
           >
             {" "}learning
@@ -226,7 +226,7 @@ export function ExperiencePageContent({
                       h-3
                       w-3
                       rounded-full
-                      bg-violet-500
+                      bg-primary
                       "
 
                     />
@@ -314,7 +314,7 @@ export function ExperiencePageContent({
                           text-sm
                           uppercase
                           tracking-[0.3em]
-                          text-violet-600
+                          text-primary
                           "
 
                         >

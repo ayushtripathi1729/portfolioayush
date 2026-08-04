@@ -271,7 +271,7 @@ export async function RecentActivity() {
                       className={`
                         flex size-9 shrink-0
                         items-center justify-center
-                        rounded-full text-white
+                        rounded-full text-background
                         ${getActionColor(activity.action)}
                       `}
                     >

@@ -51,9 +51,27 @@ export class UserService {
     data: Prisma.UserCreateInput
   ) {
 
-    return userRepository.create(
+    const user =
+      await userRepository.create(
       data
     );
+
+    await logActivity({
+
+      action: "CREATE",
+
+      entity: "User",
+
+      entityId: user.id,
+
+      description:
+        `Created administrator account "${user.email}"`,
+
+    });
+
+
+
+    return user;
 
   }
 
@@ -103,6 +121,10 @@ export class UserService {
   ) {
 
 
+    if (await userRepository.count() <= 1) {
+      throw new Error("LAST_USER");
+    }
+
     const deleted =
       await userRepository.delete(
         id
@@ -147,4 +169,4 @@ export class UserService {
 
 
 export const userService =
-  new UserService();                                                
+  new UserService();

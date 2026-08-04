@@ -102,7 +102,7 @@ export function AchievementsPageContent({
           text-sm
           uppercase
           tracking-[0.4em]
-          text-violet-600
+          text-primary
           "
 
         >
@@ -138,7 +138,7 @@ export function AchievementsPageContent({
           <span
 
             className="
-            text-violet-600
+            text-primary
             "
 
           >

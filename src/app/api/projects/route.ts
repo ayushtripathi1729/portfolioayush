@@ -20,18 +20,6 @@ import {
 } from "@/lib/auth-guard";
 
 
-import {
-  logActivity,
-} from "@/lib/activity";
-
-
-
-
-
-
-
-
-
 export async function GET() {
 
 
@@ -189,36 +177,7 @@ export async function POST(
         validation.data
       );
 
-
-
-
-
-
-
-
-    await logActivity({
-
-      action:
-        "CREATE",
-
-      entity:
-        "Project",
-
-      entityId:
-        project.id,
-
-      description:
-        `Created project: ${project.title}`,
-
-    });
-
-
-
-
-
-
-
-    return NextResponse.json(
+return NextResponse.json(
       {
         success: true,
         data: project,

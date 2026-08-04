@@ -67,9 +67,24 @@ export class ContactMessageService {
     id: string
   ) {
 
-    return contactMessageRepository.markAsRead(
-      id
-    );
+    const message =
+      await contactMessageRepository.markAsRead(
+        id
+      );
+
+    await logActivity({
+
+      action: "UPDATE",
+
+      entity: "ContactMessage",
+
+      entityId: message.id,
+
+      description: `Marked contact message from "${message.name}" as read`,
+
+    });
+
+    return message;
 
   }
 
@@ -249,6 +264,19 @@ export class ContactMessageService {
         id,
         data
       );
+
+
+    await logActivity({
+
+      action: "UPDATE",
+
+      entity: "ContactMessage",
+
+      entityId: message.id,
+
+      description: `Updated contact message from "${message.name}"`,
+
+    });
 
 
 

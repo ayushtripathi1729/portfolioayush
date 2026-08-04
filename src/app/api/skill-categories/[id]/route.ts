@@ -20,18 +20,6 @@ import {
 } from "@/lib/auth-guard";
 
 
-import {
-  logActivity,
-} from "@/lib/activity";
-
-
-
-
-
-
-
-
-
 interface RouteContext {
 
   params: Promise<{
@@ -57,7 +45,11 @@ export async function GET(
   try {
 
 
-    const { id } =
+
+
+    await requireAuth();
+
+const { id } =
       await params;
 
 
@@ -107,6 +99,28 @@ export async function GET(
 
 
   } catch (error) {
+
+
+    if (
+      error instanceof UnauthorizedError
+    ) {
+
+
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Unauthorized.",
+        },
+        {
+          status: 401,
+        }
+      );
+
+
+    }
+
+
 
 
     console.error(
@@ -246,36 +260,7 @@ export async function PUT(
         validation.data
       );
 
-
-
-
-
-
-
-
-    await logActivity({
-
-      action:
-        "UPDATE",
-
-      entity:
-        "SkillCategory",
-
-      entityId:
-        category.id,
-
-      description:
-        `Updated skill category: ${category.name}`,
-
-    });
-
-
-
-
-
-
-
-    return NextResponse.json(
+return NextResponse.json(
       {
         success: true,
         data: category,
@@ -405,36 +390,7 @@ export async function DELETE(
 
     await skillCategoryService.delete(id);
 
-
-
-
-
-
-
-
-    await logActivity({
-
-      action:
-        "DELETE",
-
-      entity:
-        "SkillCategory",
-
-      entityId:
-        id,
-
-      description:
-        `Deleted skill category: ${existingCategory.name}`,
-
-    });
-
-
-
-
-
-
-
-    return NextResponse.json(
+return NextResponse.json(
       {
         success: true,
         message:

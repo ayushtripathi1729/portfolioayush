@@ -309,7 +309,7 @@ export function Navbar() {
                             left-0
                             h-0.5
                             w-full
-                            bg-violet-600
+                            bg-primary
                             "
 
                           />
@@ -496,7 +496,7 @@ export function Navbar() {
                         ${
                           active
                           ?
-                          "font-medium text-violet-600"
+                          "font-medium text-primary"
                           :
                           "text-muted-foreground"
                         }
