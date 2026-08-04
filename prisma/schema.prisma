@@ -359,6 +359,20 @@ model Activity {
   @@index([entity])
 }
 
+// Anonymous, cookie-backed aggregate visitor tracking. No IP address, user
+// agent, or other personal profile data is retained here.
+model Visitor {
+  id         String   @id @default(cuid())
+  visitorId  String   @unique
+  firstVisit DateTime @default(now())
+  lastVisit  DateTime @default(now())
+  visitCount Int      @default(1)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([lastVisit])
+}
+
 enum SkillLevel {
   BEGINNER
   INTERMEDIATE

@@ -32,10 +32,15 @@ export async function proxy(
     pathname === "/api/contact" &&
     request.method === "POST";
 
+  const isPublicVisitPost =
+    pathname === "/api/visits" &&
+    request.method === "POST";
+
   const isProtectedApiRoute =
     pathname.startsWith("/api") &&
     !isAuthApiRoute &&
-    !isPublicContactPost;
+    !isPublicContactPost &&
+    !isPublicVisitPost;
 
   const isExpired =
     token?.expired === true ||

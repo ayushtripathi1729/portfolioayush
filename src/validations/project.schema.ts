@@ -3,23 +3,14 @@ import { z } from "zod";
 import {
   PROJECT_STATUSES,
 } from "@/constants/project";
+import { optionalHttpUrl } from "@/validations/helpers";
 
 
 const slugRegex =
   /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 
-const optionalUrl = z
-  .string()
-  .trim()
-  .url("Please enter a valid URL.")
-  .optional()
-  .or(z.literal(""))
-  .transform((value) =>
-    value === ""
-      ? undefined
-      : value
-  );
+const optionalUrl = optionalHttpUrl(1000);
 
 
 

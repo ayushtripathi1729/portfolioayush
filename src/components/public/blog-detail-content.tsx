@@ -211,6 +211,8 @@ export function BlogDetailContent({
 
                 priority
 
+                sizes="(max-width: 1536px) 100vw, 1536px"
+
                 className="
                 object-cover
                 "

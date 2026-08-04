@@ -5,6 +5,8 @@ import { portfolioService } from "@/services/portfolio.service";
 
 import { ProjectDetailContent } from "@/components/public/project-detail-content";
 
+export const revalidate = 300;
+
 
 
 interface ProjectPageProps {

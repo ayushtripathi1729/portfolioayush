@@ -2,6 +2,7 @@ import { z } from "zod";
 
 import {
   optionalDate,
+  optionalHttpUrl,
   optionalTrimmedString,
 } from "@/validations/helpers";
 
@@ -36,13 +37,7 @@ export const createAchievementSchema = z.object({
   issueDate: optionalDate,
 
 
-  credentialUrl: z
-    .string()
-    .trim()
-    .url("Please enter a valid URL.")
-    .max(1000, "URL cannot exceed 1000 characters.")
-    .optional()
-    .or(z.literal("")),
+  credentialUrl: optionalHttpUrl(1000),
 
 
   imageId: optionalTrimmedString(),

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { httpUrl } from "@/validations/helpers";
 
 
 export const socialPlatformValues = [
@@ -45,11 +46,7 @@ export const createSocialLinkSchema = z.object({
     .or(z.literal("")),
 
 
-  url: z
-    .string()
-    .trim()
-    .url("Please enter a valid URL.")
-    .max(500, "URL cannot exceed 500 characters."),
+  url: httpUrl(500),
 
 
   username: z

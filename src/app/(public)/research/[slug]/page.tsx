@@ -5,6 +5,8 @@ import { portfolioService } from "@/services/portfolio.service";
 
 import { ResearchDetailContent } from "@/components/public/research-detail-content";
 
+export const revalidate = 300;
+
 
 
 interface ResearchPageProps {

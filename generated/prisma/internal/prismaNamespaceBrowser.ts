@@ -68,7 +68,8 @@ export const ModelName = {
   Blog: 'Blog',
   Achievement: 'Achievement',
   ContactMessage: 'ContactMessage',
-  Activity: 'Activity'
+  Activity: 'Activity',
+  Visitor: 'Visitor'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -390,6 +391,19 @@ export const ActivityScalarFieldEnum = {
 } as const
 
 export type ActivityScalarFieldEnum = (typeof ActivityScalarFieldEnum)[keyof typeof ActivityScalarFieldEnum]
+
+
+export const VisitorScalarFieldEnum = {
+  id: 'id',
+  visitorId: 'visitorId',
+  firstVisit: 'firstVisit',
+  lastVisit: 'lastVisit',
+  visitCount: 'visitCount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type VisitorScalarFieldEnum = (typeof VisitorScalarFieldEnum)[keyof typeof VisitorScalarFieldEnum]
 
 
 export const SortOrder = {

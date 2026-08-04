@@ -5,6 +5,10 @@ import { Footer } from "@/components/public/footer";
 
 import { portfolioService } from "@/services/portfolio.service";
 
+// Keep public pages CDN-cacheable while allowing CMS updates to appear without
+// a new deployment.
+export const revalidate = 300;
+
 
 
 export async function generateMetadata() {

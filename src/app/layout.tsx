@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
-import { AuthSessionProvider } from "@/components/providers/session-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 
 import "./globals.css";
@@ -216,12 +215,7 @@ export default function RootLayout({
       >
 
         <ThemeProvider>
-
-          <AuthSessionProvider>
-
-            {children}
-
-          </AuthSessionProvider>
+          {children}
 
         </ThemeProvider>
 

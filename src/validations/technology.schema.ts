@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { optionalHttpUrl } from "@/validations/helpers";
 
 const slugRegex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
@@ -33,13 +34,7 @@ export const createTechnologySchema = z.object({
     .optional()
     .or(z.literal("")),
 
-  website: z
-    .string()
-    .trim()
-    .url("Please enter a valid URL.")
-    .max(255, "Website URL cannot exceed 255 characters.")
-    .optional()
-    .or(z.literal("")),
+  website: optionalHttpUrl(255),
 
   displayOrder: z
     .number()

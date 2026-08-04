@@ -22,6 +22,7 @@ import {
   getClientIp,
   getUserAgent,
 } from "@/lib/request";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 
 export async function POST(
@@ -30,6 +31,21 @@ export async function POST(
 
 
   try {
+
+    const rateLimit = checkRateLimit(
+      getClientIp(request) ?? "unknown",
+      { limit: 5, windowMs: 10 * 60 * 1000 }
+    );
+
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        { success: false, message: "Too many messages. Please try again later." },
+        {
+          status: 429,
+          headers: { "Retry-After": String(rateLimit.retryAfterSeconds) },
+        }
+      );
+    }
 
 
     const body =
@@ -85,10 +101,7 @@ export async function POST(
 
 
 
-    const message =
-      await contactMessageService.create(
-        validation.data
-      );
+    await contactMessageService.create(validation.data);
 
 
 
@@ -103,8 +116,6 @@ export async function POST(
 return NextResponse.json(
       {
         success: true,
-        data: message,
-
         message:
           "Your message has been sent successfully.",
 

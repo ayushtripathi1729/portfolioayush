@@ -131,3 +131,8 @@ export type ContactMessage = Prisma.ContactMessageModel
  * 
  */
 export type Activity = Prisma.ActivityModel
+/**
+ * Model Visitor
+ * 
+ */
+export type Visitor = Prisma.VisitorModel

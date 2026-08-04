@@ -1,4 +1,5 @@
 import { portfolioRepository } from "@/repositories/portfolio.repository";
+import { cache } from "react";
 
 import type { PortfolioData } from "@/types/portfolio";
 
@@ -48,7 +49,7 @@ export class PortfolioService {
 
 
 
-  private transformPortfolio(
+  transformPortfolio(
     portfolio: RawPortfolioData
   ): PortfolioData {
 
@@ -85,16 +86,7 @@ export class PortfolioService {
 
 
   async getPortfolio(): Promise<PortfolioData> {
-
-
-    const portfolio =
-      await portfolioRepository.getPortfolio();
-
-
-
-    return this.transformPortfolio(
-      portfolio
-    );
+    return getPortfolio();
 
 
   }
@@ -108,16 +100,7 @@ export class PortfolioService {
 
 
   async getHomepagePortfolio(): Promise<PortfolioData> {
-
-
-    const portfolio =
-      await portfolioRepository.getHomepagePortfolio();
-
-
-
-    return this.transformPortfolio(
-      portfolio
-    );
+    return getHomepagePortfolio();
 
 
   }
@@ -137,3 +120,15 @@ export class PortfolioService {
 
 export const portfolioService =
   new PortfolioService();
+
+// React deduplicates these server-side reads within a render. This prevents the
+// public layout's metadata and page tree from issuing identical database work.
+const getPortfolio = cache(async (): Promise<PortfolioData> => {
+  const portfolio = await portfolioRepository.getPortfolio();
+  return portfolioService.transformPortfolio(portfolio);
+});
+
+const getHomepagePortfolio = cache(async (): Promise<PortfolioData> => {
+  const portfolio = await portfolioRepository.getHomepagePortfolio();
+  return portfolioService.transformPortfolio(portfolio);
+});

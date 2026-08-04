@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { httpUrl } from "@/validations/helpers";
 
 
 export const AssetTypeEnum = z.enum([
@@ -24,11 +25,7 @@ export const createAssetSchema = z.object({
     .max(255, "Original file name cannot exceed 255 characters."),
 
 
-  url: z
-    .string()
-    .trim()
-    .url("Please enter a valid file URL.")
-    .max(1000, "URL cannot exceed 1000 characters."),
+  url: httpUrl(1000, "Please enter a valid file URL."),
 
 
   mimeType: z

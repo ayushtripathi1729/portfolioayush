@@ -313,6 +313,8 @@ export function ProjectDetailContent({
 
                 fill
 
+                sizes="(max-width: 1536px) 100vw, 1536px"
+
                 priority
 
                 className="
@@ -613,6 +615,8 @@ export function ProjectDetailContent({
                           }
 
                           fill
+
+                          sizes="(max-width: 768px) 100vw, 50vw"
 
                           className="
                           object-cover

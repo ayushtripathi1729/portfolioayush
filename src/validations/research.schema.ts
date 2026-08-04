@@ -2,6 +2,7 @@ import { z } from "zod";
 
 import {
   optionalDate,
+  optionalHttpUrl,
   optionalTrimmedString,
 } from "@/validations/helpers";
 
@@ -44,13 +45,7 @@ export const createResearchSchema = z.object({
     "DOI cannot exceed 255 characters."
   ),
 
-  externalUrl: z
-    .string()
-    .trim()
-    .url("Please enter a valid URL.")
-    .max(500, "URL cannot exceed 500 characters.")
-    .optional()
-    .or(z.literal("")),
+  externalUrl: optionalHttpUrl(500),
 
   publishedAt: optionalDate,
 

@@ -5,6 +5,8 @@ import { portfolioService } from "@/services/portfolio.service";
 
 import { BlogDetailContent } from "@/components/public/blog-detail-content";
 
+export const revalidate = 300;
+
 
 
 
