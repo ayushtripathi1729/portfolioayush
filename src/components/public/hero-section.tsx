@@ -50,7 +50,7 @@ export function HeroSection({ setting }: HeroSectionProps) {
             {setting.tagline ?? "Building systems and solving problems at the intersection of algorithms, mathematics and technology."}
           </p>
           <p className="max-w-2xl leading-8 text-muted-foreground">
-            {setting.bio ?? "Computer Science engineer focused on competitive programming, cybersecurity, artificial intelligence, and theoretical computer science."}
+            {setting.siteDescription ?? "Computer Science engineer focused on competitive programming, cybersecurity, artificial intelligence, and theoretical computer science."}
           </p>
 
           <div className="flex flex-wrap gap-3">

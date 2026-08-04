@@ -165,7 +165,7 @@ export function AboutSection({
               "
             >
 
-              {setting.about ??
+              {setting.bio ??
                 "Computer Science engineer passionate about Competitive Programming, Cybersecurity, Artificial Intelligence and theoretical computer science."
               }
 

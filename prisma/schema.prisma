@@ -29,23 +29,23 @@ model Setting {
   fullName        String
   tagline         String?
   bio             String?
-  about           String?
   email           String?
   phone           String?
   location        String?
   profileImageId  String?
   resumeAssetId   String?
-  aboutImageId    String?
-  ogImageId       String?
-  faviconId       String?
   userId          String       @unique
   createdAt       DateTime     @default(now())
   updatedAt       DateTime     @updatedAt
+  about           String?
+  aboutImageId    String?
+  faviconId       String?
+  ogImageId       String?
+  aboutImage      Asset?       @relation("AboutImage", fields: [aboutImageId], references: [id])
+  favicon         Asset?       @relation("Favicon", fields: [faviconId], references: [id])
+  ogImage         Asset?       @relation("OGImage", fields: [ogImageId], references: [id])
   profileImage    Asset?       @relation("ProfileImage", fields: [profileImageId], references: [id])
   resume          Asset?       @relation("ResumeFile", fields: [resumeAssetId], references: [id])
-  aboutImage      Asset?       @relation("AboutImage", fields: [aboutImageId], references: [id])
-  ogImage         Asset?       @relation("OGImage", fields: [ogImageId], references: [id])
-  favicon         Asset?       @relation("Favicon", fields: [faviconId], references: [id])
   user            User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   socialLinks     SocialLink[]
 }
@@ -80,19 +80,19 @@ model Asset {
   height            Int?
   altText           String?
   uploadedAt        DateTime       @default(now())
+  achievementImages Achievement[]  @relation("AchievementImage")
   blogCovers        Blog[]
   educationLogos    Education[]
   experienceLogos   Experience[]
   projectAssets     ProjectAsset[]
   researchCovers    Research[]     @relation("ResearchCover")
   researchPdfs      Research[]     @relation("ResearchPdf")
+  aboutImage        Setting[]      @relation("AboutImage")
+  favicon           Setting[]      @relation("Favicon")
+  ogImages          Setting[]      @relation("OGImage")
   profileImage      Setting[]      @relation("ProfileImage")
   resumeFile        Setting[]      @relation("ResumeFile")
-  aboutImage        Setting[]      @relation("AboutImage")
-  ogImages          Setting[]      @relation("OGImage")
-  favicon           Setting[]      @relation("Favicon")
   userAvatar        User[]         @relation("UserAvatar")
-  achievementImages Achievement[]  @relation("AchievementImage")
 }
 
 model SkillCategory {
@@ -101,10 +101,10 @@ model SkillCategory {
   slug         String   @unique
   description  String?
   displayOrder Int      @default(0)
-  featured     Boolean  @default(false)
   visible      Boolean  @default(true)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+  featured     Boolean  @default(false)
   skills       Skill[]
 
   @@index([displayOrder])
@@ -223,10 +223,10 @@ model Experience {
   description    String
   companyLogoId  String?
   displayOrder   Int       @default(0)
-  featured       Boolean   @default(false)
   visible        Boolean   @default(true)
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
+  featured       Boolean   @default(false)
   companyLogo    Asset?    @relation(fields: [companyLogoId], references: [id])
 
   @@index([displayOrder])
@@ -316,12 +316,11 @@ model Achievement {
   credentialUrl String?
   imageId       String?
   displayOrder  Int       @default(0)
-  featured      Boolean   @default(false)
   visible       Boolean   @default(true)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
-
-  image Asset? @relation("AchievementImage", fields: [imageId], references: [id])
+  featured      Boolean   @default(false)
+  image         Asset?    @relation("AchievementImage", fields: [imageId], references: [id])
 
   @@index([displayOrder])
   @@index([visible])
@@ -345,22 +344,17 @@ model ContactMessage {
 }
 
 model Activity {
-  id String @id @default(cuid())
-
-  action   String
-  entity   String
-  entityId String?
-
+  id          String   @id @default(cuid())
+  action      String
+  entity      String
+  entityId    String?
   description String
-
-  createdAt DateTime @default(now())
+  createdAt   DateTime @default(now())
 
   @@index([createdAt])
   @@index([entity])
 }
 
-// Anonymous, cookie-backed aggregate visitor tracking. No IP address, user
-// agent, or other personal profile data is retained here.
 model Visitor {
   id         String   @id @default(cuid())
   visitorId  String   @unique

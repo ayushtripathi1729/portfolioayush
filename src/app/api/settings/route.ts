@@ -3,6 +3,7 @@ import {
   NextRequest,
   NextResponse,
 } from "next/server";
+import { revalidatePath } from "next/cache";
 
 
 import {
@@ -205,6 +206,11 @@ export async function PUT(
       session.user.id,
       validation.data as Prisma.SettingUncheckedUpdateInput
     );
+
+    // Public pages are statically revalidated every five minutes. Invalidate
+    // the public layout immediately so a settings save is visible on the next
+    // visit instead of waiting for that interval.
+    revalidatePath("/", "layout");
 
 return NextResponse.json(
       {
