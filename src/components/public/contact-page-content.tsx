@@ -1,4 +1,14 @@
+"use client";
+
+
+import {
+  useRef,
+  useState,
+} from "react";
+
+
 import Link from "next/link";
+
 
 import {
   Mail,
@@ -10,6 +20,7 @@ import type {
   PortfolioSetting,
   SocialLink,
 } from "@/types/portfolio";
+
 
 
 
@@ -29,6 +40,8 @@ interface ContactPageContentProps {
 
 
 
+
+
 export function ContactPageContent({
 
   setting,
@@ -36,6 +49,210 @@ export function ContactPageContent({
   socialLinks,
 
 }: ContactPageContentProps) {
+
+
+
+  const [loading,setLoading] =
+    useState(false);
+
+
+
+  const [success,setSuccess] =
+    useState("");
+
+
+
+  const [error,setError] =
+    useState("");
+
+
+
+  const formRef =
+    useRef<HTMLFormElement>(null);
+
+
+
+
+
+
+
+
+
+  async function handleSubmit(
+    e: React.FormEvent<HTMLFormElement>
+  ) {
+
+
+    e.preventDefault();
+
+
+
+    setLoading(true);
+
+    setSuccess("");
+
+    setError("");
+
+
+
+
+
+    const form =
+      new FormData(
+        e.currentTarget
+      );
+
+
+
+
+
+
+    const data = {
+
+
+      name:
+        form.get("name"),
+
+
+
+      email:
+        form.get("email"),
+
+
+
+      subject:
+        form.get("subject"),
+
+
+
+      message:
+        form.get("message"),
+
+
+    };
+
+
+
+
+
+
+
+
+    try {
+
+
+
+      const response =
+        await fetch(
+          "/api/contact",
+          {
+
+
+            method:
+              "POST",
+
+
+
+            headers:
+            {
+
+              "Content-Type":
+                "application/json",
+
+            },
+
+
+
+            body:
+              JSON.stringify(data),
+
+
+          }
+        );
+
+
+
+
+
+
+
+      const result =
+        await response.json();
+
+
+
+
+
+
+
+      if(!response.ok){
+
+
+        throw new Error(
+          result.message ??
+          "Failed to send message."
+        );
+
+
+      }
+
+
+
+
+
+
+
+
+      setSuccess(
+        "Your message has been sent successfully."
+      );
+
+
+
+
+
+      formRef.current?.reset();
+
+
+
+
+
+
+
+    } catch(error) {
+
+
+
+      setError(
+
+        error instanceof Error
+        ?
+        error.message
+        :
+        "Something went wrong."
+
+      );
+
+
+
+    } finally {
+
+
+
+      setLoading(false);
+
+
+
+    }
+
+
+  }
+
+
+
+
+
+
 
 
 
@@ -111,6 +328,8 @@ export function ContactPageContent({
           <br />
 
           something
+
+
           <span
 
             className="
@@ -201,6 +420,7 @@ export function ContactPageContent({
           {/* INFORMATION */}
 
 
+
           <div>
 
 
@@ -234,6 +454,7 @@ export function ContactPageContent({
 
 
 
+
               {
                 setting?.email && (
 
@@ -247,9 +468,12 @@ export function ContactPageContent({
 
                   >
 
+
                     <Mail
                       className="size-5"
                     />
+
+
 
                     <Link
 
@@ -279,6 +503,7 @@ export function ContactPageContent({
 
 
 
+
               {
                 setting?.location && (
 
@@ -292,9 +517,12 @@ export function ContactPageContent({
 
                   >
 
+
                     <MapPin
                       className="size-5"
                     />
+
+
 
                     <span>
 
@@ -310,7 +538,10 @@ export function ContactPageContent({
 
 
 
+
+
             </div>
+
 
 
 
@@ -337,17 +568,21 @@ export function ContactPageContent({
 
                   social => (
 
+
                     <Link
 
                       key={
                         social.id
                       }
 
+
                       href={
                         social.url
                       }
 
+
                       target="_blank"
+
 
                       className="
                       rounded-full
@@ -360,9 +595,12 @@ export function ContactPageContent({
 
                     >
 
+
                       {social.platform}
 
+
                     </Link>
+
 
                   )
 
@@ -371,7 +609,10 @@ export function ContactPageContent({
 
 
 
+
             </div>
+
+
 
 
 
@@ -388,7 +629,20 @@ export function ContactPageContent({
           {/* FORM */}
 
 
+
           <form
+
+
+            ref={
+              formRef
+            }
+
+
+            onSubmit={
+              handleSubmit
+            }
+
+
 
             className="
             space-y-6
@@ -398,11 +652,17 @@ export function ContactPageContent({
             p-8
             "
 
+
           >
 
 
 
+
             <input
+
+              name="name"
+
+              required
 
               placeholder="Your Name"
 
@@ -419,7 +679,18 @@ export function ContactPageContent({
 
 
 
+
+
+
+
+
             <input
+
+              name="email"
+
+              required
+
+              type="email"
 
               placeholder="Email Address"
 
@@ -436,7 +707,14 @@ export function ContactPageContent({
 
 
 
+
+
+
+
+
             <input
+
+              name="subject"
 
               placeholder="Subject"
 
@@ -453,7 +731,16 @@ export function ContactPageContent({
 
 
 
+
+
+
+
+
             <textarea
+
+              name="message"
+
+              required
 
               placeholder="Message"
 
@@ -473,9 +760,57 @@ export function ContactPageContent({
 
 
 
+
+
+
+
+            {
+              success && (
+
+                <p className="text-sm text-green-600">
+
+                  {success}
+
+                </p>
+
+              )
+            }
+
+
+
+
+
+
+
+
+            {
+              error && (
+
+                <p className="text-sm text-red-600">
+
+                  {error}
+
+                </p>
+
+              )
+            }
+
+
+
+
+
+
+
+
+
             <button
 
+
               type="submit"
+
+
+              disabled={loading}
+
 
               className="
               rounded-full
@@ -483,13 +818,31 @@ export function ContactPageContent({
               px-8
               py-3
               text-background
+              disabled:opacity-50
               "
+
 
             >
 
-              Send Message
+
+
+              {
+                loading
+
+                ?
+
+                "Sending..."
+
+                :
+
+                "Send Message"
+              }
+
+
 
             </button>
+
+
 
 
 
@@ -499,7 +852,10 @@ export function ContactPageContent({
 
 
 
+
+
         </div>
+
 
 
       </section>

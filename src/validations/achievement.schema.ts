@@ -1,5 +1,10 @@
 import { z } from "zod";
 
+import {
+  optionalDate,
+  optionalTrimmedString,
+} from "@/validations/helpers";
+
 
 export const createAchievementSchema = z.object({
 
@@ -10,34 +15,25 @@ export const createAchievementSchema = z.object({
     .max(200, "Achievement title cannot exceed 200 characters."),
 
 
-  description: z
-    .string()
-    .trim()
-    .max(5000, "Description cannot exceed 5000 characters.")
-    .optional()
-    .or(z.literal("")),
+  description: optionalTrimmedString(
+    5000,
+    "Description cannot exceed 5000 characters."
+  ),
 
 
-  category: z
-    .string()
-    .trim()
-    .max(100, "Category cannot exceed 100 characters.")
-    .optional()
-    .or(z.literal("")),
+  category: optionalTrimmedString(
+    100,
+    "Category cannot exceed 100 characters."
+  ),
 
 
-  issuer: z
-    .string()
-    .trim()
-    .max(200, "Issuer cannot exceed 200 characters.")
-    .optional()
-    .or(z.literal("")),
+  issuer: optionalTrimmedString(
+    200,
+    "Issuer cannot exceed 200 characters."
+  ),
 
 
-  issueDate: z
-    .coerce
-    .date()
-    .optional(),
+  issueDate: optionalDate,
 
 
   credentialUrl: z
@@ -49,10 +45,7 @@ export const createAchievementSchema = z.object({
     .or(z.literal("")),
 
 
-  imageId: z
-    .string()
-    .optional()
-    .or(z.literal("")),
+  imageId: optionalTrimmedString(),
 
 
   displayOrder: z

@@ -23,9 +23,36 @@ export async function proxy(
   const isLoginRoute =
     pathname.startsWith("/login");
 
+  const isAuthApiRoute =
+    pathname.startsWith("/api/auth");
+
+  const isPublicContactPost =
+    pathname === "/api/contact" &&
+    request.method === "POST";
+
+  const isProtectedApiRoute =
+    pathname.startsWith("/api") &&
+    !isAuthApiRoute &&
+    !isPublicContactPost;
+
+  const isExpired =
+    token?.expired === true;
+
 
   // Protect admin routes
-  if (isAdminRoute && !token) {
+  if ((isAdminRoute || isProtectedApiRoute) && (!token || isExpired)) {
+    if (isProtectedApiRoute) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Unauthorized.",
+        },
+        {
+          status: 401,
+        }
+      );
+    }
+
     const loginUrl =
       new URL("/login", request.url);
 
@@ -53,6 +80,7 @@ export async function proxy(
 export const config = {
   matcher: [
     "/admin/:path*",
+    "/api/:path*",
     "/login",
   ],
 };

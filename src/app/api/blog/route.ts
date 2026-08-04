@@ -20,12 +20,6 @@ import {
 } from "@/lib/auth-guard";
 
 
-import {
-  logActivity,
-} from "@/lib/activity";
-
-
-
 
 
 
@@ -140,12 +134,13 @@ export async function POST(
 
         },
         {
-          status: 400,
+          status:400,
         }
       );
 
 
     }
+
 
 
 
@@ -166,56 +161,34 @@ export async function POST(
 
 
 
-    await logActivity({
-
-      action:
-        "CREATE",
-
-      entity:
-        "Blog",
-
-      entityId:
-        blog.id,
-
-      description:
-        `Created blog: ${blog.title}`,
-
-    });
-
-
-
-
-
-
-
     return NextResponse.json(
       {
-        success: true,
-        data: blog,
+        success:true,
+        data:blog,
       },
       {
-        status: 201,
+        status:201,
       }
     );
 
 
 
-  } catch (error) {
+  } catch(error) {
 
 
-    if (
+    if(
       error instanceof UnauthorizedError
     ) {
 
 
       return NextResponse.json(
         {
-          success: false,
+          success:false,
           message:
             "Unauthorized.",
         },
         {
-          status: 401,
+          status:401,
         }
       );
 
@@ -238,14 +211,15 @@ export async function POST(
 
 
 
+
     return NextResponse.json(
       {
-        success: false,
+        success:false,
         message:
           "Failed to create blog.",
       },
       {
-        status: 500,
+        status:500,
       }
     );
 

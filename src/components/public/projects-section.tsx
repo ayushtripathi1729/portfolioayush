@@ -119,7 +119,7 @@ export function ProjectsSection({
 
           {
             projects.map(
-              (project, index) => (
+              (project) => (
 
 
                 <article

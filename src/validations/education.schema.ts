@@ -1,5 +1,10 @@
 import { z } from "zod";
 
+import {
+  nullableDate,
+  nullableTrimmedString,
+} from "@/validations/helpers";
+
 
 const GradeTypeEnum = z.enum([
   "CGPA",
@@ -38,29 +43,17 @@ const educationFields = {
 
 
 
-  branch: z
-    .string()
-    .trim()
-    .max(
-      150,
-      "Branch cannot exceed 150 characters."
-    )
-    .nullable()
-    .optional()
-    .or(z.literal("")),
+  branch: nullableTrimmedString(
+    150,
+    "Branch cannot exceed 150 characters."
+  ),
 
 
 
-  location: z
-    .string()
-    .trim()
-    .max(
-      150,
-      "Location cannot exceed 150 characters."
-    )
-    .nullable()
-    .optional()
-    .or(z.literal("")),
+  location: nullableTrimmedString(
+    150,
+    "Location cannot exceed 150 characters."
+  ),
 
 
 
@@ -70,11 +63,7 @@ const educationFields = {
 
 
 
-  endDate: z
-    .coerce
-    .date()
-    .nullable()
-    .optional(),
+  endDate: nullableDate,
 
 
 
@@ -101,24 +90,14 @@ const educationFields = {
 
 
 
-  description: z
-    .string()
-    .trim()
-    .max(
-      5000,
-      "Description cannot exceed 5000 characters."
-    )
-    .nullable()
-    .optional()
-    .or(z.literal("")),
+  description: nullableTrimmedString(
+    5000,
+    "Description cannot exceed 5000 characters."
+  ),
 
 
 
-  institutionLogoId: z
-    .string()
-    .nullable()
-    .optional()
-    .or(z.literal("")),
+  institutionLogoId: nullableTrimmedString(),
 
 
 

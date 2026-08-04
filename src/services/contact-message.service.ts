@@ -2,10 +2,12 @@ import { Prisma } from "../../generated/prisma/client";
 
 import { contactMessageRepository } from "@/repositories/contact-message.repository";
 import { logActivity } from "@/lib/activity";
+import { sendContactNotification } from "@/lib/email";
 
 
 
 export class ContactMessageService {
+
 
 
 
@@ -14,6 +16,8 @@ export class ContactMessageService {
     return contactMessageRepository.findAll();
 
   }
+
+
 
 
 
@@ -29,11 +33,15 @@ export class ContactMessageService {
 
 
 
+
+
   async getRead() {
 
     return contactMessageRepository.findRead();
 
   }
+
+
 
 
 
@@ -53,6 +61,8 @@ export class ContactMessageService {
 
 
 
+
+
   async markAsRead(
     id: string
   ) {
@@ -62,6 +72,8 @@ export class ContactMessageService {
     );
 
   }
+
+
 
 
 
@@ -78,6 +90,7 @@ export class ContactMessageService {
       );
 
 
+
     const updated =
       await contactMessageRepository.markAsReplied(
         id
@@ -85,26 +98,43 @@ export class ContactMessageService {
 
 
 
+
+
     await logActivity({
 
-      action: "UPDATE",
+      action:
+        "UPDATE",
 
-      entity: "ContactMessage",
+      entity:
+        "ContactMessage",
 
-      entityId: id,
+      entityId:
+        id,
 
       description:
+
         message
-          ? `Replied to message from "${message.name}"`
-          : "Marked contact message as replied",
+
+        ?
+
+        `Replied to message from "${message.name}"`
+
+        :
+
+        "Marked contact message as replied",
 
     });
 
 
 
+
+
     return updated;
 
+
   }
+
+
 
 
 
@@ -117,6 +147,7 @@ export class ContactMessageService {
   ) {
 
 
+
     const message =
       await contactMessageRepository.create(
         data
@@ -124,13 +155,19 @@ export class ContactMessageService {
 
 
 
+
+
+
     await logActivity({
 
-      action: "CREATE",
+      action:
+        "CREATE",
 
-      entity: "ContactMessage",
+      entity:
+        "ContactMessage",
 
-      entityId: message.id,
+      entityId:
+        message.id,
 
       description:
         `Received contact message from "${message.name}"`,
@@ -139,9 +176,61 @@ export class ContactMessageService {
 
 
 
+
+
+
+
+
+
+    // Send email notification
+
+    try {
+
+
+      await sendContactNotification({
+
+        name:
+          message.name,
+
+
+        email:
+          message.email,
+
+
+        subject:
+          message.subject,
+
+
+        message:
+          message.message,
+
+      });
+
+
+    } catch(error) {
+
+
+      console.error(
+        "Failed to send contact notification email:",
+        error
+      );
+
+
+    }
+
+
+
+
+
+
+
+
     return message;
 
+
   }
+
+
 
 
 
@@ -165,7 +254,10 @@ export class ContactMessageService {
 
     return message;
 
+
   }
+
+
 
 
 
@@ -192,26 +284,45 @@ export class ContactMessageService {
 
 
 
+
+
+
+
     await logActivity({
 
-      action: "DELETE",
+      action:
+        "DELETE",
 
-      entity: "ContactMessage",
+      entity:
+        "ContactMessage",
 
-      entityId: id,
+      entityId:
+        id,
 
       description:
+
         message
-          ? `Deleted message from "${message.name}"`
-          : "Deleted contact message",
+
+        ?
+
+        `Deleted message from "${message.name}"`
+
+        :
+
+        "Deleted contact message",
 
     });
 
 
 
+
+
     return deleted;
 
+
   }
+
+
 
 
 
@@ -229,6 +340,8 @@ export class ContactMessageService {
 
 
 
+
+
   async countUnread() {
 
     return contactMessageRepository.countUnread();
@@ -236,7 +349,11 @@ export class ContactMessageService {
   }
 
 
+
 }
+
+
+
 
 
 

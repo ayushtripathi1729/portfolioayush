@@ -4,7 +4,6 @@ import Link from "next/link";
 import {
   ExternalLink,
   FileText,
-  Calendar,
 } from "lucide-react";
 
 import type { Research } from "@/types/portfolio";

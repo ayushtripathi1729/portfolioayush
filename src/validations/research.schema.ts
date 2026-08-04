@@ -1,5 +1,10 @@
 import { z } from "zod";
 
+import {
+  optionalDate,
+  optionalTrimmedString,
+} from "@/validations/helpers";
+
 const slugRegex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 export const createResearchSchema = z.object({
@@ -19,33 +24,25 @@ export const createResearchSchema = z.object({
       "Slug must contain only lowercase letters, numbers, and hyphens."
     ),
 
-  abstract: z
-    .string()
-    .trim()
-    .max(10000, "Abstract cannot exceed 10000 characters.")
-    .optional()
-    .or(z.literal("")),
+  abstract: optionalTrimmedString(
+    10000,
+    "Abstract cannot exceed 10000 characters."
+  ),
 
-  publisher: z
-    .string()
-    .trim()
-    .max(200, "Publisher cannot exceed 200 characters.")
-    .optional()
-    .or(z.literal("")),
+  publisher: optionalTrimmedString(
+    200,
+    "Publisher cannot exceed 200 characters."
+  ),
 
-  journal: z
-    .string()
-    .trim()
-    .max(200, "Journal cannot exceed 200 characters.")
-    .optional()
-    .or(z.literal("")),
+  journal: optionalTrimmedString(
+    200,
+    "Journal cannot exceed 200 characters."
+  ),
 
-  doi: z
-    .string()
-    .trim()
-    .max(255, "DOI cannot exceed 255 characters.")
-    .optional()
-    .or(z.literal("")),
+  doi: optionalTrimmedString(
+    255,
+    "DOI cannot exceed 255 characters."
+  ),
 
   externalUrl: z
     .string()
@@ -55,17 +52,11 @@ export const createResearchSchema = z.object({
     .optional()
     .or(z.literal("")),
 
-  publishedAt: z.coerce.date().optional(),
+  publishedAt: optionalDate,
 
-  pdfAssetId: z
-    .string()
-    .optional()
-    .or(z.literal("")),
+  pdfAssetId: optionalTrimmedString(),
 
-  coverImageId: z
-    .string()
-    .optional()
-    .or(z.literal("")),
+  coverImageId: optionalTrimmedString(),
 
   featured: z.boolean().default(false),
 

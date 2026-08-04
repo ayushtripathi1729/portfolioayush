@@ -1,5 +1,10 @@
 import { z } from "zod";
 
+import {
+  optionalDate,
+  optionalTrimmedString,
+} from "@/validations/helpers";
+
 const experienceFields = {
   company: z
     .string()
@@ -13,25 +18,21 @@ const experienceFields = {
     .min(2, "Position must be at least 2 characters.")
     .max(150, "Position cannot exceed 150 characters."),
 
-  employmentType: z
-    .string()
-    .trim()
-    .max(100, "Employment type cannot exceed 100 characters.")
-    .optional()
-    .or(z.literal("")),
+  employmentType: optionalTrimmedString(
+    100,
+    "Employment type cannot exceed 100 characters."
+  ),
 
-  location: z
-    .string()
-    .trim()
-    .max(150, "Location cannot exceed 150 characters.")
-    .optional()
-    .or(z.literal("")),
+  location: optionalTrimmedString(
+    150,
+    "Location cannot exceed 150 characters."
+  ),
 
   startDate: z.coerce.date({
     message: "Start date is required.",
   }),
 
-  endDate: z.coerce.date().optional(),
+  endDate: optionalDate,
 
   isCurrent: z.boolean().default(false),
 
@@ -41,10 +42,7 @@ const experienceFields = {
     .min(10, "Description must be at least 10 characters.")
     .max(5000, "Description cannot exceed 5000 characters."),
 
-  companyLogoId: z
-    .string()
-    .optional()
-    .or(z.literal("")),
+  companyLogoId: optionalTrimmedString(),
 
   displayOrder: z
     .number()
