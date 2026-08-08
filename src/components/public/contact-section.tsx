@@ -138,7 +138,7 @@ export function ContactSection({
               "
             >
 
-              Let&apos; build something meaningful.
+              Let&apos;s build something meaningful.
 
             </h3>
 
